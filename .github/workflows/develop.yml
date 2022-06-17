@@ -30,7 +30,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-        cache: 'npm'    - run: npm ci
+        cache: 'npm'    
+    - run: npm ci
     - run: npm run test --if-present
 
 
