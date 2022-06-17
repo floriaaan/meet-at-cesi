@@ -29,15 +29,9 @@ const config: PlaywrightTestConfig = {
       },
     },
     {
-      name: "iPhone 13 Pro",
+      name: "Desktop Safari",
       use: {
-        ...devices["iPhone 13 Pro"],
-      },
-    },
-    {
-      name: "iPhone 13 Mini",
-      use: {
-        ...devices["iPhone 13 Mini"],
+        ...devices["Desktop Safari"],
       },
     },
     {
@@ -52,6 +46,20 @@ const config: PlaywrightTestConfig = {
         ...devices["Galaxy S9+"],
       },
     },
+
+    // **NOTE**: This is a temporary workaround for a Playwright non supported devices in Github Actions.
+    // {
+    //   name: "iPhone 13 Pro",
+    //   use: {
+    //     ...devices["iPhone 13 Pro"],
+    //   },
+    // },
+    // {
+    //   name: "iPhone 13 Mini",
+    //   use: {
+    //     ...devices["iPhone 13 Mini"],
+    //   },
+    // },
   ],
 };
 export default config;
