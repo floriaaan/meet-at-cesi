@@ -29,12 +29,6 @@ const config: PlaywrightTestConfig = {
       },
     },
     {
-      name: "Desktop Safari",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-    },
-    {
       name: "Pixel 5",
       use: {
         ...devices["Pixel 5"],
@@ -48,6 +42,12 @@ const config: PlaywrightTestConfig = {
     },
 
     // **NOTE**: This is a temporary workaround for a Playwright non supported devices in Github Actions.
+    // {
+    //   name: "Desktop Safari",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //   },
+    // },
     // {
     //   name: "iPhone 13 Pro",
     //   use: {
