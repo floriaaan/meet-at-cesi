@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Uber Move";
+    font-weight: 500;
+    src: url(/static/fonts/UberMoveMedium.otf) format("otf");
+  }
+  @font-face {
+    font-family: "Uber Move";
+    font-weight: 700;
+    src: url(/static/fonts/UberMoveBold.otf) format("otf");
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
