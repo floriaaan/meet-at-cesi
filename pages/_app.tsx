@@ -55,10 +55,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           color="#5bbad5"
         />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-        />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://yourdomain.com" />
