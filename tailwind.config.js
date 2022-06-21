@@ -9,6 +9,7 @@ module.exports = {
       heading: ['"Uber Move"', "sans-serif"],
     },
     extend: {
+      
       colors: {
         primary: {
           DEFAULT: "#FFC251",

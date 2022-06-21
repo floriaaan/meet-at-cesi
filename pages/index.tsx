@@ -64,13 +64,14 @@ const Home: NextPage = () => {
   return (
     <AppLayout>
       <HomeHeader />
-      <div className="mt-6">
+      <div className="mt-4">
         <EventShowcase {...__MOCK_EVENTS__[0]} />
       </div>
-      <h3 className="my-6">Évenements</h3>
-      <EventList events={__MOCK_EVENTS__} height="h-48" />
-      <div className="grid items-center grid-cols-2 gap-5 mt-5">
+      <h3 className="my-4">Évenements</h3>
+      <EventList events={__MOCK_EVENTS__} height="h-40" />
+      <div className="grid items-center grid-cols-2 gap-5 mt-4">
         <Button
+          href="/events"
           size="large"
           variant="tertiary"
           icon={<EyeIcon className="w-6 h-6 stroke-2" />}
@@ -78,6 +79,7 @@ const Home: NextPage = () => {
           Voir tout
         </Button>
         <Button
+          href="/events/create"
           size="large"
           variant="tertiary"
           icon={<PlusIcon className="w-6 h-6 stroke-2" />}
@@ -85,11 +87,14 @@ const Home: NextPage = () => {
           Créer
         </Button>
       </div>
-      <div className="mt-5">
+      <div className="mt-4">
         <Caption
+          variant="secondary"
           size="large"
-          className="w-full text-tertiary-300"
-          icon={<ChatIconSolid className="w-6 h-6 stroke-2 text-tertiary-200" />}
+          className="w-full"
+          icon={
+            <ChatIconSolid className="w-6 h-6 stroke-2 text-secondary-300" />
+          }
         >
           {"P'tite bière ?"}
         </Caption>

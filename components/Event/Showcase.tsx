@@ -8,18 +8,18 @@ export const EventShowcase = ({
   schedule,
 }: Event) => {
   return (
-    <div className="flex flex-col rounded-2xl bg-secondary-100 shadow-md p-5">
-      <h6 className="font-medium font-heading text-2xl mb-2">{name}</h6>
+    <div className="flex flex-col p-5 bg-opacity-50 shadow-xl text-secondary-600 rounded-2xl bg-primary-100">
+      <h6 className="mb-2 text-2xl font-medium font-heading">{name}</h6>
       <p className="text-sm font-normal">{location?.address}</p>
-      <p className="font-medium text-sm">
+      <p className="text-sm font-medium">
         {schedule.timeFrom} {schedule.timeTo ? `- ${schedule.timeTo}` : ""} -{" "}
         {schedule.date}
       </p>
-      <div className="mt-4 inline-flex items-center justify-between w-full">
+      <div className="inline-flex items-center justify-between w-full mt-4">
         <p className="font-medium">{targetAudience?.join(", ")}</p>
-        <a className="text-primary-600 inline-flex items-center">
+        <a className="inline-flex items-center text-primary-600">
           Rejoindre
-          <ArrowRightIcon className="ml-2 w-4 h-4" />
+          <ArrowRightIcon className="w-4 h-4 ml-2" />
         </a>
       </div>
     </div>

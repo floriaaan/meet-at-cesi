@@ -18,7 +18,7 @@ export const Caption = ({
   icon,
 }: CaptionProps) => {
   const classes = classNames(
-    "inline-flex items-center font-semibold font-heading",
+    "inline-flex  bg-opacity-50 items-center font-semibold font-heading",
     {
       "bg-primary-100 text-primary": variant === "primary",
       "bg-secondary-100 text-secondary": variant === "secondary",
@@ -36,7 +36,7 @@ export const Caption = ({
 
   return (
     <div className={classes}>
-      {icon && <span className="h-px w-px"></span>}
+      {icon && <span className="w-px h-px"></span>}
       {children}
       {icon}
     </div>

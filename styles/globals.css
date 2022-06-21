@@ -29,3 +29,31 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+@keyframes ripple {
+  from {
+      opacity: 1;
+      transform: scale(0);
+  }
+
+  to {
+      opacity: 0;
+      transform: scale(10);
+  }
+}
+
+.ripple-able span.ripple {
+  position: absolute;
+  border-radius: 50%;
+  /* To make it round */
+  background-color: rgba(0, 0, 0, 0.2);
+
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  /* for positioning */
+  margin-left: -50px;
+
+  animation: ripple 1s;
+  opacity: 0;
+}

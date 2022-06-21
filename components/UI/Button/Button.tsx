@@ -1,9 +1,11 @@
 import classNames from "classnames";
+import Link from "next/link";
 import { Spinner } from "../Spinner";
 
 interface ButtonProps {
   children: React.ReactNode;
   className?: string;
+  href?: string;
   onClick?: () => void;
   disabled?: boolean;
   loading?: boolean;
@@ -17,6 +19,7 @@ interface ButtonProps {
 export const Button = ({
   children,
   className,
+  href,
   onClick,
   disabled = false,
   loading = false,
@@ -24,7 +27,7 @@ export const Button = ({
   size = "medium",
   type = "button",
   rounded = "rounded-[20px]",
-  icon
+  icon,
 }: ButtonProps) => {
   const classes = classNames(
     "inline-flex items-center font-semibold font-heading",
@@ -42,6 +45,7 @@ export const Button = ({
     className,
     rounded,
     icon ? "justify-between" : "justify-center",
+    href ? "ripple-able relative overflow-hidden active:appearence-none" : "",
   );
 
   const handleClick = () => {
@@ -50,14 +54,48 @@ export const Button = ({
     }
   };
 
-  return (
+  return href ? (
+    <Link href={href}>
+      <a
+        onClick={(e) => {
+          let ripple = document.createElement("span");
+
+          // Add ripple class to span
+          ripple.classList.add("ripple");
+
+          // Add span to the button
+          e.currentTarget.appendChild(ripple);
+
+          // Get position of X
+          let x = e.clientX - e.currentTarget.offsetLeft;
+
+          // Get position of Y
+          let y = e.clientY - e.currentTarget.offsetTop;
+
+          // Position the span element
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+
+          // Remove span after 0.3s
+          setTimeout(() => {
+            ripple.remove();
+          }, 700);
+        }}
+        className={classes}
+      >
+        {icon}
+        {loading ? <Spinner size={size} /> : children}
+        {icon && <span className="w-px h-px"></span>}
+      </a>
+    </Link>
+  ) : (
     <button
       className={classes}
       onClick={handleClick}
       disabled={disabled || loading}
       type={type}
     >
-        {icon}
+      {icon}
       {loading ? <Spinner size={size} /> : children}
       {icon && <span className="w-px h-px"></span>}
     </button>

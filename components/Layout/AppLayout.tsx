@@ -2,6 +2,6 @@ import { ReactNode } from "react";
 
 export const AppLayout = ({ children }: { children?: ReactNode }) => {
   return (
-    <div className="bg-white h-full w-screen min-h-screen p-8">{children}</div>
+    <div className="w-screen h-full min-h-screen px-8 py-4 bg-white">{children}</div>
   );
 };
