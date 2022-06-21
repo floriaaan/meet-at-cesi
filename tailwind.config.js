@@ -6,7 +6,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      heading: ['"Uber Move"', "serif"],
+      heading: ['"Uber Move"', "sans-serif"],
     },
     extend: {
       colors: {

@@ -5,13 +5,21 @@
 @layer base {
   @font-face {
     font-family: "Uber Move";
-    font-weight: 500;
+    font-style: normal;
+    font-weight: medium;
     src: url(/static/fonts/UberMoveMedium.otf) format("otf");
+    src: url(/static/fonts/UberMoveMedium.ttf) format("truetype");
+    font-display: swap;
+
   }
   @font-face {
     font-family: "Uber Move";
-    font-weight: 700;
+    font-style: normal;
+    font-weight: bold;
     src: url(/static/fonts/UberMoveBold.otf) format("otf");
+    src: url(/static/fonts/UberMoveBold.ttf) format("truetype");
+    font-display: swap;
+
   }
 }
 

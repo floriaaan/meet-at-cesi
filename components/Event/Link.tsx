@@ -1,19 +1,24 @@
 import { ChevronRightIcon } from "@heroicons/react/outline";
+import Link from "next/link";
 import { Event } from "types/Event";
 
-export const EventLink = ({ name, schedule }: Event) => {
+export const EventLink = ({ name, schedule, _id }: Event) => {
   return (
-    <div className="inline-flex snap-center w-full justify-between items-center p-4 rounded-[20px] bg-tertiary-50 text-tertiary">
-      <div className="flex flex-col">
-        <h6 className="font-medium font-heading text-2xl mb-1 truncate">{name}</h6>
-        <p className="font-light text-xs truncate">
-          {schedule.timeFrom} {schedule.timeTo ? `- ${schedule.timeTo}` : ""} -{" "}
-          {schedule.date}
-        </p>{" "}
-      </div>
-        <a className="text-tertiary inline-flex items-center mr-2">
-            <ChevronRightIcon className="w-4 h-4" />
-        </a>
-    </div>
+    <Link href={"/event/" + _id}>
+      <a className="inline-flex snap-center w-full overflow-hidden justify-between items-center p-4 rounded-[20px] bg-tertiary-50 text-tertiary">
+        <div className="flex flex-col w-[90%]">
+          <h6 className="mb-1 text-2xl font-medium truncate font-heading">
+            {name}
+          </h6>
+          <p className="text-xs font-light truncate">
+            {schedule.timeFrom} {schedule.timeTo ? `- ${schedule.timeTo}` : ""}{" "}
+            - {schedule.date}
+          </p>{" "}
+        </div>
+        <span className="inline-flex items-center justify-end w-fit shrink-0 text-tertiary">
+          <ChevronRightIcon className="w-4 h-4" />
+        </span>
+      </a>
+    </Link>
   );
 };

@@ -69,10 +69,7 @@ export default function Document() {
           content="https://yourdomain.com/static/icon-512x512.png"
         />
 
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
-        />
+        
 
         {/* <!-- apple splash screen images --> */}
         {/* <link rel='apple-touch-startup-image' href='/images/apple_splash_2048.png' sizes='2048x2732' />
