@@ -8,7 +8,7 @@ export const EventShowcase = ({
   schedule,
 }: Event) => {
   return (
-    <div className="flex flex-col p-5 bg-opacity-50 shadow-xl text-secondary-600 rounded-2xl bg-primary-100">
+    <div className="flex flex-col p-5 bg-opacity-50 border-2 shadow-xl border-primary-200 shadow-primary-50 text-secondary-600 rounded-[20px] bg-primary-100">
       <h6 className="mb-2 text-2xl font-medium font-heading">{name}</h6>
       <p className="text-sm font-normal">{location?.address}</p>
       <p className="text-sm font-medium">
