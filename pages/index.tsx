@@ -22,14 +22,13 @@ const Home: NextPage = () => {
         <motion.h3 layoutId={`event:header`} className="my-4">
           Évenements
         </motion.h3>
-        <EventList events={__MOCK_EVENTS__} height="h-40" />
+        <EventList events={__MOCK_EVENTS__.slice(1)} height="h-40" />
         <div className="grid items-center grid-cols-2 gap-5 mt-4">
           <Button
             href="/event"
             size="large"
             variant="tertiary"
             icon={<EyeIcon className="w-6 h-6 stroke-2" />}
-
             layoutId={`event:all`}
           >
             Voir tout
