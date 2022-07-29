@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "Uber Move";
+    font-style: normal;
+    font-weight: medium;
+    src: url(/static/fonts/UberMoveMedium.otf) format("otf");
+    src: url(/static/fonts/UberMoveMedium.ttf) format("truetype");
+    font-display: swap;
+
+  }
+  @font-face {
+    font-family: "Uber Move";
+    font-style: normal;
+    font-weight: bold;
+    src: url(/static/fonts/UberMoveBold.otf) format("otf");
+    src: url(/static/fonts/UberMoveBold.ttf) format("truetype");
+    font-display: swap;
+
+  }
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+@keyframes ripple {
+  from {
+      opacity: 1;
+      transform: scale(0);
+  }
+
+  to {
+      opacity: 0;
+      transform: scale(10);
+  }
+}
+
+.ripple-able span.ripple {
+  position: absolute;
+  border-radius: 50%;
+  /* To make it round */
+  background-color: rgba(0, 0, 0, 0.2);
+
+  width: 100px;
+  height: 100px;
+  margin-top: -50px;
+  /* for positioning */
+  margin-left: -50px;
+
+  animation: ripple 1s;
+  opacity: 0;
+}

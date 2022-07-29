@@ -4,6 +4,10 @@ export default function Document() {
   return (
     <Html lang="fr">
       <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
         <meta name="application-name" content="meet at CESI" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -67,11 +71,6 @@ export default function Document() {
         <meta
           property="og:image"
           content="https://yourdomain.com/static/icon-512x512.png"
-        />
-
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
         />
 
         {/* <!-- apple splash screen images --> */}

@@ -8,6 +8,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <>
       <Head>
         <title>meet at CESI</title>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
+        />
       </Head>
       <SessionProvider session={session}>
         <Component {...pageProps} />

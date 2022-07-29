@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["i.pravatar.cc"],
+    domains: ["i.pravatar.cc", "randomuser.me"],
   },
 };
 const withPWA = require("next-pwa");
