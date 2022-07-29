@@ -1,4 +1,3 @@
-import { ChevronLeftIcon, DotsVerticalIcon } from "@heroicons/react/outline";
 import { EventDropdown } from "components/Dropdown/Event";
 import { Details } from "components/Event/Details";
 import { Participants } from "components/Event/Participants";
@@ -7,13 +6,14 @@ import { AppLayout } from "components/Layout/AppLayout";
 import { Button } from "components/UI/Button/Button";
 import { __MOCK_EVENTS__ } from "mocks/mock_events";
 import { GetServerSideProps, NextPage } from "next";
-import { useRouter } from "next/router";
 import { Event } from "types/Event";
+
+import { motion } from "framer-motion";
 
 type Props = Event;
 
 const EventSlug: NextPage<Props> = ({
-  // _id,
+  _id,
   name,
   participants,
   schedule,
@@ -25,7 +25,14 @@ const EventSlug: NextPage<Props> = ({
       <StickyHeader
         left={<LeftButton />}
         right={<EventDropdown />}
-        title={name}
+        title={
+          <motion.h2
+            layoutId={`event:${_id}-title`}
+            className="text-2xl font-bold font-heading"
+          >
+            {name}
+          </motion.h2>
+        }
         padding="px-8 pt-8 pb-2"
       />
       <div className="flex flex-col h-full gap-4 px-8 mt-4 mb-8 overflow-y-scroll">
@@ -41,6 +48,7 @@ const EventSlug: NextPage<Props> = ({
           )}
         </div>
         <Details
+          _id={_id}
           location={location}
           schedule={schedule}
           targetAudience={targetAudience}
