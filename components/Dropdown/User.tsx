@@ -13,8 +13,11 @@ import {
 } from "@heroicons/react/solid";
 
 import { __MOCK_USERS__ } from "mocks/mock_users";
+import { useRouter } from "next/router";
 
 export const UserDropdown = () => {
+  const router = useRouter();
+
   return (
     <Menu placement="bottom-start">
       <MenuHandler>
@@ -45,7 +48,7 @@ export const UserDropdown = () => {
             <ChevronRightIcon className="w-4 h-4" />
           </div>
         </MenuItem>
-        <MenuItem className="inline-flex items-center text-[#4C4C4C]">
+        <MenuItem onClick={() => router.push("/welcome")} className="inline-flex items-center text-[#4C4C4C]">
           <UserRemoveIcon className="w-5 h-5 mr-2" />
           Se déconnecter
         </MenuItem>

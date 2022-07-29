@@ -15,9 +15,35 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   rounded?: string;
   icon?: React.ReactNode;
+  padding?: string;
 
   layoutId?: string;
 }
+
+interface MouseEvent {
+  currentTarget: {
+    // eslint-disable-next-line no-unused-vars
+    appendChild: (arg0: HTMLSpanElement) => void;
+    offsetLeft: number;
+    offsetTop: number;
+  };
+  clientX: number;
+  clientY: number;
+}
+
+const ripple = (e: MouseEvent) => {
+  let ripple = document.createElement("span");
+  ripple.classList.add("ripple");
+  e.currentTarget.appendChild(ripple);
+  let x = e.clientX - e.currentTarget.offsetLeft;
+  let y = e.clientY - e.currentTarget.offsetTop;
+  ripple.style.left = `${x}px`;
+  ripple.style.top = `${y}px`;
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 700);
+};
 
 export const Button = ({
   children,
@@ -31,29 +57,31 @@ export const Button = ({
   type = "button",
   rounded = "rounded-[20px]",
   icon,
+  padding = undefined,
 
   layoutId = undefined,
 }: ButtonProps) => {
   const classes = classNames(
     "inline-flex items-center font-semibold font-heading",
+    "ripple-able relative overflow-hidden active:appearence-none",
     {
-      "bg-primary-100 text-primary": variant === "primary",
+      "bg-primary-100 text-primary-800": variant === "primary",
       "bg-secondary-100 text-secondary": variant === "secondary",
       "bg-tertiary-50 text-tertiary": variant === "tertiary",
     },
 
-    {
+    padding || {
       "px-2 py-1": size === "small",
       "px-4 py-2": size === "medium",
       "px-6 py-6": size === "large",
     },
     className,
     rounded,
-    icon ? "justify-between" : "justify-center",
-    href ? "ripple-able relative overflow-hidden active:appearence-none" : ""
+    icon ? "justify-between" : "justify-center"
   );
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent) => {
+    ripple(e);
     if (onClick) {
       onClick();
     }
@@ -61,34 +89,7 @@ export const Button = ({
 
   return href ? (
     <Link href={href}>
-      <motion.a
-        layoutId={layoutId}
-        onClick={(e) => {
-          let ripple = document.createElement("span");
-
-          // Add ripple class to span
-          ripple.classList.add("ripple");
-
-          // Add span to the button
-          e.currentTarget.appendChild(ripple);
-
-          // Get position of X
-          let x = e.clientX - e.currentTarget.offsetLeft;
-
-          // Get position of Y
-          let y = e.clientY - e.currentTarget.offsetTop;
-
-          // Position the span element
-          ripple.style.left = `${x}px`;
-          ripple.style.top = `${y}px`;
-
-          // Remove span after 0.3s
-          setTimeout(() => {
-            ripple.remove();
-          }, 700);
-        }}
-        className={classes}
-      >
+      <motion.a layoutId={layoutId} onClick={ripple} className={classes}>
         {icon}
         {loading ? <Spinner size={size} /> : children}
         {icon && <span className="w-px h-px"></span>}

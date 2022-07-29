@@ -61,3 +61,5 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+//todo: getServerSideProps to auto-redirect to auth/index if first visit else to auth/login
