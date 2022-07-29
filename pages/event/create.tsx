@@ -1,8 +1,4 @@
-import {
-  QuestionMarkCircleIcon,
-  CalendarIcon,
-  LocationMarkerIcon,
-} from "@heroicons/react/solid";
+import { CalendarIcon, LocationMarkerIcon } from "@heroicons/react/solid";
 import { Input } from "@material-tailwind/react";
 import { EventHelpCreateDropdown } from "components/Dropdown/EventHelpCreate";
 import { LeftButton, StickyHeader } from "components/Header/StickyHeader";
