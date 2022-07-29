@@ -1,4 +1,6 @@
+import { ChevronLeftIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
+import { useRouter } from "next/router";
 
 type Props = {
   left?: React.ReactNode | JSX.Element;
@@ -32,5 +34,15 @@ export const StickyHeader = ({ left, right, title, padding = "" }: Props) => {
         title
       )}
     </div>
+  );
+};
+
+export const LeftButton = () => {
+  const { back } = useRouter();
+
+  return (
+    <button onClick={back}>
+      <ChevronLeftIcon className="w-7 h-7" />
+    </button>
   );
 };

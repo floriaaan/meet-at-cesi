@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { Spinner } from "../Spinner";
 
@@ -14,6 +15,8 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   rounded?: string;
   icon?: React.ReactNode;
+
+  layoutId?: string;
 }
 
 export const Button = ({
@@ -28,6 +31,8 @@ export const Button = ({
   type = "button",
   rounded = "rounded-[20px]",
   icon,
+
+  layoutId = undefined,
 }: ButtonProps) => {
   const classes = classNames(
     "inline-flex items-center font-semibold font-heading",
@@ -45,7 +50,7 @@ export const Button = ({
     className,
     rounded,
     icon ? "justify-between" : "justify-center",
-    href ? "ripple-able relative overflow-hidden active:appearence-none" : "",
+    href ? "ripple-able relative overflow-hidden active:appearence-none" : ""
   );
 
   const handleClick = () => {
@@ -56,7 +61,8 @@ export const Button = ({
 
   return href ? (
     <Link href={href}>
-      <a
+      <motion.a
+        layoutId={layoutId}
         onClick={(e) => {
           let ripple = document.createElement("span");
 
@@ -86,18 +92,19 @@ export const Button = ({
         {icon}
         {loading ? <Spinner size={size} /> : children}
         {icon && <span className="w-px h-px"></span>}
-      </a>
+      </motion.a>
     </Link>
   ) : (
-    <button
+    <motion.button
       className={classes}
       onClick={handleClick}
       disabled={disabled || loading}
       type={type}
+      layoutId={layoutId}
     >
       {icon}
       {loading ? <Spinner size={size} /> : children}
       {icon && <span className="w-px h-px"></span>}
-    </button>
+    </motion.button>
   );
 };

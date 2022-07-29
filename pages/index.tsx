@@ -9,6 +9,8 @@ import { ChatIcon as ChatIconSolid } from "@heroicons/react/solid";
 import { Caption } from "components/UI/Caption";
 import { __MOCK_EVENTS__ } from "mocks/mock_events";
 
+import { motion } from "framer-motion";
+
 const Home: NextPage = () => {
   return (
     <AppLayout>
@@ -17,22 +19,27 @@ const Home: NextPage = () => {
         <div className="mt-4">
           <EventShowcase {...__MOCK_EVENTS__[0]} />
         </div>
-        <h3 className="my-4">Évenements</h3>
+        <motion.h3 layoutId={`event:header`} className="my-4">
+          Évenements
+        </motion.h3>
         <EventList events={__MOCK_EVENTS__} height="h-40" />
         <div className="grid items-center grid-cols-2 gap-5 mt-4">
           <Button
-            href="/events"
+            href="/event"
             size="large"
             variant="tertiary"
             icon={<EyeIcon className="w-6 h-6 stroke-2" />}
+
+            layoutId={`event:all`}
           >
             Voir tout
           </Button>
           <Button
-            href="/events/create"
+            href="/event/create"
             size="large"
             variant="tertiary"
             icon={<PlusIcon className="w-6 h-6 stroke-2" />}
+            layoutId={`event:create`}
           >
             Créer
           </Button>

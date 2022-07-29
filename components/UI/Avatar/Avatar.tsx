@@ -24,6 +24,9 @@ export const Avatar = ({
         layout="fill"
         objectFit="cover"
         className={classNames(rounded)}
+        onError={(e: { currentTarget: { src: string } }) => {
+          e.currentTarget.src = "/images/avatar.png";
+        }}
       />
     </a>
   );

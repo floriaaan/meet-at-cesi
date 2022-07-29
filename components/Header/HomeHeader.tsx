@@ -1,5 +1,5 @@
-import { Avatar } from "components/UI/Avatar/Avatar";
 import { BellIcon } from "@heroicons/react/outline";
+import { UserDropdown } from "components/Dropdown/User";
 
 type HomeHeaderProps = {
   title?: string;
@@ -14,7 +14,7 @@ export const HomeHeader = ({ title, subtitle }: HomeHeaderProps) => {
   return (
     <>
       <header className="sticky top-0 inline-flex items-center justify-between w-full">
-        <Avatar src="https://i.pravatar.cc/300" alt="User picture" />
+        <UserDropdown />
         <div className="inline-flex items-center shrink-0">
           <div className="relative">
             <BellIcon className="w-8 h-8 text-tertiary" />

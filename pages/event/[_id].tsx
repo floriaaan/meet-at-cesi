@@ -1,11 +1,8 @@
-import {
-  ChevronLeftIcon,
-  DotsVerticalIcon,
-  PlusIcon,
-} from "@heroicons/react/outline";
+import { ChevronLeftIcon, DotsVerticalIcon } from "@heroicons/react/outline";
+import { EventDropdown } from "components/Dropdown/Event";
 import { Details } from "components/Event/Details";
 import { Participants } from "components/Event/Participants";
-import { StickyHeader } from "components/Header/StickyHeader";
+import { LeftButton, StickyHeader } from "components/Header/StickyHeader";
 import { AppLayout } from "components/Layout/AppLayout";
 import { Button } from "components/UI/Button/Button";
 import { __MOCK_EVENTS__ } from "mocks/mock_events";
@@ -16,29 +13,20 @@ import { Event } from "types/Event";
 type Props = Event;
 
 const EventSlug: NextPage<Props> = ({
-  _id,
+  // _id,
   name,
   participants,
   schedule,
   location,
   targetAudience,
 }: Props) => {
-  const { back } = useRouter();
   return (
-    <AppLayout padding="py-4" allowScroll>
+    <AppLayout padding="pb-4" allowScroll>
       <StickyHeader
-        left={
-          <button onClick={back}>
-            <ChevronLeftIcon className="w-7 h-7" />
-          </button>
-        }
-        right={
-          <button onClick={back}>
-            <DotsVerticalIcon className="w-7 h-7" />
-          </button>
-        }
+        left={<LeftButton />}
+        right={<EventDropdown />}
         title={name}
-        padding="px-8 pt-4 pb-2"
+        padding="px-8 pt-8 pb-2"
       />
       <div className="flex flex-col h-full gap-4 px-8 mt-4 mb-8 overflow-y-scroll">
         <div className="overflow-hidden h-72 rounded-2xl">

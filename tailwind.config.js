@@ -1,5 +1,7 @@
+const withMT = require("@material-tailwind/react/utils/withMT");
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+module.exports = withMT({
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -9,7 +11,6 @@ module.exports = {
       heading: ['"Uber Move"', "sans-serif"],
     },
     extend: {
-      
       colors: {
         primary: {
           DEFAULT: "#FFC251",
@@ -54,4 +55,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+});
