@@ -20,7 +20,7 @@ const EventCreate: NextPage = () => {
   const [selectedChip, setSelectedChip] = useState<ChipElement>(DEFAULT_CHIP);
 
   return (
-    <AppLayout>
+    <AppLayout allowScroll={false}>
       <HomeHeader title=" " subtitle=" " />
       <motion.h3
         layoutId={`event:header`}
@@ -29,7 +29,7 @@ const EventCreate: NextPage = () => {
         Évenements
       </motion.h3>
 
-      <div className="flex flex-col h-[80vh]">
+      <div className="flex flex-col h-[75vh]">
         <div className="my-4 overflow-x-auto shrink-0">
           <ChipList
             list={[
