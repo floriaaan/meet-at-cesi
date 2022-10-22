@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: fkscreamer;
+    src: url(/font/FKScreamer-Bold.woff2) format("woff2");
+    font-weight: 700;
+  }
+
+  @font-face {
+    font-family: faktum;
+    src: url(/font/Faktum-Regular.woff2) format("woff2");
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: faktum;
+    src: url(/font/Faktum-Bold.woff2) format("woff2");
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .title {
+    @apply text-5xl uppercase w-fit font-bold text-black font-heading bg-primary ;
+  }
+}

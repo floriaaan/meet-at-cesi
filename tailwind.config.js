@@ -5,7 +5,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        heading: ["fkscreamer", "Impact,Arial,Helvetica,sans-serif"],
+        body: ["faktum", "Arial, Helvetica, sans-serif"],
+      },
+
+      colors: {
+        primary: "#fbe216",
+      },
+    },
   },
   plugins: [],
 };

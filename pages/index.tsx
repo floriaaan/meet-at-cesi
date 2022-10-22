@@ -13,6 +13,7 @@ const Home: NextPage = () => {
         </Link>
       )}
       {session && <pre>{JSON.stringify(session, undefined, 1)}</pre>}
+      {session && <h1 className="title">Hello {session.user?.name}</h1>}
     </>
   );
 };
