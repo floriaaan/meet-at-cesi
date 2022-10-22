@@ -23,6 +23,14 @@
 
 @layer components {
   .title {
-    @apply text-5xl uppercase w-fit font-bold text-black font-heading bg-primary ;
+    @apply text-5xl first-letter:uppercase px-2 w-fit font-bold text-black font-heading bg-primary ;
+  }
+
+  .nav__link {
+    @apply text-[13px] font-bold uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1
+  }
+
+  .subnav__link {
+    @apply text-[13px] first-letter:uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1
   }
 }
