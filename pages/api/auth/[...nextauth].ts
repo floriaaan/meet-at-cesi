@@ -7,6 +7,11 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "../../../lib/prisma";
 
+const adapter = PrismaAdapter(prisma);
+const oldLinkAccount = adapter.linkAccount;
+adapter.linkAccount = ({ ext_expires_in, ...data }) =>
+  oldLinkAccount(data);
+
 export default NextAuth({
   providers: [
     AzureADProvider({
@@ -14,12 +19,12 @@ export default NextAuth({
       clientSecret: process.env.AZURE_AD_CLIENT_SECRET?.toString() || "",
     }),
   ],
-  adapter: PrismaAdapter(prisma),
+  adapter,
   secret: process.env.NEXTAUTH_SECRET,
-//   pages: {
-//     signIn: "/",
-//     signOut: "/",
-//     error: "/",
-//     verifyRequest: "/",
-//   },
+    pages: {
+      signIn: "/",
+      signOut: "/",
+      error: "/",
+      verifyRequest: "/",
+    },
 });
