@@ -30,7 +30,8 @@ export const Navbar = () => {
             <a>
               <CESILogo
                 className={classnames(
-                  "border border-[#afabba] transition-all duration-150 shrink-0",
+                  "border border-[#afabba] shrink-0",
+                //   "transition-all duration-150", // BUG: causes a flicker when the user scrolls down
                   {
                     "w-[38px] h-[38px]": !isTop,
                     "w-28 h-28": isTop,

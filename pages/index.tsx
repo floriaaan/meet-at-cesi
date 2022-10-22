@@ -20,10 +20,10 @@ const Home: NextPage = () => {
           <div className="absolute top-0 left-0 w-full h-full opacity-50 bg-gradient-to-b from-transparent to-black" />
         </section>
 
-        <div className="relative flex flex-col items-start w-full h-full px-8 text-center gap-y-8 -top-48">
-          <h1 className="title">Bienvenue sur Meet at CESI…</h1>
+        <div className="relative flex flex-col items-start w-full h-full px-8 text-center xl:px-64 gap-y-8 -top-80">
+          <h1 className="text-7xl title">Bienvenue sur Meet at CESI…</h1>
           <div className="flex flex-col w-full">
-            <div className="w-full bg-purple inline-flex items-center divide-x py-4 divide-[#94919c]">
+            <div className="w-full bg-purple px-4 inline-flex items-center divide-x py-4 divide-[#94919c]">
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
                 >
                   {"Trouvez l'événement qui vous correspond"}
                 </label>
-                <div className="relative inline-flex w-full py-3 ">
+                <div className="relative inline-flex w-full py-3 -mt-2">
                   <HiMagnifyingGlass className="absolute pointer-events-none w-6 h-6 m-2 stroke-[1.25] top-4 left-2 text-purple" />
                   <input
                     id="search"
@@ -53,6 +53,7 @@ const Home: NextPage = () => {
                 </div>
               </form>
             </div>
+            <div className="w-full bg-white shadow-2xl h-72"></div>
           </div>
         </div>
       </main>
