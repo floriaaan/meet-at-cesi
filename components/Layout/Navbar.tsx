@@ -13,7 +13,9 @@ export const Navbar = () => {
   // detect whether user has scrolled the page down by 10px
   useEffect(() => {
     const scrollHandler = () => {
-      window.pageYOffset > 0 ? setIsTop(false) : setIsTop(true);
+      //   window.pageYOffset > 0 ? setIsTop(false) : setIsTop(true);
+      // better to use window.scrollY
+      window.scrollY > 0 ? setIsTop(false) : setIsTop(true);
     };
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
@@ -26,27 +28,27 @@ export const Navbar = () => {
         className="inline-flex items-center justify-between w-full px-5 py-2.5"
       >
         <nav className="inline-flex items-center gap-x-10">
-          <Link href="/">
-            <a>
-              <CESILogo
-                className={classnames(
-                  "border border-[#afabba] shrink-0",
-                //   "transition-all duration-150", // BUG: causes a flicker when the user scrolls down
-                  {
-                    "w-[38px] h-[38px]": !isTop,
-                    "w-28 h-28": isTop,
-                  }
-                )}
-              />
-              <span className="sr-only">Meet at CESI</span>
-            </a>
-          </Link>
+          <span className="inline-flex items-center gap-x-4">
+            <Link href="/">
+              <a>
+                <CESILogo
+                  className={classnames(
+                    "border border-[#afabba] shrink-0",
+                    // "transition-all duration-150", // BUG: causes a flicker when the user scrolls down
+                    {
+                      "w-[38px] h-[38px]": !isTop,
+                      "w-[38px] h-[38px] md:w-28 md:h-28": isTop,
+                    }
+                  )}
+                />
+                <span className="sr-only">Meet at CESI</span>
+              </a>
+            </Link>
+            <button className="md:hidden">toggle responsive</button>
+          </span>
 
           <NavLink href="#">Évenements à venir</NavLink>
           <NavLink href="#">Organiser mon événement</NavLink>
-          <button className="nav__link" onClick={() => setIsTop(!isTop)}>
-            test
-          </button>
         </nav>
         {status !== "loading" && (
           <div aria-roledescription="authentication">
@@ -69,7 +71,7 @@ export const Navbar = () => {
                     callbackUrl: "/",
                   })
                 }
-                className="text-white hover:no-underline bg-pink nav__link"
+                className="space-x-1 btn__pill"
               >
                 Hello {session.user.name}
                 <HiChevronDown className="inline-block w-3 h-3 stroke-2" />
@@ -99,7 +101,7 @@ const NavLink = ({
 }) => {
   return (
     <Link href={href}>
-      <a className="nav__link">{children}</a>
+      <a className="hidden nav__link md:inline-flex">{children}</a>
     </Link>
   );
 };
