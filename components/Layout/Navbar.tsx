@@ -5,10 +5,13 @@ import classnames from "classnames";
 import { useSession, signOut, signIn } from "next-auth/react";
 
 import { HiChevronDown } from "react-icons/hi2";
+import { useRouter } from "next/router";
+import { MobileMenu } from "./MobileMenu";
 
 export const Navbar = () => {
   const [isTop, setIsTop] = useState<boolean>(true);
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   // detect whether user has scrolled the page down by 10px
   useEffect(() => {
@@ -22,73 +25,85 @@ export const Navbar = () => {
   }, [isTop]);
 
   return (
-    <div className="sticky top-0 z-50 flex flex-col bg-white">
-      <div
-        aria-label="Navigation principale"
-        className="inline-flex items-center justify-between w-full px-5 py-2.5"
-      >
-        <nav className="inline-flex items-center gap-x-10">
-          <span className="inline-flex items-center gap-x-4">
+    <>
+      <div className="sticky top-0 z-50 flex flex-col bg-white">
+        <div
+          aria-label="Navigation principale"
+          className="inline-flex items-center justify-between w-full px-5 py-2.5"
+        >
+          <nav className="inline-flex items-center gap-x-10">
             <Link href="/">
               <a>
                 <CESILogo
                   className={classnames(
-                    "border border-[#afabba] shrink-0",
-                    // "transition-all duration-150", // BUG: causes a flicker when the user scrolls down
+                    "shrink-0 border",
+                    // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
                     {
                       "w-[38px] h-[38px]": !isTop,
-                      "w-[38px] h-[38px] md:w-28 md:h-28": isTop,
+                      "w-[38px] h-[38px] lg:w-28 lg:h-28": isTop,
+                    },
+                    {
+                      "bg-primary text-black  border-[#afabba] ":
+                        router.pathname === "/",
+                    },
+                    {
+                      "border-transparent text-primary":
+                        router.pathname !== "/",
                     }
                   )}
                 />
                 <span className="sr-only">Meet at CESI</span>
               </a>
             </Link>
-            <button className="md:hidden">toggle responsive</button>
-          </span>
 
-          <NavLink href="#">Évenements à venir</NavLink>
-          <NavLink href="#">Organiser mon événement</NavLink>
-        </nav>
-        {status !== "loading" && (
-          <div aria-roledescription="authentication">
-            {status === "unauthenticated" && (
-              <button
-                className="nav__link"
-                onClick={() =>
-                  signIn("azure-ad", {
-                    redirect: false,
-                  })
-                }
-              >
-                Se connecter
-              </button>
-            )}
-            {status === "authenticated" && session?.user && (
-              <button
-                onClick={() =>
-                  signOut({
-                    callbackUrl: "/",
-                  })
-                }
-                className="space-x-1 btn__pill"
-              >
-                Hello {session.user.name}
-                <HiChevronDown className="inline-block w-3 h-3 stroke-2" />
-              </button>
-            )}
-          </div>
-        )}
+            <NavLink href="/event">Évenements à venir</NavLink>
+            <NavLink href="/event/create">Organiser mon événement</NavLink>
+          </nav>
+          <MobileMenu />
+          {status !== "loading" && (
+            <div
+              aria-roledescription="authentication"
+              className="hidden md:inline-flex"
+            >
+              {status === "unauthenticated" && (
+                <button
+                  className="nav__link"
+                  onClick={() =>
+                    signIn("azure-ad", {
+                      redirect: false,
+                    })
+                  }
+                >
+                  Se connecter
+                </button>
+              )}
+              {status === "authenticated" && session?.user && (
+                <button
+                  onClick={() =>
+                    signOut({
+                      callbackUrl: "/",
+                    })
+                  }
+                  className="space-x-1 btn__pill"
+                >
+                  Hello {session.user.name}
+                  <HiChevronDown className="inline-block w-3 h-3 stroke-2" />
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
+          <Link href="#">
+            <a className="subnav__link">Ma promotion</a>
+          </Link>
+          <Link href="#">
+            <a className="subnav__link">Mon école</a>
+          </Link>
+        </div>
       </div>
-      <div className="inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
-        <Link href="#">
-          <a className="subnav__link">Ma promotion</a>
-        </Link>
-        <Link href="#">
-          <a className="subnav__link">Mon école</a>
-        </Link>
-      </div>
-    </div>
+    </>
   );
 };
 

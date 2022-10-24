@@ -27,7 +27,7 @@
   }
 
   .title__underline::before {
-    @apply h-4 w-48 bg-primary -bottom-2 absolute left-8;
+    @apply absolute w-48 h-4 bg-primary -bottom-2 left-8;
     content: "";
   }
 
@@ -40,7 +40,11 @@
   }
 
   .btn__pill {
-    @apply inline-flex items-center select-none px-5 py-1 text-sm font-bold text-black uppercase border border-transparent rounded-full cursor-pointer shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black;
+    @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-black uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black;
+  }
+
+  .btn__colors {
+    @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black;
   }
 
   .input__shadow:hover {
@@ -50,7 +54,7 @@
 }
 
 body {
-  @apply font-body text-black bg-white selection:bg-primary;
+  @apply text-black bg-white font-body selection:bg-primary;
 }
 
 .shadow__button-purple {
