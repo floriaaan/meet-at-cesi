@@ -23,7 +23,7 @@
 
 @layer components {
   .title {
-    @apply px-2 text-5xl font-bold text-black first-letter:uppercase w-fit font-heading bg-primary;
+    @apply px-2 text-5xl font-bold leading-4 text-black first-letter:uppercase w-fit font-heading bg-primary;
   }
 
   .title__underline::before {
@@ -47,9 +47,14 @@
     @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black;
   }
 
-  .input__shadow:hover {
+  .input__shadow-purple:hover {
     -webkit-box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
     box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
+  }
+
+  .input__shadow-primary:hover {
+    -webkit-box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
+    box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
   }
 }
 

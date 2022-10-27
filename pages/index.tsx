@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               >
                 {"Trouvez l'événement qui vous correspond"}
               </label>
-              <div className="relative inline-flex w-full rounded-full input__shadow">
+              <div className="relative inline-flex w-full rounded-full input__shadow-purple">
                 <HiMagnifyingGlass className="absolute pointer-events-none w-6 h-6 m-2 stroke-[1.25] top-1 left-2 text-purple" />
                 <input
                   id="search"
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
               <div className="relative w-full">
                 <select
                   id="user-type"
-                  className="w-full px-4 py-3 appearance-none input__shadow"
+                  className="w-full px-4 py-3 appearance-none input__shadow-purple"
                   defaultValue=""
                 >
                   <option value="">Vous êtes en recherche de...</option>
@@ -82,9 +82,9 @@ const Home: NextPage = () => {
               Découvrez les évenements organisés par des étudiant.e.s CESI
             </span>
             <div className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4">
-              {campusList.sort().map((city) => (
-                <a className="btn__pill" key={city.toLowerCase()}>
-                  {city}
+              {campusList.sort().map((campus) => (
+                <a className="btn__pill" key={campus.value}>
+                  {campus.label}
                 </a>
               ))}
             </div>

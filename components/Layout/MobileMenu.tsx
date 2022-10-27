@@ -55,25 +55,27 @@ export const MobileMenu = () => {
           <HiXMark className="w-4 h-4 stroke-[1.25]" />
         )}
       </button>
-      <ul
-        className={classNames(
-          styles.menu,
-          "flex flex-col h-full bg-white dark:bg-neutral-900",
-          isMenuRendered && styles.menuRendered
-        )}
-      >
-        {LINKS.map((link, i) => (
-          <li
-            key={link.href}
-            className="text-sm font-semibold border-b text-neutral-900 border-neutral-300 dark:border-neutral-700 dark:text-neutral-100"
-            style={{ transitionDelay: `${150 + 25 * i}ms` }}
-          >
-            <Link href={link.href}>
-              <a className="flex w-auto pb-4">{link.label}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      {isMenuOpen ? (
+        <ul
+          className={classNames(
+            styles.menu,
+            "flex flex-col h-full bg-white dark:bg-neutral-900",
+            isMenuRendered && styles.menuRendered
+          )}
+        >
+          {LINKS.map((link, i) => (
+            <li
+              key={link.href}
+              className="text-sm font-semibold border-b text-neutral-900 border-neutral-300 dark:border-neutral-700 dark:text-neutral-100"
+              style={{ transitionDelay: `${150 + 25 * i}ms` }}
+            >
+              <Link href={link.href}>
+                <a className="flex w-auto pb-4">{link.label}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </>
   );
 };

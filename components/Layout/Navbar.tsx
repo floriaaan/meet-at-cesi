@@ -40,7 +40,8 @@ export const Navbar = () => {
                     // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
                     {
                       "w-[38px] h-[38px]": !isTop,
-                      "w-[38px] h-[38px] lg:w-28 lg:h-28": isTop,
+                      "w-[38px] h-[38px] lg:w-28 lg:h-28": isTop && router.pathname === "/",
+                      "w-[38px] h-[38px] lg:w-16 lg:h-16": isTop && router.pathname !== "/",
                     },
                     {
                       "bg-primary text-black  border-[#afabba] ":
