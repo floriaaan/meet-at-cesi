@@ -43,6 +43,10 @@
     @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-black uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black;
   }
 
+  .btn__pill-secondary {
+    @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-primary uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-black font-body hover:bg-primary hover:text-black active:border-primary active:bg-black active:text-primary;
+  }
+
   .btn__colors {
     @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black;
   }
@@ -60,6 +64,7 @@
 
 body {
   @apply text-black bg-white font-body selection:bg-primary;
+  text-decoration-thickness: 1px !important;
 }
 
 .shadow__button-purple {

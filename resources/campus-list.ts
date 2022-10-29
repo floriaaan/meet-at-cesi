@@ -1,4 +1,4 @@
-export const campusList: { value: string; label: string }[] = [
+const campusList: { value: string; label: string }[] = [
   {
     value: "aix-en-provence",
     label: "Aix-en-Provence",
@@ -100,3 +100,5 @@ export const campusList: { value: string; label: string }[] = [
     label: "Toulouse",
   },
 ];
+
+export default campusList;

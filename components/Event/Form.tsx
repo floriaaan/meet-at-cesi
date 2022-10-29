@@ -6,7 +6,8 @@ import { useRouter } from "next/router";
 
 import Input from "@/components/UI/Input";
 import Select from "@/components/UI/Select";
-import { campusList } from "@/resources/campus-list";
+import campusList from "@/resources/campus-list";
+import audienceList from "@/resources/audience-list";
 
 const EventSchema = Yup.object().shape({
   title: Yup.string()
@@ -122,10 +123,7 @@ export const EventForm = ({
             <Select
               name="audience"
               label="Promotion concernée"
-              options={[
-                { value: "everyone", label: "Tout le monde" },
-                { value: "2020", label: "2020" },
-              ]}
+              options={audienceList}
               disabled={disabled}
               // multiple
               className="w-full"
