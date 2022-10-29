@@ -53,10 +53,10 @@ const Input = ({ label, type, className = "", ...props }: InputProps) => {
       <p
         className={classNames("text-sm first-letter:uppercase", {
           "text-red-600": error,
-          "h-5": !error && !meta.touched,
+          "h-5": !error || !meta.touched,
         })}
       >
-        {error || ""}
+        {error || " "}
       </p>
     </div>
   );

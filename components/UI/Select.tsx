@@ -54,10 +54,10 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
       <p
         className={classNames("text-sm first-letter:uppercase", {
           "text-red-600": error,
-          "h-5": !error && !meta.touched,
+          "h-5": !error || !meta.touched,
         })}
       >
-        {error || ""}
+        {error || " "}
       </p>
     </div>
   );

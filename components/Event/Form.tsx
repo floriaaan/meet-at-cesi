@@ -2,6 +2,7 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import Input from "@/components/UI/Input";
 import Select from "@/components/UI/Select";
@@ -12,13 +13,15 @@ const EventSchema = Yup.object().shape({
     .trim()
     .required("Tu as oublié le titre, je crois...")
     .min(5, "C'est un peu court, non?"),
-  //   description: Yup.string().trim().required("Required"),
   location: Yup.string()
     .trim()
-    .min(20, "Tu es sûr.e que c'est une adresse, c'est court...")
+    // .min(20, "Tu es sûr.e que c'est une adresse, c'est court...")
     .required("On va oùuuu ? 🤔"),
   date: Yup.date()
-    .min(new Date(), "Tu veux vraiment organiser un évenement passé ?")
+    .min(
+      new Date(new Date().setDate(new Date().getDate() - 1)),
+      "Tu veux vraiment organiser un évenement passé ?"
+    )
     .required("Je cite: \"C'est quand l'événement ?\" 🤔"),
   audience: Yup.string().required(
     "L'audience est requise. Qui est invité ? 🤔"
@@ -42,7 +45,7 @@ export const EventForm = ({
 }: {
   onSubmit: ({}: EventFormValues) => Promise<any>;
 }) => {
-  //   const router = useRouter();
+  const router = useRouter();
   const [disabled, setDisabled] = useState(false);
 
   const handleOnSubmit = async (values: EventFormValues) => {
@@ -66,8 +69,10 @@ export const EventForm = ({
       // Submit data
       if (typeof onSubmit === "function") {
         onSubmit(values).then((success) => {
-          if (success) toast.success("Création réussie 😍", { id: toastId });
-          else toast.error("Erreur lors de la création 😭", { id: toastId });
+          if (success) {
+            toast.success("Création réussie 😍", { id: toastId });
+            router.push("/event");
+          } else toast.error("Erreur lors de la création 😭", { id: toastId });
         });
       }
       // Redirect user
