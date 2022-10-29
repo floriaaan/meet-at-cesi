@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { FieldHookConfig, useField } from "formik";
-import { HiChevronDown, HiExclamationCircle } from "react-icons/hi2";
+import { HiChevronDown } from "react-icons/hi2";
 
 type SelectProps = FieldHookConfig<string> & {
   label: string;
@@ -35,7 +35,7 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
             {...field}
             {...props}
             className={classNames(
-              "py-3 px-3 pr-6 text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border ",
+              "py-3 px-3 pr-6 text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white",
               error
                 ? "border-red-400 text-red-800 focus:border-red-400 focus:ring-red-400"
                 : "border-gray-300 focus:border-gray-400 focus:ring-gray-400"

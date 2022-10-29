@@ -1,7 +1,8 @@
 import { GetServerSidePropsContext, NextPage } from "next";
 import { getSession } from "next-auth/react";
-import { EventForm, EventFormValues } from "../../components/Event/Form";
-import { AppLayout } from "../../components/Layout/AppLayout";
+
+import { EventForm, EventFormValues } from "@/components/Event/Form";
+import { AppLayout } from "@/components/Layout/AppLayout";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Check if user is authenticated

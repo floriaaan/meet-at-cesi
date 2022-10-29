@@ -1,10 +1,11 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import Input from "../UI/Input";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-import Select from "../UI/Select";
-import { campusList } from "../../resources/campus-list";
+
+import Input from "@/components/UI/Input";
+import Select from "@/components/UI/Select";
+import { campusList } from "@/resources/campus-list";
 
 const EventSchema = Yup.object().shape({
   title: Yup.string()

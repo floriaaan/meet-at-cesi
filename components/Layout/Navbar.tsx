@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CESILogo } from "../Logo/CESI";
 import classnames from "classnames";
 import { useSession, signOut, signIn } from "next-auth/react";
-
-import { HiChevronDown } from "react-icons/hi2";
 import { useRouter } from "next/router";
-import { MobileMenu } from "./MobileMenu";
+import { HiChevronDown } from "react-icons/hi2";
+
+import { CESILogo } from "@/components/Logo/CESI";
+import { MobileMenu } from "@/components/Layout/MobileMenu";
 
 export const Navbar = () => {
   const [isTop, setIsTop] = useState<boolean>(true);
@@ -40,8 +40,10 @@ export const Navbar = () => {
                     // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
                     {
                       "w-[38px] h-[38px]": !isTop,
-                      "w-[38px] h-[38px] lg:w-28 lg:h-28": isTop && router.pathname === "/",
-                      "w-[38px] h-[38px] lg:w-16 lg:h-16": isTop && router.pathname !== "/",
+                      "w-[38px] h-[38px] lg:w-28 lg:h-28":
+                        isTop && router.pathname === "/",
+                      "w-[38px] h-[38px] lg:w-16 lg:h-16":
+                        isTop && router.pathname !== "/",
                     },
                     {
                       "bg-primary text-black  border-[#afabba] ":

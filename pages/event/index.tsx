@@ -1,5 +1,6 @@
 import { NextPage } from "next";
-import { AppLayout } from "../../components/Layout/AppLayout";
+
+import { AppLayout } from "@/components/Layout/AppLayout";
 
 const EventIndexPage: NextPage = () => {
   return (

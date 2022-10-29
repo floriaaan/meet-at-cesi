@@ -2,8 +2,10 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiBars3, HiXMark } from "react-icons/hi2";
-import styles from "styles/mobile-menu.module.css";
-import useDelayedRender from "use-delayed-render";
+
+
+import styles from "@/styles/mobile-menu.module.css";
+import useDelayedRender from "@/hooks/useDelayedRender";
 
 const LINKS = [
   {

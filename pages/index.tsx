@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
 import Image from "next/future/image";
 import { HiChevronDown, HiMagnifyingGlass } from "react-icons/hi2";
-import { AppLayout } from "../components/Layout/AppLayout";
-import { campusList } from "../resources/campus-list";
+
+import { AppLayout } from "@/components/Layout/AppLayout";
+import { campusList } from "@/resources/campus-list";
 
 const Home: NextPage = () => {
   return (
