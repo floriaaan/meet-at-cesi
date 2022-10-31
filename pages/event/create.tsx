@@ -37,7 +37,7 @@ const EventCreatePage: NextPage = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
               });
-              if (res.ok && res.status === 201) return true;
+              if (res.ok && res.status === 201) return await res.json();
               else return false;
             } catch (error) {
               console.error(error);

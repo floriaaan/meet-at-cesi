@@ -50,7 +50,7 @@ export const EventForm = ({
 }: {
   isEditing?: boolean;
   initialValues?: EventFormValues;
-  onSubmit: ({}: EventFormValues) => Promise<Event | false>;
+  onSubmit: ({}: EventFormValues) => Promise<Event | false | Error>;
 }) => {
   const router = useRouter();
   const [disabled, setDisabled] = useState(false);
@@ -66,7 +66,7 @@ export const EventForm = ({
       // Submit data
       if (typeof onSubmit === "function") {
         onSubmit(values).then((result) => {
-          if (result) {
+          if (result && !(result instanceof Error)) {
             toast.success(
               !isEditing ? "Création réussie 😍" : "Modification réussie 🥸",
               { id: toastId }
