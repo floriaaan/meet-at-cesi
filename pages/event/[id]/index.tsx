@@ -169,14 +169,14 @@ const HeroSection = ({
               "after:translate-y-[100%] after:absolute after:bg-black after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] "
             )}
           >
-            <div className="inline-flex items-center py-2 divide-x-2 divide-white gap-x-4">
+            <div className="inline-flex items-start py-2 divide-x-2 divide-white gap-x-4">
               <div className="flex flex-col">
-                <span className="block">Campus</span>
+                <span className="">Campus</span>
                 <strong
                   // @ts-ignore
                   before="_"
                   className={classNames(
-                    "relative block -mt-1.5 -mb-1",
+                    "relative -mt-1.5 -mb-1 w-min md:w-auto",
                     "before:content-[attr(before)] before:absolute before:right-[100%]"
                   )}
                 >
@@ -184,12 +184,12 @@ const HeroSection = ({
                 </strong>
               </div>
               <div className="flex flex-col pl-4">
-                <span className="block">Invités</span>
+                <span className="">Invités</span>
                 <strong
                   // @ts-ignore
                   before="_"
                   className={classNames(
-                    "relative block -mt-1.5 -mb-1",
+                    "relative -mt-1.5 -mb-1 w-min xs:w-auto",
                     "before:content-[attr(before)] before:absolute before:right-[100%]"
                   )}
                 >
@@ -200,7 +200,7 @@ const HeroSection = ({
           </div>
         </div>
 
-        <div className="flex flex-col items-end md:gap-2 md:flex-row md:pr-2">
+        <div className="flex flex-col items-end ml-2 md:gap-2 md:flex-row md:pr-2 lg:ml-0">
           {isOwner && (
             <Link href={`/event/${id}/edit`}>
               <a className="py-2.5 btn-black">Modifier</a>
@@ -299,7 +299,7 @@ const Map = ({ location }: { location: MapFeature }) => {
  */
 
 const ParticipantsSection = ({ participants }: { participants: User[] }) => {
-  const [display, setDisplay] = useState<"column" | "grid">("grid");
+  const [display, setDisplay] = useState<"column" | "grid">("column");
   return (
     <div className="flex flex-col w-full h-full p-4 bg-gray-100 gap-y-2">
       <div className="inline-flex justify-between w-full ">
@@ -326,8 +326,8 @@ const ParticipantsSection = ({ participants }: { participants: User[] }) => {
       </div>
       <div
         className={classNames(
-          "grid w-full gap-2 mt-2",
-          display === "grid" ? "grid-cols-2 lg:grid-cols-3" : "grid-cols-1"
+          "w-full gap-2 mt-2 overflow-y-auto h-80",
+          display === "grid" ? "grid grid-cols-2 lg:grid-cols-3 grid-rows-3" : "flex flex-col"
         )}
       >
         {participants.map((participant) => (
@@ -352,7 +352,7 @@ const ParticipantCard = ({
   return (
     <div
       className={classNames({
-        "inline-flex items-center w-full gap-x-2 border-b pb-2 last:border-b-0":
+        "inline-flex items-center w-full h-fit gap-x-2 border-b pb-2 last:border-b-0":
           style === "column",
         "flex flex-col justify-center items-center gap-y-2": style === "grid",
       })}
@@ -383,14 +383,14 @@ const ParticipantCard = ({
             : "?"}
         </span>
       )}
-      <span
-        className={classNames("font-bold truncate w-4/5", {
+      <p
+        className={classNames(" h-fit font-bold truncate w-4/5", {
           "text-base": style === "column",
           "text-xs text-center ": style === "grid",
         })}
       >
         {participant.name}
-      </span>
+      </p>
     </div>
   );
 };

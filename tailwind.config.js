@@ -16,6 +16,9 @@ module.exports = {
         pink: "#f0869d",
         purple: "#afa5d1",
       },
+      screens: {
+        xs: "500px",
+      },
     },
   },
   plugins: [],
