@@ -74,7 +74,7 @@ export const EventListItem = ({
                 icon={<MdAccountCircle className="w-4 h-4 mr-2 text-purple" />}
               />
               <span className="text-sm">
-                <strong>{participants.length}</strong> participant(s)
+                <strong>{participants.length}</strong> participant(s) inscrit(s)
               </span>
             </div>
           </ul>
