@@ -20,6 +20,7 @@ import {
   MdGridView,
   MdList,
   MdLocationPin,
+  MdPerson,
 } from "react-icons/md";
 import audienceList from "@/resources/audience-list";
 
@@ -164,7 +165,8 @@ const HeroSection = ({
         <div className="overflow-hidden text-white uppercase">
           <div
             className={classNames(
-              "relative inline-block mb-8 ml-12 bg-black py-1 pr-4 text-sm",
+              "hidden sm:inline-block", // responsive : hidden on small screens like mobile
+              "relative mb-8 ml-12 bg-black py-1 pr-4 text-sm",
               "before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:bg-black before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
               "after:translate-y-[100%] after:absolute after:bg-black after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] "
             )}
@@ -227,6 +229,10 @@ const HeroSection = ({
               month: "long",
               day: "numeric",
             })}
+          </div>
+          <div className="inline-flex items-center text-black sm:hidden gap-x-1">
+            <MdPerson className="w-4 h-4" />
+            {audience} - {campus}
           </div>
           <div className="inline-flex items-center text-black gap-x-1">
             <MdAccountCircle className="w-4 h-4" />
@@ -327,7 +333,9 @@ const ParticipantsSection = ({ participants }: { participants: User[] }) => {
       <div
         className={classNames(
           "w-full gap-2 mt-2 overflow-y-auto h-80",
-          display === "grid" ? "grid grid-cols-2 lg:grid-cols-3 grid-rows-3" : "flex flex-col"
+          display === "grid"
+            ? "grid grid-cols-2 lg:grid-cols-3 grid-rows-3"
+            : "flex flex-col"
         )}
       >
         {participants.map((participant) => (
