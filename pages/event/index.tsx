@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import type { Event, User } from "@prisma/client";
 
-import { AppLayout } from "@/components/Layout/AppLayout";
+import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
+import { AppLayout } from "@/components/Layout/AppLayout";
 import { EventList } from "@/components/Event/List";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 
@@ -25,10 +25,6 @@ export async function getServerSideProps() {
   };
 }
 
-type ExtendedEvent = Event & {
-  creator: User;
-  participants: User[];
-};
 
 type Props = {
   events: ExtendedEvent[];

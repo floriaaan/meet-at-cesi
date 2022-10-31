@@ -1,19 +1,14 @@
-import type { Event, User } from "@prisma/client";
 import type { GetServerSideProps, NextPage } from "next";
 
+import Link from "next/link";
 import { getSession } from "next-auth/react";
+import { MdChevronLeft, MdDelete } from "react-icons/md";
 
+import prisma from "@/lib/prisma";
+import type { ExtendedEvent } from "@/types/Event";
 import { EventForm, EventFormValues } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
-import prisma from "@/lib/prisma";
-import Link from "next/link";
-import { MdChevronLeft, MdDelete } from "react-icons/md";
-
-type ExtendedEvent = Event & {
-  creator: User;
-  participants: User[];
-};
 
 type Props = {
   event: ExtendedEvent;

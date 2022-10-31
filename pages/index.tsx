@@ -5,6 +5,9 @@ import { HiChevronDown, HiMagnifyingGlass } from "react-icons/hi2";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import campusList from "@/resources/campus-list";
 
+/**
+ * TODO: refactor this page for better splitting components
+ */
 const Home: NextPage = () => {
   return (
     <AppLayout>

@@ -1,11 +1,7 @@
-import type { Event, User } from "@prisma/client";
 import classNames from "classnames";
-import { EventListItem } from "./ListItem";
 
-type ExtendedEvent = Event & {
-  creator: User;
-  participants: User[];
-};
+import type { ExtendedEvent } from "@/types/Event";
+import { EventListItem } from "@/components/Event/ListItem";
 
 type Props = {
   events: ExtendedEvent[];
