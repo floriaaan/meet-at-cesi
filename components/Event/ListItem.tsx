@@ -57,7 +57,7 @@ export const EventListItem = ({
               icon={<MdLocationPin className="w-4 h-4 mr-2 text-purple" />}
             />
             <LiItem
-              label="Audience"
+              label="Invités"
               value={`${
                 audienceList.find((item) => item.value === audience)?.label ||
                 ""
