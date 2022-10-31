@@ -8,6 +8,7 @@ import Input from "@/components/UI/Input";
 import Select from "@/components/UI/Select";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
+import toastStyle from "@/resources/toast.config";
 
 const EventSchema = Yup.object().shape({
   title: Yup.string()
@@ -53,20 +54,7 @@ export const EventForm = ({
     let toastId: string | undefined;
     try {
       setDisabled(true);
-      toastId = toast.loading("Création en cours...", {
-        style: {
-          borderRadius: 0,
-          boxShadow: "none",
-          borderColor: "black",
-          borderStyle: "solid",
-          borderWidth: 1,
-          fontFamily: "inherit",
-        },
-        iconTheme: {
-          primary: "#fbe216",
-          secondary: "#000",
-        },
-      });
+      toastId = toast.loading("Création en cours...", toastStyle);
       // Submit data
       if (typeof onSubmit === "function") {
         onSubmit(values).then((success) => {
