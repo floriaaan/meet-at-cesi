@@ -1,3 +1,4 @@
+import type { Event } from "@prisma/client";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
@@ -43,9 +44,13 @@ const initialFormValues: EventFormValues = {
 } as unknown as EventFormValues;
 
 export const EventForm = ({
+  isEditing = false,
+  initialValues = initialFormValues,
   onSubmit,
 }: {
-  onSubmit: ({}: EventFormValues) => Promise<any>;
+  isEditing?: boolean;
+  initialValues?: EventFormValues;
+  onSubmit: ({}: EventFormValues) => Promise<Event | false>;
 }) => {
   const router = useRouter();
   const [disabled, setDisabled] = useState(false);
@@ -54,14 +59,26 @@ export const EventForm = ({
     let toastId: string | undefined;
     try {
       setDisabled(true);
-      toastId = toast.loading("Création en cours...", toastStyle);
+      toastId = toast.loading(
+        !isEditing ? "Création en cours..." : "Modification en cours...",
+        toastStyle
+      );
       // Submit data
       if (typeof onSubmit === "function") {
-        onSubmit(values).then((success) => {
-          if (success) {
-            toast.success("Création réussie 😍", { id: toastId });
-            router.push("/event");
-          } else toast.error("Erreur lors de la création 😭", { id: toastId });
+        onSubmit(values).then((result) => {
+          if (result) {
+            toast.success(
+              !isEditing ? "Création réussie 😍" : "Modification réussie 🥸",
+              { id: toastId }
+            );
+            router.push(`/event/${result.id}`);
+          } else
+            toast.error(
+              !isEditing
+                ? "Erreur lors de la création 😭"
+                : "Erreur lors de la modification 😭",
+              { id: toastId }
+            );
         });
       }
       // Redirect user
@@ -77,7 +94,7 @@ export const EventForm = ({
 
   return (
     <Formik
-      initialValues={initialFormValues}
+      initialValues={initialValues}
       validationSchema={EventSchema}
       onSubmit={handleOnSubmit}
     >
@@ -137,7 +154,11 @@ export const EventForm = ({
               //   disabled={disabled || !isValid}
               className="px-6 py-3 font-bold uppercase rounded-full font-body shrink-0 btn__colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "Envoi en cours..." : "Créer"}
+              {isSubmitting
+                ? "Envoi en cours..."
+                : isEditing
+                ? "Modifier"
+                : "Créer"}
             </button>
           </div>
         </Form>

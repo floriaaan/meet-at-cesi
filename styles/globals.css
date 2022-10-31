@@ -40,7 +40,7 @@
   }
 
   .btn-black {
-    @apply bg-black min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black;
+    @apply bg-black min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn__pill {
