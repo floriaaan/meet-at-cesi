@@ -34,6 +34,7 @@ const Input = ({ label, type, className = "", ...props }: InputProps) => {
           <input
             {...field}
             {...props}
+            id={field.name}
             type={type}
             className={classNames(
               "py-3 px-3  text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border ",

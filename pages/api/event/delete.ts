@@ -13,10 +13,9 @@ export default async function handler(
   }
 
   // Create new home
-  if (req.method === "PUT") {
+  if (req.method === "DELETE") {
     try {
-      const { title, location, date, audience, id } = req.body;
-      const audienceCampus = req.body["audience-campus"];
+      const { id } = req.body;
 
       const user = await prisma.user.findUnique({
         where: { email: session.user.email as string },
@@ -32,24 +31,17 @@ export default async function handler(
       if (!event) {
         return res.status(404).json({ message: "Event not found." });
       }
+
       if (event.creator.id !== user.id) {
         return res.status(401).json({ message: "Unauthorized." });
       }
 
       // @ts-ignore
-      event = await prisma.event.update({
+      await prisma.event.delete({
         where: { id },
-        data: {
-          title,
-          location,
-          date: new Date(date),
-          audience,
-          audienceCampus,
-          creatorId: user.id,
-        },
       });
 
-      res.status(201).json(event);
+      res.status(201).json({ message: "Event deleted." });
     } catch (e) {
       console.error(e);
       res.status(500).json({ message: e instanceof Error ? e.message : e });
@@ -57,7 +49,7 @@ export default async function handler(
   }
   // HTTP method not supported!
   else {
-    res.setHeader("Allow", ["PUT"]);
+    res.setHeader("Allow", ["DELETE"]);
     res
       .status(405)
       .json({ message: `HTTP method ${req.method} is not supported.` });

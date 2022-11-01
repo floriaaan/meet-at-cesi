@@ -42,6 +42,9 @@
   .btn-black {
     @apply bg-black min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
   }
+  .btn-red {
+    @apply bg-red min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
+  }
 
   .btn__pill {
     @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-black uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black;

@@ -15,6 +15,9 @@ module.exports = {
         primary: "#fbe216",
         pink: "#f0869d",
         purple: "#afa5d1",
+        red: {
+          DEFAULT: "#cf2e2e",
+        },
       },
       screens: {
         xs: "500px",

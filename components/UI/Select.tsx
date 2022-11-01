@@ -34,6 +34,7 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
           <select
             {...field}
             {...props}
+            id={field.name}
             className={classNames(
               "py-3 px-3 pr-6 text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white",
               error
