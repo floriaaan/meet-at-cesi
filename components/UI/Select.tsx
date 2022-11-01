@@ -24,7 +24,7 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
   return (
     <div className={classNames(className, "flex flex-col space-y-1")}>
       {label ? (
-        <label htmlFor="email" className="font-bold text-black font-body">
+        <label htmlFor={field.name} className="font-bold text-black font-body">
           {label}
         </label>
       ) : null}
