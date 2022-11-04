@@ -39,6 +39,9 @@
     @apply text-[13px] first-letter:uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1;
   }
 
+  .btn-outline__pill {
+    @apply inline-flex items-center text-black uppercase font-bold border border-gray-400 bg-white hover:bg-gray-100 hover:border-black rounded-full justify-center text-xs py-1.5 px-8 active:bg-primary;
+  }
   .btn-black {
     @apply bg-black min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
   }

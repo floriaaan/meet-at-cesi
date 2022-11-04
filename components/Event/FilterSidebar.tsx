@@ -8,28 +8,14 @@ import type { ExtendedEvent } from "@/types/Event";
 import campusList from "@/resources/campus-list";
 import Input from "@/components/UI/Input";
 import Select from "../UI/Select";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { search } from "@/lib/fetchers";
+import classNames from "classnames";
 
 type FilterSidebarProps = {
-  events: ExtendedEvent[];
   setEvents: (events: ExtendedEvent[]) => void;
 };
 
-// const FILTERS = {
-//   date: {
-//     name: "Date de l'événement",
-//     type: "date",
-//   },
-//   proximity: {
-//     name: "Promixité de l'événement",
-//     type: "range",
-//   },
-//   campus: {
-//     name: "Campus de l'événement",
-//     type: "select",
-//   },
-// };
 type FilterInput = {
   name: string;
   type: string;
@@ -90,49 +76,71 @@ export const FilterSidebar = ({ setEvents }: FilterSidebarProps) => {
     setEvents(events);
   };
 
+  const [smallIsOpen, setSmallIsOpen] = useState<boolean>(false);
+
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={FilterSchema}
-      onSubmit={() => {}}
-      validate={handleChanges}
-    >
-      <Form className="flex flex-col p-4 gap-y-3">
-        {FILTERS_CATEGORIES.map((category) => (
-          <Disclosure
-            as="div"
-            key={`filter-${category.key}`}
-            className="border-b border-gray-500 last:border-b-0"
-          >
-            {({ open }) => (
-              <>
-                <Disclosure.Button className="flex justify-between w-full px-4 py-2 mb-1 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
-                  <span className="font-bold">{category.label}</span>
-                  <MdChevronRight
-                    className={`transition-all duration-300 ${
-                      open ? "rotate-90 transform" : "-rotate-90"
-                    } h-5 w-5 text-purple-500`}
-                  />
-                </Disclosure.Button>
-                <Disclosure.Panel className="flex flex-col px-4 pb-2 mt-1 text-sm text-gray-500 gap-y-1 ">
-                  <hr className="pb-4 mx-3 border-gray-300 " />
-                  {category.inputs.map((input) => (
-                    <Fragment key={`filter-${category.key}-${input.name}`}>
-                      {input.type !== "select" &&
-                      input.options === undefined ? (
-                        <Input {...input} />
-                      ) : (
-                        // @ts-ignore
-                        <Select {...input} />
-                      )}
-                    </Fragment>
-                  ))}
-                </Disclosure.Panel>
-              </>
-            )}
-          </Disclosure>
-        ))}
-      </Form>
-    </Formik>
+    <div className="flex flex-col p-4 gap-y-4">
+      <button
+        onClick={() => setSmallIsOpen(!smallIsOpen)}
+        className="lg:hidden btn-outline__pill"
+      >
+        Filtrer la recherche
+        <MdChevronRight
+          className={`transition-all duration-300 ${
+            !smallIsOpen ? "rotate-90 transform" : "-rotate-90"
+          } h-5 w-5 text-purple-500`}
+        />
+      </button>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={FilterSchema}
+        onSubmit={() => {}}
+        validate={handleChanges}
+      >
+        <Form
+          className={classNames(" flex-col p-4 lg:p-0 gap-y-2 bg-gray-100", {
+            "hidden lg:flex": !smallIsOpen,
+            flex: smallIsOpen,
+          })}
+        >
+          {FILTERS_CATEGORIES.map((category) => (
+            <Disclosure
+              as="div"
+              key={`filter-${category.key}`}
+              className="border-b border-gray-500 last:border-b-0"
+            >
+              {({ open }) => (
+                <>
+                  <Disclosure.Button className="flex justify-between w-full px-4 py-2 mb-1 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                    <span className="font-bold hover:underline underline-offset-2 decoration-purple">
+                      {category.label}
+                    </span>
+                    <MdChevronRight
+                      className={`transition-all duration-300 ${
+                        open ? "rotate-90 transform" : "-rotate-90"
+                      } h-5 w-5 text-purple-500`}
+                    />
+                  </Disclosure.Button>
+                  <Disclosure.Panel className="flex flex-col px-4 pb-2 text-sm text-gray-500 gap-y-1 ">
+                    <hr className="pb-2 mx-3 border-gray-300 " />
+                    {category.inputs.map((input) => (
+                      <Fragment key={`filter-${category.key}-${input.name}`}>
+                        {input.type !== "select" &&
+                        input.options === undefined ? (
+                          <Input {...input} />
+                        ) : (
+                          // @ts-ignore
+                          <Select {...input} />
+                        )}
+                      </Fragment>
+                    ))}
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure>
+          ))}
+        </Form>
+      </Formik>
+    </div>
   );
 };

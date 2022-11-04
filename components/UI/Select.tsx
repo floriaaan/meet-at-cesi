@@ -36,7 +36,7 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
             {...props}
             id={field.name}
             className={classNames(
-              "py-3 px-3 pr-6 text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white",
+              "py-1.5 lg:py-3 px-3 pr-6 text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white",
               error
                 ? "border-red-400 text-red-800 focus:border-red-400 focus:ring-red-400"
                 : "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
@@ -55,7 +55,7 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
       <p
         className={classNames("text-sm first-letter:uppercase", {
           "text-red-600": error,
-          "h-5": !error || !meta.touched,
+          "lg:h-5": !error || !meta.touched,
         })}
       >
         {error || " "}
