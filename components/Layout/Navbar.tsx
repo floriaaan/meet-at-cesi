@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import classnames from "classnames";
 import { useSession, signOut, signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { HiChevronDown } from "react-icons/hi2";
+import { MdChevronRight } from "react-icons/md";
 
 import { CESILogo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/MobileMenu";
@@ -26,7 +26,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className="sticky top-0 z-50 flex flex-col bg-white">
+      <div className="sticky top-0 z-50 flex flex-col bg-white shadow-xl lg:shadow-none">
         <div
           aria-label="Navigation principale"
           className="inline-flex items-center justify-between w-full px-5 py-2.5"
@@ -39,10 +39,10 @@ export const Navbar = () => {
                     "shrink-0 border",
                     // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
                     {
-                      "w-[38px] h-[38px]": !isTop,
+                      "lg:w-[38px] lg:h-[38px] w-12 h-12": !isTop,
                       "w-[38px] h-[38px] lg:w-28 lg:h-28":
                         isTop && router.pathname === "/",
-                      "w-[38px] h-[38px] lg:w-16 lg:h-16":
+                      " w-12 h-12 lg:w-16 lg:h-16":
                         isTop && router.pathname !== "/",
                     },
                     {
@@ -62,7 +62,7 @@ export const Navbar = () => {
             <NavLink href="/event">Évenements à venir</NavLink>
             <NavLink href="/event/create">Organiser mon événement</NavLink>
           </nav>
-          <MobileMenu />
+          <MobileMenu isTop={isTop} />
           {status !== "loading" && (
             <div
               aria-roledescription="authentication"
@@ -87,17 +87,17 @@ export const Navbar = () => {
                       callbackUrl: "/",
                     })
                   }
-                  className="space-x-1 btn__pill"
+                  className="pr-2.5 gap-x-1 btn__pill"
                 >
                   Hello {session.user.name}
-                  <HiChevronDown className="inline-block w-3 h-3 stroke-2" />
+                  <MdChevronRight className="inline-block w-5 h-5 rotate-90" />
                 </button>
               )}
             </div>
           )}
         </div>
 
-        <div className="inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
+        <div className="hidden lg:inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
           <Link href="#">
             <a className="subnav__link">Ma promotion</a>
           </Link>

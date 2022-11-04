@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
 import Image from "next/future/image";
-import { HiChevronDown, HiMagnifyingGlass } from "react-icons/hi2";
+import { HiChevronDown } from "react-icons/hi2";
 
-import { AppLayout } from "@/components/Layout/AppLayout";
 import campusList from "@/resources/campus-list";
+import { AppLayout } from "@/components/Layout/AppLayout";
+import { Searchbar } from "@/components/UI/Searchbar";
 
 /**
  * TODO: refactor this page for better splitting components
@@ -27,37 +28,17 @@ const Home: NextPage = () => {
       <div className="relative flex flex-col items-start w-full h-full px-4 mx-auto md:px-12 xl:px-0 xl:max-w-6xl gap-y-8 -top-80">
         <h1 className="text-7xl title">Petite bière ? 🍻</h1>
         <div className="flex flex-col w-full">
-          <div className="w-full bg-purple px-4 flex flex-col gap-y-4 lg:gap-y-0 lg:flex-row items-center pb-6 xl:pb-4 lg:divide-x pt-4 divide-[#94919c]">
+          <div className="flex flex-col items-center w-full px-4 pt-4 pb-6 bg-purple gap-y-4 lg:gap-y-0 lg:flex-row xl:pb-4 ">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
               }}
-              className="flex flex-col w-full px-4 xl:w-1/2"
+              className="flex flex-col w-full px-4"
             >
-              <label
-                htmlFor="search"
-                className="mr-auto font-bold text-black font-body"
-              >
-                {"Trouvez l'événement qui vous correspond"}
-              </label>
-              <div className="relative inline-flex w-full rounded-full input__shadow-purple">
-                <HiMagnifyingGlass className="absolute pointer-events-none w-6 h-6 m-2 stroke-[1.25] top-1 left-2 text-purple" />
-                <input
-                  id="search"
-                  type="text"
-                  className="py-3 pl-12 pr-6 text-sm rounded-l-full grow placeholder:italic"
-                  placeholder="Rechercher un événement..."
-                />
-                <button
-                  type="submit"
-                  className="py-3 pl-6 pr-8 font-bold rounded-r-full font-body shrink-0 btn__colors"
-                >
-                  GO
-                </button>
-              </div>
+              <Searchbar className="input__shadow-purple" />
             </form>
 
-            <form
+            {/* <form
               onSubmit={(e) => {
                 e.preventDefault();
               }}
@@ -79,7 +60,7 @@ const Home: NextPage = () => {
                 </select>
                 <HiChevronDown className="absolute pointer-events-none w-6 h-6 m-2 stroke-[1.25] top-1 right-2 text-purple" />
               </div>
-            </form>
+            </form> */}
           </div>
           <div className="w-full px-8 py-6 bg-white shadow-2xl font-body">
             <span className="pb-2 pr-2 bg-white">

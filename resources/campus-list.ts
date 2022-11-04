@@ -73,7 +73,7 @@ const campusList: { value: string; label: string }[] = [
   },
   {
     value: "paris",
-    label: "Paris (La Défense - Nanterre)",
+    label: "Paris",
   },
   {
     value: "pau",

@@ -8,7 +8,6 @@
   z-index: 100000;
   opacity: 0;
   left: 0;
-  top: 6rem;
   transition: opacity 300ms ease, transform 300ms ease;
 }
 

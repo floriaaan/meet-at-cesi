@@ -40,12 +40,12 @@ export const EventListItem = ({
       <a className="flex flex-col w-full py-4 border-b border-gray-100 last:pb-12 gap-y-2 last:border-0">
         <div className="inline-flex items-start w-full gap-x-1.5 group">
           <MdChevronRight className="w-8 h-8 shrink-0 text-purple group-hover:text-pink" />
-          <h2 className="text-3xl leading-[1.15] font-bold group-hover:underline underline-offset-4 decoration-purple">
+          <h2 className="text-2xl mt-0.5 md:-mt-0.5 md:text-3xl leading-[1.15] font-bold group-hover:underline underline-offset-4 decoration-purple first-letter:uppercase">
             {title}
           </h2>
         </div>
         <div className="flex items-end justify-between w-full lg:flex-row">
-          <ul className="flex flex-col w-full">
+          <ul className="flex flex-col w-full gap-0.5">
             <LiItem
               label="Date"
               value={dateDisplay}
@@ -70,10 +70,14 @@ export const EventListItem = ({
             <div className="inline-flex items-center justify-between w-full">
               <LiItem
                 label="Organisateur"
-                value={<span className="capitalize">{creator.name?.toLocaleLowerCase()}</span>}
+                value={
+                  <span className="capitalize">
+                    {creator.name?.toLocaleLowerCase()}
+                  </span>
+                }
                 icon={<MdAccountCircle className="w-4 h-4 mr-2 text-purple" />}
               />
-              <span className="text-sm">
+              <span className="text-xs md:text-sm">
                 <strong>{participants.length}</strong> participant(s) inscrit(s)
               </span>
             </div>
@@ -97,7 +101,7 @@ const LiItem = ({
   icon: JSX.Element;
 }) => {
   return (
-    <li className="inline-flex text-sm items-start gap-x-1.5 ml-2">
+    <li className="inline-flex text-xs md:text-sm items-start gap-x-1.5 ml-2">
       {icon}
       <span className="hidden font-bold sm:block">{label} : </span>
       <span className="whitespace-pre-line sm:whitespace-normal">{value}</span>

@@ -1,8 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HiBars3, HiXMark } from "react-icons/hi2";
-
+import { MdClose, MdOutlineMenu } from "react-icons/md";
 
 import styles from "@/styles/mobile-menu.module.css";
 import useDelayedRender from "@/hooks/useDelayedRender";
@@ -22,7 +21,7 @@ const LINKS = [
   },
 ];
 
-export const MobileMenu = () => {
+export const MobileMenu = ({ isTop = true }: { isTop: boolean }) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const { rendered: isMenuRendered } = useDelayedRender(isMenuOpen, {
     enterDelay: 20,
@@ -48,18 +47,22 @@ export const MobileMenu = () => {
   return (
     <>
       <button
-        className="flex items-center justify-center rounded-full w-9 h-9 md:hidden btn__colors"
+        className="inline-flex items-center md:hidden gap-x-3"
         onClick={toggleMenu}
       >
-        {!isMenuOpen ? (
-          <HiBars3 className="w-4 h-4 stroke-[1.25]" />
-        ) : (
-          <HiXMark className="w-4 h-4 stroke-[1.25]" />
-        )}
+        <span className="underline underline-offset-2">Menus</span>
+        <span className="flex items-center justify-center rounded-full w-9 h-9 btn__colors">
+          {!isMenuOpen ? (
+            <MdOutlineMenu className="w-4 h-4" />
+          ) : (
+            <MdClose className="w-4 h-4" />
+          )}
+        </span>
       </button>
       {isMenuOpen ? (
         <ul
           className={classNames(
+            isTop ? "top-12" : "top-16",
             styles.menu,
             "flex flex-col h-full bg-white dark:bg-neutral-900",
             isMenuRendered && styles.menuRendered
