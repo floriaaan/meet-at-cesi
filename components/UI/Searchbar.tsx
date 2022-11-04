@@ -1,11 +1,14 @@
 import classNames from "classnames";
 import { MdSearch } from "react-icons/md";
 
+import { Spinner } from "@/components/UI/Spinner";
+
 type Props = {
   className?: string;
+  loading?: boolean;
 };
 
-export const Searchbar = ({ className }: Props) => {
+export const Searchbar = ({ className, loading }: Props) => {
   return (
     <>
       <label
@@ -16,22 +19,22 @@ export const Searchbar = ({ className }: Props) => {
       </label>
       <div
         className={classNames(
-          "relative inline-flex w-full rounded-full",
+          "relative shrink inline-flex w-full rounded-full",
           className
         )}
       >
-        <MdSearch className="absolute w-6 h-6 m-2 pointer-events-none top-1.5 left-2 text-purple" />
+        <MdSearch className="absolute hidden sm:block w-6 h-6 m-2 pointer-events-none top-1.5 left-2 text-purple" />
         <input
           id="search"
           type="text"
-          className="py-3 pl-12 pr-6 text-sm rounded-l-full grow placeholder:italic"
+          className="px-4 py-2 text-sm rounded-l-full sm:py-3 sm:pl-12 sm:pr-6 grow placeholder:italic"
           placeholder="Rechercher un événement..."
         />
         <button
           type="submit"
-          className="py-3 pl-6 pr-8 font-bold rounded-r-full font-body shrink-0 btn__colors"
+          className="px-4 py-2 font-bold rounded-r-full sm:pl-6 sm:pr-8 sm:py-3 font-body shrink-0 btn__colors"
         >
-          GO
+          {loading ? <Spinner className="w-6 h-6 ml-0.5 text-black" /> : "GO"}
         </button>
       </div>
     </>

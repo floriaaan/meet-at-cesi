@@ -1,11 +1,9 @@
 import NextAuth from "next-auth";
-// import EmailProvider from "next-auth/providers/email";
-// import GoogleProvider from "next-auth/providers/google";
 import AzureADProvider from "next-auth/providers/azure-ad";
 
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-import prisma from "../../../lib/prisma";
+import prisma from "@/lib/prisma";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;

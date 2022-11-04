@@ -1,7 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
+import { SearchRequestInput } from "@/lib/fetchers";
 
-const getDateFilter = (dateMin: string, dateMax: string) => {
+const getDateFilter = (
+  dateMin: string | undefined,
+  dateMax: string | undefined
+) => {
   const dateMinFilter = dateMin ? { gte: new Date(dateMin) } : {};
   const dateMaxFilter = dateMax ? { lte: new Date(dateMax) } : {};
   return {
@@ -17,16 +21,21 @@ export default async function handler(
   // Create new home
   if (req.method === "POST") {
     try {
-      let { dateMin, dateMax, proximity, campus } = req.body;
+      let { dateMin, dateMax, proximity, campus, name } =
+        req.body as SearchRequestInput;
       dateMin = dateMin || undefined;
       dateMax = dateMax || undefined;
       proximity = proximity || undefined;
       campus = campus || undefined;
+      name = name || undefined;
 
       const events = await prisma.event.findMany({
         where: {
           date: getDateFilter(dateMin, dateMax),
           audienceCampus: campus,
+          title: {
+            contains: name,
+          },
           // proximity requires location coordinates
         },
         include: { participants: true, creator: true },

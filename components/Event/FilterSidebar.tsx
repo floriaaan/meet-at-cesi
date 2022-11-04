@@ -1,19 +1,20 @@
 import * as Yup from "yup";
 
-import { Form, Formik, useFormikContext, withFormik } from "formik";
+import { Fragment, useState } from "react";
+import { Form, Formik } from "formik";
 import { Disclosure } from "@headlessui/react";
 import { MdChevronRight } from "react-icons/md";
+import classNames from "classnames";
 
 import type { ExtendedEvent } from "@/types/Event";
+import { search, SearchRequestInput } from "@/lib/fetchers";
 import campusList from "@/resources/campus-list";
 import Input from "@/components/UI/Input";
-import Select from "../UI/Select";
-import { Fragment, useState } from "react";
-import { search } from "@/lib/fetchers";
-import classNames from "classnames";
+import Select from "@/components/UI/Select";
 
 type FilterSidebarProps = {
   setEvents: (events: ExtendedEvent[]) => void;
+  setLoading: (bool: boolean) => void;
 };
 
 type FilterInput = {
@@ -39,11 +40,12 @@ const FILTERS_CATEGORIES: FilterCategory[] = [
       { name: "dateMax", type: "date", label: "Jusqu'au" },
     ],
   },
-  {
-    label: "Promixité de l'événement",
-    key: "proximity",
-    inputs: [{ name: "proximity", type: "range", label: "", min: 0, max: 50 }],
-  },
+  // TODO: prepare the backend to handle this
+  // {
+  //   label: "Promixité de l'événement",
+  //   key: "proximity",
+  //   inputs: [{ name: "proximity", type: "range", label: "", min: 0, max: 50 }],
+  // },
   {
     label: "Campus de l'événement",
     key: "campus",
@@ -70,10 +72,15 @@ const initialValues: FilterValues = {
   dateMin: undefined,
 } as unknown as FilterValues;
 
-export const FilterSidebar = ({ setEvents }: FilterSidebarProps) => {
+export const FilterSidebar = ({
+  setEvents,
+  setLoading,
+}: FilterSidebarProps) => {
   const handleChanges = async (values: FilterValues) => {
-    const events = await search(values);
+    setLoading(true);
+    const events = await search(values as SearchRequestInput);
     setEvents(events);
+    setLoading(false);
   };
 
   const [smallIsOpen, setSmallIsOpen] = useState<boolean>(false);
@@ -94,8 +101,9 @@ export const FilterSidebar = ({ setEvents }: FilterSidebarProps) => {
       <Formik
         initialValues={initialValues}
         validationSchema={FilterSchema}
-        onSubmit={() => {}}
+        onSubmit={handleChanges}
         validate={handleChanges}
+        validateOnBlur={false}
       >
         <Form
           className={classNames(" flex-col p-4 lg:p-0 gap-y-2 bg-gray-100", {

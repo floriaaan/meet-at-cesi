@@ -1,5 +1,4 @@
 import type { User } from "@prisma/client";
-import type { FilterValues } from "@/components/Event/FilterSidebar";
 import type { ExtendedEvent } from "@/types/Event";
 
 export const participate = async (
@@ -27,20 +26,29 @@ export const deleteEvent = async (id: string): Promise<true | false> => {
   return false;
 };
 
+export type SearchRequestInput = {
+  dateMin?: string;
+  dateMax?: string;
+  proximity?: number;
+  campus?: string;
+  name?: string;
+};
+
 export const search = async ({
-  dateMin,
-  dateMax,
-  proximity,
-  campus
-}:FilterValues): Promise<ExtendedEvent[]> => {
+  dateMin = undefined,
+  dateMax = undefined,
+  proximity = undefined,
+  campus = undefined,
+  name = undefined,
+}: SearchRequestInput): Promise<ExtendedEvent[]> => {
   const response = await fetch(`/api/event/search`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ dateMin, dateMax, proximity, campus }),
+    body: JSON.stringify({ dateMin, dateMax, proximity, campus, name }),
   });
   if (response.ok) {
     const { events } = await response.json();
     return events;
   }
   return [];
-}
+};
