@@ -62,7 +62,7 @@ export const MobileMenu = ({ isTop = true }: { isTop: boolean }) => {
       {isMenuOpen ? (
         <ul
           className={classNames(
-            isTop ? "top-12" : "top-16",
+            "top-16",
             styles.menu,
             "flex flex-col h-full bg-white",
             isMenuRendered && styles.menuRendered
