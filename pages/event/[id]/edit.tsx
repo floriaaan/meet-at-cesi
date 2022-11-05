@@ -63,11 +63,11 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
     <AppLayout>
       <section className="flex flex-col items-start w-full h-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-8">
         <div className="inline-flex items-center justify-between w-full -mb-8 gap-x-2 md:px-2">
-          <Link href={`/event/${event.id}`}>
-            <a className="pl-2 pr-4 btn-black w-fit hover:border-transparent">
-              <MdChevronLeft className="w-4 h-4 mr-0.5 shrink-0" />
-              Retour
-            </a>
+          <Link
+            href={`/event/${event.id}`}
+            className="pl-2 pr-4 btn-black w-fit hover:border-transparent">
+
+            <MdChevronLeft className="w-4 h-4 mr-0.5 shrink-0" />Retour
           </Link>
 
           <button

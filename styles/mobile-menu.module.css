@@ -25,7 +25,7 @@
 }
 
 .menuRendered li {
-  @apply w-full border-neutral-200 dark:border-neutral-600;
+  @apply w-full border-neutral-200;
   transform: translateX(0);
   opacity: 1;
 }

@@ -36,58 +36,60 @@ export const EventListItem = ({
   });
 
   return (
-    <Link href={`/event/${id}`}>
-      <a className="flex flex-col w-full py-4 border-b border-gray-100 last:pb-12 gap-y-2 last:border-0">
-        <div className="inline-flex items-start w-full gap-x-1.5 group">
-          <MdChevronRight className="w-8 h-8 shrink-0 text-purple group-hover:text-pink" />
-          <h2 className="text-2xl mt-0.5 md:-mt-0.5 md:text-3xl leading-[1.15] font-bold group-hover:underline underline-offset-4 decoration-purple first-letter:uppercase">
-            {title}
-          </h2>
-        </div>
-        <div className="flex items-end justify-between w-full lg:flex-row">
-          <ul className="flex flex-col w-full gap-0.5">
+    (<Link
+      href={`/event/${id}`}
+      className="flex flex-col w-full py-4 border-b border-gray-100 last:pb-12 gap-y-2 last:border-0">
+
+      <div className="inline-flex items-start w-full gap-x-1.5 group">
+        <MdChevronRight className="w-8 h-8 shrink-0 text-purple group-hover:text-pink" />
+        <h2 className="text-2xl mt-0.5 md:-mt-0.5 md:text-3xl leading-[1.15] font-bold group-hover:underline underline-offset-4 decoration-purple first-letter:uppercase">
+          {title}
+        </h2>
+      </div>
+      <div className="flex items-end justify-between w-full lg:flex-row">
+        <ul className="flex flex-col w-full gap-0.5">
+          <LiItem
+            label="Date"
+            value={dateDisplay}
+            icon={<MdCalendarToday className="w-4 h-4 mr-2 text-purple" />}
+          />
+          <LiItem
+            label="Lieu"
+            value={location}
+            icon={<MdLocationPin className="w-4 h-4 mr-2 text-purple" />}
+          />
+          <LiItem
+            label="Invités"
+            value={`${
+              audienceList.find((item) => item.value === audience)?.label ||
+              ""
+            } - Campus CESI ${
+              campusList.find((item) => item.value === audienceCampus)
+                ?.label || ""
+            }`}
+            icon={<MdPerson className="w-4 h-4 mr-2 text-purple" />}
+          />
+          <div className="inline-flex items-center justify-between w-full">
             <LiItem
-              label="Date"
-              value={dateDisplay}
-              icon={<MdCalendarToday className="w-4 h-4 mr-2 text-purple" />}
+              label="Organisateur"
+              value={
+                <span className="capitalize">
+                  {creator.name?.toLocaleLowerCase()}
+                </span>
+              }
+              icon={<MdAccountCircle className="w-4 h-4 mr-2 text-purple" />}
             />
-            <LiItem
-              label="Lieu"
-              value={location}
-              icon={<MdLocationPin className="w-4 h-4 mr-2 text-purple" />}
-            />
-            <LiItem
-              label="Invités"
-              value={`${
-                audienceList.find((item) => item.value === audience)?.label ||
-                ""
-              } - Campus CESI ${
-                campusList.find((item) => item.value === audienceCampus)
-                  ?.label || ""
-              }`}
-              icon={<MdPerson className="w-4 h-4 mr-2 text-purple" />}
-            />
-            <div className="inline-flex items-center justify-between w-full">
-              <LiItem
-                label="Organisateur"
-                value={
-                  <span className="capitalize">
-                    {creator.name?.toLocaleLowerCase()}
-                  </span>
-                }
-                icon={<MdAccountCircle className="w-4 h-4 mr-2 text-purple" />}
-              />
-              <span className="text-xs md:text-sm">
-                <strong>{participants.length}</strong> participant(s) inscrit(s)
-              </span>
-            </div>
-          </ul>
-          {/* <div className="flex flex-col items-end gap-y-1">
-            <button className="z-20 btn__pill-secondary">Participer</button>
-          </div> */}
-        </div>
-      </a>
-    </Link>
+            <span className="text-xs md:text-sm">
+              <strong>{participants.length}</strong> participant(s) inscrit(s)
+            </span>
+          </div>
+        </ul>
+        {/* <div className="flex flex-col items-end gap-y-1">
+          <button className="z-20 btn__pill-secondary">Participer</button>
+        </div> */}
+      </div>
+
+    </Link>)
   );
 };
 

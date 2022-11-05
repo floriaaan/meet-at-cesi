@@ -9,8 +9,8 @@ import classNames from "classnames";
 import type { ExtendedEvent } from "@/types/Event";
 import { search, SearchRequestInput } from "@/lib/fetchers";
 import campusList from "@/resources/campus-list";
-import Input from "@/components/UI/Input";
-import Select from "@/components/UI/Select";
+import Input from "@/components/UI/Form/Input";
+import Select from "@/components/UI/Form/Select";
 
 type FilterSidebarProps = {
   setEvents: (events: ExtendedEvent[]) => void;

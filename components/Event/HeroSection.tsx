@@ -77,8 +77,8 @@ export const HeroSection = ({
 
         <div className="flex flex-col items-end ml-2 md:gap-2 md:flex-row md:pr-2 lg:ml-0">
           {isOwner && (
-            <Link href={`/event/${id}/edit`}>
-              <a className="py-2.5 btn-black">Modifier</a>
+            <Link href={`/event/${id}/edit`} className="py-2.5 btn-black">
+              Modifier
             </Link>
           )}
           <button className="py-2.5 btn-black" onClick={() => participate()}>

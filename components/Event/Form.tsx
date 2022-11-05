@@ -5,8 +5,8 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import Input from "@/components/UI/Input";
-import Select from "@/components/UI/Select";
+import Input from "@/components/UI/Form/Input";
+import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";

@@ -64,18 +64,18 @@ export const MobileMenu = ({ isTop = true }: { isTop: boolean }) => {
           className={classNames(
             isTop ? "top-12" : "top-16",
             styles.menu,
-            "flex flex-col h-full bg-white dark:bg-neutral-900",
+            "flex flex-col h-full bg-white",
             isMenuRendered && styles.menuRendered
           )}
         >
           {LINKS.map((link, i) => (
             <li
               key={link.href}
-              className="text-sm font-semibold border-b text-neutral-900 border-neutral-300 dark:border-neutral-700 dark:text-neutral-100"
+              className="text-sm font-semibold border-b text-neutral-900 border-neutral-300"
               style={{ transitionDelay: `${150 + 25 * i}ms` }}
             >
-              <Link href={link.href}>
-                <a className="flex w-auto pb-4">{link.label}</a>
+              <Link href={link.href} className="flex w-auto pb-4">
+                {link.label}
               </Link>
             </li>
           ))}

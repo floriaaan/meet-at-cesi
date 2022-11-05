@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import Image from "next/future/image";
-import { HiChevronDown } from "react-icons/hi2";
+import Image from "next/image";
 
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout/AppLayout";
@@ -38,29 +37,6 @@ const Home: NextPage = () => {
               <Searchbar className="input__shadow-purple" />
             </form>
 
-            {/* <form
-              onSubmit={(e) => {
-                e.preventDefault();
-              }}
-              className="flex flex-col w-full px-4 xl:w-1/2"
-            >
-              <label
-                htmlFor="user-type"
-                className="mr-auto font-bold text-black font-body"
-              >
-                {"Laissez vous guider"}
-              </label>
-              <div className="relative w-full">
-                <select
-                  id="user-type"
-                  className="w-full px-4 py-3 appearance-none input__shadow-purple"
-                  defaultValue=""
-                >
-                  <option value="">Vous êtes en recherche de...</option>
-                </select>
-                <HiChevronDown className="absolute pointer-events-none w-6 h-6 m-2 stroke-[1.25] top-1 right-2 text-purple" />
-              </div>
-            </form> */}
           </div>
           <div className="w-full px-8 py-6 bg-white shadow-2xl font-body">
             <span className="pb-2 pr-2 bg-white">
