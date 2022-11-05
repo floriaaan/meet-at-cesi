@@ -15,7 +15,7 @@ specifiers:
   eslint-config-next: 13.0.2
   formik: ^2.2.9
   next: 13.0.2
-  next-auth: '4'
+  next-auth: ^4.15.1
   postcss: ^8.4.18
   prisma: ^4.4.0
   react: 18.2.0
@@ -28,13 +28,13 @@ specifiers:
 
 dependencies:
   '@headlessui/react': 1.7.3_biqbaboplfbrettd7655fr4n2y
-  '@next-auth/prisma-adapter': 1.0.5_f6johzj7om6s3zhjvbbzqeonqy
+  '@next-auth/prisma-adapter': 1.0.5_x4jujt7a6dubg4x2tbodqsif64
   '@popperjs/core': 2.11.6
   '@prisma/client': 4.4.0_prisma@4.4.0
   classnames: 2.3.2
   formik: 2.2.9_react@18.2.0
   next: 13.0.2_biqbaboplfbrettd7655fr4n2y
-  next-auth: 4.14.0_pknogjuzx4bv7zxtatcb2ahtsq
+  next-auth: 4.15.1_pknogjuzx4bv7zxtatcb2ahtsq
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-hot-toast: 2.4.0_owo25xnefcwdq3zjgtohz6dbju
@@ -118,14 +118,14 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@next-auth/prisma-adapter/1.0.5_f6johzj7om6s3zhjvbbzqeonqy:
+  /@next-auth/prisma-adapter/1.0.5_x4jujt7a6dubg4x2tbodqsif64:
     resolution: {integrity: sha512-VqMS11IxPXrPGXw6Oul6jcyS/n8GLOWzRMrPr3EMdtD6eOalM6zz05j08PcNiis8QzkfuYnCv49OvufTuaEwYQ==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.4.0_prisma@4.4.0
-      next-auth: 4.14.0_pknogjuzx4bv7zxtatcb2ahtsq
+      next-auth: 4.15.1_pknogjuzx4bv7zxtatcb2ahtsq
     dev: false
 
   /@next/env/13.0.2:
@@ -1641,11 +1641,11 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth/4.14.0_pknogjuzx4bv7zxtatcb2ahtsq:
-    resolution: {integrity: sha512-pD5sin6kq/uIx3Cod2/0JFnViEnngBTTNy4CdfRaYc2QzV2zwpWAbQny2Ezlg0GjEozDhKC53JJxRRE4AmNKEw==}
-    engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0}
+  /next-auth/4.15.1_pknogjuzx4bv7zxtatcb2ahtsq:
+    resolution: {integrity: sha512-yB/cSEqslaXAsLZ3lvkJbB7bRR5JeZvfUXSw0CmWeP+TaMZWB85fG9PWdfBeFrDCLBsoyATw9FF6fzApE0SxSw==}
+    engines: {node: ^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.12.0}
     peerDependencies:
-      next: ^12.2.5
+      next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
       react: ^17.0.2 || ^18
       react-dom: ^17.0.2 || ^18
