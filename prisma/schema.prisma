@@ -47,6 +47,14 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
+model Preference {
+  campus    String
+  promotion String
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
   id             String    @id @default(cuid())
   name           String?
@@ -57,6 +65,8 @@ model User {
   sessions       Session[]
   createdEvents  Event[]   @relation("event_creation")
   participations Event[]   @relation("event_participation")
+
+  preferences Preference?
 }
 
 model Event {

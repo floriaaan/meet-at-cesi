@@ -1,18 +1,44 @@
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import classNames from "classnames";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-export const ProfileLayoutSidebar = () => (
-  <aside className="hidden w-64 h-full md:block" aria-label="Sidebar">
-    <div className="flex flex-col justify-between h-full px-3 py-4 overflow-y-auto bg-gray-50 ">
-      <ul className="flex flex-col gap-y-2">
-        <SidebarLink href="/profile">Mon compte</SidebarLink>
-        <SidebarLink href="/profile/events">Mes événements</SidebarLink>
-        <SidebarLink href="/profile/settings">Paramètres</SidebarLink>
-      </ul>
-    </div>
-  </aside>
-);
+import { Category } from "@/components/UI/Link/Category";
+
+export const ProfileLayoutSidebar = () => {
+  const { data: session } = useSession();
+  return (
+    <aside className="hidden h-full w-72 md:block" aria-label="Sidebar">
+      <div className="flex flex-col justify-between h-full px-6 py-4 overflow-y-auto bg-gray-50 ">
+        <ul className="flex flex-col gap-y-2">
+
+          <Category
+            title="Mon compte"
+            options={[
+              {
+                name: session?.user?.name || "Mon compte",
+                href: "/profile",
+              },
+              {
+                name: "Mes événements",
+                href: "/profile/events",
+              },
+            ]}
+          />
+          <Category
+            title="Paramètres"
+            options={[
+              {
+                name: "Sélection du campus et de la promotion",
+                href: "/profile/settings#campus",
+              },
+            ]}
+          />
+        </ul>
+      </div>
+    </aside>
+  );
+};
 
 type SidebarLinkProps = {
   href: string;

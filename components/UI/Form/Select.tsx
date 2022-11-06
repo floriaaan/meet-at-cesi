@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import { FieldHookConfig, useField } from "formik";
 import { HiChevronDown } from "react-icons/hi2";
+import { MdChevronRight } from "react-icons/md";
 
 type SelectProps = FieldHookConfig<string> & {
   label: string;
@@ -48,7 +49,7 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
               </option>
             ))}
           </select>
-          <HiChevronDown className="absolute pointer-events-none w-4 h-4 m-2 stroke-[1.25] top-2 right-2 text-black" />
+          <MdChevronRight className="absolute w-4 h-4 m-2 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
         </div>
       </div>
 
