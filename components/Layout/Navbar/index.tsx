@@ -1,13 +1,15 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import classnames from "classnames";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import { CESILogo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
 import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
   const [isTop, setIsTop] = useState<boolean>(true);
   const router = useRouter();
 
@@ -27,7 +29,7 @@ export const Navbar = () => {
           aria-label="Navigation principale"
           className="inline-flex items-center justify-between w-full px-5 py-2.5"
         >
-          <nav className="inline-flex items-center gap-x-5">
+          <nav className="inline-flex items-center gap-x-2.5 lg:gap-x-5">
             <Link href="/">
               <CESILogo
                 className={classnames(
@@ -53,19 +55,29 @@ export const Navbar = () => {
             </Link>
 
             <NavLink href="/event">Évenements à venir</NavLink>
-            <NavLink href="/event/create">Organiser mon événement</NavLink>
+            {session?.user && (
+              <>
+                <NavLink href="/event/create">Organiser mon événement</NavLink>
+              </>
+            )}
           </nav>
-          <MobileMenu isTop={isTop} />
+          <MobileMenu />
           <AuthDropdown />
         </div>
 
         <div className="hidden lg:inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
-          <Link href="#" className="subnav__link">
-            Ma promotion
-          </Link>
-          <Link href="#" className="subnav__link">
-            Mon école
-          </Link>
+          {session?.user ? (
+            <>
+              <Link href="#" className="subnav__link">
+                Ma promotion
+              </Link>
+              <Link href="#" className="subnav__link">
+                Mon école
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>
@@ -79,8 +91,16 @@ const NavLink = ({
   href: string;
   children: React.ReactNode;
 }) => {
+  const router = useRouter();
+  const isActive = router.pathname === href;
   return (
-    <Link href={href} className="hidden nav__link md:inline-flex">
+    <Link
+      href={href}
+      className={classnames("hidden nav__link border md:inline-flex", {
+        "border-transparent": !isActive,
+        "bg-primary text-black border-black": isActive,
+      })}
+    >
       {children}
     </Link>
   );

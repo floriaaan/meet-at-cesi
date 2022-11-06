@@ -1,9 +1,10 @@
-import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { MdChevronRight } from "react-icons/md";
-import PopperMenu from "@/components/UI/PopperMenu";
 import classNames from "classnames";
+
 import { Spinner } from "@/components/UI/Spinner";
+import { Category } from "@/components/UI/Link/Category";
+import PopperMenu from "@/components/UI/PopperMenu";
 
 export const AuthDropdown = () => {
   const { data: session, status } = useSession();
@@ -75,6 +76,10 @@ const MenuPanel = ({ open }: { open: boolean }) => {
           { name: "Mon profil", href: "/profile" },
           { name: "Mes événements", href: "/profile/events" },
           { name: "Paramètres", href: "/profile/settings" },
+          {
+            name: "Se déconnecter",
+            onClick: () => signOut(),
+          },
         ]}
       />
       <Category
@@ -89,56 +94,8 @@ const MenuPanel = ({ open }: { open: boolean }) => {
             onClick: () => signOut(),
             disabled: true,
           },
-          {
-            name: "Se déconnecter",
-            onClick: () => signOut(),
-          },
         ]}
       />
     </div>
   );
 };
-
-type CategoryOptions = {
-  name: string;
-  href?: string;
-  onClick?: () => void;
-  disabled?: boolean;
-};
-type CategoryProps = {
-  title: string;
-  options: CategoryOptions[];
-};
-const Category = ({ title, options }: CategoryProps) => (
-  <div className="flex flex-col gap-y-1">
-    <span
-      className={classNames(
-        "relative font-bold select-none",
-        "before:absolute before:bottom-0 before:h-[0.2rem] before:w-4 before:bg-primary"
-      )}
-    >
-      {title}
-    </span>
-    <div className="flex flex-col pl-4 gap-y-1">
-      {options.map(({ name, href, onClick, disabled }, i) =>
-        href ? (
-          <Link
-            key={`${title}-${i}`}
-            href={href}
-            className="p-0 font-normal normal-case nav__link">
-            {name}
-          </Link>
-        ) : (
-          <button
-            disabled={disabled || false}
-            key={`${title}-${i}`}
-            className="p-0 font-normal normal-case nav__link"
-            onClick={onClick}
-          >
-            {name}
-          </button>
-        )
-      )}
-    </div>
-  </div>
-);

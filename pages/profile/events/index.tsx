@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
 
-const ProfileSettingsPage: NextPage = () => {
+const ProfileEventsPage: NextPage = () => {
   return (
     <AppLayout>
       <ProfileLayout>{"<hello world/>"}</ProfileLayout>
@@ -11,4 +11,4 @@ const ProfileSettingsPage: NextPage = () => {
   );
 };
 
-export default ProfileSettingsPage;
+export default ProfileEventsPage;

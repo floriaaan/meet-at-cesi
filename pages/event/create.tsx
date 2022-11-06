@@ -16,6 +16,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         destination: "/",
         permanent: false,
       },
+      
     };
   }
 
