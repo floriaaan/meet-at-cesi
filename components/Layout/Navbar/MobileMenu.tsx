@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { MdClose, MdOutlineMenu } from "react-icons/md";
+import { MdClose, MdDownload, MdOutlineMenu } from "react-icons/md";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import useDelayedRender from "@/hooks/useDelayedRender";
@@ -100,39 +100,104 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
   ];
 
   return (
-    <ul
+    <>
+      <ul
+        className={classNames(
+          "top-16 fixed px-7 pt-6 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow",
+          "flex flex-col bg-white",
+          isMenuRendered ? "opacity-100" : "opacity-0"
+        )}
+      >
+        {session?.user?.name ? (
+          <li className="relative inline-flex w-full bg-primary">
+            <span className="z-10 flex items-center h-full pl-4 bg-primary w-fit">
+              <Avatar
+                user={session.user as UserMinimum}
+                className="w-16 h-16 text-xl bg-black text-primary"
+              />
+            </span>
+            <span className="relative -left-2">
+              <HeroTitle
+                text={session?.user?.name.toLowerCase()}
+                className="capitalize text-[2.5rem]"
+              />
+            </span>
+          </li>
+        ) : null}
+        {LINKS.map((data, i) => (
+          <li
+            key={i}
+            className={classNames(
+              "transition-all duration-300 ease-linear first:pt-0 py-4", // mobile-menu.module.css
+              "text-sm font-semibold border-b last:border-b-0 text-neutral-900 border-neutral-200",
+              isMenuRendered
+                ? "opacity-100 w-full translate-x-0"
+                : "opacity-0 w-0 -translate-x-4"
+            )}
+            style={{ transitionDelay: `${150 + 25 * i}ms` }}
+          >
+            <Category {...data} />
+          </li>
+        ))}
+      </ul>
+      <CallToInstallProgressiveWebApp isMenuRendered={isMenuRendered} />
+    </>
+  );
+};
+
+const CallToInstallProgressiveWebApp = ({
+  isMenuRendered,
+}: {
+  isMenuRendered: boolean;
+}) => {
+  // const [isInstallable, setIsInstallable] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   // check if the browser supports the beforeinstallprompt event
+  //   if (window.matchMedia("(display-mode: standalone)").matches) {
+  //     setIsInstallable(false);
+  //   } else {
+  //     window.addEventListener("beforeinstallprompt", (e) => {
+  //       e.preventDefault();
+  //       setIsInstallable(true);
+  //     });
+  //   }
+  // }, []);
+
+  const [dismissed, setDismissed] = useState<boolean>(false);
+
+  return (
+    <div
       className={classNames(
-        "top-16 fixed px-7 pt-6 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0",
-        "flex flex-col bg-white",
-        isMenuRendered ? "opacity-100" : "opacity-0"
+        "fixed bottom-7 left-0 w-full z-[9999] px-7 transition-opacity duration-300 ease-linear",
+        isMenuRendered && !dismissed ? "opacity-100" : "opacity-0"
       )}
+      style={{ transitionDelay: `${150 + 25 * 5}ms` }}
     >
-      {session?.user?.name ? (
-        <li className="inline-flex w-full">
-          <span className="flex items-center h-full pl-6 bg-primary w-fit">
-            <Avatar user={session.user as UserMinimum} className="w-16 h-16 text-xl bg-black text-primary" />
-          </span>
-          <HeroTitle
-            text={session?.user?.name.toLowerCase()}
-            className="capitalize"
-          />
-        </li>
-      ) : null}
-      {LINKS.map((data, i) => (
-        <li
-          key={i}
-          className={classNames(
-            "transition-all duration-300 ease-linear first:pt-0 py-4", // mobile-menu.module.css
-            "text-sm font-semibold border-b last:border-b-0 text-neutral-900 border-neutral-200",
-            isMenuRendered
-              ? "opacity-100 w-full translate-x-0"
-              : "opacity-0 w-0 -translate-x-4"
-          )}
-          style={{ transitionDelay: `${150 + 25 * i}ms` }}
-        >
-          <Category {...data} />
-        </li>
-      ))}
-    </ul>
+      <div className="flex flex-col p-3 text-white bg-black gap-y-2">
+        <div className="inline-flex justify-between w-full">
+          <h3 className="text-2xl font-bold">
+            Installer {process.env.NEXT_PUBLIC_APP_NAME}
+          </h3>
+          <button onClick={() => setDismissed(true)}>
+            <MdClose className="w-6 h-6" />
+          </button>
+        </div>
+        <p className="text-sm">
+          Pour accéder à {process.env.NEXT_PUBLIC_APP_NAME} plus rapidement,
+          installez-le sur votre appareil.
+        </p>
+        <div className="flex flex-row justify-between w-full mt-2 gap-x-2">
+          <button className="px-2 text-xs">Ne plus me demander</button>
+          <button
+            disabled
+            className="flex items-center justify-center px-4 py-2 text-xs btn__colors"
+          >
+            <MdDownload className="w-4 h-4" />
+            <span className="ml-2">Installer (bientôt)</span>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };

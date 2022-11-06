@@ -58,7 +58,7 @@
   }
 
   .btn__colors {
-    @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black;
+    @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary disabled:hover:text-black disabled:hover:border-transparent disabled:active:bg-primary disabled:active:text-black disabled:active:border-transparent;
   }
 
   .input__shadow-purple:hover {
