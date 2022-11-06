@@ -4,11 +4,14 @@ import Image from "next/image";
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { Searchbar } from "@/components/UI/Searchbar";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 /**
  * TODO: refactor this page for better splitting components
  */
 const Home: NextPage = () => {
+  const router = useRouter();
   return (
     <AppLayout>
       <section className="relative w-full h-[50vh] md:h-[70vh] lg:h-[75vh]">
@@ -31,12 +34,20 @@ const Home: NextPage = () => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const input = form[0] as HTMLInputElement;
+                if (
+                  input.value &&
+                  typeof input.value === "string" &&
+                  input.value !== ""
+                ) {
+                  router.push(`/event?name=${input.value}`);
+                }
               }}
               className="flex flex-col w-full px-4"
             >
               <Searchbar className="input__shadow-purple" />
             </form>
-
           </div>
           <div className="w-full px-8 py-6 bg-white shadow-2xl font-body">
             <span className="pb-2 pr-2 bg-white">
@@ -44,9 +55,13 @@ const Home: NextPage = () => {
             </span>
             <div className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4">
               {campusList.sort().map((campus) => (
-                <a className="btn__pill" key={campus.value}>
+                <Link
+                  href={`/event?campus=${campus.value}`}
+                  className="btn__pill"
+                  key={campus.value}
+                >
                   {campus.label}
-                </a>
+                </Link>
               ))}
             </div>
           </div>

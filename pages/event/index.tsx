@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
@@ -9,10 +9,11 @@ import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Searchbar } from "@/components/UI/Searchbar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { search } from "@/lib/fetchers";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps() {
   let events = await prisma.event.findMany({
-    include:{
+    include: {
       creator: true,
       participants: true,
     },
@@ -39,8 +40,19 @@ type Props = {
 };
 
 const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
+  const { query } = useRouter();
   const [events, setEvents] = useState<ExtendedEvent[]>(initialEvents);
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (query) {
+      setLoading(true);
+      search(query).then((events) => {
+        setEvents(events);
+        setLoading(false);
+      });
+    }
+  }, [query]);
 
   return (
     <AppLayout>

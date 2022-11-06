@@ -35,6 +35,7 @@ export default async function handler(
           audienceCampus: campus,
           title: {
             contains: name,
+            mode: "insensitive",
           },
           // proximity requires location coordinates
         },
