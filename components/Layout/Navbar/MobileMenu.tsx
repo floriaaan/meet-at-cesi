@@ -176,14 +176,14 @@ const CallToInstallProgressiveWebApp = ({
     >
       <div className="flex flex-col p-3 text-white bg-black gap-y-2">
         <div className="inline-flex justify-between w-full">
-          <h3 className="text-2xl font-bold">
+          <h3 className="text-xl font-bold">
             Installer {process.env.NEXT_PUBLIC_APP_NAME}
           </h3>
           <button onClick={() => setDismissed(true)}>
             <MdClose className="w-6 h-6" />
           </button>
         </div>
-        <p className="text-sm">
+        <p className="text-xs">
           Pour accéder à {process.env.NEXT_PUBLIC_APP_NAME} plus rapidement,
           installez-le sur votre appareil.
         </p>
