@@ -5,8 +5,12 @@ import prisma from "@/lib/prisma";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
-import { PreferencesForm } from "@/components/Profile/PreferencesForm";
+import {
+  PreferencesForm,
+  PreferencesFormValues,
+} from "@/components/Profile/PreferencesForm";
 import { ExtendedUser } from "@/types/User";
+import { editPreferences } from "@/lib/fetchers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -20,12 +24,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const user = await prisma.user.findUnique({
-    where: {
-      email: session.user?.email,
-    },
-    include: {
-      preferences: true,
-    },
+    where: { email: session.user?.email },
+    include: { preferences: true },
   });
   return {
     props: { user },
@@ -58,16 +58,21 @@ const PreferencesSection = ({
 }: {
   preferences: ExtendedUser["preferences"];
 }) => {
-  console.log(preferences);
   return (
     <div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="campus">
       <h3 className="text-xl font-bold">
         Sélection du campus et de la promotion
       </h3>
       <PreferencesForm
-        onSubmit={() => {
-          return Promise.resolve(true);
+        onSubmit={async ({ campus, promotion }) => {
+          return editPreferences({ campus, promotion });
         }}
+        initialValues={
+          {
+            campus: preferences.campus || "",
+            promotion: preferences.promotion || "",
+          } as PreferencesFormValues
+        }
       />
     </div>
   );

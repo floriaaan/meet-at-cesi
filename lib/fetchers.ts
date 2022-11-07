@@ -1,5 +1,6 @@
 import type { User } from "@prisma/client";
 import type { ExtendedEvent } from "@/types/Event";
+import type { ExtendedUser } from "@/types/User";
 
 export const participate = async (
   id: string
@@ -10,8 +11,8 @@ export const participate = async (
     body: JSON.stringify({ id }),
   });
   if (response.ok) {
-    const { participants: newParticipants } = await response.json();
-    return { participants: newParticipants };
+    const { participants } = await response.json();
+    return { participants };
   }
   return false;
 };
@@ -51,4 +52,25 @@ export const search = async ({
     return events;
   }
   return [];
+};
+
+type EditPreferencesRequest = {
+  campus?: string;
+  promotion?: string;
+};
+
+export const editPreferences = async ({
+  campus,
+  promotion,
+}: EditPreferencesRequest): Promise<{ user: ExtendedUser } | false> => {
+  const response = await fetch(`/api/user/preferences`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ campus, promotion }),
+  });
+  if (response.ok) {
+    const { user } = await response.json();
+    return { user };
+  }
+  return false;
 };

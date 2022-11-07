@@ -2,13 +2,12 @@ import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
-import Input from "@/components/UI/Form/Input";
 import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
+import { ExtendedUser } from "@/types/User";
 
 const PreferencesSchema = Yup.object().shape({
   promotion: Yup.string(),
@@ -26,7 +25,9 @@ export const PreferencesForm = ({
   onSubmit,
 }: {
   initialValues?: PreferencesFormValues;
-  onSubmit: ({}: PreferencesFormValues) => Promise<boolean | Error>;
+  onSubmit: ({}: PreferencesFormValues) => Promise<
+    { user: ExtendedUser } | false
+  >;
 }) => {
   const [disabled, setDisabled] = useState(false);
 
@@ -84,11 +85,11 @@ export const PreferencesForm = ({
             className="w-full"
           />
 
-          <div className="flex justify-end mt-4">
+          <div className="flex justify-end mt-2">
             <button
               type="submit"
               //   disabled={disabled || !isValid}
-              className="px-6 py-3 font-bold uppercase rounded-full font-body shrink-0 btn__colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Envoi en cours..." : "Modifier"}
             </button>
