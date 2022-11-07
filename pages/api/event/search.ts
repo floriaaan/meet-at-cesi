@@ -38,8 +38,8 @@ export default async function handler(
             contains: name,
             mode: "insensitive",
           },
-          audience: promotion,
-          // proximity requires location coordinates
+          audience: promotion?.split(":")[0], // todo: add year support
+          // todo: proximity requires location coordinates
         },
         include: { participants: true, creator: true },
         orderBy: { date: "asc" },
