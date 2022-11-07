@@ -1,8 +1,9 @@
 const audienceList = [
-  { value: "everyone", label: "Tout le monde" },
+  { value: "everyone", label: "Tout le monde", shortLabel: "Tout le monde" },
   {
     value: "analyste-programmeur",
     label: "Analyste Programmeur - Développeur informatique",
+    shortLabel: "Dév. informatique",
   },
 ];
 

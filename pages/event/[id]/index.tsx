@@ -98,7 +98,9 @@ const EventPage: NextPage<Props> = (props: Props) => {
           campus={
             campusList.find((c) => c.value === audienceCampus)?.label || ""
           }
-          audience={audienceList.find((a) => a.value === audience)?.label || ""}
+          audience={
+            audienceList.find((a) => a.value === audience)?.shortLabel || ""
+          }
           creator={creator}
           isParticipant={isParticipant}
           isOwner={isOwner}
