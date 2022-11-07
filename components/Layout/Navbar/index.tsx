@@ -68,10 +68,10 @@ export const Navbar = () => {
         <div className="hidden lg:inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
           {session?.user ? (
             <>
-              <Link href="#" className="subnav__link">
+              <Link href="/event?promotion=user_preferred_promotion" className="subnav__link">
                 Ma promotion
               </Link>
-              <Link href="#" className="subnav__link">
+              <Link href="/event?campus=user_preferred_campus" className="subnav__link">
                 Mon école
               </Link>
             </>

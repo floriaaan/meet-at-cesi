@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 
 import type { ExtendedEvent } from "@/types/Event";
@@ -10,8 +10,33 @@ import { Searchbar } from "@/components/UI/Searchbar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { search } from "@/lib/fetchers";
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { query } = context;
+  if (query.campus || query.promotion) {
+    const session = await getSession(context);
+    const user = await prisma.user.findUnique({
+      where: { email: session?.user?.email as string },
+      include: { preferences: true },
+    });
+    if (!user) throw new Error("User not found");
+    if (query.campus === "user_preferred_campus")
+      return {
+        redirect: {
+          destination: `/event?campus=${user.preferences?.campus}`,
+          permanent: false,
+        },
+      };
+    if (query.promotion === "user_preferred_promotion")
+      return {
+        redirect: {
+          destination: `/event?promotion=${user.preferences?.promotion}`,
+          permanent: false,
+        },
+      };
+  }
+
   let events = await prisma.event.findMany({
     include: {
       creator: true,
@@ -33,7 +58,7 @@ export async function getServerSideProps() {
       events,
     },
   };
-}
+};
 
 type Props = {
   events: ExtendedEvent[];
@@ -45,7 +70,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (query) {
+    if (query && Object.keys(query).length > 0) {
       setLoading(true);
       search(query).then((events) => {
         setEvents(events);

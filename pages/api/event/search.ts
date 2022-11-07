@@ -21,12 +21,13 @@ export default async function handler(
   // Create new home
   if (req.method === "POST") {
     try {
-      let { dateMin, dateMax, proximity, campus, name } =
+      let { dateMin, dateMax, proximity, campus, name, promotion } =
         req.body as SearchRequestInput;
       dateMin = dateMin || undefined;
       dateMax = dateMax || undefined;
       proximity = proximity || undefined;
       campus = campus || undefined;
+      promotion = promotion || undefined;
       name = name || undefined;
 
       const events = await prisma.event.findMany({
@@ -37,9 +38,11 @@ export default async function handler(
             contains: name,
             mode: "insensitive",
           },
+          audience: promotion,
           // proximity requires location coordinates
         },
         include: { participants: true, creator: true },
+        orderBy: { date: "asc" },
       });
 
       res.status(201).json({ events });

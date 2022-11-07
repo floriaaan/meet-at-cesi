@@ -32,20 +32,17 @@ export type SearchRequestInput = {
   dateMax?: string;
   proximity?: number;
   campus?: string;
+  promotion?: string;
   name?: string;
 };
 
-export const search = async ({
-  dateMin = undefined,
-  dateMax = undefined,
-  proximity = undefined,
-  campus = undefined,
-  name = undefined,
-}: SearchRequestInput): Promise<ExtendedEvent[]> => {
+export const search = async (
+  params: SearchRequestInput
+): Promise<ExtendedEvent[]> => {
   const response = await fetch(`/api/event/search`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ dateMin, dateMax, proximity, campus, name }),
+    body: JSON.stringify(params),
   });
   if (response.ok) {
     const { events } = await response.json();

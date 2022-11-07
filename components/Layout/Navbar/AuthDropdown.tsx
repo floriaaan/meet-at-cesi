@@ -12,7 +12,7 @@ export const AuthDropdown = () => {
   return (
     <>
       {status === "loading" ? (
-        <Spinner className="w-5 h-5 text-primary" />
+        <Spinner className="hidden w-5 h-5 lg:block text-primary" />
       ) : null}
       {status !== "loading" ? (
         <div

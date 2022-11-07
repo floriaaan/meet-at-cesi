@@ -11,6 +11,8 @@ import { search, SearchRequestInput } from "@/lib/fetchers";
 import campusList from "@/resources/campus-list";
 import Input from "@/components/UI/Form/Input";
 import Select from "@/components/UI/Form/Select";
+import audienceList from "@/resources/audience-list";
+import { useRouter } from "next/router";
 
 type FilterSidebarProps = {
   setEvents: (events: ExtendedEvent[]) => void;
@@ -58,6 +60,18 @@ const FILTERS_CATEGORIES: FilterCategory[] = [
       },
     ],
   },
+  {
+    label: "Promotion invitée",
+    key: "promotion",
+    inputs: [
+      {
+        name: "promotion",
+        type: "select",
+        label: "",
+        options: [{ label: "------", value: "" }, ...audienceList],
+      },
+    ],
+  },
 ];
 
 const FilterSchema = Yup.object().shape({
@@ -65,11 +79,16 @@ const FilterSchema = Yup.object().shape({
   dateMax: Yup.date().nullable(),
   proximity: Yup.number().min(0).max(50),
   campus: Yup.string().nullable(),
+  promotion: Yup.string().nullable(),
 });
 
 export type FilterValues = Yup.InferType<typeof FilterSchema>;
 const initialValues: FilterValues = {
   dateMin: undefined,
+  dateMax: undefined,
+  proximity: undefined,
+  campus: undefined,
+  promotion: undefined,
 } as unknown as FilterValues;
 
 export const FilterSidebar = ({
@@ -78,12 +97,17 @@ export const FilterSidebar = ({
 }: FilterSidebarProps) => {
   const handleChanges = async (values: FilterValues) => {
     setLoading(true);
-    const events = await search(values as SearchRequestInput);
+    const events = await search(values as unknown as SearchRequestInput);
     setEvents(events);
     setLoading(false);
   };
-
   const [smallIsOpen, setSmallIsOpen] = useState<boolean>(false);
+
+  const { query } = useRouter();
+  const { campus, promotion } = query as {
+    campus?: string;
+    promotion?: string;
+  };
 
   return (
     <div className="flex flex-col p-4 gap-y-4">
@@ -99,7 +123,10 @@ export const FilterSidebar = ({
         />
       </button>
       <Formik
-        initialValues={initialValues}
+        initialValues={
+          ({ ...initialValues, campus, promotion } as FilterValues) ||
+          initialValues
+        }
         validationSchema={FilterSchema}
         onSubmit={handleChanges}
         validate={handleChanges}
