@@ -92,10 +92,20 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
     },
     {
       title: "Événements",
-      options: [
-        { name: "Événements", href: "/event" },
-        { name: "Organiser un événement", href: "/event/create" },
-      ],
+      options: session?.user
+        ? [
+            { name: "Les événements à venir", href: "/event" },
+            { name: "Organiser un événement", href: "/event/create" },
+            {
+              name: "Les événements de mon campus",
+              href: "/event?campus=user_preferred_campus",
+            },
+            {
+              name: "Les événements de ma promotion",
+              href: "/event?promotion=user_preferred_promotion",
+            },
+          ]
+        : [{ name: "Les événements à venir", href: "/event" }],
     },
   ];
 
