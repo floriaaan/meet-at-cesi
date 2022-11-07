@@ -5,20 +5,27 @@ import { useState } from "react";
 
 import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
-import audienceList from "@/resources/audience-list";
+import audienceList, { yearsList } from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
 import { ExtendedUser } from "@/types/User";
 
 const PreferencesSchema = Yup.object().shape({
   promotion: Yup.string(),
   campus: Yup.string(),
+  promotionYear: Yup.string(),
 });
 
 export type PreferencesFormValues = Yup.InferType<typeof PreferencesSchema>;
 const initialFormValues: PreferencesFormValues = {
   promotion: "",
+  promotionYear: "",
   campus: "",
 } as unknown as PreferencesFormValues;
+
+const DEFAULT_SELECT = {
+  value: "",
+  label: "------",
+};
 
 export const PreferencesForm = ({
   initialValues = initialFormValues,
@@ -64,13 +71,22 @@ export const PreferencesForm = ({
     >
       {({ isSubmitting, isValid }) => (
         <Form className="flex flex-col w-full gap-y-1">
-          <Select
-            name="promotion"
-            label="Ma promotion"
-            options={audienceList}
-            disabled={disabled}
-            className="w-full"
-          />
+          <div className="flex flex-col w-full gap-2 lg:flex-row">
+            <Select
+              name="promotion"
+              label="Ma promotion"
+              options={[DEFAULT_SELECT, ...audienceList]}
+              disabled={disabled}
+              className="w-full lg:w-3/4"
+            />
+            <Select
+              name="promotionYear"
+              label="Année"
+              options={[DEFAULT_SELECT, ...yearsList]}
+              disabled={disabled}
+              className="w-full lg:w-1/4"
+            />
+          </div>
           <Select
             name="campus"
             label="Mon campus"

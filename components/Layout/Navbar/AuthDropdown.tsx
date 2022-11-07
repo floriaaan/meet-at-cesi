@@ -83,6 +83,21 @@ const MenuPanel = ({ open }: { open: boolean }) => {
         ]}
       />
       <Category
+        title="Événements"
+        options={[
+          { name: "À venir", href: "/event" },
+          {
+            name: "Mon campus",
+            href: "/event?campus=user_preferred_campus",
+          },
+          {
+            name: "Ma promotion",
+            href: "/event?promotion=user_preferred_promotion",
+          },
+          { name: "Organiser", href: "/event/create" },
+        ]}
+      />
+      <Category
         title="Social"
         options={[{ name: "Invitations", href: "/profile/invitations" }]}
       />

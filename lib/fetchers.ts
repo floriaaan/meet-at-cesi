@@ -54,16 +54,18 @@ export const search = async (
 type EditPreferencesRequest = {
   campus?: string;
   promotion?: string;
+  promotionYear?: string;
 };
 
 export const editPreferences = async ({
   campus,
   promotion,
+  promotionYear,
 }: EditPreferencesRequest): Promise<{ user: ExtendedUser } | false> => {
   const response = await fetch(`/api/user/preferences`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ campus, promotion }),
+    body: JSON.stringify({ campus, promotion, promotionYear }),
   });
   if (response.ok) {
     const { user } = await response.json();

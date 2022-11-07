@@ -15,7 +15,7 @@ export default async function handler(
   // Create new home
   if (req.method === "PUT") {
     try {
-      const { campus, promotion } = req.body;
+      const { campus, promotion, promotionYear } = req.body;
 
       let user = await prisma.user.findUnique({
         where: { email: session.user.email as string },
@@ -30,8 +30,8 @@ export default async function handler(
         data: {
           preferences: {
             upsert: {
-              create: { campus, promotion },
-              update: { campus, promotion },
+              create: { campus, promotion: `${promotion}:${promotionYear}` },
+              update: { campus, promotion: `${promotion}:${promotionYear}` },
             },
           },
         },

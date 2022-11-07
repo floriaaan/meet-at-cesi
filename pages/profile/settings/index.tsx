@@ -63,14 +63,21 @@ const PreferencesSection = ({
       <h3 className="text-xl font-bold">
         Sélection du campus et de la promotion
       </h3>
+      <p className="text-sm text-gray-700 whitespace-pre-line">
+        {
+          "Pour l'instant, il n'est pas possible de sélectionner plusieurs promotions.\n"
+        }
+        Merci de sélectionner la promotion la plus récente.
+      </p>
       <PreferencesForm
-        onSubmit={async ({ campus, promotion }) => {
-          return editPreferences({ campus, promotion });
+        onSubmit={async ({ campus, promotion, promotionYear }) => {
+          return editPreferences({ campus, promotion, promotionYear });
         }}
         initialValues={
           {
             campus: preferences.campus || "",
-            promotion: preferences.promotion || "",
+            promotion: preferences.promotion?.split(":")[0] || "",
+            promotionYear: preferences.promotion?.split(":")[1] || "",
           } as PreferencesFormValues
         }
       />
