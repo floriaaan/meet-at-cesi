@@ -6,5 +6,5 @@ export type UserMinimum = {
 };
 
 export type ExtendedUser = User & {
-  preferences: Preference;
+  preferences?: Preference;
 };

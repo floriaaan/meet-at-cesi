@@ -75,9 +75,9 @@ const PreferencesSection = ({
         }}
         initialValues={
           {
-            campus: preferences.campus || "",
-            promotion: preferences.promotion?.split(":")[0] || "",
-            promotionYear: preferences.promotion?.split(":")[1] || "",
+            campus: preferences?.campus || "",
+            promotion: preferences?.promotion?.split(":")[0] || "",
+            promotionYear: preferences?.promotion?.split(":")[1] || "",
           } as PreferencesFormValues
         }
       />
