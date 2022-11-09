@@ -1,16 +1,35 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { Searchbar } from "@/components/UI/Searchbar";
-import Link from "next/link";
-import { useRouter } from "next/router";
+
+const POSSIBLE_CAPTIONS = [
+  "Petite bière après les cours ? 🍻",
+  "On va réviser ? 📚",
+  "On va faire la fête ? 🎉",
+  "Ce midi, on cours 🏃‍♂️",
+];
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    props: {
+      caption:
+        POSSIBLE_CAPTIONS[Math.floor(Math.random() * POSSIBLE_CAPTIONS.length)],
+    },
+  };
+};
+
+type Props = {
+  caption: string;
+};
 
 /**
  * TODO: refactor this page for better splitting components
  */
-const Home: NextPage = () => {
+const Home: NextPage<Props> = ({ caption }) => {
   const router = useRouter();
   return (
     <AppLayout>
@@ -28,7 +47,7 @@ const Home: NextPage = () => {
       </section>
 
       <div className="relative flex flex-col items-start w-full h-full px-4 mx-auto md:px-12 xl:px-0 xl:max-w-6xl gap-y-8 -top-80">
-        <h1 className="text-7xl title">Petite bière ? 🍻</h1>
+        <h1 className="text-7xl title">{caption}</h1>
         <div className="flex flex-col w-full">
           <div className="flex flex-col items-center w-full px-4 pt-4 pb-6 bg-purple gap-y-4 lg:gap-y-0 lg:flex-row xl:pb-4 ">
             <form
