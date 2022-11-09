@@ -1,6 +1,7 @@
 import classNames from "classnames";
 
 import type { UserMinimum } from "@/types/User";
+import Image from "next/image";
 
 type AvatarProps = {
   user: UserMinimum;
@@ -12,7 +13,9 @@ export const Avatar = ({ user, className }: AvatarProps) => {
     <>
       {user.image ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
+          width={64}
+          height={64}
           src={user.image}
           alt={user.name || "Participant picture"}
           className={classNames("rounded-full", className)}

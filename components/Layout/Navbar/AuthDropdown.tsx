@@ -60,7 +60,7 @@ const MenuButton = ({ user, open }: { user?: UserMinimum; open: boolean }) =>
         open ? "border-gray-400 border-b-white relative" : "border-transparent"
       )}
     >
-      <Avatar user={user} className="w-8 h-8 mr-2" />
+      <Avatar user={user} className="w-8 h-8 mr-2 border border-black ring-white" />
       Hello {user?.name?.split(" ").at(-1)}
       <MdChevronRight
         className={classNames(
