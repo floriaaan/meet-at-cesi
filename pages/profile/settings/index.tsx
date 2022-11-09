@@ -10,7 +10,11 @@ import {
   PreferencesFormValues,
 } from "@/components/Profile/PreferencesForm";
 import { ExtendedUser } from "@/types/User";
-import { editPreferences } from "@/lib/fetchers";
+import { editPreferences, uploadImage } from "@/lib/fetchers";
+import { Image, ImageUploadForm } from "@/components/Profile/ImageUploadForm";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import toastStyle from "@/resources/toast.config";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -37,12 +41,31 @@ type Props = {
 };
 
 const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
+  const [image, setImage] = useState<Image | null>(
+    user.image
+      ? {
+          src: user.image,
+          alt: user.name || "Profile picture",
+        }
+      : null
+  );
   return (
     <AppLayout>
       <ProfileLayout>
         <section className="flex flex-col items-start w-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4">
           <HeroTitle text="Paramètres" />
           <div className="flex flex-col w-full divide-y">
+            <ImageUploadSection
+              image={image}
+              setImage={(imageUrl: string | null) => {
+                if (imageUrl)
+                  setImage({
+                    src: imageUrl,
+                    alt: user.name || "Profile picture",
+                  });
+                else setImage(null);
+              }}
+            />
             <PreferencesSection preferences={user.preferences} />
           </div>
         </section>
@@ -59,7 +82,10 @@ const PreferencesSection = ({
   preferences: ExtendedUser["preferences"];
 }) => {
   return (
-    <div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="campus">
+    <div
+      className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48"
+      id="preferences"
+    >
       <h3 className="text-xl font-bold">
         Sélection du campus et de la promotion
       </h3>
@@ -81,6 +107,40 @@ const PreferencesSection = ({
           } as PreferencesFormValues
         }
       />
+    </div>
+  );
+};
+
+type ImageUploadSectionProps = {
+  image: Image | null;
+  setImage: (image: string | null) => void;
+};
+const ImageUploadSection = ({ image, setImage }: ImageUploadSectionProps) => {
+  const upload = async (image: string | null) => {
+    if (!image) return;
+
+    let toastId;
+    try {
+      toastId = toast.loading(
+        "Mise à jour de votre photo de profil... 🫥",
+        toastStyle
+      );
+      const url = await uploadImage(image);
+      if (url) setImage(url);
+
+      toast.success("Mise à jour réussie! 🥳", { id: toastId });
+    } catch (e) {
+      toast.error("Unable to upload", { id: toastId });
+      setImage("");
+    } finally {
+      // setDisabled(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="avatar">
+      <h3 className="text-xl font-bold">Changement de photo de profil</h3>
+      <ImageUploadForm initialImage={image} onChangePicture={upload} />
     </div>
   );
 };

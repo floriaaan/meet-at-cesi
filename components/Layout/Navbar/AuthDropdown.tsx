@@ -2,9 +2,11 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { MdChevronRight } from "react-icons/md";
 import classNames from "classnames";
 
+import type { UserMinimum } from "@/types/User";
+import PopperMenu from "@/components/UI/PopperMenu";
 import { Spinner } from "@/components/UI/Spinner";
 import { Category } from "@/components/UI/Link/Category";
-import PopperMenu from "@/components/UI/PopperMenu";
+import { Avatar } from "@/components/UI/Avatar";
 
 export const AuthDropdown = () => {
   const { data: session, status } = useSession();
@@ -34,7 +36,7 @@ export const AuthDropdown = () => {
           {status === "authenticated" && session?.user && (
             <PopperMenu
               buttonChildren={({ open }) => (
-                <MenuButton name={session?.user?.name || ""} open={open} />
+                <MenuButton user={session.user as UserMinimum} open={open} />
               )}
               popperOptions={{
                 strategy: "absolute",
@@ -50,22 +52,24 @@ export const AuthDropdown = () => {
   );
 };
 
-const MenuButton = ({ name, open }: { name: string; open: boolean }) => (
-  <span
-    className={classNames(
-      "pr-2 gap-x-1 nav__link border transition-none relative bg-white z-[50]",
-      open ? "border-gray-400 border-b-white relative" : "border-transparent"
-    )}
-  >
-    Hello {name.split(" ").at(-1)}
-    <MdChevronRight
+const MenuButton = ({ user, open }: { user?: UserMinimum; open: boolean }) =>
+  user ? (
+    <span
       className={classNames(
-        "inline-block w-5 h-5 transition-transform duration-200",
-        open ? "rotate-[270deg]" : "rotate-90"
+        "pr-2 gap-x-1 nav__link border transition-none relative bg-white z-[50]",
+        open ? "border-gray-400 border-b-white relative" : "border-transparent"
       )}
-    />
-  </span>
-);
+    >
+      <Avatar user={user} className="w-8 h-8 mr-2" />
+      Hello {user?.name?.split(" ").at(-1)}
+      <MdChevronRight
+        className={classNames(
+          "inline-block w-5 h-5 transition-transform duration-200",
+          open ? "rotate-[270deg]" : "rotate-90"
+        )}
+      />
+    </span>
+  ) : null;
 
 const MenuPanel = ({ open }: { open: boolean }) => {
   return (

@@ -11,7 +11,6 @@ export const ProfileLayoutSidebar = () => {
     <aside className="hidden h-full w-72 md:block" aria-label="Sidebar">
       <div className="flex flex-col justify-between h-full px-6 py-4 overflow-y-auto bg-gray-50 ">
         <ul className="flex flex-col gap-y-2">
-
           <Category
             title="Mon compte"
             options={[
@@ -29,8 +28,12 @@ export const ProfileLayoutSidebar = () => {
             title="Paramètres"
             options={[
               {
+                name: "Changement de photo de profil",
+                href: "/profile/settings#avatar",
+              },
+              {
                 name: "Sélection du campus et de la promotion",
-                href: "/profile/settings#campus",
+                href: "/profile/settings#preferences",
               },
             ]}
           />

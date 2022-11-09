@@ -73,3 +73,16 @@ export const editPreferences = async ({
   }
   return false;
 };
+
+export const uploadImage = async (image: string): Promise<string | false> => {
+  const res = await fetch("/api/user/image-upload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ image }),
+  });
+  const { url } = await res.json();
+  if (res.ok) return url;
+  return false;
+};
