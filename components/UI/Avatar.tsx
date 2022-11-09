@@ -12,13 +12,12 @@ export const Avatar = ({ user, className }: AvatarProps) => {
   return (
     <>
       {user.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
         <Image
           width={64}
           height={64}
           src={user.image}
           alt={user.name || "Participant picture"}
-          className={classNames("rounded-full", className)}
+          className={classNames("rounded-full border border-black", className)}
         />
       ) : (
         <span
