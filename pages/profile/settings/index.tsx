@@ -10,7 +10,7 @@ import {
   PreferencesFormValues,
 } from "@/components/Profile/PreferencesForm";
 import { ExtendedUser } from "@/types/User";
-import { editPreferences, uploadImage } from "@/lib/fetchers";
+import { deleteImage, editPreferences, uploadImage } from "@/lib/fetchers";
 import { Image, ImageUploadForm } from "@/components/Profile/ImageUploadForm";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -58,7 +58,7 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
             <ImageUploadSection
               image={image}
               setImage={(imageUrl: string | null) => {
-                if (imageUrl)
+                if (imageUrl !== null)
                   setImage({
                     src: imageUrl,
                     alt: user.name || "Profile picture",
@@ -121,26 +121,41 @@ const ImageUploadSection = ({ image, setImage }: ImageUploadSectionProps) => {
 
     let toastId;
     try {
-      toastId = toast.loading(
-        "Mise à jour de votre photo de profil... 🫥",
-        toastStyle
-      );
+      toastId = toast.loading("Mise à jour de votre photo... 🫥", toastStyle);
       const url = await uploadImage(image);
       if (url) setImage(url);
 
       toast.success("Mise à jour réussie! 🥳", { id: toastId });
     } catch (e) {
       toast.error("Unable to upload", { id: toastId });
-      setImage("");
-    } finally {
-      // setDisabled(false);
+      setImage(null);
+    }
+  };
+
+  const remove = async () => {
+    if (!image) return;
+    let toastId;
+    try {
+      toastId = toast.loading("Suppression de votre photo... 🫥", toastStyle);
+      const result = await deleteImage();
+      console.log(result);
+      if (result) setImage(null);
+
+      toast.success("Suppression réussie! 🥳", { id: toastId });
+    } catch (e) {
+      toast.error("Unable to delete", { id: toastId });
+      setImage(null);
     }
   };
 
   return (
     <div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="avatar">
       <h3 className="text-xl font-bold">Changement de photo de profil</h3>
-      <ImageUploadForm initialImage={image} onChangePicture={upload} />
+      <ImageUploadForm
+        initialImage={image}
+        onChangeImage={upload}
+        deleteImage={remove}
+      />
     </div>
   );
 };

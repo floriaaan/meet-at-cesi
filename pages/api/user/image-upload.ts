@@ -83,9 +83,49 @@ export default async function handler(
       res.status(500).json({ message: "Something went wrong" });
     }
   }
+
+  if (req.method === "DELETE") {
+    const session = await getSession({ req });
+    if (!session) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    let user = await prisma.user.findUnique({
+      where: { email: session.user?.email as string },
+    });
+    const { id: userId, image } = user || {};
+    if (!user || !userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    if (!image) {
+      return res.status(200).json({ message: "No image to delete" });
+    }
+
+    try {
+      // Delete image in storage
+      const { error } = await storage
+        .from(process.env.STORAGE_BUCKET_NAME as string)
+        .remove([`${userId}/${image.split("/").pop()}`]);
+
+      if (error) {
+        throw new Error("Unable to delete image in storage");
+      }
+      // Delete user profile image
+      user = await prisma.user.update({
+        where: { id: userId },
+        data: {
+          image: null,
+        },
+      });
+
+      return res.status(200).json({ user });
+    } catch (e) {
+      res.status(500).json({ message: "Something went wrong" });
+    }
+  }
   // HTTP method not supported!
   else {
-    res.setHeader("Allow", ["POST"]);
+    res.setHeader("Allow", ["POST", "DELETE"]);
     res
       .status(405)
       .json({ message: `HTTP method ${req.method} is not supported.` });

@@ -11,14 +11,16 @@ export type Image = {
 
 type ImageUploadFormProps = {
   initialImage?: Image | null;
-  onChangePicture: (image: string | null) => Promise<void>;
+  onChangeImage: (image: string | null) => Promise<void>;
+  deleteImage: () => Promise<void>;
 
   sizeLimit?: number;
   accept?: string;
 };
 export const ImageUploadForm = ({
   initialImage = null,
-  onChangePicture,
+  onChangeImage,
+  deleteImage,
 
   accept = ".png, .jpg, .jpeg, .gif",
   sizeLimit = 10 * 1024 * 1024, // 10MB
@@ -40,8 +42,8 @@ export const ImageUploadForm = ({
       async function () {
         try {
           setImage({ src: reader.result?.toString() || "", alt: fileName });
-          if (typeof onChangePicture === "function") {
-            await onChangePicture(reader.result?.toString() || null);
+          if (typeof onChangeImage === "function") {
+            await onChangeImage(reader.result?.toString() || null);
           }
         } catch (err) {
           toast.error("Unable to update image");
@@ -74,15 +76,15 @@ export const ImageUploadForm = ({
         {"Téléversement d'une nouvelle photo de profil"}
       </label>
 
-      <div className="inline-flex items-center">
+      <div className="flex flex-col gap-2 md:flex-row md:items-end">
         <button
           disabled={updatingPicture}
           onClick={handleOnClickPicture}
           className={classNames(
-            "relative aspect-square w-32 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transition group focus:outline-none",
+            "relative aspect-square w-32 p-2 border-2 border-dashed border-black overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transition group focus:outline-none",
             image?.src
               ? "hover:opacity-50 disabled:hover:opacity-100"
-              : "border-2 border-dashed hover:border-gray-400 focus:border-gray-400 disabled:hover:border-gray-200"
+              : "hover:border-gray-400 focus:border-gray-400 disabled:hover:border-gray-200"
           )}
         >
           {image?.src ? (
@@ -97,11 +99,11 @@ export const ImageUploadForm = ({
           <div className="flex items-center justify-center">
             {!image?.src ? (
               <div className="flex flex-col items-center space-y-2">
-                <div className="p-2 transition bg-gray-200 rounded-full shrink-0 group-hover:scale-110 group-focus:scale-110">
-                  <MdUploadFile className="w-4 h-4 text-gray-500 transition" />
+                <div className="p-2 text-black transition bg-gray-200 group-hover:text-gray-700 shrink-0 group-hover:scale-110 group-focus:scale-110">
+                  <MdUploadFile className="w-4 h-4 transition" />
                 </div>
-                <span className="text-xs font-semibold text-gray-500 transition">
-                  {updatingPicture ? "Uploading..." : "Upload"}
+                <span className="text-xs font-semibold transition">
+                  {updatingPicture ? "Chargement..." : "Ajouter une photo"}
                 </span>
               </div>
             ) : null}
@@ -114,6 +116,24 @@ export const ImageUploadForm = ({
             />
           </div>
         </button>
+
+        {image?.src ? (
+          <button
+            onClick={deleteImage}
+            className="btn-red w-fit hover:border-transparent"
+          >
+            Supprimer
+          </button>
+        ) : null}
+      </div>
+      <div className="flex flex-col gap-0.5 text-sm">
+        <div className="inline-flex items-center gap-x-1">
+          Extensions de fichiers autorisés: <strong>{accept}</strong>
+        </div>
+        <div className="inline-flex items-center gap-x-1">
+          Taillé maximum:{" "}
+          <strong>{Math.floor(sizeLimit / 1024 / 1024)}MB</strong>
+        </div>
       </div>
 
       {pictureError ? (

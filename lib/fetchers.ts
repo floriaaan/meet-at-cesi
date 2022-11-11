@@ -86,3 +86,14 @@ export const uploadImage = async (image: string): Promise<string | false> => {
   if (res.ok) return url;
   return false;
 };
+
+export const deleteImage = async (): Promise<boolean> => {
+  const res = await fetch("/api/user/image-upload", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (res.ok) return true;
+  return false;
+};
