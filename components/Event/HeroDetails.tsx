@@ -24,7 +24,7 @@ export const HeroDetails = ({
 }) => {
   return (
     <div className="flex flex-col items-start justify-start px-6 py-2 -mt-4 text-sm font-bold md:-mt-12 lg:mt-0 md:px-2 md:items-end whitespace-nowrap bg-primary">
-      <div className="inline-flex items-center text-black gap-x-1">
+      <div className="inline-flex items-start text-black whitespace-pre-wrap gap-x-1">
         <MdLocationPin className="w-4 h-4" />
         {location}
       </div>

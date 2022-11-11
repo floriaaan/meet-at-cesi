@@ -16,25 +16,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
   if (query.campus || query.promotion) {
     const session = await getSession(context);
-    const user = await prisma.user.findUnique({
-      where: { email: session?.user?.email as string },
-      include: { preferences: true },
-    });
-    if (!user) throw new Error("User not found");
-    if (query.campus === "user_preferred_campus")
-      return {
-        redirect: {
-          destination: `/event?campus=${user.preferences?.campus}`,
-          permanent: false,
-        },
-      };
-    if (query.promotion === "user_preferred_promotion")
-      return {
-        redirect: {
-          destination: `/event?promotion=${user.preferences?.promotion}`,
-          permanent: false,
-        },
-      };
+    if (session?.user?.email) {
+      const user = await prisma.user.findUnique({
+        where: { email: session?.user?.email as string },
+        include: { preferences: true },
+      });
+      if (!user) throw new Error("User not found");
+      if (query.campus === "user_preferred_campus")
+        return {
+          redirect: {
+            destination: `/event?campus=${user.preferences?.campus}`,
+            permanent: false,
+          },
+        };
+      if (query.promotion === "user_preferred_promotion")
+        return {
+          redirect: {
+            destination: `/event?promotion=${user.preferences?.promotion}`,
+            permanent: false,
+          },
+        };
+    }
   }
 
   let events = await prisma.event.findMany({

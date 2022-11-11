@@ -5,6 +5,8 @@ import Link from "next/link";
 
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { HeroDetails } from "@/components/Event/HeroDetails";
+import { MdChevronLeft } from "react-icons/md";
+import { useRouter } from "next/router";
 
 export const HeroSection = ({
   id,
@@ -32,10 +34,11 @@ export const HeroSection = ({
 
   participate: () => void;
 }) => {
+  const router = useRouter();
   return (
     <div className="flex flex-col w-full">
       <div className="inline-flex items-end justify-between w-full">
-        <div className="overflow-hidden text-white uppercase">
+        <div className="inline-flex items-end overflow-hidden text-white uppercase">
           <div
             className={classNames(
               "hidden sm:inline-block", // responsive : hidden on small screens like mobile
@@ -75,13 +78,20 @@ export const HeroSection = ({
           </div>
         </div>
 
-        <div className="flex flex-col items-end ml-2 md:gap-2 md:flex-row md:pr-2 lg:ml-0">
+        <div className="flex flex-row items-end justify-between w-full md:ml-2 sm:w-auto sm:gap-2 sm:justify-start md:pr-2 lg:ml-0">
+          <button
+            onClick={() => router.back()}
+            className="btn-black w-fit pl-2.5 min-w-fit py-2.5 sm:ml-5"
+          >
+            <MdChevronLeft className="w-4 h-4" />
+            Retour
+          </button>
           {isOwner && (
-            <Link href={`/event/${id}/edit`} className="py-2.5 btn-black">
+            <Link href={`/event/${id}/edit`} className="py-2.5 btn-black w-fit">
               Modifier
             </Link>
           )}
-          <button className="py-2.5 btn-black" onClick={() => participate()}>
+          <button className="py-2.5 btn-black w-fit" onClick={() => participate()}>
             {isParticipant ? "Ne plus participer" : "Participer"}
           </button>
         </div>

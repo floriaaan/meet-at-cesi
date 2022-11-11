@@ -20,7 +20,7 @@ export const ParticipantCard = ({
     >
       <Avatar
         user={participant}
-        className={style === "grid" ? "w-16 h-16 text-xl" : "w-8 h-8 text-xs"}
+        className={style === "grid" ? "w-16 h-16 text-xl border-2" : "w-8 h-8 text-xs"}
       />
       <p
         className={classNames(" h-fit font-bold truncate w-4/5", {

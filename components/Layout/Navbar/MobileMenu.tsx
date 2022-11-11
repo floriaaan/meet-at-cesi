@@ -32,20 +32,35 @@ export const MobileMenu = () => {
     };
   }, []);
 
+  const { data: session } = useSession();
+
   return (
     <>
       <button
         className="inline-flex items-center md:hidden gap-x-3"
         onClick={toggleMenu}
       >
-        <span className="underline underline-offset-2">Menus</span>
-        <span className="flex items-center justify-center rounded-full w-9 h-9 btn__colors">
-          {!isMenuOpen ? (
-            <MdOutlineMenu className="w-4 h-4" />
-          ) : (
-            <MdClose className="w-4 h-4" />
-          )}
+        <span className="underline underline-offset-2">
+          {session?.user ? "Menus" : "Se connecter"}
         </span>
+        {!isMenuOpen ? (
+          <>
+            {session?.user ? (
+              <Avatar
+                user={session.user as UserMinimum}
+                className="w-9 h-9 shrink-0"
+              />
+            ) : (
+              <span className="flex items-center justify-center rounded-full shrink-0 w-9 h-9 btn__colors">
+                <MdOutlineMenu className="w-4 h-4" />
+              </span>
+            )}
+          </>
+        ) : (
+          <span className="flex items-center justify-center rounded-full shrink-0 w-9 h-9 btn__colors">
+            <MdClose className="w-4 h-4" />
+          </span>
+        )}
       </button>
       {isMenuOpen ? <MobileMenuPanel isMenuRendered={isMenuRendered} /> : null}
     </>
