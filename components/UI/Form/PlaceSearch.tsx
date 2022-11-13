@@ -68,7 +68,7 @@ export const PlaceSearch = ({
   };
 
   return (
-    <div className={classNames(className, "flex flex-col space-y-1")}>
+    <div className={classNames(className, "flex flex-col space-y-1 relative")}>
       {label ? (
         <label htmlFor={field.name} className="font-bold text-black font-body">
           {label}
@@ -99,7 +99,7 @@ export const PlaceSearch = ({
       </div>
 
       {isOpen ? (
-        <div className="relative z-10 flex flex-col">
+        <div className="absolute z-10 flex flex-col w-full -bottom-1">
           {suggestions ? (
             <ul className="absolute w-full p-2 bg-white border border-gray-300 shadow-lg">
               {suggestions.map((s) => (

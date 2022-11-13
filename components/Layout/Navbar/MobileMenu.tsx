@@ -96,15 +96,15 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
             },
           ],
         },
-    {
-      title: "Navigation",
-      options: [
-        {
-          name: "Accueil",
-          href: "/",
-        },
-      ],
-    },
+    // {
+    //   title: "Navigation",
+    //   options: [
+    //     {
+    //       name: "Accueil",
+    //       href: "/",
+    //     },
+    //   ],
+    // },
     {
       title: "Événements",
       options: session?.user
