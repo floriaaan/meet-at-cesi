@@ -1,6 +1,4 @@
-import type { MapFeature } from "@/components/Event/MapSection";
-
-export const Map = ({ location }: { location: MapFeature }) => {
+export const Map = ({ location }: { location: string }) => {
   return (
     <iframe
       width="100%"
@@ -9,7 +7,7 @@ export const Map = ({ location }: { location: MapFeature }) => {
       scrolling="no"
       marginHeight={0}
       marginWidth={0}
-      src={`https://maps.google.com/maps?q=${location.properties.name}%20${location.properties.context}&z=14&amp&output=embed`}
+      src={`https://maps.google.com/maps?q=${location}&z=14&amp&output=embed`}
     ></iframe>
   );
 };

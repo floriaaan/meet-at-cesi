@@ -15,23 +15,24 @@ export type MapFeature = {
 };
 
 export const MapSection = ({ location }: { location: string }) => {
-  const {
-    data,
-    loading,
-    error,
-  }: {
-    data?: { features: MapFeature[] };
-    loading: boolean;
-    error?: any;
-  } = useFetchXHR(`https://api-adresse.data.gouv.fr/search/?q=${location}`);
-  const fetchedLocation = data?.features[0];
+  // const {
+  //   data,
+  //   loading,
+  //   error,
+  // }: {
+  //   data?: { features: MapFeature[] };
+  //   loading: boolean;
+  //   error?: any;
+  // } = useFetchXHR(`https://api-adresse.data.gouv.fr/search/?q=${location}`);
+  // const fetchedLocation = data?.features[0];
 
   return (
     <div className="w-full p-4 bg-black">
       <div className="w-full h-96">
-        {loading && <p>Chargement...</p>}
+        {/* {loading && <p>Chargement...</p>}
         {error && <p>Erreur</p>}
-        {fetchedLocation && <Map location={fetchedLocation} />}
+        {fetchedLocation && <Map location={fetchedLocation} />} */}
+        <Map location={location} />
       </div>
     </div>
   );
