@@ -1,6 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 
+import {
+  applyMiddleware,
+  getRateLimitMiddlewares,
+} from "@/middlewares/rateLimit";
+
+const middlewares = getRateLimitMiddlewares({ limit: 10 }).map(applyMiddleware);
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -9,6 +16,12 @@ export default async function handler(
   const session = await getSession({ req });
   if (!session || !session.user) {
     return res.status(401).json({ message: "Unauthorized." });
+  }
+
+  try {
+    await Promise.all(middlewares.map((middleware) => middleware(req, res)));
+  } catch {
+    return res.status(429).send("Too Many Requests");
   }
 
   // Create new home

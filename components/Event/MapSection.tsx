@@ -1,18 +1,4 @@
-import { useFetchXHR } from "@/hooks/useFetchXHR";
 import { Map } from "@/components/Event/Map";
-
-export type MapFeature = {
-  geometry: {
-    coordinates: [number, number];
-  };
-  properties: {
-    name: string;
-    score: number;
-    postcode: string;
-    city: string;
-    context: string;
-  };
-};
 
 export const MapSection = ({ location }: { location: string }) => {
   // const {
