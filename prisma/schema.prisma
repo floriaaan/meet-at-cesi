@@ -73,6 +73,7 @@ model Event {
   id             String   @id @default(cuid())
   title          String
   location       String
+  coordinates    Float[]
   date           DateTime
   audience       String
   audienceCampus String

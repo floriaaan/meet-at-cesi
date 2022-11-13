@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
+import { MapFeature } from "@/types/Event";
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,7 +26,18 @@ export default async function handler(
         return res.status(404).json({ message: "User not found." });
       }
 
-      // @ts-ignore
+      // Destrucure location object to get coordinates
+      const {
+        features: [
+          {
+            geometry: { coordinates },
+          },
+        ],
+      } = (await (
+        await fetch(`https://api-adresse.data.gouv.fr/search/?q=${location}`)
+      ).json()) as { features: MapFeature[] };
+      const [lng, lat] = coordinates;
+
       const event = await prisma.event.create({
         data: {
           title,
@@ -33,15 +45,14 @@ export default async function handler(
           date: new Date(date),
           audience,
           audienceCampus,
+          coordinates: [lat, lng],
           creatorId: user.id,
         },
       });
 
-      
-
       res.status(201).json(event);
     } catch (e) {
-        console.error(e)
+      console.error(e);
       res.status(500).json({ message: e instanceof Error ? e.message : e });
     }
   }

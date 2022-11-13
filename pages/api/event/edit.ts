@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
+import { MapFeature } from "@/types/Event";
 
 export default async function handler(
   req: NextApiRequest,
@@ -36,6 +37,18 @@ export default async function handler(
         return res.status(401).json({ message: "Unauthorized." });
       }
 
+      // Destrucure location object to get coordinates
+      const {
+        features: [
+          {
+            geometry: { coordinates },
+          },
+        ],
+      } = (await (
+        await fetch(`https://api-adresse.data.gouv.fr/search/?q=${location}`)
+      ).json()) as { features: MapFeature[] };
+      const [lng, lat] = coordinates;
+
       // @ts-ignore
       event = await prisma.event.update({
         where: { id },
@@ -45,6 +58,7 @@ export default async function handler(
           date: new Date(date),
           audience,
           audienceCampus,
+          coordinates: [lat, lng],
           creatorId: user.id,
         },
       });

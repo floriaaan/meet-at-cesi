@@ -10,6 +10,7 @@ import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
+import { PlaceSearch } from "../UI/Form/PlaceSearch";
 
 const EventSchema = Yup.object().shape({
   title: Yup.string()
@@ -108,7 +109,7 @@ export const EventForm = ({
             disabled={disabled}
           />
           <div className="flex flex-col items-center w-full gap-2 md:flex-row">
-            <Input
+            <PlaceSearch
               name="location"
               type="text"
               label="Emplacement de l'événement"

@@ -97,3 +97,10 @@ export const deleteImage = async (): Promise<boolean> => {
   if (res.ok) return true;
   return false;
 };
+
+export const getPlaceSuggestions = async (query: string) => {
+  const res = await fetch(`/api/event/places?query=${query}`);
+  const { predictions } = await res.json();
+  if (res.ok) return predictions;
+  return [];
+};
