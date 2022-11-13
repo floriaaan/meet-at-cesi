@@ -10,7 +10,7 @@ export const applyMiddleware =
       );
     });
 
-const getIP = (request: NextApiRequest): string =>
+const getIP = (request: any): string =>
   //   request.ip ||
   (request.headers["x-forwarded-for"] ||
     request.headers["x-real-ip"] ||
