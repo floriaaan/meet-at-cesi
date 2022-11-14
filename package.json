@@ -16,6 +16,7 @@
     "@popperjs/core": "^2.11.6",
     "@prisma/client": "^4.4.0",
     "@supabase/supabase-js": "^2.0.5",
+    "@vercel/analytics": "^0.1.4",
     "base64-arraybuffer": "^1.0.2",
     "classnames": "^2.3.2",
     "express-rate-limit": "^6.6.0",

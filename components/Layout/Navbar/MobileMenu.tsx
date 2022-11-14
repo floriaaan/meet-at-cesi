@@ -76,7 +76,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
           title: "Mon compte",
           options: [
             { name: "Mon profil", href: "/profile" },
-            { name: "Mes événements", href: "/profile/events" },
+            { name: "Mes événements", href: "/profile#events" },
             { name: "Paramètres", href: "/profile/settings" },
             {
               name: "Se déconnecter",
@@ -128,7 +128,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
     <>
       <ul
         className={classNames(
-          "top-16 fixed px-7 pt-6 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow",
+          "top-16 fixed px-4 pt-7 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow",
           "flex flex-col bg-white",
           isMenuRendered ? "opacity-100" : "opacity-0"
         )}

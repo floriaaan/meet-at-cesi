@@ -36,7 +36,7 @@ export const Category = ({ title, options, titleClassName }: CategoryProps) => {
               key={`${title}-${i}`}
               href={href}
               className={classNames(
-                "p-0 font-normal normal-case nav__link",
+                "p-1 md:p-0 font-normal normal-case nav__link",
                 asPath === href && "underline decoration-dotted"
               )}
             >
@@ -46,7 +46,7 @@ export const Category = ({ title, options, titleClassName }: CategoryProps) => {
             <button
               disabled={disabled || false}
               key={`${title}-${i}`}
-              className="p-0 font-normal normal-case nav__link"
+              className="p-1 font-normal normal-case md:p-0 nav__link"
               onClick={onClick}
             >
               {name}
