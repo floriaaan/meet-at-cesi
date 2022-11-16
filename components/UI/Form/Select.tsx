@@ -1,14 +1,22 @@
 import classNames from "classnames";
 import { FieldHookConfig, useField } from "formik";
-import { HiChevronDown } from "react-icons/hi2";
 import { MdChevronRight } from "react-icons/md";
 
 type SelectProps = FieldHookConfig<string> & {
+  labelClassName?: string;
   label: string;
   options: { value: string; label: string }[];
+  canHaveError?: boolean;
 };
 
-const Select = ({ label, className = "", options, ...props }: SelectProps) => {
+const Select = ({
+  label,
+  labelClassName,
+  className = "",
+  options,
+  canHaveError = true,
+  ...props
+}: SelectProps) => {
   const [field, meta, helpers] = useField(
     props as FieldHookConfig<any>
   ) as unknown as [
@@ -25,7 +33,10 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
   return (
     <div className={classNames(className, "flex flex-col space-y-1")}>
       {label ? (
-        <label htmlFor={field.name} className="font-bold text-black font-body">
+        <label
+          htmlFor={field.name}
+          className={labelClassName || "font-bold text-black font-body"}
+        >
           {label}
         </label>
       ) : null}
@@ -53,14 +64,16 @@ const Select = ({ label, className = "", options, ...props }: SelectProps) => {
         </div>
       </div>
 
-      <p
-        className={classNames("text-sm first-letter:uppercase", {
-          "text-red-600": error,
-          "lg:h-5": !error || !meta.touched,
-        })}
-      >
-        {error || " "}
-      </p>
+      {canHaveError && (
+        <p
+          className={classNames("text-sm first-letter:uppercase", {
+            "text-red-600": error,
+            "lg:h-5": !error || !meta.touched,
+          })}
+        >
+          {error || " "}
+        </p>
+      )}
     </div>
   );
 };

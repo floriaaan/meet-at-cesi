@@ -6,12 +6,14 @@ import { useRef, useState } from "react";
 import { HiExclamationCircle } from "react-icons/hi2";
 
 type InputProps = FieldHookConfig<string> & {
+  labelClassName?: string;
   label: string;
   type: string;
 };
 
 export const PlaceSearch = ({
   label,
+  labelClassName,
   type,
   className = "",
   ...props
@@ -70,7 +72,10 @@ export const PlaceSearch = ({
   return (
     <div className={classNames(className, "flex flex-col space-y-1 relative")}>
       {label ? (
-        <label htmlFor={field.name} className="font-bold text-black font-body">
+        <label
+          htmlFor={field.name}
+          className={labelClassName || "font-bold text-black font-body"}
+        >
           {label}
         </label>
       ) : null}

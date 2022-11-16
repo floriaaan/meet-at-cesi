@@ -4,10 +4,17 @@ import { HiExclamationCircle } from "react-icons/hi2";
 
 type InputProps = FieldHookConfig<string> & {
   label: string;
+  labelClassName?: string;
   type: string;
 };
 
-const Input = ({ label, type, className = "", ...props }: InputProps) => {
+const Input = ({
+  label,
+  labelClassName,
+  type,
+  className = "",
+  ...props
+}: InputProps) => {
   const [field, meta, helpers] = useField(
     props as FieldHookConfig<any>
   ) as unknown as [
@@ -24,7 +31,10 @@ const Input = ({ label, type, className = "", ...props }: InputProps) => {
   return (
     <div className={classNames(className, "flex flex-col space-y-1")}>
       {label ? (
-        <label htmlFor={field.name} className="font-bold text-black font-body">
+        <label
+          htmlFor={field.name}
+          className={labelClassName || "font-bold text-black font-body"}
+        >
           {label}
         </label>
       ) : null}
