@@ -63,13 +63,13 @@ export const PreferencesPopup = () => {
 
   useEffect(() => {
     if (show) {
-      document.body.classList.add("xs:overflow-hidden");
+      document.body.classList.add("blocking__popup");
     } else {
-      document.body.classList.remove("xs:overflow-hidden");
+      document.body.classList.remove("blocking__popup");
     }
 
     return function cleanup() {
-      document.body.classList.remove("xs:overflow-hidden");
+      document.body.classList.remove("blocking__popup");
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
