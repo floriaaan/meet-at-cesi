@@ -91,7 +91,7 @@ export const PreferencesPopup = () => {
         }}
         optionalButton={
           <button
-            type="submit"
+            type="button"
             onClick={dismiss}
             className="pb-2 text-xs underline underline-offset-2"
           >
