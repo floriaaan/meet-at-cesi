@@ -1,16 +1,16 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { EventList } from "@/components/Event/List";
 import { HeroTitle } from "@/components/UI/HeroTitle";
-import { Searchbar } from "@/components/UI/Searchbar";
+import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { search } from "@/lib/fetchers";
-import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -116,7 +116,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
               }}
               className="w-full xl:w-4/5"
             >
-              <Searchbar className="border border-black" loading={loading} />
+              <SearchBar className="border border-black" loading={loading} />
             </form>
           </div>
           <EventList className="w-full mt-2 sm:px-4 md:mt-6" events={events} />

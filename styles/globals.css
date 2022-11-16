@@ -73,8 +73,12 @@
 }
 
 body {
-  @apply text-black bg-white font-body selection:bg-primary;
+  @apply  text-black bg-white font-body selection:bg-primary;
   text-decoration-thickness: 1px !important;
+}
+
+body.xs\:overflow-hidden {
+  @apply overflow-hidden xs:overflow-auto;
 }
 
 .shadow__button-purple {

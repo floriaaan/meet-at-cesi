@@ -61,7 +61,7 @@ export const editPreferences = async ({
   campus,
   promotion,
   promotionYear,
-}: EditPreferencesRequest): Promise<{ user: ExtendedUser } | boolean> => {
+}: EditPreferencesRequest): Promise<{ user: ExtendedUser } | false> => {
   const response = await fetch(`/api/user/preferences`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },

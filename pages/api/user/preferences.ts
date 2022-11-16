@@ -52,10 +52,8 @@ export default async function handler(
             preferences: undefined,
           } as ExtendedUser;
 
-          return res.status(202).json({ user });
-        } else {
-          return res.status(200).json({ message: "No preferences to delete." });
-        }
+          return res.status(200).json({ user });
+        } else return res.status(200).json({ user });
       }
 
       user = await prisma.user.update({

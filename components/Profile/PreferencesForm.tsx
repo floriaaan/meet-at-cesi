@@ -32,7 +32,7 @@ type Props = {
   labelClassName?: string;
   initialValues?: PreferencesFormValues;
   onSubmit: ({}: PreferencesFormValues) => Promise<
-    { user: ExtendedUser } | boolean
+    { user: ExtendedUser } | false
   >;
   optionalButton?: JSX.Element;
   submitClassName?: string;
@@ -45,7 +45,10 @@ export const PreferencesForm = ({
   optionalButton,
   submitClassName,
 }: Props) => {
-  const [, setCookie] = useCookies(["meet-preferences_dismissed"]);
+  const [, setCookie] = useCookies([
+    "meet-preferences",
+    "meet-preferences_dismissed",
+  ]);
   const [disabled, setDisabled] = useState(false);
 
   const handleOnSubmit = async (values: PreferencesFormValues) => {
@@ -57,10 +60,22 @@ export const PreferencesForm = ({
       if (typeof onSubmit === "function") {
         onSubmit(values).then((result) => {
           if (result && !(result instanceof Error)) {
-            toast.success("Modification réussie 🥸", { id: toastId });
-            setCookie("meet-preferences_dismissed", "true", { path: "/" });
+            if (result.user.preferences) {
+              toast.success("Modification réussie 🥸", { id: toastId });
+              setCookie("meet-preferences", result.user.preferences, {
+                path: "/",
+                maxAge: 60 * 60 * 24 * 365,
+              });
+              setCookie("meet-preferences_dismissed", "true", { path: "/" });
+            } else {
+              toast.success("Suppression réussie 🥸", { id: toastId });
+              setCookie("meet-preferences", undefined, { path: "/" });
+              setCookie("meet-preferences_dismissed", "false", { path: "/" });
+            }
           } else
             toast.error("Erreur lors de la modification 😭", { id: toastId });
+
+          setDisabled(false);
         });
       }
       // Redirect user
