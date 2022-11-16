@@ -23,7 +23,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 const EventCreatePage: NextPage = () => {
   return (
     <AppLayout>
-      <section className="flex flex-col items-start h-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-8">
+      <section className="flex flex-col items-start h-auto px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-8">
         <HeroTitle text="Organiser un événement" />
         <EventForm
           onSubmit={async (values: EventFormValues) => {

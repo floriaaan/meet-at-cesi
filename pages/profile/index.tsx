@@ -54,6 +54,18 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
 
 export default ProfileIndexPage;
 
+const getCampusLabel = (campus: string | undefined) =>
+  campusList.find((c) => c.value === campus)?.label || "Campus inconnu.";
+
+const getPromotionLabel = (promotion: string | undefined) => {
+  if (!promotion) return "Promotion inconnue.";
+  const [audience, year] = promotion.split(":");
+  const audienceLabel = audienceList.find(
+    (a) => a.value === audience
+  )?.shortLabel;
+  return `${audienceLabel} ${year}`;
+};
+
 const ProfileCard = ({ user }: { user: ExtendedUser }) => {
   return (
     <div className="relative inline-flex w-full bg-primary">
@@ -72,17 +84,9 @@ const ProfileCard = ({ user }: { user: ExtendedUser }) => {
 
         <div className="relative z-10 flex flex-col truncate left-6 -top-6 md:-top-10">
           <strong className="text-xs uppercase md:text-base">
-            {`${
-              campusList.find((c) => c.value === user.preferences?.campus)
-                ?.label || "Campus inconnu."
-            } - ${
-              audienceList.find(
-                (a) => a.value === user.preferences?.promotion.split(":")[0]
-              )?.shortLabel +
-                " " +
-                user.preferences?.promotion.split(":")[1] ||
-              "Promotion inconnue."
-            }`}
+            {`${getCampusLabel(user.preferences?.campus)} - ${getPromotionLabel(
+              user.preferences?.promotion
+            )}`}
           </strong>
           {/* <span>inscrit depuis le {user.}</span> */}
         </div>

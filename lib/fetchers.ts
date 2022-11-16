@@ -1,4 +1,4 @@
-import type { User } from "@prisma/client";
+import type { Preference, User } from "@prisma/client";
 import type { ExtendedEvent } from "@/types/Event";
 import type { ExtendedUser } from "@/types/User";
 
@@ -61,7 +61,7 @@ export const editPreferences = async ({
   campus,
   promotion,
   promotionYear,
-}: EditPreferencesRequest): Promise<{ user: ExtendedUser } | false> => {
+}: EditPreferencesRequest): Promise<{ user: ExtendedUser } | boolean> => {
   const response = await fetch(`/api/user/preferences`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -103,4 +103,11 @@ export const getPlaceSuggestions = async (query: string) => {
   const { predictions } = await res.json();
   if (res.ok) return predictions;
   return [];
+};
+
+export const getPreferences = async (): Promise<Preference | undefined> => {
+  const res = await fetch("/api/user/preferences");
+  const { preferences } = await res.json();
+  if (res.ok) return preferences || undefined;
+  return undefined;
 };
