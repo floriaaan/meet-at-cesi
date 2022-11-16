@@ -4,7 +4,7 @@ import { MdClose, MdDownload, MdOutlineMenu } from "react-icons/md";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import useDelayedRender from "@/hooks/useDelayedRender";
-import { Category } from "@/components/UI/Link/Category";
+import { Category, CategoryProps } from "@/components/UI/Link/Category";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Avatar } from "@/components/UI/Avatar";
 import { UserMinimum } from "@/types/User";
@@ -97,15 +97,12 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
             },
           ],
         },
-    // {
-    //   title: "Navigation",
-    //   options: [
-    //     {
-    //       name: "Accueil",
-    //       href: "/",
-    //     },
-    //   ],
-    // },
+    session?.user
+      ? {
+          title: "Social",
+          options: [{ name: "Invitations", href: "/profile#invitations" }],
+        }
+      : null,
     {
       title: "Événements",
       options: session?.user
@@ -123,7 +120,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
           ]
         : [{ name: "Les événements à venir", href: "/event" }],
     },
-  ];
+  ].filter((link) => link !== null) as CategoryProps[];
 
   return (
     <>

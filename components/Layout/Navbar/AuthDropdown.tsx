@@ -103,7 +103,7 @@ const MenuPanel = ({ open }: { open: boolean }) => {
       />
       <Category
         title="Social"
-        options={[{ name: "Invitations", href: "/profile/invitations" }]}
+        options={[{ name: "Invitations", href: "/profile#invitations" }]}
       />
       <Category
         title="Autres"
