@@ -73,7 +73,7 @@
 }
 
 body {
-  @apply  text-black bg-white font-body selection:bg-primary;
+  @apply text-black bg-white font-body selection:bg-primary;
   text-decoration-thickness: 1px !important;
 }
 

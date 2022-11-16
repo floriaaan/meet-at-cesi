@@ -1,11 +1,11 @@
 import { Preference } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import classNames from "classnames";
 
 import { PreferencesForm } from "@/components/Profile/PreferencesForm";
 import { editPreferences, getPreferences } from "@/lib/fetchers";
-import useDelayedRender from "@/hooks/useDelayedRender";
-import classNames from "classnames";
+// import useDelayedRender from "@/hooks/useDelayedRender";
 
 export const PreferencesPopup = () => {
   const [cookie, setCookie] = useCookies([
@@ -31,11 +31,10 @@ export const PreferencesPopup = () => {
   }, [cookiePreferences, cookieDismissed]);
 
   useEffect(() => {
-    if (!cookiePreferences)
-      getPreferences().then((preferences) => {
-        setPreferences(preferences);
-        setCookie("meet-preferences", preferences, { path: "/" });
-      });
+    getPreferences().then((preferences) => {
+      setPreferences(preferences);
+      setCookie("meet-preferences", preferences, { path: "/" });
+    });
 
     // disabled eslint warning because setCookie is not a dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,11 +49,17 @@ export const PreferencesPopup = () => {
     setCookie("meet-preferences_dismissed", "true", { path: "/" });
   };
 
+  //#region render
+
+  /**
+   * Display options
+   *
+   */
   const show = !(preferences || dismissed);
-  const { rendered: isMenuRendered } = useDelayedRender(show, {
-    enterDelay: 20,
-    exitDelay: 300,
-  });
+  // const { mounted, rendered: isMenuRendered } = useDelayedRender(show, {
+  //   enterDelay: 20,
+  //   exitDelay: 300,
+  // });
 
   useEffect(() => {
     if (show) {
@@ -69,16 +74,14 @@ export const PreferencesPopup = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
-  if (!show) return null;
 
   return (
     <div
       className={classNames(
-        "fixed top-0 left-0 z-50 flex flex-col justify-between w-screen h-screen p-2 duration-150 bg-white border-black xs:h-fit xs:shadow-xl xs:border xs:ml-4 lg:w-full lg:max-w-md xs:w-72 xs:top-auto xs:left-auto xs:bottom-4 xs:right-4 xs:z-10 pb-[5.5rem] xs:pb-2",
-        isMenuRendered ? "opacity-0" : "opacity-1"
+        "fixed top-0 left-0 z-50 flex flex-col justify-between w-screen h-screen p-4 duration-150 bg-white border-black xs:h-fit xs:shadow-xl xs:border xs:ml-4 lg:w-full lg:max-w-md xs:w-72 xs:top-auto xs:left-auto xs:bottom-4 xs:right-4 xs:z-10 pb-[5.5rem] xs:pb-4",
+         show ? "opacity-1" : "opacity-0"
       )}
     >
-      {/* <pre className="text-xs">{JSON.stringify(preferences, undefined, 2)}</pre> */}
       <h4 className="mb-2 font-bold">Définition du campus et promotion</h4>
 
       <PreferencesForm
