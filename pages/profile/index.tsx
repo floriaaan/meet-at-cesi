@@ -68,7 +68,7 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
       <ProfileLayout>
         <NextSeo noindex title={user.name || "Mon profil"} />
         <section
-          className="flex flex-col items-start w-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4"
+          className="flex flex-col items-start w-full px-4 mx-auto mt-6 mb-12 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4"
           aria-label="Profile index page"
         >
           <ProfileCard user={user} />

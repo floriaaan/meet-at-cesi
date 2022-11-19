@@ -40,15 +40,17 @@ const Home: NextPage<Props> = ({ caption }) => {
           priority={false}
           src={"/img/hero.avif"}
           alt="Hero image"
-          width={1920}
-          height={1080}
-          className="absolute top-0 left-0 object-cover w-full h-full"
+          width={360}
+          height={200}
+          quality={1}
+          
+          className="absolute top-0 left-0 object-cover w-full h-full blur"
         />
 
         <div className="absolute top-0 left-0 w-full h-full opacity-50 bg-gradient-to-b from-transparent to-black" />
       </section>
 
-      <div className="relative flex flex-col items-start w-full h-full px-4 mx-auto md:px-12 xl:px-0 xl:max-w-6xl gap-y-8 -top-80">
+      <div className="relative flex flex-col items-start w-full h-full px-4 mx-auto md:px-12 xl:px-0 xl:max-w-6xl gap-y-8 -top-80 md:-top-[28rem]">
         <h1 className="text-7xl title">{caption}</h1>
         <div className="flex flex-col w-full">
           <div className="flex flex-col items-center w-full px-4 pt-4 pb-6 bg-purple gap-y-4 lg:gap-y-0 lg:flex-row xl:pb-4 ">
