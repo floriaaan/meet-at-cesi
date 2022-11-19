@@ -47,7 +47,7 @@ export const InvitationCard = ({
           user={displayedUser}
           className={
             avatarClassName ||
-            "rounded-none bg-black text-white w-auto aspect-square h-full shrink-0 -mr-2"
+            "rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-full shrink-0 -mr-2 border-0"
           }
         />
         <div className="flex flex-col grow items-start py-2 px-1.5 overflow-hidden">
@@ -68,7 +68,7 @@ export const InvitationCard = ({
         </div>
         <div className="inline-flex items-center h-full pl-3 mr-3 overflow-hidden shrink-0 gap-x-4">
           {authenticatedUserIsSender ? (
-            <button className="text-sm" onClick={() => remove(id)}>
+            <button className="p-1 text-sm border border-transparent border-dashed hover:border-black" onClick={() => remove(id)}>
               Annuler
             </button>
           ) : (
@@ -103,7 +103,7 @@ export const InvitationCard = ({
           user={displayedUser}
           className={
             avatarClassName ||
-            "rounded-none bg-black text-white w-full h-auto aspect-video shrink-0"
+            "rounded-none bg-black text-white w-full h-auto aspect-video shrink-0 border-0"
           }
         />
 
