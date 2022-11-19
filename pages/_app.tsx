@@ -18,7 +18,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const hostname = window.location.hostname;
     if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
-    else if (hostname.includes("dev")) setUrl(hostname + router.pathname);
+    else if (hostname.includes("dev")) setUrl(hostname.split(".")[0] + router.pathname);
   }, [router.pathname]);
 
   return (
