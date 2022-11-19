@@ -1,14 +1,13 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import AzureADProvider from "next-auth/providers/azure-ad";
-
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@/lib/prisma";
+import { ExtendedSession } from "@/types/Session";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;
-adapter.linkAccount = ({ ext_expires_in, ...data }) =>
-  oldLinkAccount(data);
+adapter.linkAccount = ({ ext_expires_in, ...data }) => oldLinkAccount(data);
 
 export default NextAuth({
   providers: [
@@ -19,10 +18,38 @@ export default NextAuth({
   ],
   adapter,
   secret: process.env.NEXTAUTH_SECRET,
-    pages: {
-      signIn: "/",
-      signOut: "/",
-      error: "/",
-      verifyRequest: "/",
+  pages: {
+    signIn: "/",
+    signOut: "/",
+    error: "/",
+    verifyRequest: "/",
+  },
+  callbacks: {
+    async session({ session, user }) {
+      // Send properties to the client, like an access_token from a provider.
+      session.user = user;
+
+      const userDetails = await prisma.user.findUnique({
+        where: { id: user.id },
+        include: {
+          preferences: true,
+          receivedInvitations: {
+            include: { event: true, sender: true, receiver: true },
+          },
+          sendedInvitations: true,
+          participations: true,
+          createdEvents: true,
+        },
+      });
+      if (!userDetails) throw new Error("User not found");
+
+      // extend session with user details
+      session = {
+        ...session,
+        ...userDetails,
+      };
+
+      return session as ExtendedSession;
     },
+  },
 });

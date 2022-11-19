@@ -13,6 +13,8 @@ export const Navbar = () => {
   const [isTop, setIsTop] = useState<boolean>(true);
   const router = useRouter();
 
+  console.log(session)
+
   useEffect(() => {
     const scrollHandler = () => {
       //   window.pageYOffset > 0 ? setIsTop(false) : setIsTop(true);
@@ -54,7 +56,7 @@ export const Navbar = () => {
               <span className="sr-only">Meet at CESI</span>
             </Link>
 
-            <NavLink href="/event">Évenements à venir</NavLink>
+            <NavLink href="/event">Événements à venir</NavLink>
             {session?.user && (
               <>
                 <NavLink href="/event/create">Organiser mon événement</NavLink>
@@ -69,16 +71,16 @@ export const Navbar = () => {
           <div className="hidden lg:inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
             <>
               <Link
-                href="/event?promotion=user_preferred_promotion"
-                className="subnav__link"
-              >
-                Ma promotion
-              </Link>
-              <Link
                 href="/event?campus=user_preferred_campus"
                 className="subnav__link"
               >
                 Mon école
+              </Link>
+              <Link
+                href="/event?promotion=user_preferred_promotion"
+                className="subnav__link"
+              >
+                Ma promotion
               </Link>
             </>
           </div>

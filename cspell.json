@@ -5,7 +5,10 @@
         "fr"
     ],
     "dictionaries": [],
-    "words": [],
+    "words": [
+        "NEXTAUTH",
+        "subnav"
+    ],
     "ignoreWords": [],
     "import": [],
     "language": "en,fr"

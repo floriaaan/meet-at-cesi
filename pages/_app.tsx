@@ -1,4 +1,3 @@
-import { Session } from "next-auth";
 import { SessionProvider, useSession } from "next-auth/react";
 import { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
@@ -9,9 +8,10 @@ import { useRouter } from "next/router";
 
 import "@/styles/globals.css";
 import { PreferencesPopup } from "@/components/Helpers/PreferencesPopup";
+import { ExtendedSession } from "@/types/Session";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { session } = pageProps as { session: Session | null | undefined };
+  const { session } = pageProps as { session: ExtendedSession | null | undefined };
   const [url, setUrl] = useState<undefined | string>(undefined);
   const router = useRouter();
 
