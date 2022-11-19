@@ -48,7 +48,7 @@ const Select = ({
             {...props}
             id={field.name}
             className={classNames(
-              "py-1.5 lg:py-3 px-3 pr-6 text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white",
+              "py-1.5 lg:py-3 px-3 pr-6 focus:outline-none text-sm appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white",
               error
                 ? "border-red-400 text-red-800 focus:border-red-400 focus:ring-red-400"
                 : "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
@@ -60,7 +60,7 @@ const Select = ({
               </option>
             ))}
           </select>
-          <MdChevronRight className="absolute w-4 h-4 m-2 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
+          <MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
         </div>
       </div>
 

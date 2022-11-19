@@ -17,7 +17,8 @@ export const Avatar = ({ user, className }: AvatarProps) => {
           height={64}
           src={user.image}
           alt={user.name || "Participant picture"}
-          className={classNames("rounded-full border border-black shrink-0", className)}
+          
+          className={classNames("rounded-full object-cover object-center border border-black shrink-0", className)}
         />
       ) : (
         <span

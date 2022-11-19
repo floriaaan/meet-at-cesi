@@ -22,6 +22,10 @@ export const ProfileLayoutSidebar = () => {
                 name: "Mes événements",
                 href: "/profile#events",
               },
+              {
+                name: "Mes invitations",
+                href: "/profile#invitations",
+              },
             ]}
           />
           <Category
