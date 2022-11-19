@@ -4,17 +4,28 @@ import { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
 import { DefaultSeo } from "next-seo";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import "@/styles/globals.css";
 import { PreferencesPopup } from "@/components/Helpers/PreferencesPopup";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { session } = pageProps as { session: Session | null | undefined };
+  const [url, setUrl] = useState<undefined | string>(undefined);
+  const router = useRouter();
+
+  useEffect(() => {
+    const hostname = window.location.hostname;
+    if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
+    else if (hostname.includes("dev")) setUrl(hostname + router.pathname);
+  }, [router.pathname]);
+
   return (
     <SessionProvider session={session}>
       <DefaultSeo
         defaultTitle={process.env.NEXT_PUBLIC_APP_NAME}
-        titleTemplate={`%s | ${process.env.NEXT_PUBLIC_APP_NAME}`}
+        titleTemplate={url || `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`}
         description={`${process.env.NEXT_PUBLIC_APP_NAME} est une application web qui permet de créer des événements et de les partager avec ses amis.`}
         openGraph={{
           type: "website",
