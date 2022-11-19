@@ -43,6 +43,7 @@ const Home: NextPage<Props> = ({ caption }) => {
           width={360}
           height={200}
           quality={1}
+          sizes="33vw"
           
           className="absolute top-0 left-0 object-cover w-full h-full blur"
         />
