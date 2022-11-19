@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
-import { SearchRequestInput } from "@/lib/fetchers";
+import { EventSearchRequestInput } from "@/lib/fetchers";
 
 const getDateFilter = (
   dateMin: string | undefined,
@@ -22,7 +22,7 @@ export default async function handler(
   if (req.method === "POST") {
     try {
       let { dateMin, dateMax, proximity, campus, name, promotion } =
-        req.body as SearchRequestInput;
+        req.body as EventSearchRequestInput;
       dateMin = dateMin || undefined;
       dateMax = dateMax || undefined;
       proximity = proximity || undefined;
@@ -45,7 +45,7 @@ export default async function handler(
         orderBy: { date: "asc" },
       });
 
-      res.status(201).json({ events });
+      res.status(200).json({ events });
     } catch (e) {
       console.error(e);
       res.status(500).json({ message: e instanceof Error ? e.message : e });

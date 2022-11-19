@@ -59,7 +59,6 @@ model User {
   id             String    @id @default(cuid())
   name           String?
   email          String?   @unique
-  emailVerified  DateTime?
   image          String?
   accounts       Account[]
   sessions       Session[]
@@ -67,6 +66,12 @@ model User {
   participations Event[]   @relation("event_participation")
 
   preferences Preference?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  sendedInvitations   Invitation[] @relation("event_invitation_sended")
+  receivedInvitations Invitation[] @relation("event_invitation_received")
 }
 
 model Event {
@@ -83,5 +88,28 @@ model Event {
   creator   User     @relation("event_creation", fields: [creatorId], references: [id])
   creatorId String
 
-  participants User[] @relation("event_participation")
+  participants User[]       @relation("event_participation")
+  invitations  Invitation[]
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REFUSED
+}
+
+model Invitation {
+  id         String           @id @default(cuid())
+  eventId    String
+  receiverId String
+  senderId   String
+  createdAt  DateTime         @default(now())
+  status     InvitationStatus @default(PENDING)
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  receiver User @relation("event_invitation_received", fields: [receiverId], references: [id], onDelete: Cascade, map: "receiverId")
+  sender   User @relation("event_invitation_sended", fields: [senderId], references: [id], onDelete: Cascade, map: "senderId")
+
+  @@unique([eventId, receiverId, senderId])
 }

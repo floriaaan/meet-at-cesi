@@ -78,7 +78,7 @@ const MenuPanel = ({ open }: { open: boolean }) => {
         title="Mon compte"
         options={[
           { name: "Mon profil", href: "/profile" },
-          { name: "Mes événements", href: "/profile/events" },
+          { name: "Mes événements", href: "/profile#events" },
           { name: "Paramètres", href: "/profile/settings" },
           {
             name: "Se déconnecter",
@@ -103,7 +103,7 @@ const MenuPanel = ({ open }: { open: boolean }) => {
       />
       <Category
         title="Social"
-        options={[{ name: "Invitations", href: "/profile/invitations" }]}
+        options={[{ name: "Invitations", href: "/profile#invitations" }]}
       />
       <Category
         title="Autres"

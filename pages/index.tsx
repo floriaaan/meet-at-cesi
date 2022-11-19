@@ -5,13 +5,13 @@ import Link from "next/link";
 
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout/AppLayout";
-import { Searchbar } from "@/components/UI/Searchbar";
+import { SearchBar } from "@/components/UI/SearchBar";
 
 const POSSIBLE_CAPTIONS = [
   "Petite bière après les cours ? 🍻",
   "On va réviser ? 📚",
   "On va faire la fête ? 🎉",
-  "Ce midi, on cours 🏃‍♂️",
+  "On court ensemble ce midi ? 🏃‍♂️",
 ];
 export const getServerSideProps: GetServerSideProps = async () => {
   return {
@@ -65,12 +65,12 @@ const Home: NextPage<Props> = ({ caption }) => {
               }}
               className="flex flex-col w-full px-4"
             >
-              <Searchbar className="input__shadow-purple" />
+              <SearchBar className="input__shadow-purple" />
             </form>
           </div>
           <div className="w-full px-8 py-6 bg-white shadow-2xl font-body">
             <span className="pb-2 pr-2 bg-white">
-              Découvrez les évenements organisés par des étudiant.e.s CESI
+              Découvrez les événements organisés par des étudiant.e.s CESI
             </span>
             <div className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4">
               {campusList.sort().map((campus) => (

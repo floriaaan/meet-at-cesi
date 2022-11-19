@@ -1,4 +1,4 @@
-import type { User } from "@prisma/client";
+import { InvitationStatus, Preference, User } from "@prisma/client";
 import type { ExtendedEvent } from "@/types/Event";
 import type { ExtendedUser } from "@/types/User";
 
@@ -27,7 +27,7 @@ export const deleteEvent = async (id: string): Promise<true | false> => {
   return false;
 };
 
-export type SearchRequestInput = {
+export type EventSearchRequestInput = {
   dateMin?: string;
   dateMax?: string;
   proximity?: number;
@@ -37,7 +37,7 @@ export type SearchRequestInput = {
 };
 
 export const search = async (
-  params: SearchRequestInput
+  params: EventSearchRequestInput
 ): Promise<ExtendedEvent[]> => {
   const response = await fetch(`/api/event/search`, {
     method: "POST",
@@ -104,3 +104,92 @@ export const getPlaceSuggestions = async (query: string) => {
   if (res.ok) return predictions;
   return [];
 };
+
+export const getPreferences = async (): Promise<Preference | undefined> => {
+  const res = await fetch("/api/user/preferences");
+  const { preferences } = await res.json();
+  if (res.ok) return preferences || undefined;
+  return undefined;
+};
+
+// invitations
+
+export const acceptInvitation = async (id: string): Promise<boolean> => {
+  const res = await fetch("/api/user/invitation", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      invitationId: id,
+      status: InvitationStatus.ACCEPTED,
+    }),
+  });
+  if (res.ok) return true;
+  return false;
+};
+
+export const declineInvitation = async (id: string): Promise<boolean> => {
+  const res = await fetch("/api/user/invitation", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      invitationId: id,
+      status: InvitationStatus.REFUSED,
+    }),
+  });
+  if (res.ok) return true;
+  return false;
+};
+
+export const deleteInvitation = async (id: string): Promise<boolean> => {
+  const res = await fetch("/api/user/invitation", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      invitationId: id,
+    }),
+  });
+  if (res.ok) return true;
+  return false;
+}
+
+export const createInvitation = async (eventId: string, receiver: string[]): Promise<boolean> => {
+  const res = await fetch("/api/user/invitation", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      eventId,
+      receiver,
+    }),
+  });
+  if (res.ok) return true;
+  return false;
+}
+
+
+export type UserSearchRequestInput = {
+  name?: string;
+  offset: number;
+}
+
+export const searchUsers = async (
+  params: UserSearchRequestInput
+): Promise<User[]> => {
+  const response = await fetch(`/api/user/search`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(params),
+  });
+  if (response.ok) {
+    const { users } = await response.json();
+    return users;
+  }
+  return [];
+}

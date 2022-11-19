@@ -89,7 +89,7 @@ const EventPage: NextPage<Props> = (props: Props) => {
 
   return (
     <AppLayout>
-      <section className="flex flex-col items-start w-full h-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-5xl xl:max-w-6xl gap-y-4">
+      <section className="flex flex-col items-start w-full h-full px-4 pt-6 mx-auto md:px-12 lg:px-0 lg:max-w-5xl xl:max-w-6xl gap-y-4">
         <HeroSection
           id={id}
           title={title}
@@ -106,12 +106,12 @@ const EventPage: NextPage<Props> = (props: Props) => {
           isOwner={isOwner}
           participate={handleParticipate}
         />
-        <div className="flex flex-col w-full gap-4 mb-16 lg:flex-row">
+        <div className="flex flex-col w-full gap-4 pb-4 lg:flex-row">
           <div className="w-full lg:w-2/3">
             <MapSection location={location} />
           </div>
           <div className="w-full lg:w-1/3">
-            <ParticipantsSection participants={participants} />
+            <ParticipantsSection participants={participants} eventId={id} />
           </div>
         </div>
       </section>

@@ -8,7 +8,7 @@ type Props = {
   loading?: boolean;
 };
 
-export const Searchbar = ({ className, loading }: Props) => {
+export const SearchBar = ({ className, loading }: Props) => {
   return (
     <>
       <label

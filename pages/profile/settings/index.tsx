@@ -1,7 +1,11 @@
 import type { GetServerSidePropsContext, NextPage } from "next";
 import { getSession } from "next-auth/react";
+import { useState } from "react";
+import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 import prisma from "@/lib/prisma";
+import toastStyle from "@/resources/toast.config";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
@@ -12,9 +16,6 @@ import {
 import { ExtendedUser } from "@/types/User";
 import { deleteImage, editPreferences, uploadImage } from "@/lib/fetchers";
 import { Image, ImageUploadForm } from "@/components/Profile/ImageUploadForm";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import toastStyle from "@/resources/toast.config";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -27,10 +28,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const user = await prisma.user.findUnique({
+  let user = await prisma.user.findUnique({
     where: { email: session.user?.email },
     include: { preferences: true },
   });
+
+  user = JSON.parse(JSON.stringify(user));
   return {
     props: { user },
   };
@@ -49,6 +52,10 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
         }
       : null
   );
+
+  const [preferences, setPreferences] = useState<ExtendedUser["preferences"]>(
+    user.preferences || undefined
+  );
   return (
     <AppLayout>
       <ProfileLayout>
@@ -66,7 +73,10 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
                 else setImage(null);
               }}
             />
-            <PreferencesSection preferences={user.preferences} />
+            <PreferencesSection
+              preferences={preferences}
+              setPreferences={setPreferences}
+            />
           </div>
         </section>
       </ProfileLayout>
@@ -78,8 +88,10 @@ export default ProfileSettingsPage;
 
 const PreferencesSection = ({
   preferences,
+  setPreferences,
 }: {
   preferences: ExtendedUser["preferences"];
+  setPreferences: (preferences: ExtendedUser["preferences"]) => void;
 }) => {
   return (
     <div
@@ -97,7 +109,14 @@ const PreferencesSection = ({
       </p>
       <PreferencesForm
         onSubmit={async ({ campus, promotion, promotionYear }) => {
-          return editPreferences({ campus, promotion, promotionYear });
+          return editPreferences({ campus, promotion, promotionYear }).then(
+            (result) => {
+              if (result && !(result instanceof Error)) {
+                setPreferences(result.user.preferences);
+              }
+              return Promise.resolve(result);
+            }
+          );
         }}
         initialValues={
           {
@@ -105,6 +124,29 @@ const PreferencesSection = ({
             promotion: preferences?.promotion?.split(":")[0] || "",
             promotionYear: preferences?.promotion?.split(":")[1] || "",
           } as PreferencesFormValues
+        }
+        optionalButton={
+          preferences ? (
+            <button
+              type="submit"
+              onClick={async () => {
+                return editPreferences({
+                  campus: "",
+                  promotion: "",
+                  promotionYear: "",
+                }).then((result) => {
+                  if (result && !(result instanceof Error)) {
+                    setPreferences(result.user.preferences);
+                  }
+                  return Promise.resolve(result);
+                });
+              }}
+              className="inline-flex items-center gap-1 mb-2 text-xs text-red hover:underline underline-offset-2 decoration-red w-fit"
+            >
+              <MdDelete />
+              Supprimer tout
+            </button>
+          ) : undefined
         }
       />
     </div>

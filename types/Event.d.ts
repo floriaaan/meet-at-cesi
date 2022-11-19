@@ -1,4 +1,4 @@
-import type { Event, User } from "@prisma/client";
+import type { Event, Invitation, User } from "@prisma/client";
 
 export type ExtendedEvent = Event & {
   creator: User;
@@ -16,4 +16,10 @@ export type MapFeature = {
     city: string;
     context: string;
   };
+};
+
+export type ExtendedInvitation = Invitation & {
+  event: ExtendedEvent;
+  receiver: User;
+  sender: User;
 };
