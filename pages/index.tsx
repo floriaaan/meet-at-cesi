@@ -6,6 +6,7 @@ import Link from "next/link";
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { SearchBar } from "@/components/UI/SearchBar";
+import { NextSeo } from "next-seo";
 
 const POSSIBLE_CAPTIONS = [
   "Petite bière après les cours ? 🍻",
@@ -33,6 +34,7 @@ const Home: NextPage<Props> = ({ caption }) => {
   const router = useRouter();
   return (
     <AppLayout>
+      <NextSeo title="Accueil" />
       <section className="relative w-full h-[50vh] md:h-[70vh] lg:h-[75vh]">
         <Image
           priority={false}

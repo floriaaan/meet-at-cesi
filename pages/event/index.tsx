@@ -11,6 +11,7 @@ import { HeroTitle } from "@/components/UI/HeroTitle";
 import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { search } from "@/lib/fetchers";
+import { NextSeo } from "next-seo";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -83,6 +84,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
 
   return (
     <AppLayout>
+      <NextSeo title="Événements" />
       <section className="flex flex-col h-auto min-h-full pb-4 mx-auto bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
         <div className="flex flex-col pt-4 lg:pt-0 w-full lg:max-h-[78vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
           <FilterSidebar setEvents={setEvents} setLoading={setLoading} />

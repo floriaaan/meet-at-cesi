@@ -11,6 +11,7 @@ import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Fragment, useState } from "react";
 import { DeleteModal } from "@/components/Event/DeleteModal";
+import { NextSeo } from "next-seo";
 
 type Props = {
   event: ExtendedEvent;
@@ -61,6 +62,7 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
 
   return (
     <AppLayout>
+      <NextSeo noindex title={`Modifier ${event.title}`} />
       <section className="flex flex-col items-start w-full h-auto px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-8">
         <div className="inline-flex items-center justify-between w-full -mb-8 gap-x-2 md:px-2">
           <Link

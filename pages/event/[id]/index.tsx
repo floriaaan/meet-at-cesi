@@ -14,6 +14,7 @@ import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroSection } from "@/components/Event/HeroSection";
 import { MapSection } from "@/components/Event/MapSection";
 import { ParticipantsSection } from "@/components/Event/ParticipantsSection";
+import { NextSeo } from "next-seo";
 
 type Props = {
   event: ExtendedEvent;
@@ -89,6 +90,7 @@ const EventPage: NextPage<Props> = (props: Props) => {
 
   return (
     <AppLayout>
+      <NextSeo title={title} />
       <section className="flex flex-col items-start w-full h-full px-4 pt-6 mx-auto md:px-12 lg:px-0 lg:max-w-5xl xl:max-w-6xl gap-y-4">
         <HeroSection
           id={id}

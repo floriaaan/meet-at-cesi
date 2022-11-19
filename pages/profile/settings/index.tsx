@@ -16,6 +16,7 @@ import {
 import { ExtendedUser } from "@/types/User";
 import { deleteImage, editPreferences, uploadImage } from "@/lib/fetchers";
 import { Image, ImageUploadForm } from "@/components/Profile/ImageUploadForm";
+import { NextSeo } from "next-seo";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -59,6 +60,7 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
   return (
     <AppLayout>
       <ProfileLayout>
+        <NextSeo noindex title="Paramètres" />
         <section className="flex flex-col items-start w-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4">
           <HeroTitle text="Paramètres" />
           <div className="flex flex-col w-full divide-y">

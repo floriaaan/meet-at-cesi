@@ -13,6 +13,7 @@ import { ReceivedInvitationSection } from "@/components/Invitation/ReceivedSecti
 import { SendedInvitationSection } from "@/components/Invitation/SendedSection";
 import { formatRelative } from "@/lib/date";
 import { InvitationsProvider } from "@/hooks/useInvitations";
+import { NextSeo } from "next-seo";
 
 const INVITATIONS_PRISMA_INCLUDE = {
   include: {
@@ -65,6 +66,7 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
   return (
     <AppLayout>
       <ProfileLayout>
+        <NextSeo noindex title={user.name || "Mon profil"} />
         <section
           className="flex flex-col items-start w-full px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4"
           aria-label="Profile index page"
@@ -113,16 +115,16 @@ const ProfileCard = ({ user }: { user: ExtendedUser }) => {
       <span className="relative flex flex-col -left-2 ">
         <HeroTitle
           text={(user.name as string).toLowerCase()}
-          className="capitalize text-[2.3rem] sm:text-[3.5rem]  md:text-[4rem]"
+          className="capitalize text-[32px] sm:text-[3.5rem]  md:text-[4rem]"
         />
 
         <div className="relative z-10 flex flex-col -mb-2 left-6 -top-6 md:-top-10">
           <div className="flex flex-col truncate md:gap-1 md:flex-row">
-            <strong className="text-xs uppercase truncate md:text-base">
+            <strong className="text-sm uppercase truncate md:text-base">
               {getCampusLabel(user.preferences?.campus)}
             </strong>
             <span className="hidden md:block">-</span>
-            <strong className="text-xs uppercase truncate md:text-base">
+            <strong className="text-sm uppercase truncate md:text-base">
               {getPromotionLabel(user.preferences?.promotion)}
             </strong>
           </div>

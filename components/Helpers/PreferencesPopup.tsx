@@ -20,7 +20,7 @@ export const PreferencesPopup = () => {
     cookiePreferences !== "undefined" ? cookiePreferences : undefined
   );
   const [dismissed, setDismissed] = useState<boolean>(
-    cookieDismissed === "true" || false
+    cookieDismissed === "true" || true
   );
 
   useEffect(() => {
