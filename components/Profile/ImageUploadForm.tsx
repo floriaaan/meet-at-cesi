@@ -92,7 +92,7 @@ export const ImageUploadForm = ({
               src={image.src}
               alt={image?.alt ?? ""}
               fill
-              className="w-full h-full aspect-square"
+              className="object-cover object-center w-full h-full aspect-square"
             />
           ) : null}
 
