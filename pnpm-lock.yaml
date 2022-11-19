@@ -24,6 +24,7 @@ specifiers:
   nanoid: ^4.0.0
   next: 13.0.2
   next-auth: ^4.15.1
+  next-axiom: ^0.15.1
   postcss: ^8.4.18
   prisma: ^4.4.0
   react: 18.2.0
@@ -50,6 +51,7 @@ dependencies:
   nanoid: 4.0.0
   next: 13.0.2_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.15.1_pknogjuzx4bv7zxtatcb2ahtsq
+  next-axiom: 0.15.1_next@13.0.2
   react: 18.2.0
   react-cookie: 4.1.1_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -2083,6 +2085,16 @@ packages:
       uuid: 8.3.2
     dev: false
 
+  /next-axiom/0.15.1_next@13.0.2:
+    resolution: {integrity: sha512-5leWEoW6LugxLGFilmJPCVmG8cfZio6sXtVw+/7dqQvEbX5T1dwvoOSfmLh2NjocP/i/R2jpdrtgFl+ZrkOl1Q==}
+    engines: {node: '>=15'}
+    peerDependencies:
+      next: ^12.1.4 || ^13
+    dependencies:
+      next: 13.0.2_biqbaboplfbrettd7655fr4n2y
+      whatwg-fetch: 3.6.2
+    dev: false
+
   /next-tick/1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: false
@@ -3011,6 +3023,10 @@ packages:
       yaeti: 0.0.6
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /whatwg-fetch/3.6.2:
+    resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
     dev: false
 
   /whatwg-url/5.0.0:
