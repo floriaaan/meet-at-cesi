@@ -7,7 +7,7 @@ import { MdChevronRight } from "react-icons/md";
 import classNames from "classnames";
 
 import type { ExtendedEvent } from "@/types/Event";
-import { search, SearchRequestInput } from "@/lib/fetchers";
+import { search, EventSearchRequestInput } from "@/lib/fetchers";
 import campusList from "@/resources/campus-list";
 import Input from "@/components/UI/Form/Input";
 import Select from "@/components/UI/Form/Select";
@@ -97,7 +97,7 @@ export const FilterSidebar = ({
 }: FilterSidebarProps) => {
   const handleChanges = async (values: FilterValues) => {
     setLoading(true);
-    const events = await search(values as unknown as SearchRequestInput);
+    const events = await search(values as unknown as EventSearchRequestInput);
     setEvents(events);
     setLoading(false);
   };
