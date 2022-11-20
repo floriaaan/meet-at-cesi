@@ -16,6 +16,8 @@ type Props = Event & {
   participants: User[];
 };
 
+// TODO: Add a "See more" button to display the full event
+// TODO: Change the layout when the event is over
 export const EventListItem = ({
   id,
   title,

@@ -9,6 +9,8 @@ import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Avatar } from "@/components/UI/Avatar";
 import { UserMinimum } from "@/types/User";
 import { PWAPopup } from "@/components/Helpers/PWAPopup";
+import { ExtendedSession } from "@/types/Session";
+import { getPlural } from "@/lib/string";
 
 export const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -34,23 +36,33 @@ export const MobileMenu = () => {
   }, []);
 
   const { data: session } = useSession();
+  const { user } = session || {};
 
   return (
-    <>
+    <div className="inline-flex items-center">
+      {!user ? (
+        <button
+          onClick={() =>
+            signIn("azure-ad", {
+              redirect: false,
+            })
+          }
+          className="block text-sm font-bold underline uppercase md:hidden decoration-dotted decoration-black underline-offset-2"
+        >
+          Se connecter
+        </button>
+      ) : null}
       <button
         className="inline-flex items-center md:hidden gap-x-3"
         onClick={toggleMenu}
       >
         <span className="underline underline-offset-2">
-          {session?.user ? "Menus" : "Se connecter"}
+          {user ? "Menus" : ""}
         </span>
         {!isMenuOpen ? (
           <>
-            {session?.user ? (
-              <Avatar
-                user={session.user as UserMinimum}
-                className="w-9 h-9 shrink-0"
-              />
+            {user ? (
+              <Avatar user={user as UserMinimum} className="w-9 h-9 shrink-0" />
             ) : (
               <span className="flex items-center justify-center rounded-full shrink-0 w-9 h-9 btn__colors">
                 <MdOutlineMenu className="w-4 h-4" />
@@ -64,25 +76,24 @@ export const MobileMenu = () => {
         )}
       </button>
       {isMenuOpen ? <MobileMenuPanel isMenuRendered={isMenuRendered} /> : null}
-    </>
+    </div>
   );
 };
 
 const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
-  const { data: session } = useSession();
+  const { data: session } = useSession() as {
+    data: ExtendedSession | null | undefined;
+  };
+  const { user, receivedInvitations = [] } = session || {};
 
   const LINKS = [
-    session?.user
+    user
       ? {
           title: "Mon compte",
           options: [
             { name: "Mon profil", href: "/profile" },
             { name: "Mes événements", href: "/profile#events" },
             { name: "Paramètres", href: "/profile/settings" },
-            {
-              name: "Se déconnecter",
-              onClick: () => signOut(),
-            },
           ],
         }
       : {
@@ -97,15 +108,35 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
             },
           ],
         },
-    session?.user
+    user
       ? {
           title: "Social",
-          options: [{ name: "Invitations", href: "/profile#invitations" }],
+          options: [
+            {
+              name:
+                receivedInvitations.length > 0
+                  ? `${receivedInvitations.length} ${getPlural(
+                      receivedInvitations.length,
+                      "nouvelle",
+                      "nouvelles"
+                    )} ${getPlural(
+                      receivedInvitations.length,
+                      "invitation",
+                      "invitations"
+                    )} ${getPlural(
+                      receivedInvitations.length,
+                      "reçue",
+                      "reçues"
+                    )}`
+                  : "Invitations",
+              href: "/profile#invitations",
+            },
+          ],
         }
       : null,
     {
       title: "Événements",
-      options: session?.user
+      options: user
         ? [
             { name: "Les événements à venir", href: "/event" },
             { name: "Organiser un événement", href: "/event/create" },
@@ -120,13 +151,24 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
           ]
         : [{ name: "Les événements à venir", href: "/event" }],
     },
+    user
+      ? {
+          title: "Déconnexion",
+          options: [
+            {
+              name: "Se déconnecter",
+              onClick: () => signOut(),
+            },
+          ],
+        }
+      : null,
   ].filter((link) => link !== null) as CategoryProps[];
 
   return (
     <>
       <ul
         className={classNames(
-          "top-16 fixed px-4 pt-7 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow",
+          "top-16 fixed px-4 pt-7 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow md:hidden",
           "flex flex-col bg-white",
           isMenuRendered ? "opacity-100" : "opacity-0"
         )}

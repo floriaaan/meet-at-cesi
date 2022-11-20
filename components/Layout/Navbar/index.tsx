@@ -7,13 +7,17 @@ import { useSession } from "next-auth/react";
 import { CESILogo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
 import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
+import { ExtendedSession } from "@/types/Session";
+import { getPlural } from "@/lib/string";
+import { Chip } from "@/components/UI/Chip";
 
 export const Navbar = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession() as {
+    data: ExtendedSession | null | undefined;
+  };
+  const { user, receivedInvitations } = session || {};
   const [isTop, setIsTop] = useState<boolean>(true);
   const router = useRouter();
-
-  console.log(session)
 
   useEffect(() => {
     const scrollHandler = () => {
@@ -57,7 +61,7 @@ export const Navbar = () => {
             </Link>
 
             <NavLink href="/event">Événements à venir</NavLink>
-            {session?.user && (
+            {user && (
               <>
                 <NavLink href="/event/create">Organiser mon événement</NavLink>
               </>
@@ -67,9 +71,9 @@ export const Navbar = () => {
           <AuthDropdown />
         </div>
 
-        {session?.user ? (
-          <div className="hidden lg:inline-flex items-center w-full py-2.5 bg-gray-100 px-9 gap-x-5">
-            <>
+        {user ? (
+          <div className="hidden md:inline-flex items-center justify-between w-full py-2.5 bg-gray-100 px-9 gap-x-5">
+            <div className="inline-flex items-center gap-x-5">
               <Link
                 href="/event?campus=user_preferred_campus"
                 className="subnav__link"
@@ -82,7 +86,38 @@ export const Navbar = () => {
               >
                 Ma promotion
               </Link>
-            </>
+            </div>
+            {receivedInvitations ? (
+              <div className="inline-flex items-center gap-x-5">
+                <Link
+                  href="/profile#invitations"
+                  className="font-bold subnav__link"
+                >
+                  <Chip
+                    className={receivedInvitations.length > 0 ? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2" : ""}
+                  >
+                    {receivedInvitations.length}
+                  </Chip>
+                  {`${
+                    receivedInvitations.length > 0
+                      ? getPlural(
+                          receivedInvitations.length,
+                          "nouvelle",
+                          "nouvelles"
+                        )
+                      : ""
+                  } ${getPlural(
+                    receivedInvitations.length,
+                    "invitation",
+                    "invitations"
+                  )} ${getPlural(
+                    receivedInvitations.length,
+                    "reçue",
+                    "reçues"
+                  )}`}
+                </Link>
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>

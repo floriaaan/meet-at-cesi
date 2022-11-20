@@ -4,6 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@/lib/prisma";
 import { ExtendedSession } from "@/types/Session";
+import { InvitationStatus } from "@prisma/client";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;
@@ -35,6 +36,7 @@ export default NextAuth({
           preferences: true,
           receivedInvitations: {
             include: { event: true, sender: true, receiver: true },
+            where: { status: InvitationStatus.PENDING },
           },
           sendedInvitations: true,
           participations: true,
