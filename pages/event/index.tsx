@@ -2,16 +2,17 @@ import type { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import { NextSeo } from "next-seo";
 
 import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
+import { search } from "@/lib/fetchers";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { EventList } from "@/components/Event/List";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
-import { search } from "@/lib/fetchers";
-import { NextSeo } from "next-seo";
+import { Chip } from "@/components/UI/Chip";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -90,7 +91,16 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
           <FilterSidebar setEvents={setEvents} setLoading={setLoading} />
         </div>
         <div className="flex flex-col w-full max-w-lg p-3 mx-auto bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
-          <HeroTitle text="Les événements à venir" />
+          <HeroTitle
+            text={
+              <>
+                Liste des événements{" "}
+                <Chip extendClassName="text-[2rem] relative bottom-2 px-[1rem]">
+                  {events.length}
+                </Chip>
+              </>
+            }
+          />
           <div className="p-4 px-6 -mt-8 bg-primary">
             <form
               onSubmit={async (e) => {

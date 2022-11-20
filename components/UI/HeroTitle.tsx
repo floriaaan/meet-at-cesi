@@ -1,7 +1,8 @@
 import classNames from "classnames";
+import type { ReactNode } from "react";
 
 type HeroTitleProps = {
-  text: string;
+  text: string| ReactNode;
   className?: string;
 };
 

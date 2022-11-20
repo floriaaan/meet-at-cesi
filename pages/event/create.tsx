@@ -1,10 +1,10 @@
 import { GetServerSidePropsContext, NextPage } from "next";
 import { getSession } from "next-auth/react";
+import { NextSeo } from "next-seo";
 
 import { EventForm, EventFormValues } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
-import { NextSeo } from "next-seo";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);

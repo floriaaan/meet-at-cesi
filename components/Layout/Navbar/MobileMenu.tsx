@@ -138,7 +138,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
       title: "Événements",
       options: user
         ? [
-            { name: "Les événements à venir", href: "/event" },
+            { name: "Tout les événements", href: "/event" },
             { name: "Organiser un événement", href: "/event/create" },
             {
               name: "Les événements de mon campus",
@@ -149,7 +149,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
               href: "/event?promotion=user_preferred_promotion",
             },
           ]
-        : [{ name: "Les événements à venir", href: "/event" }],
+        : [{ name: "Tout les événements", href: "/event" }],
     },
     user
       ? {

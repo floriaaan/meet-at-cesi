@@ -26,6 +26,7 @@ type FilterInput = {
   min?: number;
   max?: number;
   options?: { value: string; label: string }[];
+  defaultValue?: string | number;
 };
 type FilterCategory = {
   label: string;
@@ -38,7 +39,12 @@ const FILTERS_CATEGORIES: FilterCategory[] = [
     label: "Date de l'événement",
     key: "date",
     inputs: [
-      { name: "dateMin", type: "date", label: "À partir du" },
+      {
+        name: "dateMin",
+        type: "date",
+        label: "À partir du",
+        defaultValue: new Date().toISOString().split("T")[0],
+      },
       { name: "dateMax", type: "date", label: "Jusqu'au" },
     ],
   },
@@ -140,6 +146,7 @@ export const FilterSidebar = ({
         >
           {FILTERS_CATEGORIES.map((category) => (
             <Disclosure
+              defaultOpen
               as="div"
               key={`filter-${category.key}`}
               className="border-b border-gray-500 last:border-b-0"

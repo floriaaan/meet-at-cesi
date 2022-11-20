@@ -2,11 +2,11 @@ import type { GetServerSideProps, NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
 
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { SearchBar } from "@/components/UI/SearchBar";
-import { NextSeo } from "next-seo";
 
 const POSSIBLE_CAPTIONS = [
   "Petite bière après les cours ? 🍻",

@@ -2,6 +2,7 @@ import type { GetServerSidePropsContext, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { NextSeo } from "next-seo";
 import toast from "react-hot-toast";
 
 import prisma from "@/lib/prisma";
@@ -16,7 +17,6 @@ import {
 import { ExtendedUser } from "@/types/User";
 import { deleteImage, editPreferences, uploadImage } from "@/lib/fetchers";
 import { Image, ImageUploadForm } from "@/components/Profile/ImageUploadForm";
-import { NextSeo } from "next-seo";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);

@@ -1,19 +1,19 @@
 import type { GetServerSideProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
+import { getSession } from "next-auth/react";
 
 import type { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";
+import { formatRelative } from "@/lib/date";
 import audienceList from "@/resources/audience-list";
 import campusList from "@/resources/campus-list";
+import { InvitationsProvider } from "@/hooks/useInvitations";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
-import { getSession } from "next-auth/react";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Avatar } from "@/components/UI/Avatar";
 import { ReceivedInvitationSection } from "@/components/Invitation/ReceivedSection";
 import { SendedInvitationSection } from "@/components/Invitation/SendedSection";
-import { formatRelative } from "@/lib/date";
-import { InvitationsProvider } from "@/hooks/useInvitations";
-import { NextSeo } from "next-seo";
 
 const INVITATIONS_PRISMA_INCLUDE = {
   include: {
