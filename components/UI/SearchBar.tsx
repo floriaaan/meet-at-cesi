@@ -27,7 +27,7 @@ export const SearchBar = ({ className, loading }: Props) => {
         <input
           id="search"
           type="text"
-          className="px-4 py-2 text-sm rounded-l-full sm:py-3 sm:pl-12 sm:pr-6 grow placeholder:italic"
+          className="px-4 py-2 text-[16px] sm:text-sm placeholder:text-sm rounded-l-full sm:py-3 sm:pl-12 sm:pr-6 grow placeholder:italic"
           placeholder="Rechercher un événement..."
         />
         <button

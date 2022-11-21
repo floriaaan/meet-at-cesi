@@ -11,6 +11,7 @@ import { UserMinimum } from "@/types/User";
 import { PWAPopup } from "@/components/Helpers/PWAPopup";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
+import { Spinner } from "@/components/UI/Spinner";
 
 export const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -35,12 +36,13 @@ export const MobileMenu = () => {
     };
   }, []);
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { user } = session || {};
 
   return (
     <div className="inline-flex items-center">
-      {!user ? (
+      {status === "loading" ? <Spinner /> : null}
+      {status !== "loading" && !user ? (
         <button
           onClick={() =>
             signIn("azure-ad", {
