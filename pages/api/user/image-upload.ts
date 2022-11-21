@@ -1,9 +1,11 @@
-import { storage } from "@/lib/storage";
 import { nanoid } from "nanoid";
 import { decode } from "base64-arraybuffer";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
+import sharp from "sharp";
+
 import prisma from "@/lib/prisma";
+import { storage } from "@/lib/storage";
 
 export const config = {
   api: {
@@ -46,14 +48,30 @@ export default async function handler(
         return res.status(500).json({ message: "Image data not valid" });
       }
 
+      // Resize image and compress
+      const buffer = decode(base64FileData);
+      const resizedBuffer = await sharp(Buffer.from(buffer), {
+        animated: true,
+        pages: -1,
+
+      })
+        .resize(128, 128, {
+          fit: sharp.fit.cover,
+          // position: sharp.strategy.entropy,
+
+        })
+        .toFormat("webp")
+        .webp({ quality: 75 })
+        .toBuffer();
+
       // Upload image
       const fileName = `${userId}/${nanoid()}`;
-      const ext = contentType.split("/")[1];
+      const ext = "webp"; //contentType.split("/")[1];
       const path = `${fileName}.${ext}`;
 
       const { data, error: uploadError } = await storage
         .from(process.env.STORAGE_BUCKET_NAME as string)
-        .upload(path, decode(base64FileData), {
+        .upload(path, resizedBuffer, {
           contentType,
           upsert: true,
         });
@@ -80,7 +98,10 @@ export default async function handler(
 
       return res.status(200).json({ url, user });
     } catch (e) {
-      res.status(500).json({ message: "Something went wrong" });
+      res.status(500).json({
+        message: e instanceof Error ? e.message : "Something went wrong",
+        stack: e instanceof Error ? e.stack : null,
+      });
     }
   }
 
