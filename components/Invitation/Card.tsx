@@ -117,7 +117,9 @@ export const InvitationCard = ({
             </>
           ) : (
             <div className="px-5">
-              <Spinner className="w-6 h-6" />
+              <Spinner 
+              // className="w-6 h-6" 
+              />
             </div>
           )}
         </div>

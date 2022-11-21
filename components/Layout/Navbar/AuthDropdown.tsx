@@ -14,7 +14,12 @@ export const AuthDropdown = () => {
   return (
     <>
       {status === "loading" ? (
-        <Spinner className="hidden w-5 h-5 lg:block text-primary" />
+        <Spinner 
+        // className="hidden w-5 h-5 lg:block" 
+        // backgroundColor="text-black" 
+        // foregroundColor="text-primary" 
+        />
+        
       ) : null}
       {status !== "loading" ? (
         <div

@@ -46,7 +46,6 @@ export const PlaceSearch = ({
     const { value } = e.target;
     setIsSearching(true);
 
-
     clearTimeout(timeout.current);
 
     if (!e.target.value.trim()) {
@@ -109,7 +108,9 @@ export const PlaceSearch = ({
             </span>
           ) : isSearching ? (
             <span className="absolute right-0 pr-2 -translate-y-1/2 top-1/2">
-              <Spinner className="w-4 h-4 text-black lg:w-6 lg:h-6" />
+              <Spinner
+              // className="w-4 h-4 text-black lg:w-6 lg:h-6"
+              />
             </span>
           ) : null}
         </div>

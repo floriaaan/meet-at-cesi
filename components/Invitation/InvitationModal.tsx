@@ -190,7 +190,9 @@ export const InvitationModal = ({
                     className="border-b btn-black"
                     onClick={handleSubmit}
                   >
-                    {isSubmitting ? <Spinner className="w-5 h-5" /> : "Envoyer"}
+                    {isSubmitting ? <Spinner 
+                    // className="w-5 h-5"
+                     /> : "Envoyer"}
                   </button>
                 </div>
               </Dialog.Panel>

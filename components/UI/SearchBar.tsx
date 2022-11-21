@@ -34,7 +34,15 @@ export const SearchBar = ({ className, loading }: Props) => {
           type="submit"
           className="px-4 py-2 font-bold rounded-r-full sm:pl-6 sm:pr-8 sm:py-3 font-body shrink-0 btn__colors"
         >
-          {loading ? <Spinner className="w-6 h-6 ml-0.5 text-black" /> : "GO"}
+          {loading ? (
+            <div className="w-6 h-6 ml-0.5 flex items-center justify-center">
+              <Spinner
+              //  className="w-6 h-6 ml-0.5 text-black"
+              />
+            </div>
+          ) : (
+            "GO"
+          )}
         </button>
       </div>
     </>
