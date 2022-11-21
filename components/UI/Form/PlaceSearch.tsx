@@ -1,9 +1,11 @@
-import { getPlaceSuggestions } from "@/lib/fetchers";
-import { Prediction } from "@/types/Prediction";
+import { HiExclamationCircle } from "react-icons/hi2";
 import classNames from "classnames";
 import { FieldHookConfig, useField } from "formik";
 import { useRef, useState } from "react";
-import { HiExclamationCircle } from "react-icons/hi2";
+
+import { getPlaceSuggestions } from "@/lib/fetchers";
+import { Prediction } from "@/types/Prediction";
+import { Spinner } from "@/components/UI/Spinner";
 
 type InputProps = FieldHookConfig<string> & {
   labelClassName?: string;
@@ -37,15 +39,20 @@ export const PlaceSearch = ({
     useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     field.onChange(e);
     const { value } = e.target;
+    setIsSearching(true);
+
 
     clearTimeout(timeout.current);
 
     if (!e.target.value.trim()) {
       setSuggestions([]);
       setIsOpen(false);
+      setIsSearching(false);
       return;
     }
 
@@ -55,6 +62,7 @@ export const PlaceSearch = ({
         const res = await getPlaceSuggestions(value);
         setSuggestions(res);
         setIsOpen(true);
+        setIsSearching(false);
       }
     }, 2000);
 
@@ -89,7 +97,7 @@ export const PlaceSearch = ({
             id={field.name}
             type={type}
             className={classNames(
-              " py-1.5 lg:py-3 px-3 focus:outline-none text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border ",
+              " py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
               error
                 ? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
                 : "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
@@ -99,12 +107,16 @@ export const PlaceSearch = ({
             <span className="absolute right-0 pr-2 -translate-y-1/2 top-1/2">
               <HiExclamationCircle className="w-4 h-4 text-red-500 lg:w-6 lg:h-6" />
             </span>
+          ) : isSearching ? (
+            <span className="absolute right-0 pr-2 -translate-y-1/2 top-1/2">
+              <Spinner className="w-4 h-4 text-black lg:w-6 lg:h-6" />
+            </span>
           ) : null}
         </div>
       </div>
 
       {isOpen ? (
-        <div className="absolute z-10 flex flex-col w-full -bottom-1">
+        <div className="absolute z-10 flex flex-col w-full -bottom-1 lg:bottom-4">
           {suggestions ? (
             <ul className="absolute w-full p-2 bg-white border border-gray-300 shadow-lg">
               {suggestions.map((s) => (

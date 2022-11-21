@@ -101,18 +101,3 @@ body.blocking__popup {
 ::-webkit-scrollbar-thumb {
   background-color: black;
 }
-
-/* Mobile Zooming fix */
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
-  select,
-  textarea,
-  input {
-    font-size: 16px;
-  }
-
-  select:focus,
-  textarea:focus,
-  input:focus {
-    font-size: 16px;
-  }
-}

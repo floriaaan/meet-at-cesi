@@ -86,11 +86,11 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
   return (
     <AppLayout>
       <NextSeo title="Événements" />
-      <section className="flex flex-col h-auto min-h-full pb-4 mx-auto bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
-        <div className="flex flex-col pt-4 lg:pt-0 w-full lg:max-h-[78vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
+      <section className="flex flex-col min-h-full pb-4 mx-auto mb-12 bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
+        <div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:max-h-[78vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
           <FilterSidebar setEvents={setEvents} setLoading={setLoading} />
         </div>
-        <div className="flex flex-col w-full max-w-lg p-3 mx-auto bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
+        <div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
           <HeroTitle
             text={
               <>
@@ -131,7 +131,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
               <SearchBar className="border border-black" loading={loading} />
             </form>
           </div>
-          <EventList className="w-full mt-2 sm:px-4 md:mt-6" events={events} />
+          <EventList className="w-full mt-2 md:mt-6" events={events} />
         </div>
       </section>
     </AppLayout>
