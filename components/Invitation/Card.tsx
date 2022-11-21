@@ -182,7 +182,9 @@ export const InvitationCard = ({
             </>
           ) : (
             <div className="ml-auto">
-              <Spinner className="w-6 h-6" />
+              <Spinner 
+              // className="w-6 h-6"
+               />
             </div>
           )}
         </div>
