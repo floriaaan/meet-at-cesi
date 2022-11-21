@@ -12,8 +12,8 @@ import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Avatar } from "@/components/UI/Avatar";
-import { ReceivedInvitationSection } from "@/components/Invitation/ReceivedSection";
-import { SendedInvitationSection } from "@/components/Invitation/SendedSection";
+import { ReceivedInvitationSection } from "@/components/Profile/Invitation/ReceivedSection";
+import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedSection";
 
 const INVITATIONS_PRISMA_INCLUDE = {
   include: {

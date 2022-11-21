@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MdGridView, MdList } from "react-icons/md";
 
 import { ParticipantCard } from "@/components/Event/ParticipantCard";
-import { InvitationModal } from "@/components/Invitation/InvitationModal";
+import { InvitationModal } from "@/components/Profile/Invitation/InvitationModal";
 import { useSession } from "next-auth/react";
 
 export const ParticipantsSection = ({
