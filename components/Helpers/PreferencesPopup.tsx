@@ -69,7 +69,7 @@ export const PreferencesPopup = () => {
     <>
       <div
         className={
-          "absolute top-0 left-0 z-[42] w-screen h-screen bg-black bg-opacity-40 xs:hidden"
+          "absolute top-0 left-0 z-[42] w-screen h-screen xs:h-0 xs:w-0 bg-black bg-opacity-40 xs:hidden"
         }
         onClick={() => setDismissed(true)}
       ></div>

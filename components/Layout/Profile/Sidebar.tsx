@@ -8,41 +8,42 @@ import { Category } from "@/components/UI/Link/Category";
 export const ProfileLayoutSidebar = () => {
   const { data: session } = useSession();
   return (
-    <aside className="hidden h-full w-72 md:block" aria-label="Sidebar">
-      <div className="flex flex-col justify-between h-full px-6 py-4 overflow-y-auto bg-gray-50 ">
-        <ul className="flex flex-col gap-y-2">
-          <Category
-            title="Mon compte"
-            options={[
-              {
-                name: session?.user?.name || "Mon compte",
-                href: "/profile",
-              },
-              {
-                name: "Mes événements",
-                href: "/profile#events",
-              },
-              {
-                name: "Mes invitations",
-                href: "/profile#invitations",
-              },
-            ]}
-          />
-          <Category
-            title="Paramètres"
-            options={[
-              {
-                name: "Changement de photo de profil",
-                href: "/profile/settings#avatar",
-              },
-              {
-                name: "Sélection du campus et de la promotion",
-                href: "/profile/settings#preferences",
-              },
-            ]}
-          />
-        </ul>
-      </div>
+    <aside
+      className="flex-col justify-between hidden h-auto min-h-full px-6 py-4 overflow-y-auto grow w-72 md:flex bg-gray-50 "
+      aria-label="Sidebar"
+    >
+      <ul className="flex flex-col gap-y-2">
+        <Category
+          title="Mon compte"
+          options={[
+            {
+              name: session?.user?.name || "Mon compte",
+              href: "/profile",
+            },
+            {
+              name: "Mes événements",
+              href: "/profile#events",
+            },
+            {
+              name: "Mes invitations",
+              href: "/profile#invitations",
+            },
+          ]}
+        />
+        <Category
+          title="Paramètres"
+          options={[
+            {
+              name: "Changement de photo de profil",
+              href: "/profile/settings#avatar",
+            },
+            {
+              name: "Sélection du campus et de la promotion",
+              href: "/profile/settings#preferences",
+            },
+          ]}
+        />
+      </ul>
     </aside>
   );
 };
