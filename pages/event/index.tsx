@@ -13,6 +13,8 @@ import { HeroTitle } from "@/components/UI/HeroTitle";
 import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { Chip } from "@/components/UI/Chip";
+import Link from "next/link";
+import { MdArrowRightAlt } from "react-icons/md";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -87,7 +89,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
     <AppLayout>
       <NextSeo title="Événements" />
       <section className="flex flex-col min-h-full pb-4 mx-auto mb-12 bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
-        <div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:max-h-[78vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
+        <div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:min-h-[80vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
           <FilterSidebar setEvents={setEvents} setLoading={setLoading} />
         </div>
         <div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
@@ -95,7 +97,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
             text={
               <>
                 Liste des événements{" "}
-                <Chip extendClassName="text-[2rem] relative bottom-2 px-[1rem]">
+                <Chip >
                   {events.length}
                 </Chip>
               </>
@@ -132,6 +134,25 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
             </form>
           </div>
           <EventList className="w-full mt-2 md:mt-6" events={events} />
+          {query.campus === "undefined" || query.promotion === "undefined" ? (
+            <div>
+              <p className="text-lg">Zût, on aurait dû vous prévenir... 😣</p>
+
+              <p className="text-sm">
+                {query.campus === "undefined" &&
+                  "Vous n'avez pas de campus associé à votre profil, vous pouvez en choisir un dans vos préférences."}
+                {query.promotion === "undefined" &&
+                  "Vous n'avez pas de promotion associé à votre profil, vous pouvez en choisir une dans vos préférences."}
+              </p>
+              <Link
+                href="/profile/settings#preferences"
+                className="inline-flex items-center gap-1 mt-4 text-sm font-bold underline"
+              >
+                Aller aux préférences
+                <MdArrowRightAlt className="w-4 h-4" />
+              </Link>
+            </div>
+          ) : null}
         </div>
       </section>
     </AppLayout>

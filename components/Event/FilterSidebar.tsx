@@ -149,7 +149,7 @@ export const FilterSidebar = ({
               defaultOpen
               as="div"
               key={`filter-${category.key}`}
-              className="border-b border-gray-500 last:border-b-0"
+              className="border-b border-gray-300 last:border-b-0"
             >
               {({ open }) => (
                 <>
@@ -164,7 +164,7 @@ export const FilterSidebar = ({
                     />
                   </Disclosure.Button>
                   <Disclosure.Panel className="flex flex-col px-4 pb-2 text-sm text-gray-500 gap-y-1 ">
-                    <hr className="pb-2 mx-3 border-gray-300 " />
+                    <hr className="pb-2 mx-3 border-gray-200 " />
                     {category.inputs.map((input) => (
                       <Fragment key={`filter-${category.key}-${input.name}`}>
                         {input.type !== "select" &&
