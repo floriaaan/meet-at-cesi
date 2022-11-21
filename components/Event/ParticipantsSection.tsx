@@ -6,6 +6,7 @@ import { MdGridView, MdList } from "react-icons/md";
 
 import { ParticipantCard } from "@/components/Event/ParticipantCard";
 import { InvitationModal } from "@/components/Invitation/InvitationModal";
+import { useSession } from "next-auth/react";
 
 export const ParticipantsSection = ({
   eventId,
@@ -14,6 +15,9 @@ export const ParticipantsSection = ({
   eventId: string;
   participants: User[];
 }) => {
+  const { data: session } = useSession();
+  const { user } = session || {};
+
   const [display, setDisplay] = useState<"column" | "grid">("column");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,9 +29,14 @@ export const ParticipantsSection = ({
             <strong>{participants.length}</strong> participant(s)
           </p>
           <div className="inline-flex items-center gap-x-2">
-            <button className="btn__pill" onClick={() => setIsModalOpen(true)}>
-              Inviter
-            </button>
+            {user ? (
+              <button
+                className="btn__pill"
+                onClick={() => setIsModalOpen(true)}
+              >
+                Inviter
+              </button>
+            ) : null}
             <button
               className="px-1 py-1 md:px-2 md:py-2 btn__pill"
               onClick={() =>
@@ -61,7 +70,7 @@ export const ParticipantsSection = ({
           ))}
         </div>
       </div>
-      {isModalOpen ? (
+      {user && isModalOpen ? (
         <InvitationModal
           closeModal={() => setIsModalOpen(false)}
           eventId={eventId}
