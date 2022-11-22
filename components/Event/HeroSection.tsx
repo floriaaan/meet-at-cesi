@@ -7,6 +7,7 @@ import { HeroTitle } from "@/components/UI/HeroTitle";
 import { HeroDetails } from "@/components/Event/HeroDetails";
 import { MdChevronLeft } from "react-icons/md";
 import { useRouter } from "next/router";
+import { ExtendedEvent } from "@/types/Event";
 
 export const HeroSection = ({
   id,
@@ -91,7 +92,10 @@ export const HeroSection = ({
               Modifier
             </Link>
           )}
-          <button className="py-2.5 btn-black w-fit" onClick={() => participate()}>
+          <button
+            className="py-2.5 btn-black w-fit"
+            onClick={() => participate()}
+          >
             {isParticipant ? "Ne plus participer" : "Participer"}
           </button>
         </div>
@@ -100,11 +104,22 @@ export const HeroSection = ({
       <div className="flex flex-col lg:flex-row">
         <HeroTitle text={title} />
         <HeroDetails
-          date={date as unknown as string}
-          location={location}
-          creator={creator}
-          audience={audience}
-          campus={campus}
+          event={
+            {
+              title,
+              audience,
+              audienceCampus: campus,
+              creator,
+              date,
+              location,
+              id,
+              // participants,
+              // coordinates,
+              // createdAt,
+              // creatorId,
+              // updatedAt,
+            } as ExtendedEvent
+          }
         />
       </div>
     </div>

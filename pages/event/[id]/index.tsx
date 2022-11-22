@@ -55,7 +55,6 @@ const EventPage: NextPage<Props> = (props: Props) => {
     date,
   } = props.event;
   const [participants, setParticipants] = useState(initialParticipants);
-
   const isParticipant = participants.some(
     (p) => p.email === session?.user?.email
   );
@@ -97,12 +96,8 @@ const EventPage: NextPage<Props> = (props: Props) => {
           title={title}
           date={date}
           location={location}
-          campus={
-            campusList.find((c) => c.value === audienceCampus)?.label || ""
-          }
-          audience={
-            audienceList.find((a) => a.value === audience)?.shortLabel || ""
-          }
+          campus={audienceCampus}
+          audience={audience}
           creator={creator}
           isParticipant={isParticipant}
           isOwner={isOwner}

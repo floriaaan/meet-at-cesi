@@ -20,7 +20,7 @@ export const SendedInvitationSection = ({
         <Chip>{invitations.length}</Chip>
       </div>
       {invitations.length > 0 ? (
-        <div className="flex flex-col items-center w-full gap-y-1">
+        <div className="flex flex-col items-center w-full overflow-y-auto max-h-32 gap-y-1">
           {invitations.map((invitation) => (
             <InvitationCard
               invitation={invitation}

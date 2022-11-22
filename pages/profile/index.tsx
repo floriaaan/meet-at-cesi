@@ -14,6 +14,8 @@ import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Avatar } from "@/components/UI/Avatar";
 import { ReceivedInvitationSection } from "@/components/Profile/Invitation/ReceivedSection";
 import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedSection";
+import { ParticipatingSection } from "@/components/Profile/Event/ParticipatingSection";
+import { CreatedSection } from "@/components/Profile/Event/CreatedSection";
 
 const INVITATIONS_PRISMA_INCLUDE = {
   include: {
@@ -33,6 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
 
+  const today = new Date(new Date().setDate(new Date().getDate() - 1));
   let user = await prisma.user.findFirst({
     where: { email: session.user.email },
     include: {
@@ -42,6 +45,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         where: { status: "PENDING" },
       },
       sendedInvitations: INVITATIONS_PRISMA_INCLUDE,
+      participations: {
+        where: {
+          date: { gte: today },
+        },
+        include: { creator: true, participants: true },
+      },
+      createdEvents: {
+        where: {
+          date: { gte: today },
+        },
+        include: { creator: true, participants: true },
+      },
     },
   });
   user = JSON.parse(JSON.stringify(user));
@@ -62,7 +77,12 @@ type Props = {
   user: ExtendedUser;
 };
 const ProfileIndexPage: NextPage<Props> = ({ user }) => {
-  const { receivedInvitations, sendedInvitations } = user;
+  const {
+    receivedInvitations,
+    sendedInvitations,
+    participations,
+    createdEvents,
+  } = user;
   return (
     <AppLayout>
       <ProfileLayout>
@@ -81,6 +101,10 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
               <SendedInvitationSection />
             </section>
           </InvitationsProvider>
+          <section id="events" className="flex flex-col w-full">
+            <ParticipatingSection events={participations || []} />
+            <CreatedSection events={createdEvents || []} />
+          </section>
           {/* <pre className="text-xs">{JSON.stringify(user, undefined, 2)}</pre> */}
         </section>
       </ProfileLayout>
