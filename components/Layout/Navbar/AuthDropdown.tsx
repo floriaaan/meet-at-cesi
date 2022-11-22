@@ -58,7 +58,7 @@ const MenuButton = ({ user, open }: { user?: UserMinimum; open: boolean }) =>
   user ? (
     <span
       className={classNames(
-        "pr-2 gap-x-1 nav__link border transition-none relative bg-white z-[50]",
+        "pr-2 gap-x-1 nav__link border transition-none relative bg-white z-[50] focus:outline-none",
         open ? "border-gray-400 border-b-white relative" : "border-transparent"
       )}
     >

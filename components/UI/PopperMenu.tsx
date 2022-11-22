@@ -27,10 +27,12 @@ export default function PopperMenu({
     <Menu>
       {({ open }) => (
         <>
-          <Menu.Button ref={trigger}>{buttonChildren({ open })}</Menu.Button>
+          <Menu.Button className="focus:outline-none" ref={trigger}>
+            {buttonChildren({ open })}
+          </Menu.Button>
 
           <Portal>
-            <Menu.Items className="z-[42]" ref={container}>
+            <Menu.Items className="z-[42] focus:outline-none" ref={container}>
               {children({ open })}
             </Menu.Items>
           </Portal>

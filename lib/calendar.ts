@@ -40,12 +40,18 @@ export const buildUrl = (
       break;
 
     default:
+      let startDate = date.toISOString().split("T")[0].replaceAll("-", "");
       calendarUrl = [
         "BEGIN:VCALENDAR",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "PRODID:-//TESTCAL//EN",
         "VERSION:2.0",
         "BEGIN:VEVENT",
+        "UID:" + id,
         "URL:" + document.URL,
-        "DTSTART:" + encodeURIComponent(date.toISOString()),
+        "DTSTART;VALUE=DATE:" + startDate,
+        "DTEND;VALUE=DATE:" + startDate,
         "SUMMARY:" + title,
         "LOCATION:" + event.location,
         "END:VEVENT",

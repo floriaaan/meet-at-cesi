@@ -3,15 +3,15 @@ import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
 import { getSession } from "next-auth/react";
 import { MdChevronLeft, MdDelete } from "react-icons/md";
+import { NextSeo } from "next-seo";
+import { useState } from "react";
 
 import prisma from "@/lib/prisma";
 import type { ExtendedEvent } from "@/types/Event";
 import { EventForm, EventFormValues } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroTitle } from "@/components/UI/HeroTitle";
-import { Fragment, useState } from "react";
 import { DeleteModal } from "@/components/Event/DeleteModal";
-import { NextSeo } from "next-seo";
 
 type Props = {
   event: ExtendedEvent;
@@ -67,9 +67,10 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
         <div className="inline-flex items-center justify-between w-full -mb-8 gap-x-2 md:px-2">
           <Link
             href={`/event/${event.id}`}
-            className="pl-2 pr-4 btn-black w-fit hover:border-transparent">
-
-            <MdChevronLeft className="w-4 h-4 mr-0.5 shrink-0" />Retour
+            className="pl-2 pr-4 btn-black w-fit hover:border-transparent"
+          >
+            <MdChevronLeft className="w-4 h-4 mr-0.5 shrink-0" />
+            Retour
           </Link>
 
           <button

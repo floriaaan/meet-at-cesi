@@ -3,18 +3,16 @@ import type { GetServerSideProps, NextPage } from "next";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { NextSeo } from "next-seo";
 
 import type { ExtendedEvent } from "@/types/Event";
-import campusList from "@/resources/campus-list";
 import toastStyle from "@/resources/toast.config";
-import audienceList from "@/resources/audience-list";
 import prisma from "@/lib/prisma";
 import { participate } from "@/lib/fetchers";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroSection } from "@/components/Event/HeroSection";
 import { MapSection } from "@/components/Event/MapSection";
 import { ParticipantsSection } from "@/components/Event/ParticipantsSection";
-import { NextSeo } from "next-seo";
 
 type Props = {
   event: ExtendedEvent;
@@ -64,7 +62,7 @@ const EventPage: NextPage<Props> = (props: Props) => {
     let toastId: string | undefined;
     try {
       toastId = toast.loading(
-        isParticipant ? "Désincription en cours..." : "Inscription en cours",
+        isParticipant ? "Désinscription en cours..." : "Inscription en cours",
         toastStyle
       );
       participate(id).then((result) => {

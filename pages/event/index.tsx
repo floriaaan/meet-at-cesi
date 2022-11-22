@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
+import { MdArrowRightAlt } from "react-icons/md";
 
 import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
@@ -14,7 +15,6 @@ import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { Chip } from "@/components/UI/Chip";
 import Link from "next/link";
-import { MdArrowRightAlt } from "react-icons/md";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -96,10 +96,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
           <HeroTitle
             text={
               <>
-                Liste des événements{" "}
-                <Chip >
-                  {events.length}
-                </Chip>
+                Liste des événements <Chip>{events.length}</Chip>
               </>
             }
           />

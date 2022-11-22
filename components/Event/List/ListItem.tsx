@@ -25,7 +25,9 @@ export const EventListItem = ({
   participants,
 }: Props) => {
   const dateObject = new Date(date);
-  const isPast = dateObject.getTime() < Date.now();
+  const isPast =
+    dateObject.getTime() <
+    new Date(new Date().setDate(new Date().getDate() - 1)).getTime();
 
   return (
     <Link

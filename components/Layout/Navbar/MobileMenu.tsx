@@ -40,7 +40,7 @@ export const MobileMenu = () => {
   const { user } = session || {};
 
   return (
-    <div className="inline-flex items-center">
+    <div className="inline-flex items-center md:hidden">
       {status === "loading" ? <Spinner /> : null}
       {status !== "loading" && !user ? (
         <button
