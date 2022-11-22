@@ -49,7 +49,8 @@ const MenuButton = ({ open }: { open: boolean }) => {
 const MenuPanel = ({ event }: { open: boolean; event: ExtendedEvent }) => {
   const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
-    let url = e.currentTarget.getAttribute("href") as string;
+    let type = e.currentTarget.getAttribute("data-type") as string;
+    let url = buildUrl(event, type);
 
     if (!isMobile() && (url.startsWith("data") || url.startsWith("BEGIN"))) {
       let filename = "download.ics";
@@ -73,32 +74,32 @@ const MenuPanel = ({ event }: { open: boolean; event: ExtendedEvent }) => {
   return (
     <div className="flex flex-col p-2 bg-white border border-gray-400 shadow-xl gap-y-2">
       <a
-        href={buildUrl(event, "google")}
-        className="inline-flex items-center text-sm gap-x-1 hover:underline underline-offset-2"
+        data-type="google"
+        className="inline-flex items-center text-sm cursor-pointer gap-x-1 hover:underline underline-offset-2"
         onClick={handleClick}
       >
         <IoLogoGoogle />
         Google Calendar
       </a>
       <a
-        href={buildUrl(event, "apple")}
-        className="inline-flex items-center text-sm gap-x-1 hover:underline underline-offset-2"
+        data-type="apple"
+        className="inline-flex items-center text-sm cursor-pointer gap-x-1 hover:underline underline-offset-2"
         onClick={handleClick}
       >
         <IoLogoApple />
         Apple
       </a>
       <a
-        href={buildUrl(event, "outlookcom")}
-        className="inline-flex items-center text-sm gap-x-1 hover:underline underline-offset-2"
+        data-type="outlookcom"
+        className="inline-flex items-center text-sm cursor-pointer gap-x-1 hover:underline underline-offset-2"
         onClick={handleClick}
       >
         <IoLogoMicrosoft />
         Outlook
       </a>
       <a
-        href={buildUrl(event, "yahoo")}
-        className="inline-flex items-center text-sm gap-x-1 hover:underline underline-offset-2"
+        data-type="yahoo"
+        className="inline-flex items-center text-sm cursor-pointer gap-x-1 hover:underline underline-offset-2"
         onClick={handleClick}
       >
         <IoLogoYahoo />

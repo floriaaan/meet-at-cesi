@@ -8,6 +8,8 @@ import { HeroDetails } from "@/components/Event/HeroDetails";
 import { MdChevronLeft } from "react-icons/md";
 import { useRouter } from "next/router";
 import { ExtendedEvent } from "@/types/Event";
+import campusList from "@/resources/campus-list";
+import audienceList from "@/resources/audience-list";
 
 export const HeroSection = ({
   id,
@@ -35,6 +37,9 @@ export const HeroSection = ({
 
   participate: () => void;
 }) => {
+  const campusDisplay = campusList.find((c) => c.value === campus)?.label;
+  const audienceDisplay = audienceList.find((a) => a.value === audience)?.shortLabel;
+
   const router = useRouter();
   return (
     <div className="flex flex-col w-full">
@@ -59,7 +64,7 @@ export const HeroSection = ({
                     "before:content-[attr(before)] before:absolute before:right-[100%]"
                   )}
                 >
-                  {campus}
+                  {campusDisplay}
                 </strong>
               </div>
               <div className="flex flex-col pl-4">
@@ -72,7 +77,7 @@ export const HeroSection = ({
                     "before:content-[attr(before)] before:absolute before:right-[100%]"
                   )}
                 >
-                  {audience}
+                  {audienceDisplay}
                 </strong>
               </div>
             </div>
