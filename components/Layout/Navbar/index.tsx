@@ -21,8 +21,8 @@ export const Navbar = () => {
 
   useEffect(() => {
     const scrollHandler = () => {
-      //   window.pageYOffset > 0 ? setIsTop(false) : setIsTop(true);
-      window.scrollY > 15 ? setIsTop(false) : setIsTop(true);
+      window.scrollY > 20 && setIsTop(false);
+      window.scrollY === 0 && setIsTop(true);
     };
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
