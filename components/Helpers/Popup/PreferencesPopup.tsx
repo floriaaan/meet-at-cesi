@@ -20,8 +20,10 @@ export const PreferencesPopup = () => {
     cookiePreferences !== "undefined" ? cookiePreferences : undefined
   );
   const [dismissed, setDismissed] = useState<boolean>(
-    cookieDismissed === "true" || true
+    cookieDismissed === "true" || false
   );
+
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     setPreferences(
@@ -32,6 +34,7 @@ export const PreferencesPopup = () => {
 
   useEffect(() => {
     getPreferences().then((preferences) => {
+      setLoading(false);
       setPreferences(preferences);
       setCookie("meet-preferences", preferences, { path: "/" });
     });
@@ -51,7 +54,7 @@ export const PreferencesPopup = () => {
    * Display options
    *
    */
-  const show = !(preferences || dismissed);
+  const show = !(preferences || dismissed) && !loading;
   useEffect(() => {
     if (show) {
       document.body.classList.add("blocking__popup");

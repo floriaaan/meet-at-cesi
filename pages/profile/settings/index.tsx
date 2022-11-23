@@ -130,7 +130,7 @@ const PreferencesSection = ({
         optionalButton={
           preferences ? (
             <button
-              type="submit"
+              type="button"
               onClick={async () => {
                 return editPreferences({
                   campus: "",
