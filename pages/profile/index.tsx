@@ -92,19 +92,22 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
           aria-label="Profile index page"
         >
           <ProfileCard user={user} />
-          <InvitationsProvider
-            initialReceivedInvitations={receivedInvitations}
-            initialSendedInvitations={sendedInvitations}
-          >
+          <div className="w-full h-auto">
             <section id="invitations" className="flex flex-col w-full">
-              <ReceivedInvitationSection />
-              <SendedInvitationSection />
+              <InvitationsProvider
+                initialReceivedInvitations={receivedInvitations}
+                initialSendedInvitations={sendedInvitations}
+              >
+                <ReceivedInvitationSection />
+                <SendedInvitationSection />
+              </InvitationsProvider>
             </section>
-          </InvitationsProvider>
-          <section id="events" className="flex flex-col w-full">
-            <ParticipatingSection events={participations || []} />
-            <CreatedSection events={createdEvents || []} />
-          </section>
+            <hr className="hidden w-full h-px border border-gray-100 md:block" />
+            <section id="events" className="flex flex-col w-full">
+              <ParticipatingSection events={participations || []} />
+              <CreatedSection events={createdEvents || []} />
+            </section>
+          </div>
           {/* <pre className="text-xs">{JSON.stringify(user, undefined, 2)}</pre> */}
         </section>
       </ProfileLayout>

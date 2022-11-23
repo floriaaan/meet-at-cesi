@@ -67,7 +67,7 @@ export const EventListItem = ({
         </span>
       </div>
       <div className="flex flex-col p-2 grow">
-        <h3 className="overflow-hidden text-xl font-bold text-black group-hover:underline underline-offset-2 decoration-dashed decoration-black">
+        <h3 className="overflow-hidden text-xl font-bold text-black group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
           {title}
         </h3>
         <DetailsList
@@ -78,7 +78,7 @@ export const EventListItem = ({
           participants={participants}
         />
       </div>
-      <div className="flex flex-col items-center justify-center w-8 h-8 ml-auto text-white bg-black border-t border-l md:border-t-0 md:border-b group-hover:bg-primary group-hover:text-black">
+      <div className="flex flex-col items-center justify-center w-8 h-8 ml-auto text-white bg-black border-t border-l md:border-t-0 md:border-b group-hover:bg-pink group-hover:text-black">
         <TbChevronRight className="w-4 h-4 stroke-[3]" />
       </div>
     </Link>
