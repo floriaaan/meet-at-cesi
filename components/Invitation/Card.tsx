@@ -69,7 +69,7 @@ export const InvitationCard = ({
           user={displayedUser}
           className={
             avatarClassName ||
-            "rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-full shrink-0 -mr-2 border-0"
+            "rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-16 shrink-0 -mr-2 border-0"
           }
         />
         <div className="flex flex-col grow items-start py-2 px-1.5 overflow-hidden">

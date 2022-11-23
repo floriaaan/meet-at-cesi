@@ -1,4 +1,4 @@
-import { InvitationCard } from "@/components/Profile/Invitation/Card";
+import { InvitationCard } from "@/components/Invitation/Card";
 import { Chip } from "@/components/UI/Chip";
 import { useInvitations } from "@/hooks/useInvitations";
 
