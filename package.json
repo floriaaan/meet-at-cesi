@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:update": "prisma db push && prisma generate && prisma studio --browser=none",
-    "prisma:generate": "prisma generate",
-    "postinstall": "npm run prisma:generate"
+    "prisma:update": "prisma db push && prisma generate",
+    "prisma:studio": " npm run prisma:update && prisma studio --browser=none",
+    "postinstall": "npm run prisma:update"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.3",
