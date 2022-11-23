@@ -81,7 +81,7 @@ export const FeedbackForm = ({
               // remove duplicates
               .filter((v, i, a) => a.indexOf(v) === i)
               .map((h: string) => ({
-                value: h as string,
+                value: h,
                 label: routes[h as keyof typeof routes],
               }))}
           />
