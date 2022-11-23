@@ -1,4 +1,6 @@
 import { MdFeedback } from "react-icons/md";
+import classNames from "classnames";
+
 import { useFeedback } from "@/components/Helpers/Feedback";
 
 export const FeedbackButton = () => {
@@ -6,9 +8,12 @@ export const FeedbackButton = () => {
   return (
     <button
       onClick={() => setIsFeedbackOpen(!isFeedbackOpen)}
-      className="flex items-center justify-center w-12 h-12 bg-black"
+      className={classNames(
+        "flex items-center justify-center w-12 h-12 ",
+        isFeedbackOpen? "bg-primary text-black": "text-white bg-black active:bg-primary active:text-black hover:text-primary"
+      )}
     >
-      <MdFeedback className="w-6 h-6 text-white" />
+      <MdFeedback className="w-6 h-6 " />
     </button>
   );
 };

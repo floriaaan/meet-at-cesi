@@ -17,18 +17,18 @@ export const FeedbackWrapper = () => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState<boolean>(false);
   const [history, setHistory] = useState<string[]>([]);
   const router = useRouter();
-  
+
   useEffect(() => {
-      setHistory((prev) => [...prev, router.pathname]);
-    }, [router.pathname]);
+    setHistory((prev) => [...prev, router.pathname]);
+  }, [router.pathname]);
 
   return (
     <FeedbackContext.Provider
       value={{ history, isFeedbackOpen, setIsFeedbackOpen }}
     >
-      <div className="fixed bottom-4 right-4 ">
+      <div className="fixed flex flex-col-reverse bottom-4 right-4">
         <FeedbackButton />
-        {isFeedbackOpen ? <FeedbackMenu /> : null}
+        <FeedbackMenu />
       </div>
     </FeedbackContext.Provider>
   );

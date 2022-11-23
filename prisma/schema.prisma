@@ -73,6 +73,7 @@ model User {
 
   sendedInvitations   Invitation[] @relation("event_invitation_sended")
   receivedInvitations Invitation[] @relation("event_invitation_received")
+  feedbacks           Feedback[]
 }
 
 model Event {
@@ -113,4 +114,16 @@ model Invitation {
   sender   User @relation("event_invitation_sended", fields: [senderId], references: [id], onDelete: Cascade, map: "senderId")
 
   @@unique([eventId, receiverId, senderId])
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  text      String
+  page      String
+
+  history String[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
