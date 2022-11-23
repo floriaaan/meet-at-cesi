@@ -16,20 +16,6 @@ export const PWAPopup = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
     setCookie("meet-pwa_dismissed", "true", { path: "/" });
   };
 
-  // const [isInstallable, setIsInstallable] = useState<boolean>(false);
-
-  // useEffect(() => {
-  //   // check if the browser supports the beforeinstallprompt event
-  //   if (window.matchMedia("(display-mode: standalone)").matches) {
-  //     setIsInstallable(false);
-  //   } else {
-  //     window.addEventListener("beforeinstallprompt", (e) => {
-  //       e.preventDefault();
-  //       setIsInstallable(true);
-  //     });
-  //   }
-  // }, []);
-
   return !dismissed ? (
     <div
       className={classNames(
