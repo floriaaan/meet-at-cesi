@@ -45,7 +45,7 @@ export const FeedbackForm = ({
     let toastId: string | undefined;
     try {
       setDisabled(true);
-      toastId = toast.loading("Modification en cours...", toastStyle);
+      toastId = toast.loading("Envoi en cours...", toastStyle);
       // Submit data
       if (typeof onSubmit === "function") {
         onSubmit(values).then((result) => {
