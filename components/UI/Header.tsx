@@ -1,12 +1,12 @@
 import classNames from "classnames";
 import type { ReactNode } from "react";
 
-type HeroTitleProps = {
+type HeaderProps = {
   text: string| ReactNode;
   className?: string;
 };
 
-export const HeroTitle = ({ text, className }: HeroTitleProps) => {
+export const Header = ({ text, className }: HeaderProps) => {
   return (
     <div className="w-full p-6 pb-8 text-black bg-primary">
       <h1

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { MdSearch } from "react-icons/md";
 
-import { Spinner } from "@/components/UI/Spinner";
+import { Spinner } from "@/components/UI/Fallback/Spinner";
 
 type Props = {
   className?: string;

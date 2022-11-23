@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 
 import { getPlaceSuggestions } from "@/lib/fetchers";
 import { Prediction } from "@/types/Prediction";
-import { Spinner } from "@/components/UI/Spinner";
+import { Spinner } from "@/components/UI/Fallback/Spinner";
 
 type InputProps = FieldHookConfig<string> & {
   labelClassName?: string;

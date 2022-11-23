@@ -3,8 +3,8 @@ import { MdChevronRight } from "react-icons/md";
 import classNames from "classnames";
 
 import type { UserMinimum } from "@/types/User";
-import PopperMenu from "@/components/UI/PopperMenu";
-import { Spinner } from "@/components/UI/Spinner";
+import PopperMenu from "@/components/Helpers/PopperMenu";
+import { Spinner } from "@/components/UI/Fallback/Spinner";
 import { Category } from "@/components/UI/Link/Category";
 import { Avatar } from "@/components/UI/Avatar";
 

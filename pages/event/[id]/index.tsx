@@ -10,9 +10,9 @@ import toastStyle from "@/resources/toast.config";
 import prisma from "@/lib/prisma";
 import { participate } from "@/lib/fetchers";
 import { AppLayout } from "@/components/Layout/AppLayout";
-import { HeroSection } from "@/components/Event/HeroSection";
-import { MapSection } from "@/components/Event/MapSection";
-import { ParticipantsSection } from "@/components/Event/ParticipantsSection";
+import { HeroSection } from "@/components/Event/Hero/Section";
+import { MapSection } from "@/components/Event/Map/Section";
+import { ParticipantSection } from "@/components/Event/Participant/Section";
 
 type Props = {
   event: ExtendedEvent;
@@ -106,7 +106,7 @@ const EventPage: NextPage<Props> = (props: Props) => {
             <MapSection location={location} />
           </div>
           <div className="w-full lg:w-1/3">
-            <ParticipantsSection participants={participants} eventId={id} />
+            <ParticipantSection participants={participants} eventId={id} />
           </div>
         </div>
       </section>

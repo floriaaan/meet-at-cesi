@@ -10,7 +10,7 @@ import prisma from "@/lib/prisma";
 import type { ExtendedEvent } from "@/types/Event";
 import { EventForm, EventFormValues } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout/AppLayout";
-import { HeroTitle } from "@/components/UI/HeroTitle";
+import { Header } from "@/components/UI/Header";
 import { DeleteModal } from "@/components/Event/DeleteModal";
 
 type Props = {
@@ -81,7 +81,7 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
             Supprimer
           </button>
         </div>
-        <HeroTitle text="Modifier un événement" />
+        <Header text="Modifier un événement" />
         <EventForm
           isEditing
           initialValues={

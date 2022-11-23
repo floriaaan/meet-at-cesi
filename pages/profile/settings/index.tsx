@@ -9,7 +9,7 @@ import prisma from "@/lib/prisma";
 import toastStyle from "@/resources/toast.config";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
-import { HeroTitle } from "@/components/UI/HeroTitle";
+import { Header } from "@/components/UI/Header";
 import {
   PreferencesForm,
   PreferencesFormValues,
@@ -62,7 +62,7 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
       <ProfileLayout>
         <NextSeo noindex title="Paramètres" />
         <section className="flex flex-col items-start w-full px-4 mx-auto mt-6 mb-12 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4">
-          <HeroTitle text="Paramètres" />
+          <Header text="Paramètres" />
           <div className="flex flex-col w-full divide-y">
             <ImageUploadSection
               image={image}

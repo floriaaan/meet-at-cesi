@@ -8,7 +8,7 @@ import {
   MdLocationPin,
   MdPerson,
 } from "react-icons/md";
-import { AddToCalendar } from "../Helpers/AddToCalendar";
+import { AddToCalendar } from "../../Helpers/AddToCalendar";
 
 export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
   const { location, date, audienceCampus, creator } = event;

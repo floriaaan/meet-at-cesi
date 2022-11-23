@@ -6,7 +6,7 @@ import { MdCheck, MdClose } from "react-icons/md";
 import type { ExtendedInvitation } from "@/types/Event";
 import { Avatar } from "@/components/UI/Avatar";
 import { useInvitations } from "@/hooks/useInvitations";
-import { Spinner } from "@/components/UI/Spinner";
+import { Spinner } from "@/components/UI/Fallback/Spinner";
 
 type InvitationCardProps = {
   invitation: ExtendedInvitation;

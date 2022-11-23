@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import "@/styles/globals.css";
-import { PreferencesPopup } from "@/components/Helpers/PreferencesPopup";
+import { PreferencesPopup } from "@/components/Helpers/Popup/Preferences";
 import { ExtendedSession } from "@/types/Session";
 import { FeedbackWrapper } from "@/components/Helpers/Feedback";
 

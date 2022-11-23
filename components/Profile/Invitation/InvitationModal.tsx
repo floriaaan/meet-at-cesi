@@ -10,7 +10,7 @@ import { UserMinimum } from "@/types/User";
 import { UserListItem } from "@/components/User/ListItem";
 import toastStyle from "@/resources/toast.config";
 import { getPlural } from "@/lib/string";
-import { Spinner } from "../../UI/Spinner";
+import { Spinner } from "../../UI/Fallback/Spinner";
 
 type Props = {
   closeModal: () => void;

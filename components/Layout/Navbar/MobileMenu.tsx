@@ -5,13 +5,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 
 import useDelayedRender from "@/hooks/useDelayedRender";
 import { Category, CategoryProps } from "@/components/UI/Link/Category";
-import { HeroTitle } from "@/components/UI/HeroTitle";
+import { Header } from "@/components/UI/Header";
 import { Avatar } from "@/components/UI/Avatar";
 import { UserMinimum } from "@/types/User";
-import { PWAPopup } from "@/components/Helpers/Popup/PWAPopup";
+import { PWAPopup } from "@/components/Helpers/Popup/PWA";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
-import { Spinner } from "@/components/UI/Spinner";
+import { Spinner } from "@/components/UI/Fallback/Spinner";
 
 export const MobileMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -184,7 +184,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
               />
             </span>
             <span className="relative -left-2">
-              <HeroTitle
+              <Header
                 text={session?.user?.name.toLowerCase()}
                 className="capitalize text-[2.5rem]"
               />

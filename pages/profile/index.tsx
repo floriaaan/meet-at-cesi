@@ -10,7 +10,7 @@ import campusList from "@/resources/campus-list";
 import { InvitationsProvider } from "@/hooks/useInvitations";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
-import { HeroTitle } from "@/components/UI/HeroTitle";
+import { Header } from "@/components/UI/Header";
 import { Avatar } from "@/components/UI/Avatar";
 import { ReceivedInvitationSection } from "@/components/Profile/Invitation/ReceivedSection";
 import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedSection";
@@ -140,7 +140,7 @@ const ProfileCard = ({ user }: { user: ExtendedUser }) => {
       </span>
 
       <span className="relative flex flex-col -left-2 ">
-        <HeroTitle
+        <Header
           text={(user.name as string).toLowerCase()}
           className="capitalize text-[32px] sm:text-[3.5rem]  md:text-[4rem]"
         />

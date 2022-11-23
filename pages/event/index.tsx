@@ -4,17 +4,17 @@ import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { MdArrowRightAlt } from "react-icons/md";
+import Link from "next/link";
 
 import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
 import { search } from "@/lib/fetchers";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { EventList } from "@/components/Event/List";
-import { HeroTitle } from "@/components/UI/HeroTitle";
+import { Header } from "@/components/UI/Header";
 import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/FilterSidebar";
 import { Chip } from "@/components/UI/Chip";
-import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query } = context;
@@ -93,7 +93,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
           <FilterSidebar setEvents={setEvents} setLoading={setLoading} />
         </div>
         <div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
-          <HeroTitle
+          <Header
             text={
               <>
                 Liste des événements <Chip>{events.length}</Chip>

@@ -3,8 +3,8 @@ import type { User } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 
-import { HeroTitle } from "@/components/UI/HeroTitle";
-import { HeroDetails } from "@/components/Event/HeroDetails";
+import { Header } from "@/components/UI/Header";
+import { HeroDetails } from "@/components/Event/Hero/Details";
 import { MdChevronLeft } from "react-icons/md";
 import { useRouter } from "next/router";
 import { ExtendedEvent } from "@/types/Event";
@@ -107,7 +107,7 @@ export const HeroSection = ({
       </div>
 
       <div className="flex flex-col lg:flex-row">
-        <HeroTitle text={title} />
+        <Header text={title} />
         <HeroDetails
           event={
             {

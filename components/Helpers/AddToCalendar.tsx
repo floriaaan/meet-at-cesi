@@ -8,7 +8,7 @@ import {
   IoLogoYahoo,
 } from "react-icons/io5";
 
-import PopperMenu from "@/components/UI/PopperMenu";
+import PopperMenu from "@/components/Helpers/PopperMenu";
 import { buildUrl, isMobile } from "@/lib/calendar";
 import { ExtendedEvent } from "@/types/Event";
 import { MdChevronRight } from "react-icons/md";

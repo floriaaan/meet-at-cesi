@@ -4,11 +4,11 @@ import classNames from "classnames";
 import { useState } from "react";
 import { MdGridView, MdList } from "react-icons/md";
 
-import { ParticipantCard } from "@/components/Event/ParticipantCard";
+import { ParticipantCard } from "@/components/Event/Participant/Card";
 import { InvitationModal } from "@/components/Profile/Invitation/InvitationModal";
 import { useSession } from "next-auth/react";
 
-export const ParticipantsSection = ({
+export const ParticipantSection = ({
   eventId,
   participants,
 }: {
