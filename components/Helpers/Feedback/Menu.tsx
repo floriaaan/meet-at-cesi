@@ -1,11 +1,12 @@
 import { useFeedback } from "@/components/Helpers/Feedback";
+import { createFeedback } from "@/lib/fetchers";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { MdClose } from "react-icons/md";
 import { FeedbackForm } from "./Form";
 
 export const FeedbackMenu = () => {
-  const { isFeedbackOpen, setIsFeedbackOpen } = useFeedback();
+  const { isFeedbackOpen, setIsFeedbackOpen, history } = useFeedback();
   const closeModal = () => setIsFeedbackOpen(false);
 
   return (
@@ -53,8 +54,10 @@ export const FeedbackMenu = () => {
                 <p className="mt-1.5 text-sm font-bold">Dîtes nous tout !</p>
                 <FeedbackForm
                   onSubmit={(values) => {
-                    console.log(values);
-                    return Promise.resolve(true);
+                    return createFeedback({
+                      ...values,
+                      history: values.history_share ? history : [],
+                    });
                   }}
                   submitClassName="w-full btn-black text-sm border-b"
                   labelClassName="text-xs font-bold font-black"

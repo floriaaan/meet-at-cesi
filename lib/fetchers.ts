@@ -156,9 +156,12 @@ export const deleteInvitation = async (id: string): Promise<boolean> => {
   });
   if (res.ok) return true;
   return false;
-}
+};
 
-export const createInvitation = async (eventId: string, receiver: string[]): Promise<boolean> => {
+export const createInvitation = async (
+  eventId: string,
+  receiver: string[]
+): Promise<boolean> => {
   const res = await fetch("/api/user/invitation", {
     method: "POST",
     headers: {
@@ -171,13 +174,12 @@ export const createInvitation = async (eventId: string, receiver: string[]): Pro
   });
   if (res.ok) return true;
   return false;
-}
-
+};
 
 export type UserSearchRequestInput = {
   name?: string;
   offset: number;
-}
+};
 
 export const searchUsers = async (
   params: UserSearchRequestInput
@@ -192,4 +194,23 @@ export const searchUsers = async (
     return users;
   }
   return [];
-}
+};
+
+export type FeedbackCreateRequestInput = {
+  text: string;
+  page: string;
+  history: string[];
+};
+export const createFeedback = async (
+  feedback: FeedbackCreateRequestInput
+): Promise<boolean> => {
+  const res = await fetch("/api/feedback", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(feedback),
+  });
+  if (res.ok) return true;
+  return false;
+};

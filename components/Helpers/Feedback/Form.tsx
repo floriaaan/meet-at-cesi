@@ -10,7 +10,9 @@ import Select from "@/components/UI/Form/Select";
 import routes from "@/resources/routes";
 
 const FeedbackSchema = Yup.object().shape({
-  text: Yup.string().required("Je sens bien que vous essayez de me dire quelque chose..."),
+  text: Yup.string().required(
+    "Je sens bien que vous essayez de me dire quelque chose..."
+  ),
   page: Yup.string().required("Où étais-tu ?"),
   history_share: Yup.boolean(),
 });
@@ -37,7 +39,7 @@ export const FeedbackForm = ({
   optionalButton,
   submitClassName,
 }: Props) => {
-  const { history } = useFeedback();
+  const { history, setIsFeedbackOpen } = useFeedback();
   const [disabled, setDisabled] = useState(false);
 
   const handleOnSubmit = async (values: FeedbackFormValues) => {
@@ -50,7 +52,8 @@ export const FeedbackForm = ({
         onSubmit(values).then((result) => {
           if (result) {
             toast.success("Feedback bien envoyé, merci ! 🤝", { id: toastId });
-          } else toast.error("Erreur lors de l'envoi' 😭", { id: toastId });
+            setIsFeedbackOpen(false);
+          } else toast.error("Erreur lors de l'envoi 😭", { id: toastId });
 
           setDisabled(false);
         });
