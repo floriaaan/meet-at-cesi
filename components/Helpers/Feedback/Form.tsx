@@ -27,7 +27,7 @@ const initialFormValues: FeedbackFormValues = {
 type Props = {
   labelClassName?: string;
   initialValues?: FeedbackFormValues;
-  onSubmit: ({}: FeedbackFormValues) => Promise<boolean>;
+  onSubmit: (values: FeedbackFormValues) => Promise<boolean>;
   optionalButton?: JSX.Element;
   submitClassName?: string;
 };
@@ -36,7 +36,6 @@ export const FeedbackForm = ({
   labelClassName,
   initialValues = initialFormValues,
   onSubmit,
-  optionalButton,
   submitClassName,
 }: Props) => {
   const { history, setIsFeedbackOpen } = useFeedback();
