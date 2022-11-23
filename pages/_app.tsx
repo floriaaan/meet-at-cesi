@@ -9,16 +9,20 @@ import { useRouter } from "next/router";
 import "@/styles/globals.css";
 import { PreferencesPopup } from "@/components/Helpers/PreferencesPopup";
 import { ExtendedSession } from "@/types/Session";
+import { FeedbackWrapper } from "@/components/Helpers/Feedback";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { session } = pageProps as { session: ExtendedSession | null | undefined };
+  const { session } = pageProps as {
+    session: ExtendedSession | null | undefined;
+  };
   const [url, setUrl] = useState<undefined | string>(undefined);
   const router = useRouter();
 
   useEffect(() => {
     const hostname = window.location.hostname;
     if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
-    else if (hostname.includes("dev")) setUrl(hostname.split(".")[0] + router.pathname);
+    else if (hostname.includes("dev"))
+      setUrl(hostname.split(".")[0] + router.pathname);
   }, [router.pathname]);
 
   return (
@@ -53,7 +57,12 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {children}
-      {status === "authenticated" && <PreferencesPopup />}
+      {status === "authenticated" && (
+        <>
+          <PreferencesPopup />
+          <FeedbackWrapper />
+        </>
+      )}
     </>
   );
 };
