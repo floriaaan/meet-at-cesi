@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { MdClose, MdDownload, MdOutlineMenu } from "react-icons/md";
+import { MdClose, MdOutlineMenu } from "react-icons/md";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 import useDelayedRender from "@/hooks/useDelayedRender";
@@ -8,7 +8,7 @@ import { Category, CategoryProps } from "@/components/UI/Link/Category";
 import { HeroTitle } from "@/components/UI/HeroTitle";
 import { Avatar } from "@/components/UI/Avatar";
 import { UserMinimum } from "@/types/User";
-import { PWAPopup } from "@/components/Helpers/PWAPopup";
+import { PWAPopup } from "@/components/Helpers/Popup/PWAPopup";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
 import { Spinner } from "@/components/UI/Spinner";
