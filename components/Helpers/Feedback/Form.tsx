@@ -94,7 +94,7 @@ export const FeedbackForm = ({
             rows={5}
           />
           <Input
-            label={`Partager mon historique de navigation (${process.env.NEXT_PUBLIC_APP_NAME})`}
+            label={`Partager mon historique de navigation sur ${process.env.NEXT_PUBLIC_APP_NAME}`}
             name="history_share"
             type="checkbox"
             labelClassName={labelClassName}
