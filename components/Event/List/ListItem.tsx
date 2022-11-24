@@ -4,13 +4,13 @@ import Link from "next/link";
 import { TbChevronRight } from "react-icons/tb";
 
 import { DetailsList } from "@/components/Event/List/DetailsList";
+import { DateComponent } from "@/components/Event/List/Date";
 
 type Props = Event & {
   creator: User;
   participants: User[];
 };
 
-// TODO: Add a "See more" button to display the full event
 // TODO: Change the layout when the event is over
 export const EventListItem = ({
   id,
@@ -37,35 +37,7 @@ export const EventListItem = ({
         isPast ? "opacity-50" : ""
       )}
     >
-      <div
-        className={
-          "flex flex-col items-center justify-center w-auto h-24 md:h-auto px-4 md:min-h-max bg-black aspect-video md:aspect-square"
-        }
-      >
-        <span className="text-sm font-bold leading-3 text-white">
-          {dateObject.toLocaleDateString("fr-FR", {
-            month: "short",
-          })}
-        </span>
-        <>
-          <span className="hidden text-xl font-bold text-white md:block">
-            {dateObject.toLocaleDateString("fr-FR", {
-              day: "numeric",
-              weekday: "short",
-            })}
-          </span>
-          <span className="block text-xl font-bold text-white md:hidden">
-            {dateObject.toLocaleDateString("fr-FR", {
-              day: "numeric",
-              weekday: "long",
-            })}
-          </span>
-        </>
-        <hr className="w-24 border-white md:w-8" />
-        <span className="mt-1 text-xs text-white">
-          {dateObject.toLocaleDateString("fr-FR")}
-        </span>
-      </div>
+      <DateComponent date={dateObject} />
       <div className="flex flex-col p-2 grow">
         <h3 className="overflow-hidden text-xl font-bold text-black group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
           {title}

@@ -37,3 +37,14 @@ export const toLocalDate = (date: string | Date) => {
   dateObject.setMinutes(+minutes);
   return dateObject;
 };
+
+export const fromLocalDate = (date: Date) => {
+  const [dateString, timeString] = date.toISOString().split("T");
+  const [hours, minutes] = timeString.split(":");
+  const dateObject = new Date(dateString);
+
+  // watch out how we don't change hour but it set to locale (fr) hour
+  dateObject.setHours(+hours);
+  dateObject.setMinutes(+minutes);
+  return dateObject;
+};
