@@ -60,7 +60,7 @@ export const Navbar = () => {
               <span className="sr-only">Meet at CESI</span>
             </Link>
 
-            <NavLink href="/event">Tout les événements</NavLink>
+            <NavLink href="/event">Tous les événements</NavLink>
             {user && (
               <>
                 <NavLink href="/event/create">Organiser mon événement</NavLink>
