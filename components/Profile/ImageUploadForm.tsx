@@ -131,7 +131,7 @@ export const ImageUploadForm = ({
           Extensions de fichiers autorisés: <strong>{accept}</strong>
         </div>
         <div className="inline-flex items-center gap-x-1">
-          Taillé maximum:{" "}
+          Taille maximum:{" "}
           <strong>{Math.floor(sizeLimit / 1024 / 1024)}MB</strong>
         </div>
       </div>
