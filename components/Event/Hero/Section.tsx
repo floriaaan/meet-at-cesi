@@ -101,7 +101,7 @@ export const HeroSection = ({
                 className="py-2.5 btn-black w-fit px-2 sm:px-4 "
               >
                 <MdEdit className="w-4 h-4 my-0.5" />
-                {/* Modifier */}
+                <span className="sr-only">{"Modifier l'événement"}</span>
               </Link>
             )}
             <button
