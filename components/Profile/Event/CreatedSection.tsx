@@ -17,8 +17,8 @@ export const CreatedSection = ({ events }: CreatedSectionProps) => {
         <Chip>{events.length}</Chip>
       </div>
       {events.length > 0 ? (
-        <div className="flex w-full gap-2 pb-1 overflow-y-auto max-h-64">
-          {events.map((event) => (
+        <div className="flex flex-col w-full gap-2 pb-1 lg:overflow-y-auto lg:max-h-64">
+        {events.map((event) => (
             <EventListItem {...event} key={event.id} />
           ))}
         </div>

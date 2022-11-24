@@ -9,7 +9,7 @@ export const ProfileLayoutSidebar = () => {
   const { data: session } = useSession();
   return (
     <aside
-      className="flex-col justify-between hidden h-auto min-h-full px-6 py-4 overflow-y-auto grow w-72 md:flex bg-gray-50 "
+      className="sticky flex-col justify-between hidden h-auto min-h-full px-6 py-6 overflow-y-auto top-6 grow w-72 md:flex bg-gray-50 "
       aria-label="Sidebar"
     >
       <ul className="flex flex-col gap-y-2">
