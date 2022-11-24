@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       if (query.promotion === "user_preferred_promotion")
         return {
           redirect: {
-            destination: `/event?promotion=${user.preferences?.promotion}`,
+            destination: `/event?promotion=${user.preferences?.promotion}&campus=${user.preferences?.campus}`,
             permanent: false,
           },
         };
