@@ -110,7 +110,7 @@ export const FeedbackForm = ({
                 "border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"
               }
             >
-              {isSubmitting ? "Envoi en cours..." : "Modifier"}
+              {isSubmitting ? "Envoi en cours..." : "Envoyer"}
             </button>
           </div>
         </Form>
