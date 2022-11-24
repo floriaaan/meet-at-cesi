@@ -12,6 +12,7 @@ import { EventForm, EventFormValues } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { Header } from "@/components/UI/Header";
 import { DeleteModal } from "@/components/Event/DeleteModal";
+import { editEvent } from "@/lib/fetchers";
 
 type Props = {
   event: ExtendedEvent;
@@ -89,26 +90,13 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
               title: event.title,
               audience: event.audience,
               "audience-campus": event.audienceCampus,
-              date: new Date(event.date)
-                .toISOString()
-                .split("T")[0] as unknown as Date,
+              date: event.date.toString().split("Z")[0] as unknown as Date,
               location: event.location,
             } as EventFormValues
           }
-          onSubmit={async (values: EventFormValues) => {
-            try {
-              const res = await fetch(`/api/event/edit`, {
-                body: JSON.stringify({ ...values, id: event.id }),
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-              });
-              if (res.ok && res.status === 201) return await res.json();
-              else return false;
-            } catch (error) {
-              console.error(error);
-              return await Promise.reject(error);
-            }
-          }}
+          onSubmit={async (values: EventFormValues) =>
+            editEvent(event.id, values)
+          }
         />
       </section>
       <section>

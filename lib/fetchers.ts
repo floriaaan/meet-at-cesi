@@ -1,6 +1,8 @@
-import { InvitationStatus, Preference, User } from "@prisma/client";
+import { Event, InvitationStatus, Preference, User } from "@prisma/client";
 import type { ExtendedEvent } from "@/types/Event";
 import type { ExtendedUser } from "@/types/User";
+import { EventFormValues } from "@/components/Event/Form";
+import { toLocalDate } from "@/lib/date";
 
 export const participate = async (
   id: string
@@ -15,6 +17,46 @@ export const participate = async (
     return { participants };
   }
   return false;
+};
+
+type EventCreateRequestInput = EventFormValues;
+export const createEvent = async (
+  values: EventCreateRequestInput
+): Promise<Event | false | Error> => {
+  try {
+    const res = await fetch("/api/event", {
+      body: JSON.stringify({ ...values, date: toLocalDate(values.date) }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (res.ok && res.status === 201) return await res.json();
+    else return false;
+  } catch (error) {
+    console.error(error);
+    return await Promise.reject(error);
+  }
+};
+
+export const editEvent = async (
+  eventId: string,
+  values: EventCreateRequestInput
+): Promise<Event | false | Error> => {
+  try {
+    const res = await fetch(`/api/event/edit`, {
+      body: JSON.stringify({
+        ...values,
+        id: eventId,
+        date: toLocalDate(values.date),
+      }),
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (res.ok && res.status === 201) return await res.json();
+    else return false;
+  } catch (error) {
+    console.error(error);
+    return await Promise.reject(error);
+  }
 };
 
 export const deleteEvent = async (id: string): Promise<true | false> => {

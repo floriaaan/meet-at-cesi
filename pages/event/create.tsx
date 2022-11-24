@@ -5,6 +5,7 @@ import { NextSeo } from "next-seo";
 import { EventForm, EventFormValues } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout/AppLayout";
 import { Header } from "@/components/UI/Header";
+import { createEvent } from "@/lib/fetchers";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -27,22 +28,7 @@ const EventCreatePage: NextPage = () => {
       <NextSeo title="Créer un événement" />
       <section className="flex flex-col items-start h-auto px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-8">
         <Header text="Organiser un événement" />
-        <EventForm
-          onSubmit={async (values: EventFormValues) => {
-            try {
-              const res = await fetch("/api/event", {
-                body: JSON.stringify(values),
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-              });
-              if (res.ok && res.status === 201) return await res.json();
-              else return false;
-            } catch (error) {
-              console.error(error);
-              return await Promise.reject(error);
-            }
-          }}
-        />
+        <EventForm onSubmit={createEvent} />
       </section>
     </AppLayout>
   );
