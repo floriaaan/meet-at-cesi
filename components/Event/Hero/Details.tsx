@@ -1,3 +1,4 @@
+import { fromLocalDate } from "@/lib/date";
 import audienceList from "@/resources/audience-list";
 import campusList from "@/resources/campus-list";
 import { ExtendedEvent } from "@/types/Event";
@@ -25,11 +26,14 @@ export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
         </div>
         <div className="inline-flex items-center text-black gap-x-1">
           <MdCalendarToday className="w-4 h-4" />
-          {new Date(date).toLocaleDateString("fr-FR", {
+          {fromLocalDate(new Date(date)).toLocaleDateString("fr-FR", {
             weekday: "long",
             year: "numeric",
             month: "long",
             day: "numeric",
+
+            hour: "numeric",
+            minute: "numeric",
           })}
         </div>
         <div className="inline-flex items-center text-black sm:hidden gap-x-1">
