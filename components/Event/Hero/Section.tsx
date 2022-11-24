@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Header } from "@/components/UI/Header";
 import { HeroDetails } from "@/components/Event/Hero/Details";
-import { MdChevronLeft } from "react-icons/md";
+import { MdChevronLeft, MdEdit } from "react-icons/md";
 import { useRouter } from "next/router";
 import { ExtendedEvent } from "@/types/Event";
 import campusList from "@/resources/campus-list";
@@ -38,7 +38,9 @@ export const HeroSection = ({
   participate: () => void;
 }) => {
   const campusDisplay = campusList.find((c) => c.value === campus)?.label;
-  const audienceDisplay = audienceList.find((a) => a.value === audience)?.shortLabel;
+  const audienceDisplay = audienceList.find(
+    (a) => a.value === audience
+  )?.shortLabel;
 
   const router = useRouter();
   return (
@@ -84,7 +86,7 @@ export const HeroSection = ({
           </div>
         </div>
 
-        <div className="flex flex-row items-end justify-between w-full md:ml-2 sm:w-auto sm:gap-2 sm:justify-start md:pr-2 lg:ml-0">
+        <div className="flex flex-row items-end justify-between w-full overflow-hidden md:ml-2 sm:w-auto sm:gap-2 sm:justify-start md:pr-2 lg:ml-0">
           <button
             onClick={() => router.back()}
             className="btn-black w-fit pl-2.5 min-w-fit py-2.5 sm:ml-5"
@@ -92,22 +94,28 @@ export const HeroSection = ({
             <MdChevronLeft className="w-4 h-4" />
             Retour
           </button>
-          {isOwner && (
-            <Link href={`/event/${id}/edit`} className="py-2.5 btn-black w-fit">
-              Modifier
-            </Link>
-          )}
-          <button
-            className="py-2.5 btn-black w-fit"
-            onClick={() => participate()}
-          >
-            {isParticipant ? "Ne plus participer" : "Participer"}
-          </button>
+          <div className="inline-flex items-center md:gap-x-2">
+            {isOwner && (
+              <Link
+                href={`/event/${id}/edit`}
+                className="py-2.5 btn-black w-fit px-2 sm:px-4 "
+              >
+                <MdEdit className="w-4 h-4 my-0.5" />
+                {/* Modifier */}
+              </Link>
+            )}
+            <button
+              className="py-2.5 btn-black w-fit px-2 sm:px-4"
+              onClick={() => participate()}
+            >
+              {isParticipant ? "Ne plus participer" : "Participer"}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row">
-        <Header text={title} />
+      <div className="flex flex-col border-t border-black lg:flex-row">
+        <Header text={title} className="text-[2.5rem] md:text-[4rem]" />
         <HeroDetails
           event={
             {
