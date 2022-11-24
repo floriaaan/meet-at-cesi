@@ -23,8 +23,8 @@ const EventSchema = Yup.object().shape({
     .required("On va oùuuu ? 🤔"),
   date: Yup.date()
     .min(
-      new Date(new Date().setDate(new Date().getDate() - 1)),
-      "Tu veux vraiment organiser un évenement passé ?"
+      new Date(new Date().setDate(new Date().getDate())),
+      "Tu veux vraiment organiser un événement passé ?"
     )
     .required("Je cite: \"C'est quand l'événement ?\" 🤔"),
   audience: Yup.string().required(
