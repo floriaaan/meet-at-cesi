@@ -4,7 +4,7 @@ export const DateComponent = ({ date }: { date: Date }) => {
   return (
     <div
       className={
-        "flex flex-col shrink-0 items-center justify-center w-auto h-24 md:h-auto px-4 md:min-h-max bg-black aspect-video md:aspect-square"
+        "flex flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black aspect-video md:aspect-square"
       }
     >
       <span className="text-sm font-bold leading-3 text-white">

@@ -53,7 +53,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     },
     where: {
       date: {
-        gte: new Date(new Date().setDate(new Date().getDate() - 1)),
+        // today, from 0AM
+        gte: new Date(new Date().setHours(0, 0, 0, 0)),
       },
     },
   });
@@ -94,10 +95,13 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
         </div>
         <div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
           <Header
-          className="relative"
+            className="relative"
             text={
               <>
-                Liste des événements <Chip extendClassName="text-[1.5rem] absolute bottom-6 ml-2 py-2">{events.length}</Chip>
+                Liste des événements{" "}
+                <Chip extendClassName="text-[1.5rem] absolute bottom-6 ml-2 py-2">
+                  {events.length}
+                </Chip>
               </>
             }
           />

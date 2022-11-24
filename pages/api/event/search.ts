@@ -6,8 +6,12 @@ const getDateFilter = (
   dateMin: string | undefined,
   dateMax: string | undefined
 ) => {
-  const dateMinFilter = dateMin ? { gte: new Date(dateMin) } : {};
-  const dateMaxFilter = dateMax ? { lte: new Date(dateMax) } : {};
+  const dateMinFilter = dateMin
+    ? { gte: new Date(new Date(dateMin).setHours(0, 0, 0, 0)) }
+    : {};
+  const dateMaxFilter = dateMax
+    ? { lte: new Date(new Date(dateMax).setHours(23, 59, 59, 0)) }
+    : {};
   return {
     ...dateMinFilter,
     ...dateMaxFilter,
