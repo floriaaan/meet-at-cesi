@@ -51,7 +51,7 @@ export const EventForm = ({
 }: {
   isEditing?: boolean;
   initialValues?: EventFormValues;
-  onSubmit: ({}: EventFormValues) => Promise<Event | false | Error>;
+  onSubmit: (values: EventFormValues) => Promise<Event | false | Error>;
 }) => {
   const router = useRouter();
   const [disabled, setDisabled] = useState(false);
@@ -119,7 +119,7 @@ export const EventForm = ({
             />
             <Input
               name="date"
-              type="date"
+              type="datetime-local"
               label="Date de l'événement"
               disabled={disabled}
               className="w-full md:w-2/5"

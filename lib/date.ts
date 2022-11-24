@@ -27,3 +27,13 @@ export const formatRelative = (date: string | Date) => {
   if (minute > 0) return `${minute} ${getPlural(minute, "minute", "minutes")}`;
   return "quelques secondes";
 };
+
+// Input datetime-local is 1 hour behind the actual date in FRENCH timezone
+export const toLocalDate = (date: string | Date) => {
+  const [dateString, timeString] = date.toString().split("T");
+  const [hours, minutes] = timeString.split(":");
+  const dateObject = new Date(dateString);
+  dateObject.setHours(+hours + 1);
+  dateObject.setMinutes(+minutes);
+  return dateObject;
+};
