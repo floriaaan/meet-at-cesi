@@ -94,7 +94,11 @@ export const Navbar = () => {
                   className="font-bold subnav__link"
                 >
                   <Chip
-                    className={receivedInvitations.length > 0 ? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2" : ""}
+                    className={
+                      receivedInvitations.length > 0
+                        ? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2"
+                        : ""
+                    }
                   >
                     {receivedInvitations.length}
                   </Chip>
@@ -108,12 +112,8 @@ export const Navbar = () => {
                       : ""
                   } ${getPlural(
                     receivedInvitations.length,
-                    "invitation",
-                    "invitations"
-                  )} ${getPlural(
-                    receivedInvitations.length,
-                    "reçue",
-                    "reçues"
+                    "invitation reçue",
+                    "invitations reçues"
                   )}`}
                 </Link>
               </div>
