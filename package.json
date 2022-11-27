@@ -10,7 +10,7 @@
     "prisma:update": "prisma db push",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio --browser=none",
-    "prisma": "npm run prisma:generate && npm run prisma:update && npm run prisma:studio",
+    "prisma": "npm run prisma:update && npm run prisma:generate && npm run prisma:studio",
     "postinstall": "npm run prisma:generate"
   },
   "dependencies": {

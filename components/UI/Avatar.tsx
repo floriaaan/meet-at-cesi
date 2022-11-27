@@ -2,6 +2,7 @@ import classNames from "classnames";
 
 import type { UserMinimum } from "@/types/User";
 import Image from "next/image";
+import { getInitials } from "@/lib/string";
 
 type AvatarProps = {
   user: UserMinimum;
@@ -17,8 +18,10 @@ export const Avatar = ({ user, className }: AvatarProps) => {
           height={64}
           src={user.image}
           alt={user.name || "Participant picture"}
-          
-          className={classNames("rounded-full object-cover object-center border border-black shrink-0", className)}
+          className={classNames(
+            "rounded-full object-cover object-center border border-black shrink-0",
+            className
+          )}
         />
       ) : (
         <span
@@ -27,9 +30,7 @@ export const Avatar = ({ user, className }: AvatarProps) => {
             className
           )}
         >
-          {user.name
-            ? user.name.split(" ")[0][0] + user.name.split(" ")[1][0]
-            : "?"}
+          {user.name ? getInitials(user.name) : "?"}
         </span>
       )}
     </>

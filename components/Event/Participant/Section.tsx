@@ -7,6 +7,8 @@ import { MdGridView, MdList } from "react-icons/md";
 import { ParticipantCard } from "@/components/Event/Participant/Card";
 import { InvitationModal } from "@/components/Invitation/InvitationModal";
 import { useSession } from "next-auth/react";
+import { Chip } from "@/components/UI/Chip";
+import { getPlural } from "@/lib/string";
 
 export const ParticipantSection = ({
   eventId,
@@ -23,10 +25,11 @@ export const ParticipantSection = ({
 
   return (
     <>
-      <div className="flex flex-col w-full h-full p-4 bg-gray-100 gap-y-2">
+      <div className="flex flex-col w-full p-4 bg-gray-100 max-h-64 lg:max-h-full lg:h-full gap-y-2">
         <div className="inline-flex justify-between w-full ">
-          <p className="inline-flex items-center gap-x-1">
-            <strong>{participants.length}</strong> participant(s)
+          <p className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
+            <Chip>{participants.length}</Chip>{" "}
+            {getPlural(participants.length, "participant", "participants")}
           </p>
           <div className="inline-flex items-center gap-x-2">
             {user ? (
@@ -55,7 +58,7 @@ export const ParticipantSection = ({
         </div>
         <div
           className={classNames(
-            "w-full gap-2 mt-2 overflow-y-auto h-80",
+            "w-full gap-2 mt-2 overflow-y-auto max-h-full",
             display === "grid"
               ? "grid grid-cols-2 lg:grid-cols-3 grid-rows-3"
               : "flex flex-col"

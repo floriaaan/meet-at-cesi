@@ -74,6 +74,7 @@ model User {
   sendedInvitations   Invitation[] @relation("event_invitation_sended")
   receivedInvitations Invitation[] @relation("event_invitation_received")
   feedbacks           Feedback[]
+  comments            Comment[]
 }
 
 model Event {
@@ -92,6 +93,25 @@ model Event {
 
   participants User[]       @relation("event_participation")
   invitations  Invitation[]
+  comments     Comment[]
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime? @default(now())
+  updatedAt DateTime @updatedAt
+
+  author   User?   @relation(fields: [authorId], references: [id])
+  authorId String?
+  event    Event  @relation(fields: [eventId], references: [id])
+  eventId  String
+
+  parent   Comment?  @relation("comment_parent", fields: [parentId], references: [id])
+  parentId String?
+  children Comment[] @relation("comment_parent")
+
+  isDeleted Boolean @default(false)
 }
 
 enum InvitationStatus {

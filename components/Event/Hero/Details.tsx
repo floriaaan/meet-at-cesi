@@ -17,10 +17,10 @@ export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
   )?.shortLabel;
   const campus = campusList.find((c) => c.value === audienceCampus)?.label;
   return (
-    <div className="flex flex-col items-start justify-between px-2 py-2 -mt-4 text-sm font-bold w-max sm:px-6 md:-mt-12 lg:mt-0 md:px-2 whitespace-nowrap bg-primary md:items-end">
+    <div className="flex flex-col items-start justify-between w-full px-2 py-2 -mt-4 text-sm font-bold sm:px-6 md:-mt-12 lg:mt-0 md:px-2 whitespace-nowrap bg-primary md:items-end">
       <div className="flex flex-col md:items-end">
-        <div className="inline-flex items-start text-black whitespace-pre-wrap md:whitespace-nowrap gap-x-1">
-          <MdLocationPin className="w-4 h-4" />
+        <div className="inline-flex items-start text-black whitespace-pre-wrap md:text-right gap-x-1">
+          <MdLocationPin className="w-4 h-4 shrink-0" />
           {location}
         </div>
         <div className="inline-flex items-center text-black gap-x-1">

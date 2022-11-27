@@ -13,6 +13,7 @@ import { AppLayout } from "@/components/Layout/AppLayout";
 import { HeroSection } from "@/components/Event/Hero/Section";
 import { MapSection } from "@/components/Event/Map/Section";
 import { ParticipantSection } from "@/components/Event/Participant/Section";
+import { CommentSection } from "@/components/Event/Comment/Section";
 
 type Props = {
   event: ExtendedEvent;
@@ -28,6 +29,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     include: {
       creator: true,
       participants: true,
+      comments: {
+        where: { parentId: null },
+        include: { author: true, children: { include: { author: true } } },
+      },
     },
   });
 
@@ -51,6 +56,7 @@ const EventPage: NextPage<Props> = (props: Props) => {
     id,
     location,
     date,
+    comments: initialComments,
   } = props.event;
   const [participants, setParticipants] = useState(initialParticipants);
   const isParticipant = participants.some(
@@ -101,12 +107,15 @@ const EventPage: NextPage<Props> = (props: Props) => {
           isOwner={isOwner}
           participate={handleParticipate}
         />
-        <div className="flex flex-col w-full gap-4 pb-4 lg:flex-row">
-          <div className="w-full lg:w-2/3">
+        <div className="grid w-full grid-cols-3 gap-4 pb-4 ">
+          <div className="w-full col-span-3 lg:col-span-2">
             <MapSection location={location} />
           </div>
-          <div className="w-full lg:w-1/3">
+          <div className="w-full col-span-3 lg:col-span-1">
             <ParticipantSection participants={participants} eventId={id} />
+          </div>
+          <div className="w-full col-span-3">
+            <CommentSection initialComments={initialComments} eventId={id} />
           </div>
         </div>
       </section>
