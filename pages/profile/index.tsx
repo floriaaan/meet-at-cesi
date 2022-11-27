@@ -132,7 +132,7 @@ const getPromotionLabel = (promotion: string | undefined) => {
 const ProfileCard = ({ user }: { user: ExtendedUser }) => {
   return (
     <div className="relative inline-flex w-full bg-primary">
-      <span className="z-10 flex items-center h-full pl-4 shrink-0 bg-primary w-fit">
+      <span className="z-10 flex items-center h-auto pl-4 shrink-0 bg-primary w-fit">
         <Avatar
           user={user}
           className="w-16 h-16 text-xl bg-black lg:w-32 lg:h-32 text-primary"

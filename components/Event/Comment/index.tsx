@@ -15,6 +15,7 @@ import classNames from "classnames";
 import toast from "react-hot-toast";
 import toastStyle from "@/resources/toast.config";
 import { ReplyList } from "./ReplyList";
+import { formatDate, formatRelative } from "@/lib/date";
 
 type CommentListItemProps = {
   comment: ExtendedComment;
@@ -38,51 +39,54 @@ export const CommentListItem = ({
     <div className="inline-flex items-start w-full gap-2 p-2 duration-300 border border-dashed hover:border-gray-300">
       <Avatar
         className={classNames(
-          !isReply ? "w-12 h-12 " : "w-8 h-8",
-          !isDeleted && "border-2"
+          !isReply ? "lg:w-12 lg:h-12 w-6 h-6 " : "w-6 h-6 lg:w-8 lg:h-8",
+          !isDeleted && "lg:border-2"
         )}
         user={author || { name: "Anonymous" }}
       />
       <div className="flex flex-col gap-y-0.5 grow">
         <div
-          className={classNames(
-            "inline-flex items-center gap-x-2",
-            isReply && "text-xs"
-          )}
+          className={classNames("inline-flex items-center gap-x-1 md:gap-x-2")}
         >
-          <strong>{author?.name || "Commentaire supprimé"}</strong>
-          <span
+          <strong
             className={classNames(
-              "hidden  text-gray-600 md:block",
-              !isReply && "text-sm"
+              "whitespace-nowrap text-xs",
+              !isReply ? "md:text-base" : ""
             )}
           >
-            {createdAt && !isDeleted
-              ? new Date(createdAt).toLocaleString("fr-FR", {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                })
-              : "Date inconnue"}
-          </span>
-          <span
-            className={classNames(
-              "block text-gray-600 md:hidden",
-              !isReply && "text-sm"
-            )}
-          >
-            {createdAt && !isDeleted
-              ? new Date(createdAt).toLocaleString("fr-FR", {
-                  day: "numeric",
-                  month: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                })
-              : "Date inconnue"}
-          </span>
+            {author?.name || "Commentaire supprimé"}
+          </strong>
+          {!isDeleted ? (
+            <span className="inline-flex items-center gap-1">
+              &bull;
+              <span
+                className={classNames(
+                  "block text-gray-600 truncate text-xs",
+                  !isReply ? "md:text-sm" : ""
+                )}
+              >
+                {createdAt ? formatRelative(createdAt) : null}
+              </span>
+              <span
+                className={classNames(
+                  "hidden md:inline-flex text-gray-600 truncate text-xs",
+                  !isReply ? "md:text-sm" : ""
+                )}
+              >
+                <span className="mr-1">-</span>
+                {createdAt ? formatDate(createdAt) : null}
+              </span>
+            </span>
+          ) : (
+            <span
+              className={classNames(
+                "block text-gray-500 truncate text-xs",
+                !isReply ? "md:text-sm" : ""
+              )}
+            >
+              supprimé
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-y-1">
           {!isEditing || isDeleted ? (
@@ -129,7 +133,7 @@ export const CommentListItem = ({
         ) : null}
       </div>
 
-      <div className="inline-flex items-center gap-1 shrink-0">
+      <div className="inline-flex items-center md:gap-1 shrink-0">
         {!isReply && !isDeleted && user ? (
           <button
             type="button"

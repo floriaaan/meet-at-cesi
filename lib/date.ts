@@ -48,3 +48,16 @@ export const fromLocalDate = (date: Date) => {
   dateObject.setMinutes(+minutes);
   return dateObject;
 };
+
+export const formatDate = (
+  date: string | Date,
+  options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }
+) => {
+  const dateObject = new Date(date);
+  return dateObject.toLocaleDateString("fr-FR", options);
+};

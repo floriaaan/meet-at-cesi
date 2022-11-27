@@ -14,9 +14,13 @@ import { HeroSection } from "@/components/Event/Hero/Section";
 import { MapSection } from "@/components/Event/Map/Section";
 import { ParticipantSection } from "@/components/Event/Participant/Section";
 import { CommentSection } from "@/components/Event/Comment/Section";
+import { Header } from "@/components/UI/Header";
+import Link from "next/link";
+import { MdArrowRightAlt } from "react-icons/md";
 
 type Props = {
   event: ExtendedEvent;
+  exists: boolean;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -40,12 +44,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
+      exists: !!event,
       event,
     },
   };
 };
 
-const EventPage: NextPage<Props> = (props: Props) => {
+const EventPage: NextPage<Props> = (props) => {
   const { data: session } = useSession();
   const {
     creator,
@@ -123,4 +128,35 @@ const EventPage: NextPage<Props> = (props: Props) => {
   );
 };
 
-export default EventPage;
+const EventNotFoundPage: NextPage<Props> = (props) => {
+  return (
+    <AppLayout>
+      <NextSeo title="Événement introuvable" />
+      <section className="flex flex-col items-start w-full h-full px-4 pt-6 mx-auto md:px-12 lg:px-0 lg:max-w-5xl xl:max-w-6xl gap-y-4">
+        <Header text="Événement introuvable" />
+        <div className="">
+          <p className="text-lg">Petit malin 🤭</p>
+          <p className="text-sm">{"Comment tu es arrivé là toi ? 🤔"}</p>
+
+          <Link
+            href="/event"
+            className="inline-flex items-center gap-1 mt-4 text-sm font-bold underline"
+          >
+            Ok ok, je retourne dans le droit chemin
+            <MdArrowRightAlt className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+    </AppLayout>
+  );
+};
+
+const EventPageWrapper: NextPage<Props> = (props) => {
+  return props.exists ? (
+    <EventPage {...props} />
+  ) : (
+    <EventNotFoundPage {...props} />
+  );
+};
+
+export default EventPageWrapper;
