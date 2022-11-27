@@ -30,6 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       creator: true,
       participants: true,
       comments: {
+        where: { parentId: null },
         include: { author: true, children: { include: { author: true } } },
       },
     },
@@ -114,7 +115,7 @@ const EventPage: NextPage<Props> = (props: Props) => {
             <ParticipantSection participants={participants} eventId={id} />
           </div>
           <div className="w-full col-span-3">
-            <CommentSection initialComments={initialComments} />
+            <CommentSection initialComments={initialComments} eventId={id} />
           </div>
         </div>
       </section>

@@ -10,7 +10,7 @@ import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
-import { PlaceSearch } from "../UI/Form/PlaceSearch";
+import { PlaceSearch } from "@/components/UI/Form/PlaceSearch";
 
 const EventSchema = Yup.object().shape({
   title: Yup.string()
