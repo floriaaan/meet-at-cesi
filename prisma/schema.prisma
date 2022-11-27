@@ -75,6 +75,7 @@ model User {
   receivedInvitations Invitation[] @relation("event_invitation_received")
   feedbacks           Feedback[]
   comments            Comment[]
+  reports             Report[]
 }
 
 model Event {
@@ -97,14 +98,14 @@ model Event {
 }
 
 model Comment {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   content   String
   createdAt DateTime? @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime  @updatedAt
 
   author   User?   @relation(fields: [authorId], references: [id])
   authorId String?
-  event    Event  @relation(fields: [eventId], references: [id])
+  event    Event   @relation(fields: [eventId], references: [id])
   eventId  String
 
   parent   Comment?  @relation("comment_parent", fields: [parentId], references: [id])
@@ -143,6 +144,31 @@ model Feedback {
   page      String
 
   history String[]
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ReportType {
+  SPAM
+  INAPPROPRIATE
+  OTHER
+}
+
+enum ReportObject {
+  EVENT
+  COMMENT
+  USER
+}
+
+model Report {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  content   String
+  page      String
+
+  type   ReportType
+  object ReportObject
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
