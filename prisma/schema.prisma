@@ -99,18 +99,19 @@ model Event {
 model Comment {
   id        String   @id @default(cuid())
   content   String
-  createdAt DateTime @default(now())
+  createdAt DateTime? @default(now())
   updatedAt DateTime @updatedAt
-  
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  event     Event    @relation(fields: [eventId], references: [id])
-  eventId   String
 
-  parent   Comment? @relation("comment_parent", fields: [parentId], references: [id])
+  author   User?   @relation(fields: [authorId], references: [id])
+  authorId String?
+  event    Event  @relation(fields: [eventId], references: [id])
+  eventId  String
+
+  parent   Comment?  @relation("comment_parent", fields: [parentId], references: [id])
   parentId String?
-
   children Comment[] @relation("comment_parent")
+
+  isDeleted Boolean @default(false)
 }
 
 enum InvitationStatus {
