@@ -177,7 +177,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
       >
         {session?.user?.name ? (
           <li className="relative inline-flex w-full bg-primary">
-            <span className="z-10 flex items-center h-full pl-4 bg-primary w-fit">
+            <span className="z-10 flex items-center h-full pl-4 shrink-0 bg-primary w-fit">
               <Avatar
                 user={session.user as UserMinimum}
                 className="w-16 h-16 text-xl bg-black text-primary"
@@ -195,7 +195,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
           <li
             key={i}
             className={classNames(
-              "transition-all duration-300 ease-linear first:pt-0 py-4", // mobile-menu.module.css
+              "transition-all duration-300 ease-linear first:pt-0 py-2.5", // mobile-menu.module.css
               "text-sm font-semibold border-b last:border-b-0 text-neutral-900 border-neutral-200",
               isMenuRendered
                 ? "opacity-100 w-full translate-x-0"
