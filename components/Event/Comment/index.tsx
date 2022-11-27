@@ -32,7 +32,7 @@ export const CommentListItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
 
-  const { id, content, author, children, createdAt, isDeleted } = comment;
+  const { content, author, children, createdAt, isDeleted } = comment;
 
   return (
     <div className="inline-flex items-start w-full gap-2 p-2 duration-300 border border-dashed hover:border-gray-300">
@@ -123,7 +123,7 @@ export const CommentListItem = ({
                   return result;
                 }
                 return false;
-              }} // TODO
+              }}
             />
           </div>
         ) : null}

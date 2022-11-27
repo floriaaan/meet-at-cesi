@@ -1,12 +1,11 @@
 import * as Yup from "yup";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
 
 import Input from "@/components/UI/Form/Input";
 import { ExtendedComment } from "@/types/Event";
 import toastStyle from "@/resources/toast.config";
-import classNames from "classnames";
 
 const CommentSchema = Yup.object().shape({
   content: Yup.string().trim().required("Tu voulais dire quoi ?"),
@@ -52,7 +51,7 @@ export const CommentForm = ({
       // Submit data
       if (typeof onSubmit === "function") {
         onSubmit(values).then((result) => {
-          if (result && !(result instanceof Error)) {
+          if (result) {
             toast.success(
               !isEditing ? "Commentaire ajouté 😎" : "Modification réussie 🥸",
               { id: toastId }
@@ -75,6 +74,12 @@ export const CommentForm = ({
       setDisabled(false);
     }
   };
+
+  const buttonLabel = isReplying
+    ? "Répondre"
+    : isEditing
+    ? "Modifier"
+    : "Envoyer";
 
   return (
     <Formik
@@ -114,13 +119,7 @@ export const CommentForm = ({
                 : "py-1.5 lg:py-3 border-b btn-black shrink-0 w-fit"
             }
           >
-            {isSubmitting
-              ? "Envoi en cours..."
-              : isReplying
-              ? "Répondre"
-              : isEditing
-              ? "Modifier"
-              : "Envoyer"}
+            {buttonLabel}
           </button>
         </Form>
       )}
