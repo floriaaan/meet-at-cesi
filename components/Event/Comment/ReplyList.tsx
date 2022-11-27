@@ -8,7 +8,7 @@ type ReplyListProps = {
 
 export const ReplyList = ({ replies, setCommentList }: ReplyListProps) => {
   return (
-    <div className="w-full flex flex-col gap-y-0.5">
+    <div className="w-full flex flex-col grow gap-y-0.5">
       {replies.map((reply) => (
         <CommentListItem
           isReply={true}

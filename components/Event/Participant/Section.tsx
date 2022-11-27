@@ -25,7 +25,7 @@ export const ParticipantSection = ({
 
   return (
     <>
-      <div className="flex flex-col w-full p-4 bg-gray-100 max-h-64 lg:max-h-full lg:h-full gap-y-2">
+      <div className="flex flex-col w-full p-2 bg-gray-100 md:p-4 max-h-64 lg:max-h-full lg:h-full gap-y-2">
         <div className="inline-flex justify-between w-full ">
           <p className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
             <Chip>{participants.length}</Chip>{" "}

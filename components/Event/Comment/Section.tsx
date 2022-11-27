@@ -20,7 +20,7 @@ export const CommentSection = ({
   const [comments, setComments] = useState<ExtendedComment[]>(initialComments);
 
   return (
-    <div className="flex flex-col w-full p-4 bg-gray-100 border border-black border-dashed gap-y-2">
+    <div className="flex flex-col w-full p-2 bg-gray-100 border border-black border-dashed md:p-4 gap-y-2">
       <div className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
         <Chip extendClassName="bg-purple">{comments.length}</Chip>{" "}
         {getPlural(comments.length, "commentaire", "commentaires")}

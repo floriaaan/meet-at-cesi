@@ -36,7 +36,7 @@ export const CommentListItem = ({
   const { content, author, children, createdAt, isDeleted } = comment;
 
   return (
-    <div className="inline-flex items-start w-full gap-2 p-2 duration-300 border border-dashed hover:border-gray-300">
+    <div className="inline-flex items-start w-full gap-1 p-1 overflow-hidden duration-300 border border-dashed md:gap-2 md:p-2 hover:border-gray-300">
       <Avatar
         className={classNames(
           !isReply ? "lg:w-12 lg:h-12 w-6 h-6 " : "w-6 h-6 lg:w-8 lg:h-8",
@@ -44,75 +44,84 @@ export const CommentListItem = ({
         )}
         user={author || { name: "Anonymous" }}
       />
-      <div className="flex flex-col gap-y-0.5 grow">
-        <div
-          className={classNames("inline-flex items-center gap-x-1 md:gap-x-2")}
-        >
-          <strong
+      <div className="flex flex-col w-full md:flex-row md:items-start">
+        <div className="flex flex-col gap-y-0.5 grow w-full">
+          <div
             className={classNames(
-              "whitespace-nowrap text-xs",
-              !isReply ? "md:text-base" : ""
+              "inline-flex items-center gap-x-1 md:gap-x-2"
             )}
           >
-            {author?.name || "Commentaire supprimé"}
-          </strong>
-          {!isDeleted ? (
-            <span className="inline-flex items-center gap-1">
-              &bull;
-              <span
-                className={classNames(
-                  "block text-gray-600 truncate text-xs",
-                  !isReply ? "md:text-sm" : ""
-                )}
-              >
-                {createdAt ? formatRelative(createdAt) : null}
-              </span>
-              <span
-                className={classNames(
-                  "hidden md:inline-flex text-gray-600 truncate text-xs",
-                  !isReply ? "md:text-sm" : ""
-                )}
-              >
-                <span className="mr-1">-</span>
-                {createdAt ? formatDate(createdAt) : null}
-              </span>
-            </span>
-          ) : (
-            <span
+            <strong
               className={classNames(
-                "block text-gray-500 truncate text-xs",
-                !isReply ? "md:text-sm" : ""
+                "whitespace-nowrap text-xs",
+                !isReply ? "md:text-base" : ""
               )}
             >
-              supprimé
-            </span>
-          )}
-        </div>
-        <div className="flex flex-col gap-y-1">
-          {!isEditing || isDeleted ? (
-            <p className="text-sm">{content}</p>
-          ) : (
-            <CommentForm
-              isEditing
-              initialValues={{ content: comment.content } as CommentFormValues}
-              onSubmit={async (values) => {
-                const result = await editComment({
-                  ...values,
-                  commentId: comment.id,
-                });
-                if (result) {
-                  setCommentList(result);
-                  setIsEditing(false);
-                  return result;
+              {author?.name || "Commentaire supprimé"}
+            </strong>
+            {!isDeleted ? (
+              <span className="inline-flex items-center gap-1">
+                &bull;
+                <span
+                  className={classNames(
+                    "block text-gray-600 truncate text-xs",
+                    !isReply ? "md:text-sm" : ""
+                  )}
+                >
+                  {createdAt ? formatRelative(createdAt) : null}
+                </span>
+                <span
+                  className={classNames(
+                    "hidden md:inline-flex text-gray-600 truncate text-xs",
+                    !isReply ? "md:text-sm" : ""
+                  )}
+                >
+                  <span className="mr-1">-</span>
+                  {createdAt ? formatDate(createdAt) : null}
+                </span>
+              </span>
+            ) : (
+              <span
+                className={classNames(
+                  "block text-gray-500 truncate text-xs",
+                  !isReply ? "md:text-sm" : ""
+                )}
+              >
+                supprimé
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col w-full grow gap-y-1">
+            {!isEditing || isDeleted ? (
+              <p className="text-sm">{content}</p>
+            ) : (
+              <CommentForm
+                isEditing
+                initialValues={
+                  { content: comment.content } as CommentFormValues
                 }
-                return false;
-              }}
+                onSubmit={async (values) => {
+                  const result = await editComment({
+                    ...values,
+                    commentId: comment.id,
+                  });
+                  if (result) {
+                    setCommentList(result);
+                    setIsEditing(false);
+                    return result;
+                  }
+                  return false;
+                }}
+              />
+            )}
+            <ReplyList
+              replies={children || []}
+              setCommentList={setCommentList}
             />
-          )}
-          <ReplyList replies={children || []} setCommentList={setCommentList} />
+          </div>
         </div>
-        {!isReply && isReplying && !isDeleted ? (
-          <div className="">
+        {!isReply && !isDeleted && isReplying ? (
+          <div className="w-full">
             <CommentForm
               isReplying
               onSubmit={async (values) => {
@@ -131,100 +140,101 @@ export const CommentListItem = ({
             />
           </div>
         ) : null}
-      </div>
-
-      <div className="inline-flex items-center md:gap-1 shrink-0">
-        {!isReply && !isDeleted && user ? (
-          <button
-            type="button"
-            className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
-            onClick={() => setIsReplying(!isReplying)}
-          >
-            <MdReply className="w-4 h-4" />
-            {isEditing ? (
-              <span className="sr-only">Annuler la réponse au commentaire</span>
-            ) : (
-              <span className="sr-only">Répondre au commentaire</span>
-            )}
-          </button>
-        ) : null}
-        {user && comment.authorId === userId ? (
-          <>
+        <div className="inline-flex items-center md:gap-1 shrink-0">
+          {!isReply && !isDeleted && user ? (
             <button
               type="button"
               className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
-              onClick={() => setIsEditing(!isEditing)}
+              onClick={() => setIsReplying(!isReplying)}
             >
+              <MdReply className="w-4 h-4" />
               {isEditing ? (
-                <MdEditOff className="w-4 h-4" />
+                <span className="sr-only">
+                  Annuler la réponse au commentaire
+                </span>
               ) : (
-                <MdEdit className="w-4 h-4" />
-              )}
-              {isEditing ? (
-                <span className="sr-only">Annuler la modification</span>
-              ) : (
-                <span className="sr-only">Modifier</span>
+                <span className="sr-only">Répondre au commentaire</span>
               )}
             </button>
-            <PopperMenu
-              buttonChildren={({ open }) => (
-                <div
-                  className={classNames(
-                    "p-1 text-xs font-bold border",
-                    open
-                      ? "border-red text-red"
-                      : "hover:border-black border-transparent border-dashed"
-                  )}
-                >
-                  <MdDelete className="w-4 h-4" />
-                  <span className="sr-only">Supprimer</span>
-                </div>
-              )}
-              popperOptions={{
-                modifiers: [
-                  {
-                    name: "offset",
-                    options: {
-                      offset: [0, 6],
-                    },
-                  },
-                ],
-              }}
-            >
-              {({ open }) => (
-                <div className="flex flex-col max-w-[16rem] p-2 text-sm bg-white border border-black shadow-lg gap-y-1">
-                  <p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-                  <div className="mt-2 ml-auto">
-                    <button
-                      className="border-b btn-red"
-                      onClick={async () => {
-                        let toastId = toast.loading(
-                          "Suppression en cours...",
-                          toastStyle
-                        );
-                        const result = await deleteComment({
-                          commentId: comment.id,
-                        });
-                        if (result) {
-                          setCommentList(result);
-                          toast.success("Commentaire supprimé 👍", {
-                            id: toastId,
-                          });
-                        } else {
-                          toast.error("Une erreur est survenue 😖", {
-                            id: toastId,
-                          });
-                        }
-                      }}
-                    >
-                      Supprimer
-                    </button>
+          ) : null}
+          {user && comment.authorId === userId ? (
+            <>
+              <button
+                type="button"
+                className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                {isEditing ? (
+                  <MdEditOff className="w-4 h-4" />
+                ) : (
+                  <MdEdit className="w-4 h-4" />
+                )}
+                {isEditing ? (
+                  <span className="sr-only">Annuler la modification</span>
+                ) : (
+                  <span className="sr-only">Modifier</span>
+                )}
+              </button>
+              <PopperMenu
+                buttonChildren={({ open }) => (
+                  <div
+                    className={classNames(
+                      "p-1 text-xs font-bold border",
+                      open
+                        ? "border-red text-red"
+                        : "hover:border-black border-transparent border-dashed"
+                    )}
+                  >
+                    <MdDelete className="w-4 h-4" />
+                    <span className="sr-only">Supprimer</span>
                   </div>
-                </div>
-              )}
-            </PopperMenu>
-          </>
-        ) : null}
+                )}
+                popperOptions={{
+                  modifiers: [
+                    {
+                      name: "offset",
+                      options: {
+                        offset: [0, 6],
+                      },
+                    },
+                  ],
+                }}
+              >
+                {({ open }) => (
+                  <div className="flex flex-col max-w-[16rem] p-2 text-sm bg-white border border-black shadow-lg gap-y-1">
+                    <p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+                    <div className="mt-2 ml-auto">
+                      <button
+                        className="border-b btn-red"
+                        onClick={async () => {
+                          let toastId = toast.loading(
+                            "Suppression en cours...",
+                            toastStyle
+                          );
+                          const result = await deleteComment({
+                            commentId: comment.id,
+                          });
+                          if (result) {
+                            setCommentList(result);
+                            toast.success("Commentaire supprimé 👍", {
+                              id: toastId,
+                            });
+                          } else {
+                            toast.error("Une erreur est survenue 😖", {
+                              id: toastId,
+                            });
+                          }
+                        }}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </PopperMenu>
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   );
