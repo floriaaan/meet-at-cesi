@@ -1,38 +1,51 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import {
   CommentCreateRequestInput,
   CommentDeleteRequestInput,
   CommentEditRequestInput,
 } from "@/lib/fetchers";
+import {
+  getCommentOrThrow,
+  getEventOrThrow,
+  getSessionOrThrow,
+  getUserOrThrow,
+} from "@/lib/api";
+
+const getComments = async (eventId: string) => {
+  const comments = await prisma.comment.findMany({
+    where: { eventId, parentId: null },
+    include: {
+      author: true,
+      children: {
+        include: { author: true },
+      },
+    },
+  });
+  return comments;
+};
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   // Check if user is authenticated
-  const session = await getSession({ req });
-  if (!session || !session.user) {
-    return res.status(401).json({ message: "Unauthorized." });
-  }
+  const session = await getSessionOrThrow(req);
 
   if (req.method === "POST") {
     try {
-      const { content, eventId, parentId } =
-        req.body as CommentCreateRequestInput;
+      const {
+        content,
+        eventId: requestedEventId,
+        parentId,
+      } = req.body as CommentCreateRequestInput;
 
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email as string },
+      const { id: authorId } = await getUserOrThrow(session, {
         select: { id: true },
       });
-      if (!user) return res.status(404).json({ message: "User not found." });
-
-      const event = await prisma.event.findUnique({
-        where: { id: eventId },
+      const { id: eventId } = await getEventOrThrow(requestedEventId, {
         select: { id: true },
       });
-      if (!event) return res.status(404).json({ message: "Event not found." });
 
       if (!content || content.length < 1)
         return res
@@ -44,21 +57,11 @@ export default async function handler(
           content,
           eventId,
           parentId,
-          authorId: user.id,
+          authorId,
         },
       });
 
-      const comments = await prisma.comment.findMany({
-        where: { eventId, parentId: null },
-        include: {
-          author: true,
-          children: {
-            include: { author: true },
-          },
-        },
-      });
-
-      return res.status(201).json({ comments });
+      return res.status(201).json({ comments: await getComments(eventId) });
     } catch (e) {
       console.error(e);
       res.status(500).json({ message: e instanceof Error ? e.message : e });
@@ -67,21 +70,22 @@ export default async function handler(
 
   if (req.method === "PUT") {
     try {
-      const { content, commentId } = req.body as CommentEditRequestInput;
+      const { content, commentId: requestedCommentId } =
+        req.body as CommentEditRequestInput;
 
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email as string },
+      const { id: authorId } = await getUserOrThrow(session, {
         select: { id: true },
       });
-      if (!user) return res.status(404).json({ message: "User not found." });
 
-      const comment = await prisma.comment.findUnique({
-        where: { id: commentId },
-        select: { id: true, authorId: true, eventId: true },
+      const {
+        id: commentId,
+        eventId,
+        authorId: commentAuthorId,
+      } = await getCommentOrThrow(requestedCommentId, {
+        select: { id: true, eventId: true, authorId: true },
       });
-      if (!comment)
-        return res.status(404).json({ message: "Comment not found." });
-      if (comment.authorId !== user.id)
+
+      if (commentAuthorId !== authorId)
         return res
           .status(403)
           .json({ message: "You are not the author of this comment." });
@@ -96,15 +100,7 @@ export default async function handler(
         data: { content },
       });
 
-      const comments = await prisma.comment.findMany({
-        where: { eventId: comment.eventId, parentId: null },
-        include: {
-          author: true,
-          children: { include: { author: true } },
-        },
-      });
-
-      return res.status(200).json({ comments });
+      return res.status(200).json({ comments: await getComments(eventId) });
     } catch (e) {
       console.error(e);
       res.status(500).json({ message: e instanceof Error ? e.message : e });
@@ -113,21 +109,21 @@ export default async function handler(
 
   if (req.method === "DELETE") {
     try {
-      const { commentId } = req.body as CommentDeleteRequestInput;
+      const { commentId: requestedCommentId } =
+        req.body as CommentDeleteRequestInput;
 
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email as string },
+      const { id: authorId } = await getUserOrThrow(session, {
         select: { id: true },
       });
-      if (!user) return res.status(404).json({ message: "User not found." });
-
-      const comment = await prisma.comment.findUnique({
-        where: { id: commentId },
-        select: { id: true, authorId: true, eventId: true },
+      const {
+        id: commentId,
+        eventId,
+        authorId: commentAuthorId,
+      } = await getCommentOrThrow(requestedCommentId, {
+        select: { id: true, eventId: true, authorId: true },
       });
-      if (!comment)
-        return res.status(404).json({ message: "Comment not found." });
-      if (comment.authorId !== user.id)
+
+      if (commentAuthorId !== authorId)
         return res
           .status(403)
           .json({ message: "You are not the author of this comment." });
@@ -137,20 +133,11 @@ export default async function handler(
         data: {
           content: "Ce commentaire a été supprimé.",
           isDeleted: true,
-          // remove relation with author
           authorId: null,
         },
       });
 
-      const comments = await prisma.comment.findMany({
-        where: { eventId: comment.eventId, parentId: null },
-        include: {
-          author: true,
-          children: { include: { author: true } },
-        },
-      });
-
-      return res.status(200).json({ comments });
+      return res.status(200).json({ comments: await getComments(eventId) });
     } catch (e) {
       console.error(e);
       res.status(500).json({ message: e instanceof Error ? e.message : e });
