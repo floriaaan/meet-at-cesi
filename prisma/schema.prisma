@@ -75,7 +75,9 @@ model User {
   receivedInvitations Invitation[] @relation("event_invitation_received")
   feedbacks           Feedback[]
   comments            Comment[]
-  reports             Report[]
+
+  blamedFor Report[] @relation("report_user_blamed")
+  reported  Report[] @relation("report_user_sender")
 }
 
 model Event {
@@ -159,6 +161,7 @@ enum ReportObject {
   EVENT
   COMMENT
   USER
+  NULL
 }
 
 model Report {
@@ -167,9 +170,13 @@ model Report {
   content   String
   page      String
 
-  type   ReportType
-  object ReportObject
+  type     ReportType
+  object   ReportObject
+  objectId String?
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  blamedUserId String
+  blamedUser   User   @relation("report_user_blamed", fields: [blamedUserId], references: [id])
+
+  senderId String
+  sender   User   @relation("report_user_sender", fields: [senderId], references: [id], onDelete: Cascade)
 }
