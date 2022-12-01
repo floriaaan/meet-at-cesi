@@ -1,15 +1,22 @@
-import type { User } from "@prisma/client";
+import { ReportObject, ReportType, User } from "@prisma/client";
 
 import classNames from "classnames";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 
 import { Header } from "@/components/UI/Header";
-import { HeroDetails } from "@/components/Event/Hero/Details";
-import { MdChevronLeft, MdEdit } from "react-icons/md";
+import { MdChevronLeft, MdEdit, MdWarning } from "react-icons/md";
 import { useRouter } from "next/router";
 import { ExtendedEvent } from "@/types/Event";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
+import { useReport } from "@/components/Report/Wrapper";
+
+const HeroDetails = dynamic(
+  () =>
+    import("@/components/Event/Hero/Details").then((mod) => mod.HeroDetails),
+  { ssr: false }
+);
 
 export const HeroSection = ({
   id,
@@ -41,6 +48,8 @@ export const HeroSection = ({
   const audienceDisplay = audienceList.find(
     (a) => a.value === audience
   )?.shortLabel;
+
+  const { openReportModal } = useReport();
 
   const router = useRouter();
   return (
@@ -94,7 +103,7 @@ export const HeroSection = ({
             <MdChevronLeft className="w-4 h-4" />
             Retour
           </button>
-          <div className="inline-flex items-center md:gap-x-2">
+          <div className="inline-flex items-end md:gap-x-2">
             {isOwner && (
               <Link
                 href={`/event/${id}/edit`}
@@ -109,6 +118,21 @@ export const HeroSection = ({
               onClick={() => participate()}
             >
               {isParticipant ? "Ne plus participer" : "Participer"}
+            </button>
+            <button
+              className="py-2.5 btn-black w-fit px-2 sm:px-4"
+              onClick={() =>
+                openReportModal({
+                  content: "",
+                  object: ReportObject.EVENT,
+                  objectId: id,
+                  type: ReportType.OTHER,
+                  page: `/event/${id}`,
+                })
+              }
+            >
+              <MdWarning className="w-4 h-4 my-0.5" />
+              <span className="sr-only">{"Signaler l'événement"}</span>
             </button>
           </div>
         </div>

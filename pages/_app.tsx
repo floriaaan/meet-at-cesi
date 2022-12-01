@@ -10,6 +10,7 @@ import "@/styles/globals.css";
 import { PreferencesPopup } from "@/components/Helpers/Popup/Preferences";
 import { ExtendedSession } from "@/types/Session";
 import { FeedbackWrapper } from "@/components/Helpers/Feedback";
+import { ReportProvider } from "@/components/Report/Wrapper";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { session } = pageProps as {
@@ -54,15 +55,14 @@ export default App;
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
   const { status } = useSession();
+
+  if (status !== "authenticated") return <>{children}</>;
+
   return (
     <>
-      {children}
-      {status === "authenticated" && (
-        <>
-          <PreferencesPopup />
-          <FeedbackWrapper />
-        </>
-      )}
+      <ReportProvider>{children}</ReportProvider>
+      <PreferencesPopup />
+      <FeedbackWrapper />
     </>
   );
 };
