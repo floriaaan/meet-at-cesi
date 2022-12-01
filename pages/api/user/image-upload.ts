@@ -77,7 +77,7 @@ export default async function handler(
         });
 
       if (uploadError) {
-        console.log(uploadError);
+        console.error(uploadError);
         throw new Error("Unable to upload image to storage");
       }
 
