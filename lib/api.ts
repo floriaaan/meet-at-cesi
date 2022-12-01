@@ -30,6 +30,19 @@ export const getUserOrThrow = async (
   return user;
 };
 
+export const getUserFromIdOrThrow = async (
+  userId: string,
+  options?: any
+): Promise<User> => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    ...options,
+  });
+  if (!user) throw new Error("User not found.");
+
+  return user;
+};
+
 export const getEventOrThrow = async (
   eventId: string,
   options?: any
