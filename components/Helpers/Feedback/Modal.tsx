@@ -1,11 +1,12 @@
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { MdClose } from "react-icons/md";
+
 import { useFeedback } from "@/components/Helpers/Feedback";
 import { createFeedback } from "@/lib/fetchers";
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { MdClose } from "react-icons/md";
-import { FeedbackForm } from "./Form";
+import { FeedbackForm } from "@/components/Helpers/Feedback/Form";
 
-export const FeedbackMenu = () => {
+export const FeedbackModal = () => {
   const { isFeedbackOpen, setIsFeedbackOpen, history } = useFeedback();
   const closeModal = () => setIsFeedbackOpen(false);
 

@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { FeedbackButton } from "@/components/Helpers/Feedback/Button";
-import { FeedbackMenu } from "@/components/Helpers/Feedback/Menu";
+import { FeedbackModal } from "@/components/Helpers/Feedback/Modal";
 
 type FeedbackContextType = {
   isFeedbackOpen: boolean;
@@ -28,7 +28,7 @@ export const FeedbackWrapper = () => {
     >
       <div className="fixed flex flex-col-reverse bottom-4 right-4">
         <FeedbackButton />
-        <FeedbackMenu />
+        <FeedbackModal />
       </div>
     </FeedbackContext.Provider>
   );
