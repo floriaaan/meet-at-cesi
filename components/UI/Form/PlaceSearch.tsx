@@ -31,7 +31,7 @@ export const PlaceSearch = ({
     },
     helpers: any
   ];
-  const error = meta.touched && meta.error;
+  const error = meta.touched ? meta.error : "";
 
   let timeout = useRef();
   const [suggestions, setSuggestions] = useState<Prediction[]>([]);
@@ -134,14 +134,11 @@ export const PlaceSearch = ({
         </div>
       ) : null}
 
-      <p
-        className={classNames("text-sm first-letter:uppercase", {
-          "text-red-600": error,
-          "lg:h-5": !error || !meta.touched,
-        })}
-      >
-        {error || " "}
-      </p>
+{error && (
+        <p className="text-sm text-red-600 first-letter:uppercase">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

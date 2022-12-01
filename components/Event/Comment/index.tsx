@@ -1,21 +1,29 @@
 import { useState } from "react";
-import { MdDelete, MdEdit, MdEditOff, MdReply } from "react-icons/md";
+import {
+  MdDelete,
+  MdEdit,
+  MdEditOff,
+  MdReply,
+  MdWarning,
+} from "react-icons/md";
+import classNames from "classnames";
+import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
+import { ExtendedSession } from "@/types/Session";
+import { ExtendedComment } from "@/types/Event";
+import toastStyle from "@/resources/toast.config";
 import {
   CommentForm,
   CommentFormValues,
 } from "@/components/Event/Comment/Form";
 import { Avatar } from "@/components/UI/Avatar";
-import { ExtendedComment } from "@/types/Event";
 import { createComment, deleteComment, editComment } from "@/lib/fetchers";
-import { useSession } from "next-auth/react";
-import { ExtendedSession } from "@/types/Session";
 import PopperMenu from "@/components/Helpers/PopperMenu";
-import classNames from "classnames";
-import toast from "react-hot-toast";
-import toastStyle from "@/resources/toast.config";
-import { ReplyList } from "./ReplyList";
+import { ReplyList } from "@/components/Event/Comment/ReplyList";
 import { formatDate, formatRelative } from "@/lib/date";
+import { useReport } from "@/components/Report/Wrapper";
+import { ReportObject, ReportType } from "@prisma/client";
 
 type CommentListItemProps = {
   comment: ExtendedComment;
@@ -33,6 +41,7 @@ export const CommentListItem = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
 
+  const { openReportModal } = useReport();
   const { content, author, children, createdAt, isDeleted } = comment;
 
   return (
@@ -118,28 +127,29 @@ export const CommentListItem = ({
               replies={children || []}
               setCommentList={setCommentList}
             />
+            {!isReply && !isDeleted && isReplying ? (
+              <div className="w-full">
+                <CommentForm
+                  isReplying
+                  onSubmit={async (values) => {
+                    const result = await createComment({
+                      ...values,
+                      parentId: comment.id,
+                      eventId: comment.eventId,
+                    });
+                    if (result) {
+                      setCommentList(result);
+                      setIsReplying(false);
+                      return result;
+                    }
+                    return false;
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
         </div>
-        {!isReply && !isDeleted && isReplying ? (
-          <div className="w-full">
-            <CommentForm
-              isReplying
-              onSubmit={async (values) => {
-                const result = await createComment({
-                  ...values,
-                  parentId: comment.id,
-                  eventId: comment.eventId,
-                });
-                if (result) {
-                  setCommentList(result);
-                  setIsReplying(false);
-                  return result;
-                }
-                return false;
-              }}
-            />
-          </div>
-        ) : null}
+
         <div className="inline-flex items-center md:gap-1 shrink-0">
           {!isReply && !isDeleted && user ? (
             <button
@@ -158,81 +168,98 @@ export const CommentListItem = ({
             </button>
           ) : null}
           {user && comment.authorId === userId ? (
-            <>
-              <button
-                type="button"
-                className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
-                onClick={() => setIsEditing(!isEditing)}
-              >
-                {isEditing ? (
-                  <MdEditOff className="w-4 h-4" />
-                ) : (
-                  <MdEdit className="w-4 h-4" />
-                )}
-                {isEditing ? (
-                  <span className="sr-only">Annuler la modification</span>
-                ) : (
-                  <span className="sr-only">Modifier</span>
-                )}
-              </button>
-              <PopperMenu
-                buttonChildren={({ open }) => (
-                  <div
-                    className={classNames(
-                      "p-1 text-xs font-bold border",
-                      open
-                        ? "border-red text-red"
-                        : "hover:border-black border-transparent border-dashed"
-                    )}
-                  >
-                    <MdDelete className="w-4 h-4" />
-                    <span className="sr-only">Supprimer</span>
-                  </div>
-                )}
-                popperOptions={{
-                  modifiers: [
-                    {
-                      name: "offset",
-                      options: {
-                        offset: [0, 6],
-                      },
+            <button
+              type="button"
+              className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              {isEditing ? (
+                <MdEditOff className="w-4 h-4" />
+              ) : (
+                <MdEdit className="w-4 h-4" />
+              )}
+              {isEditing ? (
+                <span className="sr-only">Annuler la modification</span>
+              ) : (
+                <span className="sr-only">Modifier</span>
+              )}
+            </button>
+          ) : null}
+          {!isDeleted ? (
+            <button
+              type="button"
+              className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+              onClick={() =>
+                openReportModal({
+                  content: "",
+                  page: `/event/${comment.eventId}/`,
+                  object: ReportObject.COMMENT,
+                  objectId: comment.id,
+                  type: ReportType.OTHER,
+                })
+              }
+            >
+              <MdWarning className="w-4 h-4" />
+            </button>
+          ) : null}
+          {user && comment.authorId === userId ? (
+            <PopperMenu
+              buttonChildren={({ open }) => (
+                <div
+                  className={classNames(
+                    "p-1 text-xs font-bold border",
+                    open
+                      ? "border-red text-red"
+                      : "hover:border-black border-transparent border-dashed"
+                  )}
+                >
+                  <MdDelete className="w-4 h-4" />
+                  <span className="sr-only">Supprimer</span>
+                </div>
+              )}
+              popperOptions={{
+                modifiers: [
+                  {
+                    name: "offset",
+                    options: {
+                      offset: [0, 6],
                     },
-                  ],
-                }}
-              >
-                {({ open }) => (
-                  <div className="flex flex-col max-w-[16rem] p-2 text-sm bg-white border border-black shadow-lg gap-y-1">
-                    <p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-                    <div className="mt-2 ml-auto">
-                      <button
-                        className="border-b btn-red"
-                        onClick={async () => {
-                          let toastId = toast.loading(
-                            "Suppression en cours...",
-                            toastStyle
-                          );
-                          const result = await deleteComment({
-                            commentId: comment.id,
+                  },
+                ],
+              }}
+            >
+              {({ open }) => (
+                <div className="flex flex-col max-w-[16rem] p-2 text-sm bg-white border border-black shadow-lg gap-y-1">
+                  <p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+                  <div className="mt-2 ml-auto">
+                    <button
+                      className="border-b btn-red"
+                      onClick={async () => {
+                        let toastId = toast.loading(
+                          "Suppression en cours...",
+                          toastStyle
+                        );
+                        const result = await deleteComment({
+                          commentId: comment.id,
+                        });
+                        if (result) {
+                          setCommentList(result);
+                          toast.success("Commentaire supprimé 👍", {
+                            id: toastId,
                           });
-                          if (result) {
-                            setCommentList(result);
-                            toast.success("Commentaire supprimé 👍", {
-                              id: toastId,
-                            });
-                          } else {
-                            toast.error("Une erreur est survenue 😖", {
-                              id: toastId,
-                            });
-                          }
-                        }}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
+                        } else {
+                          toast.error("Une erreur est survenue 😖", {
+                            id: toastId,
+                          });
+                        }
+                      }}
+                    >
+                      Supprimer
+                    </button>
                   </div>
-                )}
-              </PopperMenu>
-            </>
+                </div>
+              )}
+            </PopperMenu>
           ) : null}
         </div>
       </div>

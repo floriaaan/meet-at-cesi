@@ -1,4 +1,11 @@
-import { Event, InvitationStatus, Preference, User } from "@prisma/client";
+import {
+  Event,
+  InvitationStatus,
+  Preference,
+  ReportObject,
+  ReportType,
+  User,
+} from "@prisma/client";
 import type { ExtendedComment, ExtendedEvent } from "@/types/Event";
 import type { ExtendedUser } from "@/types/User";
 import { EventFormValues } from "@/components/Event/Form";
@@ -311,5 +318,27 @@ export const deleteComment = async (
     body: JSON.stringify(values),
   });
   if (res.ok) return (await res.json()).comments;
+  return false;
+};
+
+export type ReportCreateRequestInput = {
+  content: string;
+  page: string;
+  object: ReportObject;
+  objectId: string;
+  type: ReportType;
+};
+
+export const createReport = async (
+  values: ReportCreateRequestInput
+): Promise<boolean> => {
+  const res = await fetch("/api/report", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(values),
+  });
+  if (res.ok) return true;
   return false;
 };

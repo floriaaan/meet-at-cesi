@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { FieldHookConfig, useField } from "formik";
 import { ReactNode } from "react";
-import { HiExclamationCircle } from "react-icons/hi2";
 import { MdError } from "react-icons/md";
 
 type InputProps = FieldHookConfig<string> & {
@@ -12,6 +11,7 @@ type InputProps = FieldHookConfig<string> & {
   errorClassName?: string;
   type: string;
   icon?: ReactNode;
+  canHaveError?: boolean;
 };
 
 const Input = ({
@@ -23,6 +23,7 @@ const Input = ({
   type,
   className = "",
   icon,
+  canHaveError = true,
   ...props
 }: InputProps) => {
   const [field, meta, helpers] = useField(
@@ -36,7 +37,7 @@ const Input = ({
     },
     helpers: any
   ];
-  const error = meta.touched && meta.error;
+  const error = meta.touched && canHaveError ? meta.error : "";
 
   return (
     <div className={classNames(className, "flex flex-col gap-y-1")}>
@@ -102,17 +103,11 @@ const Input = ({
         </div>
       </div>
 
-      <p
-        className={
-          errorClassName ||
-          classNames("text-sm first-letter:uppercase", {
-            "text-red-600": error,
-            "lg:h-5": !error || !meta.touched,
-          })
-        }
-      >
-        {error || ""}
-      </p>
+      {error && (
+        <p className="text-sm text-red-600 first-letter:uppercase">
+          {error}
+        </p>
+      )}
     </div>
   );
 };

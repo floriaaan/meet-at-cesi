@@ -1,17 +1,32 @@
-import { useFeedback } from "@/components/Helpers/Feedback";
-import { createFeedback } from "@/lib/fetchers";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { MdClose } from "react-icons/md";
-import { FeedbackForm } from "./Form";
 
-export const FeedbackMenu = () => {
-  const { isFeedbackOpen, setIsFeedbackOpen, history } = useFeedback();
-  const closeModal = () => setIsFeedbackOpen(false);
+type ModalProps = {
+  title: string | JSX.Element;
+  subtitle?: string | JSX.Element;
+  children: JSX.Element;
+  isOpen: boolean;
+  onClose: () => void;
+};
 
+/**
+ * Returns a generic modal with a form.
+ * Behaves like a modal on desktop view, and like a bottom sheet in mobile.
+ *
+ * See `./components/Helpers/Feedback/Modal.tsx` for an example.
+ * See `./components/Report/Modal.tsx` for an example.
+ */
+export const Modal = ({
+  title,
+  subtitle,
+  children,
+  isOpen,
+  onClose,
+}: ModalProps) => {
   return (
-    <Transition appear show={isFeedbackOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={closeModal}>
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-50" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-100"
@@ -38,30 +53,15 @@ export const FeedbackMenu = () => {
               <Dialog.Panel className="w-full p-4 overflow-hidden text-left align-middle transition-all transform bg-white border-black shadow-xl xs:border xs:max-w-md">
                 <div className="inline-flex justify-between w-full">
                   <Dialog.Title as="h3" className="text-xl font-bold">
-                    Feedback
+                    {title}
                   </Dialog.Title>
-                  <button onClick={closeModal}>
+                  {}
+                  <button onClick={onClose}>
                     <MdClose className="w-6 h-6" />
                   </button>
                 </div>
-                <div className="flex flex-col text-xs xs:gap-2 xs:flex-row xs:items-center ">
-                  <span>{'" C\'est cassé 😣 "'}</span>
-                  <span className="hidden xs:block">{"—"}</span>
-                  <span>
-                    {'" Il manquerait ça pour que ça soit parfait 🥰 "'}
-                  </span>
-                </div>
-                <p className="mt-1.5 text-sm font-bold">Dîtes nous tout !</p>
-                <FeedbackForm
-                  onSubmit={(values) => {
-                    return createFeedback({
-                      ...values,
-                      history: values.history_share ? history : [],
-                    });
-                  }}
-                  submitClassName="w-full btn-black text-sm border-b"
-                  labelClassName="text-xs font-bold font-black"
-                />
+                {subtitle ? subtitle : null}
+                <div className="w-full mt-2">{children}</div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

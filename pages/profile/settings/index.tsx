@@ -182,7 +182,6 @@ const ImageUploadSection = ({ image, setImage }: ImageUploadSectionProps) => {
     try {
       toastId = toast.loading("Suppression de votre photo... 🫥", toastStyle);
       const result = await deleteImage();
-      console.log(result);
       if (result) setImage(null);
 
       toast.success("Suppression réussie! 🥳", { id: toastId });

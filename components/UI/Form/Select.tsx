@@ -28,7 +28,7 @@ const Select = ({
     },
     helpers: any
   ];
-  const error = meta.touched && meta.error;
+  const error = meta.touched && canHaveError ? meta.error : false;
 
   return (
     <div className={classNames(className, "flex flex-col space-y-1")}>
@@ -64,14 +64,9 @@ const Select = ({
         </div>
       </div>
 
-      {canHaveError && (
-        <p
-          className={classNames("text-sm first-letter:uppercase", {
-            "text-red-600": error,
-            "lg:h-5": !error || !meta.touched,
-          })}
-        >
-          {error || " "}
+      {error && (
+        <p className="text-sm text-red-600 first-letter:uppercase">
+          {error}
         </p>
       )}
     </div>
