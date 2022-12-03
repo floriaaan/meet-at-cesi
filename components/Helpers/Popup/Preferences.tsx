@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import classNames from "classnames";
 
-import { PreferencesForm } from "@/components/Profile/PreferencesForm";
+import { PreferencesForm } from "@/components/Profile/Preferences/Form";
 import { editPreferences, getPreferences } from "@/lib/fetchers";
 import { MdClose } from "react-icons/md";
 
