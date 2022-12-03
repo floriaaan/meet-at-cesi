@@ -37,7 +37,7 @@ export const MobileMenu = () => {
   }, []);
 
   const { data: session, status } = useSession();
-  const { user } = session || {};
+  const { user } = session as ExtendedSession || {};
 
   return (
     <div className="inline-flex items-center md:hidden">
@@ -64,7 +64,7 @@ export const MobileMenu = () => {
         {!isMenuOpen ? (
           <>
             {user ? (
-              <Avatar user={user as UserMinimum} className="w-9 h-9 shrink-0" />
+              <Avatar user={user} className="w-9 h-9 shrink-0" />
             ) : (
               <span className="flex items-center justify-center rounded-full shrink-0 w-9 h-9 btn__colors">
                 <MdOutlineMenu className="w-4 h-4" />
@@ -179,7 +179,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
           <li className="relative inline-flex w-full bg-primary">
             <span className="z-10 flex items-center h-full pl-4 shrink-0 bg-primary w-fit">
               <Avatar
-                user={session.user as UserMinimum}
+                user={session.user}
                 className="w-16 h-16 text-xl bg-black text-primary"
               />
             </span>

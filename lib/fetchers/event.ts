@@ -51,11 +51,11 @@ export const editEvent = async (
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     });
-    if (res.ok && res.status === 201) return await res.json();
+    if (res.ok && res.status === 201) return res.json();
     else return false;
   } catch (error) {
     console.error(error);
-    return await Promise.reject(error);
+    return Promise.reject(error);
   }
 };
 
