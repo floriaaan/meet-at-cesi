@@ -1,15 +1,16 @@
-import { UserMinimum } from "@/types/User";
 import { Avatar } from "@/components/UI/Avatar";
 import classNames from "classnames";
+import { User } from "@prisma/client";
+import { AvatarWithName } from "../UI/Avatar/WithName";
 
 type Props = {
-  user: UserMinimum;
+  user: User;
 
   className?: string;
   avatarClassName?: string;
 
   checked?: boolean;
-  onCheck?: (user: UserMinimum) => void;
+  onCheck?: (user: User) => void;
 };
 
 export const UserListItem = ({
@@ -28,10 +29,11 @@ export const UserListItem = ({
       )}
       onClick={() => onCheck?.(user)}
     >
-      <div className="inline-flex items-center gap-x-2">
-        <Avatar user={user} className={avatarClassName || "w-8 h-8"} />
-        <p className="text-sm font-bold grow">{user.name}</p>
-      </div>
+      <AvatarWithName
+        user={user}
+        direction="row"
+        avatarClassName={avatarClassName || "w-8 h-8 shrink-0"}
+      />
       {onCheck !== undefined && checked !== undefined ? (
         <input
           type={"checkbox"}

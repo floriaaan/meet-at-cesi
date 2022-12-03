@@ -1,11 +1,11 @@
 import classNames from "classnames";
-
-import type { UserMinimum } from "@/types/User";
+import { User } from "@prisma/client";
 import Image from "next/image";
+
 import { getInitials } from "@/lib/string";
 
-type AvatarProps = {
-  user: UserMinimum;
+export type AvatarProps = {
+  user: User;
   className?: string;
 };
 
@@ -26,8 +26,9 @@ export const Avatar = ({ user, className }: AvatarProps) => {
       ) : (
         <span
           className={classNames(
-            "rounded-full select-none flex justify-center shrink-0 items-center bg-primary font-bold",
-            className
+            "rounded-full select-none flex justify-center shrink-0 items-center font-bold",
+            className,
+            !className?.includes("bg-") ? "bg-primary" : null
           )}
         >
           {user.name ? getInitials(user.name) : "?"}

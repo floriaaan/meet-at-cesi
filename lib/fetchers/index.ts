@@ -2,9 +2,15 @@ import {
   createComment,
   deleteComment,
   editComment,
+  CommentCreateRequestInput,
+  CommentDeleteRequestInput,
+  CommentEditRequestInput,
 } from "@/lib/fetchers/comment";
-import { createReport } from "@/lib/fetchers/report";
-import { createFeedback } from "@/lib/fetchers/feedback";
+import { createReport, ReportCreateRequestInput } from "@/lib/fetchers/report";
+import {
+  createFeedback,
+  FeedbackCreateRequestInput,
+} from "@/lib/fetchers/feedback";
 import {
   createInvitation,
   acceptInvitation,
@@ -18,6 +24,7 @@ import {
   uploadImage,
   getPreferences,
   sendVerificationEmail,
+  UserSearchRequestInput,
 } from "@/lib/fetchers/user";
 import {
   participate,
@@ -25,8 +32,9 @@ import {
   deleteEvent,
   editEvent,
   search,
+  EventSearchRequestInput,
+  getPlaceSuggestions,
 } from "@/lib/fetchers/event";
-
 
 export {
   // COMMENT
@@ -55,4 +63,19 @@ export {
   deleteEvent,
   editEvent,
   search,
+  getPlaceSuggestions,
+};
+export type {
+  // COMMENT
+  CommentCreateRequestInput,
+  CommentDeleteRequestInput,
+  CommentEditRequestInput,
+  // REPORT
+  ReportCreateRequestInput,
+  // FEEDBACK
+  FeedbackCreateRequestInput,
+  // USER
+  UserSearchRequestInput,
+  // EVENT
+  EventSearchRequestInput,
 };

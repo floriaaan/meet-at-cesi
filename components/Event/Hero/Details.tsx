@@ -1,3 +1,4 @@
+import { Name } from "@/components/UI/Avatar/OnlyName";
 import { fromLocalDate } from "@/lib/date";
 import audienceList from "@/resources/audience-list";
 import campusList from "@/resources/campus-list";
@@ -41,7 +42,8 @@ export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
         </div>
         <div className="inline-flex items-center text-black gap-x-1">
           <MdAccountCircle className="w-4 h-4" />
-          {creator.name}
+          <Name user={creator} />
+          {/* {creator.name} */}
         </div>
       </div>
 

@@ -2,6 +2,7 @@ import type { User } from "@prisma/client";
 import classNames from "classnames";
 
 import { Avatar } from "@/components/UI/Avatar";
+import { Name } from "@/components/UI/Avatar/OnlyName";
 
 export const ParticipantCard = ({
   participant,
@@ -20,16 +21,17 @@ export const ParticipantCard = ({
     >
       <Avatar
         user={participant}
-        className={style === "grid" ? "w-16 h-16 text-xl border-2" : "w-8 h-8 text-xs"}
+        className={
+          style === "grid" ? "w-16 h-16 text-xl border-2" : "w-8 h-8 text-xs"
+        }
       />
-      <p
-        className={classNames(" h-fit font-bold truncate w-4/5", {
+      <Name
+        user={participant}
+        className={classNames(" h-fit font-bold truncate w-full", {
           "text-base": style === "column",
           "text-xs text-center ": style === "grid",
         })}
-      >
-        {participant.name}
-      </p>
+      />
     </div>
   );
 };
