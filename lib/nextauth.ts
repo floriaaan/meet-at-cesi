@@ -6,6 +6,7 @@ import { AdapterUser } from "next-auth/adapters";
 import prisma from "@/lib/prisma";
 import plunk from "@/lib/plunk";
 import { ExtendedSession } from "@/types/Session";
+import { checkEmail } from "@/functions/validateEmail";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;
@@ -14,11 +15,12 @@ adapter.linkAccount = ({ ext_expires_in, ...data }) => oldLinkAccount(data);
 adapter.createUser = async (data) => {
   const user = await oldCreateUser(data);
   // add plunk logic here
-
-  await plunk.events.publish({
-    email: data.email,
-    event: "new-user",
-  });
+  if (checkEmail(data.email)) {
+    await plunk.events.publish({
+      email: data.email,
+      event: "viacesi-email-verification",
+    });
+  }
 
   return user;
 };
