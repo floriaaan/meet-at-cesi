@@ -9,6 +9,7 @@ import { Header } from "@/components/UI/Header";
 import { ExtendedUser } from "@/types/User";
 import { PreferencesSection } from "@/components/Profile/Preferences/Section";
 import { ImageUploadSection } from "@/components/Profile/ImageUpload/Section";
+import { EmailVerificationSection } from "@/components/Profile/EmailVerification/Section";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -46,6 +47,7 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
           <div className="flex flex-col w-full divide-y">
             <ImageUploadSection user={user} />
             <PreferencesSection user={user} />
+            <EmailVerificationSection user={user} />
           </div>
         </section>
       </ProfileLayout>
