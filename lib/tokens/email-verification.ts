@@ -1,6 +1,7 @@
 import { User, VerificationTokenType } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import plunk from "@/lib/plunk";
+import cryptoRandomString from "crypto-random-string";
 
 const generateToken = async (user: {
   id: User["id"];
@@ -14,7 +15,7 @@ const generateToken = async (user: {
     data: {
       identifier: VerificationTokenType.EMAIL_VERIFICATION,
       user: { connect: { id } },
-      token: Math.random().toString(36).substring(2, 15),
+      token: cryptoRandomString({ length: 16, type: "url-safe" }),
     },
   });
 
