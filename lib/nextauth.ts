@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { InvitationStatus, VerificationTokenType } from "@prisma/client";
+import { InvitationStatus } from "@prisma/client";
 import { Session, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 
