@@ -39,12 +39,17 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+enum VerificationTokenType {
+  EMAIL_VERIFICATION
+}
 
-  @@unique([identifier, token])
+model VerificationToken {
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  identifier VerificationTokenType
+  token      String                @unique @default(cuid())
+  expires    DateTime              @default(dbgenerated("CURRENT_TIMESTAMP + INTERVAL '1 hour'"))
 }
 
 model Preference {
@@ -78,6 +83,8 @@ model User {
 
   blamedFor Report[] @relation("report_user_blamed")
   reported  Report[] @relation("report_user_sender")
+
+  verificationTokens VerificationToken[]
 }
 
 model Event {
@@ -91,7 +98,7 @@ model Event {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  creator   User     @relation("event_creation", fields: [creatorId], references: [id])
+  creator   User     @relation("event_creation", fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
 
   participants User[]       @relation("event_participation")
@@ -105,7 +112,7 @@ model Comment {
   createdAt DateTime? @default(now())
   updatedAt DateTime  @updatedAt
 
-  author   User?   @relation(fields: [authorId], references: [id])
+  author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String?
   event    Event   @relation(fields: [eventId], references: [id])
   eventId  String
@@ -178,5 +185,5 @@ model Report {
   blamedUser   User   @relation("report_user_blamed", fields: [blamedUserId], references: [id])
 
   senderId String
-  sender   User   @relation("report_user_sender", fields: [senderId], references: [id], onDelete: Cascade)
+  sender   User   @relation("report_user_sender", fields: [senderId], references: [id])
 }
