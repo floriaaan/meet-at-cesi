@@ -9,7 +9,7 @@ import Link from "next/link";
 import type { ExtendedEvent } from "@/types/Event";
 import prisma from "@/lib/prisma";
 import { search } from "@/lib/fetchers";
-import { AppLayout } from "@/components/Layout/AppLayout";
+import { AppLayout } from "@/components/Layout";
 import { EventList } from "@/components/Event/List";
 import { Header } from "@/components/UI/Header";
 import { SearchBar } from "@/components/UI/SearchBar";

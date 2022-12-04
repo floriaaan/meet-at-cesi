@@ -3,8 +3,8 @@ import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 
 import prisma from "@/lib/prisma";
-import { AppLayout } from "@/components/Layout/AppLayout";
-import { ProfileLayout } from "@/components/Layout/Profile/ProfileLayout";
+import { AppLayout } from "@/components/Layout";
+import { ProfileLayout } from "@/components/Layout/Profile/Layout";
 import { Header } from "@/components/UI/Header";
 import { ExtendedUser } from "@/types/User";
 import { PreferencesSection } from "@/components/Profile/Preferences/Section";

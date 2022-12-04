@@ -9,7 +9,7 @@ import { useState } from "react";
 import prisma from "@/lib/prisma";
 import type { ExtendedEvent } from "@/types/Event";
 import { EventForm, EventFormValues } from "@/components/Event/Form";
-import { AppLayout } from "@/components/Layout/AppLayout";
+import { AppLayout } from "@/components/Layout";
 import { Header } from "@/components/UI/Header";
 import { DeleteModal } from "@/components/Event/DeleteModal";
 import { editEvent } from "@/lib/fetchers";

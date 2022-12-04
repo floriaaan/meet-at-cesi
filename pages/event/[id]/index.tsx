@@ -9,7 +9,7 @@ import type { ExtendedEvent } from "@/types/Event";
 import toastStyle from "@/resources/toast.config";
 import prisma from "@/lib/prisma";
 import { participate } from "@/lib/fetchers";
-import { AppLayout } from "@/components/Layout/AppLayout";
+import { AppLayout } from "@/components/Layout";
 import { HeroSection } from "@/components/Event/Hero/Section";
 import { MapSection } from "@/components/Event/Map/Section";
 import { ParticipantSection } from "@/components/Event/Participant/Section";

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { NextSeo } from "next-seo";
 
 import campusList from "@/resources/campus-list";
-import { AppLayout } from "@/components/Layout/AppLayout";
+import { AppLayout } from "@/components/Layout";
 import { SearchBar } from "@/components/UI/SearchBar";
 import prisma from "@/lib/prisma";
 import { ExtendedEvent } from "@/types/Event";
