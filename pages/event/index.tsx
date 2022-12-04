@@ -33,13 +33,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             permanent: false,
           },
         };
-      if (query.promotion === "user_preferred_promotion")
+      if (query.promotion === "user_preferred_promotion") {
+        const splittedPromotion = user.preferences?.promotion.split(":");
         return {
           redirect: {
-            destination: `/event?promotion=${user.preferences?.promotion}&campus=${user.preferences?.campus}`,
+            destination: `/event?promotion=${
+              splittedPromotion?.[0] || "undefined"
+            }&campus=${user.preferences?.campus}`,
             permanent: false,
           },
         };
+      }
     }
   }
 
@@ -79,7 +83,10 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
   useEffect(() => {
     if (query && Object.keys(query).length > 0) {
       setLoading(true);
-      search(query).then((events) => {
+      search({
+        ...query,
+        dateMin: new Date(new Date().setHours(0, 0, 0, 0)).toISOString(),
+      }).then((events) => {
         setEvents(events);
         setLoading(false);
       });

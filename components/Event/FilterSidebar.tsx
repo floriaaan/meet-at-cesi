@@ -89,8 +89,8 @@ const FilterSchema = Yup.object().shape({
 });
 
 export type FilterValues = Yup.InferType<typeof FilterSchema>;
-const initialValues: FilterValues = {
-  dateMin: undefined,
+const DEFAULT_INITIALS: FilterValues = {
+  dateMin: new Date().toISOString().split("T")[0],
   dateMax: undefined,
   proximity: undefined,
   campus: undefined,
@@ -115,6 +115,12 @@ export const FilterSidebar = ({
     promotion?: string;
   };
 
+  const initialValues = {
+    ...DEFAULT_INITIALS,
+    campus,
+    promotion,
+  } as unknown as FilterValues;
+
   return (
     <div className="flex flex-col p-4 gap-y-4">
       <button
@@ -129,10 +135,7 @@ export const FilterSidebar = ({
         />
       </button>
       <Formik
-        initialValues={
-          ({ ...initialValues, campus, promotion } as FilterValues) ||
-          initialValues
-        }
+        initialValues={initialValues as FilterValues}
         validationSchema={FilterSchema}
         onSubmit={handleChanges}
         validate={handleChanges}
@@ -172,7 +175,7 @@ export const FilterSidebar = ({
                           <Input {...input} />
                         ) : (
                           // @ts-ignore
-                          <Select {...input} />
+                          <Select {...input} defaultValue={initialValues[input.name]} />
                         )}
                       </Fragment>
                     ))}
