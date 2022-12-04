@@ -14,7 +14,7 @@ export const getSessionOrThrow = async (
   if (!session || !session.user || !session.user.email)
     throw new Error("Unauthorized.");
 
-  return session as SessionWithEmail;
+  return { ...session, user: { email: session.user.email } };
 };
 
 export const getUserOrThrow = async (

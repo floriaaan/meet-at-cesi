@@ -31,9 +31,9 @@ const DEFAULT_SELECT = {
 type Props = {
   labelClassName?: string;
   initialValues?: PreferencesFormValues;
-  onSubmit: ({}: PreferencesFormValues) => Promise<
-    { user: ExtendedUser } | false
-  >;
+  onSubmit: (
+    values: PreferencesFormValues
+  ) => Promise<{ user: ExtendedUser } | false>;
   optionalButton?: JSX.Element;
   submitClassName?: string;
 };

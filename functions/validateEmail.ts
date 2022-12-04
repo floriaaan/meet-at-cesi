@@ -1,8 +1,11 @@
 import { User } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
-// validate email if finish by @viacesi.fr
 const regex = new RegExp(/@viacesi.fr$/);
+/**
+ * validate email if finish by @viacesi.fr
+ *
+ * */
 export const checkEmail = (email: string) => regex.test(email);
 
 /**

@@ -5,6 +5,7 @@ import audienceList from "@/resources/audience-list";
 import campusList from "@/resources/campus-list";
 import { DetailsListItem } from "@/components/Event/List/DetailsListItem";
 import { getPlural } from "@/lib/string";
+import { AvatarWithName } from "@/components/UI/Avatar/WithName";
 
 type DetailsListProps = {
   creator: User;
@@ -31,10 +32,7 @@ export const DetailsList = ({
         icon={<MdLocationPin className="w-4 h-4 shrink-0" />}
         value={location}
       />
-      {/* <DetailsListItem
-          icon={<MdAccountCircle className="w-4 h-4" />}
-          value={creator.name}
-        /> */}
+
       <DetailsListItem
         icon={<MdPerson className="w-4 h-4 shrink-0" />}
         value={`${audienceDisplay}${
@@ -48,6 +46,17 @@ export const DetailsList = ({
           "participant inscrit",
           "participants inscrits"
         )}`}
+      />
+      <DetailsListItem
+        icon={undefined}
+        value={
+          <AvatarWithName
+            user={creator}
+            direction="row"
+            avatarClassName="w-8 h-8 shrink-0 text-xs bg-purple"
+            textClassName="text-sm font-bold"
+          />
+        }
       />
     </ul>
   );

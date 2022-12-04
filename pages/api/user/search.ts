@@ -22,11 +22,6 @@ export default async function handler(
         orderBy: { name: "asc" },
         skip: offset !== -1 ? offset : undefined,
         take: offset !== -1 ? 10 : undefined,
-        select: {
-          id: true,
-          name: true,
-          image: true,
-        },
       });
 
       res.status(200).json({ users });

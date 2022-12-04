@@ -6,7 +6,6 @@ import classNames from "classnames";
 import toast from "react-hot-toast";
 
 import { createInvitation, searchUsers } from "@/lib/fetchers";
-import { UserMinimum } from "@/types/User";
 import { UserListItem } from "@/components/User/ListItem";
 import toastStyle from "@/resources/toast.config";
 import { getPlural } from "@/lib/string";
@@ -24,9 +23,9 @@ export const InvitationModal = ({
   eventId,
 }: Props) => {
   const [name, setName] = useState("");
-  const [selectedUsers, setSelectedUsers] = useState<UserMinimum[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
 
-  const [searchResults, setSearchResults] = useState<UserMinimum[]>([]);
+  const [searchResults, setSearchResults] = useState<User[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 

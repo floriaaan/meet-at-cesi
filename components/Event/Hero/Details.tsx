@@ -1,3 +1,4 @@
+import { Name } from "@/components/UI/Avatar/OnlyName";
 import { fromLocalDate } from "@/lib/date";
 import audienceList from "@/resources/audience-list";
 import campusList from "@/resources/campus-list";
@@ -8,7 +9,6 @@ import {
   MdLocationPin,
   MdPerson,
 } from "react-icons/md";
-// import { AddToCalendar } from "../../Helpers/AddToCalendar";
 
 export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
   const { location, date, audienceCampus, creator } = event;
@@ -41,13 +41,10 @@ export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
         </div>
         <div className="inline-flex items-center text-black gap-x-1">
           <MdAccountCircle className="w-4 h-4" />
-          {creator.name}
+          <Name user={creator} />
         </div>
       </div>
 
-      {/* <div className="">
-        <AddToCalendar event={{ ...event, date: new Date(event.date) }} />
-      </div> */}
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { MdChevronRight } from "react-icons/md";
+import { MdChevronRight, MdVerified } from "react-icons/md";
 import classNames from "classnames";
 
-import type { UserMinimum } from "@/types/User";
 import PopperMenu from "@/components/Helpers/PopperMenu";
 import { Spinner } from "@/components/UI/Fallback/Spinner";
 import { Category } from "@/components/UI/Link/Category";
 import { Avatar } from "@/components/UI/Avatar";
+import { User } from "@prisma/client";
 
 export const AuthDropdown = () => {
   const { data: session, status } = useSession();
@@ -38,7 +38,7 @@ export const AuthDropdown = () => {
           {status === "authenticated" && session?.user && (
             <PopperMenu
               buttonChildren={({ open }) => (
-                <MenuButton user={session.user as UserMinimum} open={open} />
+                <MenuButton user={session.user as User} open={open} />
               )}
               popperOptions={{
                 strategy: "absolute",
@@ -54,7 +54,7 @@ export const AuthDropdown = () => {
   );
 };
 
-const MenuButton = ({ user, open }: { user?: UserMinimum; open: boolean }) =>
+const MenuButton = ({ user, open }: { user?: User; open: boolean }) =>
   user ? (
     <span
       className={classNames(
@@ -64,6 +64,7 @@ const MenuButton = ({ user, open }: { user?: UserMinimum; open: boolean }) =>
     >
       <Avatar user={user} className="w-8 h-8 mr-2 ring-white" />
       Hello {user?.name?.split(" ").at(-1)}
+      {user.emailVerified ? <MdVerified className="w-4 h-4 shrink-0" /> : null}
       <MdChevronRight
         className={classNames(
           "inline-block w-5 h-5 transition-transform duration-200",

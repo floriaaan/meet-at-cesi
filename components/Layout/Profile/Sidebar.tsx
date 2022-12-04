@@ -41,6 +41,10 @@ export const ProfileLayoutSidebar = () => {
               name: "Sélection du campus et de la promotion",
               href: "/profile/settings#preferences",
             },
+            {
+              name: "Vérification de l'adresse email",
+              href: "/profile/settings#email-verification",
+            },
           ]}
         />
       </ul>

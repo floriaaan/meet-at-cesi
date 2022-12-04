@@ -28,7 +28,11 @@ const EventCreatePage: NextPage = () => {
       <NextSeo title="Créer un événement" />
       <section className="flex flex-col items-start h-auto px-4 mx-auto mt-6 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-8">
         <Header text="Organiser un événement" />
-        <EventForm onSubmit={createEvent} />
+        <EventForm
+          // TODO: fix this
+          // @ts-ignore
+          onSubmit={createEvent}
+        />
       </section>
     </AppLayout>
   );
