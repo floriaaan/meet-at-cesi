@@ -60,12 +60,19 @@ model Preference {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+  ADMIN
+  MODERATOR
+  USER
+}
+
 model User {
   id             String    @id @default(cuid())
   name           String?
   email          String?   @unique
   emailVerified  DateTime?
   image          String?
+  role           Role      @default(USER)
   accounts       Account[]
   sessions       Session[]
   createdEvents  Event[]   @relation("event_creation")
