@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { MdChevronRight, MdUploadFile } from "react-icons/md";
+import { MdUploadFile } from "react-icons/md";
 
 export type Image = {
   src: string;

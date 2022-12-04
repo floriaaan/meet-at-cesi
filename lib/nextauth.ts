@@ -4,7 +4,6 @@ import { Session, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 
 import prisma from "@/lib/prisma";
-import plunk from "@/lib/plunk";
 import { ExtendedSession } from "@/types/Session";
 import { checkEmail } from "@/functions/validateEmail";
 import generateToken from "./tokens/email-verification";
