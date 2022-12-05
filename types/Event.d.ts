@@ -27,6 +27,7 @@ export type ExtendedInvitation = Invitation & {
 
 export type ExtendedComment = Comment & {
   author: User;
+  event: Event;
   parent: ExtendedComment | null;
   children: ExtendedComment[];
 };
