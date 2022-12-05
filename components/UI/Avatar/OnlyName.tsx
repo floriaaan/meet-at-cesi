@@ -9,8 +9,8 @@ type NameProps = {
 
 export const Name = ({ user, className, badgeClassName }: NameProps) => {
   return (
-    <div className="inline-flex items-center gap-0.5">
-      <span className={className || "text-sm font-bold grow"}>{user.name}</span>
+    <div className="inline-flex items-center gap-0.5 whitespace-nowrap">
+      <span className={className || "text-sm font-bold"}>{user.name}</span>
       {user.emailVerified ? (
         <MdVerified className={badgeClassName || "w-4 h-4 shrink-0"} />
       ) : null}

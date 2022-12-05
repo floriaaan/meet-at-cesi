@@ -1,14 +1,110 @@
+import { GetServerSideProps, NextPage } from "next";
+import { NextSeo } from "next-seo";
+import { getSession } from "next-auth/react";
+
+import prisma from "@/lib/prisma";
 import { AppLayout } from "@/components/Layout";
 import { AdminLayout } from "@/components/Layout/Admin/Layout";
-import { NextPage } from "next";
+import { StatCard } from "@/components/Admin/Card/Stat";
+import { ExtendedComment } from "@/types/Event";
+import { CommentFeedItem } from "@/components/Event/Comment/FeedItem";
+import { ExtendedSession } from "@/types/Session";
+import { Header } from "@/components/UI/Header";
 
-type Props = {};
+type Props = {
+  count: {
+    events: number;
+    users: number;
+    feedback: number;
+    reports: number;
+  };
 
-const AdminIndexPage: NextPage<Props> = ({}) => {
+  comments: ExtendedComment[];
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = (await getSession(context)) as ExtendedSession;
+  if (
+    !session?.user ||
+    !(session?.user?.role === "ADMIN" || session?.user?.role === "MODERATOR")
+  ) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  const events = await prisma.event.count();
+  const users = await prisma.user.count();
+  const feedback = await prisma.feedback.count();
+  const reports = await prisma.report.count();
+
+  const comments = JSON.parse(
+    JSON.stringify(
+      await prisma.comment.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 3,
+        include: { author: true, event: true },
+      })
+    )
+  );
+  return {
+    props: {
+      count: { events, users, feedback, reports },
+      comments,
+    },
+  };
+};
+
+const AdminIndexPage: NextPage<Props> = ({
+  count: { events, users, feedback, reports },
+  comments,
+}) => {
   return (
     <AppLayout>
       <AdminLayout>
-        <>helloworld</>
+        <NextSeo title="Administration" />
+        <section className="grid w-full h-auto grid-cols-2 gap-4 px-4 mx-auto mt-6 lg:grid-cols-4 md:px-12 lg:px-0 lg:max-w-2xl xl:max-w-5xl">
+          <Header
+            text="Tableau de bord"
+            containerClassName="bg-black text-white col-span-2 md:col-span-4"
+            className="before:bg-primary"
+          />
+          <StatCard
+            title="Événements"
+            value={events}
+            // colorClassName="bg-primary text-black"
+            href="/admin/events"
+          />
+
+          <StatCard
+            title="Utilisateurs"
+            value={users}
+            // colorClassName="bg-purple text-white"
+            href="/admin/users"
+          />
+
+          <StatCard
+            title="Feedback"
+            value={feedback}
+            // colorClassName="bg-green text-white"
+            href="/admin/feedback"
+          />
+          <StatCard
+            title="Signalements"
+            value={reports}
+            // colorClassName="bg-pink text-white"
+            href="/admin/reports"
+          />
+          <div className="flex flex-col w-full col-span-2 p-3 border border-black border-dashed gap-y-2 md:col-span-4">
+            <h2 className="mb-3 text-xl font-bold">Derniers commentaires</h2>
+            {comments.map((comment) => (
+              <CommentFeedItem key={comment.id} {...comment} />
+            ))}
+          </div>
+        </section>
       </AdminLayout>
     </AppLayout>
   );
