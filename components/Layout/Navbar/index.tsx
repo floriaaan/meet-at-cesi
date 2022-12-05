@@ -15,7 +15,8 @@ export const Navbar = () => {
   const { data: session } = useSession() as {
     data: ExtendedSession | null | undefined;
   };
-  const { user, receivedInvitations } = session || {};
+  const { user } = session || {};
+  const { receivedInvitations, role } = user || {};
   const [isTop, setIsTop] = useState<boolean>(true);
   const router = useRouter();
 
@@ -86,6 +87,12 @@ export const Navbar = () => {
               >
                 Ma promotion
               </Link>
+
+              {user.role === "MODERATOR" || user.role === "ADMIN" ? (
+                <Link href="/admin" className="pl-5 border-l border-black subnav__link">
+                  {role === "ADMIN" ? "Administration" : "Modération"}
+                </Link>
+              ) : null}
             </div>
             {receivedInvitations ? (
               <div className="inline-flex items-center gap-x-5">
