@@ -10,6 +10,14 @@ export type CustomTableProps = {
   renderItem: (item: any) => ReactNode;
 };
 
+/**
+ * Returns a generic custom table 
+ * Behaves like a table and renders items via the passed render function.
+ *
+ * See `./pages/admin/even.tsx` for an example.
+ *
+ * TODO: need to add pagination, and specify object type for pagination prop
+ */
 const CustomTable = ({
   title,
   subtitle,

@@ -33,11 +33,11 @@ export default async function handler(
       if (!event) {
         return res.status(404).json({ message: "Event not found." });
       }
-      if (event.creator.id !== user.id) {
+      if (event.creator.id !== user.id && user.role !== "ADMIN") {
         return res.status(401).json({ message: "Unauthorized." });
       }
 
-      // Destrucure location object to get coordinates
+      // Destructure location object to get coordinates
       const {
         features: [
           {
@@ -59,7 +59,6 @@ export default async function handler(
           audience,
           audienceCampus,
           coordinates: [lat, lng],
-          creatorId: user.id,
         },
       });
 

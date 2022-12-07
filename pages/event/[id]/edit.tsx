@@ -13,13 +13,14 @@ import { AppLayout } from "@/components/Layout";
 import { Header } from "@/components/UI/Header";
 import { DeleteModal } from "@/components/Event/DeleteModal";
 import { editEvent } from "@/lib/fetchers";
+import { ExtendedSession } from "@/types/Session";
 
 type Props = {
   event: ExtendedEvent;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  const session = (await getSession(context)) as ExtendedSession;
   if (!session) {
     return {
       redirect: {
@@ -42,7 +43,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
   event = JSON.parse(JSON.stringify(event));
 
-  if (!event || event.creator.email !== session?.user?.email) {
+  if (
+    !event ||
+    (event.creator.email !== session?.user?.email &&
+      session?.user?.role !== "ADMIN")
+  ) {
     return {
       redirect: {
         destination: "/",

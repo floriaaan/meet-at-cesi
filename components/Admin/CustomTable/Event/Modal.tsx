@@ -17,6 +17,8 @@ import { Chip } from "@/components/UI/Chip";
 import { CommentListItem } from "@/components/Event/Comment";
 import { CommentFeedItem } from "@/components/Event/Comment/FeedItem";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { ExtendedSession } from "@/types/Session";
 
 type EventTableModalProps = ExtendedEvent & {
   isModalOpen: boolean;
@@ -41,6 +43,9 @@ export const EventTableModal = ({
   } = event;
   const promotion = audienceList.find((a) => a.value === audience)?.label;
   const campus = campusList.find((c) => c.value === audienceCampus)?.label;
+  const { data: session } = useSession();
+  const { user } = (session as ExtendedSession) || {};
+
   return (
     <Modal
       isOpen={isModalOpen}
@@ -137,12 +142,14 @@ export const EventTableModal = ({
         </div>
 
         <div className="flex flex-col items-center w-full gap-2 md:justify-end md:flex-row md:col-span-2">
-          <Link
-            href={`/event/${event.id}/edit`}
-            className="border-0 md:w-fit btn-black"
-          >
-            Modifier
-          </Link>
+          {user?.role === "ADMIN" ? (
+            <Link
+              href={`/event/${event.id}/edit`}
+              className="border-0 md:w-fit btn-black"
+            >
+              Modifier
+            </Link>
+          ) : null}
           <Link
             href={`/event/${event.id}`}
             className="border-0 md:w-48 btn-black"
