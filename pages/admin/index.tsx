@@ -76,14 +76,14 @@ const AdminIndexPage: NextPage<Props> = ({
             title="Événements"
             value={events}
             // colorClassName="bg-primary text-black"
-            href="/admin/events"
+            href="/admin/event"
           />
 
           <StatCard
             title="Utilisateurs"
             value={users}
             // colorClassName="bg-purple text-white"
-            href="/admin/users"
+            href="/admin/user"
           />
 
           <StatCard
@@ -96,7 +96,7 @@ const AdminIndexPage: NextPage<Props> = ({
             title="Signalements"
             value={reports}
             // colorClassName="bg-pink text-white"
-            href="/admin/reports"
+            href="/admin/report"
           />
           <div className="flex flex-col w-full col-span-2 p-3 border border-black border-dashed gap-y-2 md:col-span-4">
             <h2 className="mb-3 text-xl font-bold">Derniers commentaires</h2>
