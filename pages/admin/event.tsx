@@ -54,6 +54,10 @@ const AdminEventPage: NextPage<Props> = ({ events }) => {
             items={events}
             columns={["Titre", "Créateur", "Participants", "Commentaires"]}
             renderItem={(event) => <EventTableItem {...event} key={event.id} />}
+            pagination={{
+              initialPage: 0,
+              pageSize: 10,
+            }}
           />
         </div>
       </AdminLayout>

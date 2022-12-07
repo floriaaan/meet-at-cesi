@@ -72,18 +72,18 @@ const AdminIndexPage: NextPage<Props> = ({
             containerClassName="bg-black text-white col-span-2 md:col-span-4"
             className="before:bg-primary"
           />
-          <StatCard
-            title="Événements"
-            value={events}
-            // colorClassName="bg-primary text-black"
-            href="/admin/event"
-          />
 
           <StatCard
             title="Utilisateurs"
             value={users}
             // colorClassName="bg-purple text-white"
             href="/admin/user"
+          />
+          <StatCard
+            title="Événements"
+            value={events}
+            // colorClassName="bg-primary text-black"
+            href="/admin/event"
           />
 
           <StatCard

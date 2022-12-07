@@ -96,7 +96,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
   return (
     <AppLayout>
       <NextSeo title="Événements" />
-      <section className="flex flex-col min-h-full pb-4 mx-auto mb-12 bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
+      <section className="flex flex-col min-h-full pb-4 mx-auto bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
         <div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:min-h-[80vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
           <FilterSidebar setEvents={setEvents} setLoading={setLoading} />
         </div>
