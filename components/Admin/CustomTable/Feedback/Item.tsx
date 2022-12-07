@@ -6,6 +6,7 @@ import { ExtendedFeedback } from "@/types/Feedback";
 import { FeedbackTableModal } from "@/components/Admin/CustomTable/Feedback/Modal";
 import routes from "@/resources/routes";
 import { formatDate } from "@/lib/date";
+import { Chip } from "@/components/UI/Chip";
 
 export const FeedbackTableItem = (props: ExtendedFeedback) => {
   const router = useRouter();
@@ -27,8 +28,8 @@ export const FeedbackTableItem = (props: ExtendedFeedback) => {
         className="w-full text-black bg-white cursor-pointer hover:bg-neutral-100"
         onClick={openModal}
       >
-        <td className="max-w-[16rem] px-6 py-4 truncate">{text}</td>
-        <td className="px-6">
+        <td className="max-w-[16rem] px-6 py-4 text-sm truncate">{text}</td>
+        <td className="px-3">
           <AvatarWithName
             user={user}
             avatarClassName="w-6 h-6 text-xs"
@@ -36,11 +37,28 @@ export const FeedbackTableItem = (props: ExtendedFeedback) => {
             direction="row"
           />
         </td>
-        <td className="px-6">{routes[page as keyof typeof routes]}</td>
-        <td className="px-6">
-          {history.length > 0 ? "Oui" : "Non"} ({history.length})
+        <td className="px-3 text-xs">{routes[page as keyof typeof routes]}</td>
+        <td className="px-3">
+          {history.length > 0 ? (
+            <span className="inline-flex items-center gap-x-1">
+              ✅<span className="sr-only">Oui</span>
+              <Chip>{history.length}</Chip>
+            </span>
+          ) : (
+            <span>
+              ❌<span className="sr-only">Non</span>
+            </span>
+          )}
         </td>
-        <td className="px-6">{formatDate(createdAt)}</td>
+        <td className="pl-3 pr-6 text-sm">
+          {formatDate(createdAt, {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+          })}
+        </td>
       </tr>
       <FeedbackTableModal
         {...props}

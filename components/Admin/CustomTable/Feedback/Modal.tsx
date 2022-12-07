@@ -1,7 +1,9 @@
 import { Avatar, Name } from "@/components/UI/Avatar";
+import { Chip } from "@/components/UI/Chip";
 import { Modal } from "@/components/UI/Modal";
 import { formatDate } from "@/lib/date";
 import { ExtendedFeedback } from "@/types/Feedback";
+import { HistoryListItem } from "./HistoryListItem";
 
 type FeedbackTableModalProps = ExtendedFeedback & {
   isModalOpen: boolean;
@@ -13,7 +15,7 @@ export const FeedbackTableModal = ({
   closeModal,
   ...feedback
 }: FeedbackTableModalProps) => {
-  const { user: creator, createdAt, text } = feedback;
+  const { user: creator, createdAt, text, history } = feedback;
 
   return (
     <Modal
@@ -33,6 +35,24 @@ export const FeedbackTableModal = ({
             </p>
           </div>
         </div>
+        <div className="md:col-span-2">
+          <div className="inline-flex items-center justify-between w-full text-lg font-bold gap-x-1">
+            <div className="inline-flex items-center gap-x-1">
+              Historique
+              <Chip extendClassName="ml-1">{history.length}</Chip>
+            </div>
+          </div>
+          {history.length > 0 ? (
+            <div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
+              {history.map((h, i) => (
+                <HistoryListItem route={h} key={i} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm">Historique non partagé.</p>
+          )}
+        </div>
+
         <div className="pt-2 pb-4 md:col-span-2">
           <p className="text-sm whitespace-pre-line">{text}</p>
         </div>

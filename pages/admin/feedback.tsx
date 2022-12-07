@@ -53,7 +53,7 @@ const AdminEventPage: NextPage<Props> = ({ feedbacks }) => {
               "Contenu",
               "Créateur",
               "Page",
-              "A partagé son historique",
+              "Historique partagé",
               "Créé le",
             ]}
             renderItem={(feedback) => (

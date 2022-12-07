@@ -109,7 +109,7 @@ export const EventTableModal = ({
             />
           </div>
           {participants.length > 0 ? (
-            <div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-64 gap-y-1 bg-neutral-50">
+            <div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
               {participants.map((participant) => (
                 <UserListItem
                   avatarClassName="w-6 text-xs h-6"
@@ -131,7 +131,7 @@ export const EventTableModal = ({
             </div>
           </div>
           {comments.length > 0 ? (
-            <div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-64 gap-y-1 bg-neutral-50">
+            <div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
               {comments.map((c) => (
                 <CommentFeedItem {...c} event={event} key={c.id} />
               ))}
