@@ -49,6 +49,17 @@ export const Subnav = () => {
             Événements
           </Link>
         ) : null}
+        {isAdmin(user) ? (
+          <Link
+            href="/admin/feedback"
+            className={classNames("subnav__link hover:decoration-white", {
+              "decoration-dotted underline decoration-primary":
+                pathname === "/admin/feedback",
+            })}
+          >
+            Feedbacks
+          </Link>
+        ) : null}
 
         <Link
           href="/admin/report"
@@ -59,17 +70,6 @@ export const Subnav = () => {
         >
           Signalements
         </Link>
-        {isAdmin(user) ? (
-          <Link
-            href="/admin/feedback"
-            className={classNames("subnav__link hover:decoration-white", {
-              "decoration-dotted underline decoration-primary":
-                pathname === "/admin/feedback",
-            })}
-          >
-            Feedback
-          </Link>
-        ) : null}
       </div>
     </div>
   );

@@ -90,7 +90,7 @@ const CustomTable = ({
         ) : null}
       </div>
       <div className="border-t border-black border-dashed">
-        <table className="block w-full overflow-x-scroll whitespace-nowrap">
+        <table className="block w-full overflow-x-auto whitespace-nowrap">
           <thead className={classNames("px-4 py-5 bg-neutral-50 md:px-6")}>
             <tr>
               {columns.map((column) => (
@@ -103,7 +103,7 @@ const CustomTable = ({
               ))}
             </tr>
           </thead>
-          <tbody>{itemsPaginated.map((item) => renderItem(item))}</tbody>
+          <tbody className="w-full">{itemsPaginated.map((item) => renderItem(item))}</tbody>
         </table>
       </div>
     </div>
