@@ -19,8 +19,8 @@ export const CommentFeedItem = ({
     >
       <div className="inline-flex items-center w-full gap-2 ">
         <Avatar user={author} className="w-10 h-10 shrink-0" />
-        <div className="flex flex-col gap-1">
-          <div className="inline-flex items-center text-sm gap-x-1">
+        <div className="flex flex-col gap-1 text-xs truncate md:text-sm">
+          <div className="inline-flex items-center gap-x-1">
             <Name user={author} />
             <span className="items-center hidden truncate whitespace-nowrap md:inline-flex gap-x-1">
               sur

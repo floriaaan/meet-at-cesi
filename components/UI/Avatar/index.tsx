@@ -9,7 +9,7 @@ export type AvatarProps = {
   className?: string;
 };
 
-export const Avatar = ({ user, className }: AvatarProps) => {
+const Avatar = ({ user, className }: AvatarProps) => {
   return (
     <>
       {user.image ? (
@@ -37,3 +37,9 @@ export const Avatar = ({ user, className }: AvatarProps) => {
     </>
   );
 };
+
+import { AvatarList } from "@/components/UI/Avatar/List";
+import { AvatarWithName } from "@/components/UI/Avatar/WithName";
+import { Name } from "@/components/UI/Avatar/OnlyName";
+
+export { Avatar, AvatarList, AvatarWithName, Name };
