@@ -10,6 +10,7 @@ import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
 import { Chip } from "@/components/UI/Chip";
+import { isAdmin, isModerator } from "@/lib/role";
 
 export const Navbar = () => {
   const { data: session } = useSession() as {
@@ -88,8 +89,11 @@ export const Navbar = () => {
                 Ma promotion
               </Link>
 
-              {user.role === "MODERATOR" || user.role === "ADMIN" ? (
-                <Link href="/admin" className="pl-5 border-l border-black subnav__link">
+              {isModerator(user) || isAdmin(user) ? (
+                <Link
+                  href="/admin"
+                  className="pl-5 border-l border-black subnav__link"
+                >
                   {role === "ADMIN" ? "Administration" : "Modération"}
                 </Link>
               ) : null}

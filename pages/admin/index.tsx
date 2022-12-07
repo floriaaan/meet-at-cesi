@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { NextSeo } from "next-seo";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 import prisma from "@/lib/prisma";
 import { AppLayout } from "@/components/Layout";
@@ -10,6 +10,7 @@ import { ExtendedComment } from "@/types/Event";
 import { CommentFeedItem } from "@/components/Event/Comment/FeedItem";
 import { ExtendedSession } from "@/types/Session";
 import { Header } from "@/components/UI/Header";
+import { isAdmin, isModerator } from "@/lib/role";
 
 type Props = {
   count: {
@@ -24,10 +25,8 @@ type Props = {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = (await getSession(context)) as ExtendedSession;
-  if (
-    !session?.user ||
-    !(session?.user?.role === "ADMIN" || session?.user?.role === "MODERATOR")
-  ) {
+  const { user } = session || {};
+  if (!user || (!isAdmin(user) && !isModerator(user))) {
     return {
       redirect: {
         destination: "/",
@@ -62,6 +61,8 @@ const AdminIndexPage: NextPage<Props> = ({
   count: { events, users, feedback, reports },
   comments,
 }) => {
+  const { data: session } = useSession();
+  const { user } = (session as ExtendedSession) || {};
   return (
     <AppLayout>
       <AdminLayout>
@@ -77,26 +78,26 @@ const AdminIndexPage: NextPage<Props> = ({
             title="Utilisateurs"
             value={users}
             // colorClassName="bg-purple text-white"
-            href="/admin/user"
+            href={isAdmin(user) ? "/admin/user" : undefined}
           />
           <StatCard
             title="Événements"
             value={events}
             // colorClassName="bg-primary text-black"
-            href="/admin/event"
+            href={isAdmin(user) ? "/admin/event" : undefined}
           />
 
           <StatCard
             title="Feedback"
             value={feedback}
             // colorClassName="bg-green text-white"
-            href="/admin/feedback"
+            href={isAdmin(user) ? "/admin/feedback" : undefined}
           />
           <StatCard
             title="Signalements"
             value={reports}
             // colorClassName="bg-pink text-white"
-            href="/admin/report"
+            href={isAdmin(user) ? "/admin/report" : undefined}
           />
           <div className="flex flex-col w-full col-span-2 p-3 border border-black border-dashed gap-y-2 md:col-span-4">
             <h2 className="mb-3 text-xl font-bold">Derniers commentaires</h2>

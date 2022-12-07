@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { MapFeature } from "@/types/Event";
+import { isAdmin } from "@/lib/role";
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,7 +34,7 @@ export default async function handler(
       if (!event) {
         return res.status(404).json({ message: "Event not found." });
       }
-      if (event.creator.id !== user.id && user.role !== "ADMIN") {
+      if (event.creator.id !== user.id && !isAdmin(user)) {
         return res.status(401).json({ message: "Unauthorized." });
       }
 

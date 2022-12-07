@@ -9,16 +9,14 @@ import { AdminLayout } from "@/components/Layout/Admin/Layout";
 import { ExtendedSession } from "@/types/Session";
 import { ExtendedEvent } from "@/types/Event";
 import { EventTableItem } from "@/components/Admin/CustomTable/Event/Item";
+import { isAdmin } from "@/lib/role";
 
 type Props = {
   events: ExtendedEvent[];
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = (await getSession(context)) as ExtendedSession;
-  if (
-    !session?.user ||
-    !(session?.user?.role === "ADMIN" || session?.user?.role === "MODERATOR")
-  ) {
+  if (!session?.user || !isAdmin(session.user)) {
     return {
       redirect: {
         destination: "/",
