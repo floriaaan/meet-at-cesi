@@ -90,7 +90,7 @@ const CustomTable = ({
         ) : null}
       </div>
       <div className="border-t border-black border-dashed">
-        <table className="block w-full overflow-x-auto whitespace-nowrap">
+        <table className="block w-full overflow-x-auto md:table whitespace-nowrap">
           <thead className={classNames("px-4 py-5 bg-neutral-50 md:px-6")}>
             <tr>
               {columns.map((column) => (
