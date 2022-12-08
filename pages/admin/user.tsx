@@ -8,11 +8,11 @@ import { AppLayout } from "@/components/Layout";
 import { AdminLayout } from "@/components/Layout/Admin/Layout";
 import { ExtendedSession } from "@/types/Session";
 import { isAdmin } from "@/lib/role";
-import { ExtendedFeedback } from "@/types/Feedback";
-import { FeedbackTableItem } from "@/components/Admin/CustomTable/Feedback/Item";
+import { ExtendedUser } from "@/types/User";
+import { UserTableItem } from "@/components/Admin/CustomTable/User/Item";
 
 type Props = {
-  feedbacks: ExtendedFeedback[];
+  users: ExtendedUser[];
 };
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = (await getSession(context)) as ExtendedSession;
@@ -25,39 +25,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  let feedbacks = await prisma.feedback.findMany({
+  let users = await prisma.user.findMany({
     orderBy: { createdAt: "asc" },
-    include: {
-      user: true,
-    },
   });
 
-  feedbacks = JSON.parse(JSON.stringify(feedbacks));
+  users = JSON.parse(JSON.stringify(users));
 
   return {
-    props: { feedbacks },
+    props: { users },
   };
 };
 
-const AdminFeedbackPage: NextPage<Props> = ({ feedbacks }) => {
+const AdminEventPage: NextPage<Props> = ({ users }) => {
   return (
     <AppLayout>
       <AdminLayout>
-        <NextSeo title="Feedbacks, admin." />
+        <NextSeo title="Utilisateurs, admin." />
         <div className="lg:p-4">
           <CustomTable
-            title="Feedbacks"
-            items={feedbacks}
-            columns={[
-              "Contenu",
-              "Créateur",
-              "Page",
-              "Historique partagé",
-              "Créé le",
-            ]}
-            renderItem={(feedback) => (
-              <FeedbackTableItem {...feedback} key={feedback.id} />
-            )}
+            title="Utilisateurs"
+            items={users}
+            columns={["Nom", "Email", "Rôle", "Inscrit le"]}
+            renderItem={(user) => <UserTableItem {...user} key={user.id} />}
             pagination={{
               initialPage: 0,
               pageSize: 10,
@@ -69,4 +58,4 @@ const AdminFeedbackPage: NextPage<Props> = ({ feedbacks }) => {
   );
 };
 
-export default AdminFeedbackPage;
+export default AdminEventPage;

@@ -1,6 +1,7 @@
 import { Preference, User } from "@prisma/client";
 
 import { ExtendedUser } from "@/types/User";
+import { RoleFormValues } from "@/components/Admin/CustomTable/User/RoleForm";
 
 export type UserSearchRequestInput = {
   name?: string;
@@ -76,11 +77,24 @@ export const getPreferences = async (): Promise<Preference | undefined> => {
 };
 
 export const sendVerificationEmail = async (): Promise<boolean> => {
-    const res = await fetch("/api/user/email-verification", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-    if (res.ok) return true;
-    return false;
-  };
-  
+  const res = await fetch("/api/user/email-verification", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+  });
+  if (res.ok) return true;
+  return false;
+};
+
+export type ChangeRoleRequestInput = RoleFormValues & { userId: User["id"] };
+export const changeRole = async (
+  values: ChangeRoleRequestInput
+): Promise<{ user: User } | Error> => {
+  const res = await fetch("/api/admin/user/role", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+  const { data, error } = await res.json();
+  if (res.ok && res.status === 200) return data;
+  return new Error(error.message);
+};
