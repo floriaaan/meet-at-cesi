@@ -5,7 +5,11 @@ import { AvatarWithName } from "@/components/UI/Avatar/WithName";
 import { ExtendedReport } from "@/types/Report";
 import { ReportTableModal } from "@/components/Admin/CustomTable/Report/Modal";
 import { formatDate } from "@/lib/date";
-import { reportObjectList, reportReasonList } from "@/resources/report-list";
+import {
+  reportObjectList,
+  reportReasonList,
+  reportStatusList,
+} from "@/resources/report-list";
 import { Comment, Event, ReportObject, User } from "@prisma/client";
 
 export const ReportTableItem = (props: ExtendedReport) => {
@@ -21,7 +25,18 @@ export const ReportTableItem = (props: ExtendedReport) => {
     router.push(`/admin/report`, undefined, { shallow: true });
   };
 
-  const { sender, related, blamedUser, type, createdAt, object } = props;
+  const {
+    sender,
+    related,
+    blamedUser,
+    type,
+    createdAt,
+    object,
+    status: initialStatus,
+  } = props;
+
+  const [status, setStatus] = useState(initialStatus);
+
   return (
     <>
       <tr
@@ -57,7 +72,7 @@ export const ReportTableItem = (props: ExtendedReport) => {
         <td className="px-3 text-sm">
           {reportReasonList.find((r) => r.value === type)?.label}
         </td>
-        <td className="pl-3 pr-6 text-sm">
+        <td className="px-3 text-sm">
           {formatDate(createdAt, {
             day: "numeric",
             month: "short",
@@ -66,11 +81,15 @@ export const ReportTableItem = (props: ExtendedReport) => {
             minute: "numeric",
           })}
         </td>
+        <td className="px-3 pr-6 text-sm">
+          {reportStatusList.find((r) => r.value === status)?.label}
+        </td>
       </tr>
       <ReportTableModal
         {...props}
         isModalOpen={isModalOpen}
         closeModal={closeModal}
+        setStatus={setStatus}
       />
     </>
   );

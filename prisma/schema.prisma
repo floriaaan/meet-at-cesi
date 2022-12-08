@@ -178,6 +178,12 @@ enum ReportObject {
   NULL
 }
 
+enum ReportStatus {
+  PENDING
+  ACCEPTED
+  REFUSED
+}
+
 model Report {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -193,4 +199,6 @@ model Report {
 
   senderId String
   sender   User   @relation("report_user_sender", fields: [senderId], references: [id])
+
+  status ReportStatus @default(PENDING)
 }

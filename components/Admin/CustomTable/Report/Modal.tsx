@@ -2,24 +2,69 @@ import { Avatar, AvatarWithName, Name } from "@/components/UI/Avatar";
 import { Chip } from "@/components/UI/Chip";
 import { Modal } from "@/components/UI/Modal";
 import { formatDate } from "@/lib/date";
+import { acceptReport, pendReport, rejectReport } from "@/lib/fetchers/report";
 import { reportReasonList } from "@/resources/report-list";
+import toastStyle from "@/resources/toast.config";
 import { ExtendedReport } from "@/types/Report";
-import { Comment, Event, ReportObject, User } from "@prisma/client";
+import {
+  Comment,
+  Event,
+  ReportObject,
+  ReportStatus,
+  User,
+} from "@prisma/client";
 import Link from "next/link";
+import { toast } from "react-hot-toast";
 import { MdAccountCircle, MdOutlinedFlag } from "react-icons/md";
 
 type ReportTableModalProps = ExtendedReport & {
   isModalOpen: boolean;
   closeModal: () => void;
+  setStatus: (status: ReportStatus) => void;
 };
 
 export const ReportTableModal = ({
   isModalOpen,
   closeModal,
+  setStatus,
   ...report
 }: ReportTableModalProps) => {
-  const { sender, related, blamedUser, type, createdAt, object, content } =
-    report;
+  const {
+    sender,
+    related,
+    blamedUser,
+    type,
+    createdAt,
+    object,
+    content,
+    status,
+  } = report;
+
+  const handleAction = async (status: ReportStatus) => {
+    let result: boolean;
+    let toastId: string = toast.loading("Modification en cours...", toastStyle);
+
+    try {
+      switch (status) {
+        case ReportStatus.ACCEPTED:
+          result = await acceptReport(report.id);
+          if (result) setStatus(ReportStatus.ACCEPTED);
+          break;
+        case ReportStatus.PENDING:
+          result = await pendReport(report.id);
+          if (result) setStatus(ReportStatus.PENDING);
+          break;
+        case ReportStatus.REFUSED:
+          result = await rejectReport(report.id);
+          if (result) setStatus(ReportStatus.REFUSED);
+          break;
+      }
+      toast.success("Modification effectuée 🥸", { id: toastId });
+      closeModal();
+    } catch (e) {
+      toast.error("Erreur lors de la modification 😖", { id: toastId });
+    }
+  };
 
   return (
     <Modal
@@ -88,6 +133,29 @@ export const ReportTableModal = ({
             Contenu
           </p>
           <p className="text-xs text-neutral-700">{content}</p>
+        </div>
+        <div className="inline-flex items-center gap-2 pt-2 border-t md:col-span-2 border-neutral-300">
+          <button
+            disabled={status === ReportStatus.PENDING}
+            className="border-0 btn-black"
+            onClick={() => handleAction(ReportStatus.PENDING)}
+          >
+            Mettre en attente
+          </button>
+          <button
+            disabled={status === ReportStatus.ACCEPTED}
+            className="border-0 btn-black"
+            onClick={() => handleAction(ReportStatus.ACCEPTED)}
+          >
+            Accepter (désactiver)
+          </button>
+          <button
+            disabled={status === ReportStatus.REFUSED}
+            className="border-0 btn-black"
+            onClick={() => handleAction(ReportStatus.REFUSED)}
+          >
+            Refuser
+          </button>
         </div>
       </div>
     </Modal>

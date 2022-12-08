@@ -1,4 +1,4 @@
-import { ReportType, ReportObject } from "@prisma/client";
+import { ReportType, ReportObject, ReportStatus } from "@prisma/client";
 
 export const reportReasonList: {
   label: string;
@@ -25,4 +25,13 @@ export const reportObjectList: {
     value: ReportObject.USER,
     fullLabel: "l'utilisateur",
   },
+];
+
+export const reportStatusList: {
+  label: string;
+  value: ReportStatus;
+}[] = [
+  { label: "Accepté (ressource désactivée)", value: ReportStatus.ACCEPTED },
+  { label: "Refusé", value: ReportStatus.REFUSED },
+  { label: "En attente", value: ReportStatus.PENDING },
 ];

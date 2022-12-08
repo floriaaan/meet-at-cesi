@@ -99,6 +99,7 @@ const AdminReportPage: NextPage<Props> = ({ reports }) => {
               "Utilisateur signalé",
               "Type",
               "Créé le",
+              "Statut"
             ]}
             renderItem={(report) => (
               <ReportTableItem {...report} key={report.id} />
