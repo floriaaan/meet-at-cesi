@@ -68,7 +68,7 @@ export const EmailVerificationSection = ({
           {user.emailVerified ? (
             <MdVerified className="w-4 h-4 shrink-0" />
           ) : null}
-          {user.emailVerified ? "Vérifié" : "Vérifier"}
+          {user.emailVerified ? "Email vérifiée" : "Vérifier"}
         </button>
       </div>
     </div>
