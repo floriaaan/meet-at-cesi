@@ -54,7 +54,7 @@ export const ReportTableItem = (props: ExtendedReport) => {
         <td className="px-3 text-xs">
           {reportObjectList.find((r) => r.value === object)?.label}
         </td>
-        <td className="max-w-lg px-3 text-xs">
+        <td className="max-w-[12rem] xl:max-w-sm px-3 text-xs truncate">
           {object === ReportObject.EVENT ? (related as Event).title : null}
           {object === ReportObject.COMMENT
             ? (related as Comment).content
