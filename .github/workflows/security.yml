@@ -1,0 +1,19 @@
+name: "Security"
+on:
+  - pull_request
+  
+jobs:
+  security:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run Snyk to check for security vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
