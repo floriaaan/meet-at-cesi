@@ -21,6 +21,9 @@ export const ProfileLayoutSidebar = () => {
               href: "/profile",
             },
             {
+              name: "Mes trophées",
+              href: "/profile#trophies",
+            },{
               name: "Mes événements",
               href: "/profile#events",
             },
