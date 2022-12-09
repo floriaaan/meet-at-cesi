@@ -10,7 +10,6 @@ import { UserPrivacy } from "@prisma/client";
 import { ExtendedUser } from "@/types/User";
 
 const PrivacySchema = Yup.object().shape({
-  image: Yup.string().oneOf(Object.values(UserPrivacy)),
   trophies: Yup.string().oneOf(Object.values(UserPrivacy)),
   participations: Yup.string().oneOf(Object.values(UserPrivacy)),
   createdEvents: Yup.string().oneOf(Object.values(UserPrivacy)),
@@ -18,7 +17,6 @@ const PrivacySchema = Yup.object().shape({
 
 export type PrivacyFormValues = Yup.InferType<typeof PrivacySchema>;
 const initialFormValues: PrivacyFormValues = {
-  image: UserPrivacy.PUBLIC,
   trophies: UserPrivacy.PRIVATE,
   participations: UserPrivacy.PRIVATE,
   createdEvents: UserPrivacy.PRIVATE,
@@ -74,14 +72,7 @@ export const PrivacyForm = ({
     >
       {({ isSubmitting, isValid }) => (
         <Form className="grid w-full gap-1 lg:gap-2 lg:grid-cols-2">
-          <Select
-            name="image"
-            label="Affichage de votre photo de profil"
-            labelClassName={labelClassName}
-            options={privacyList}
-            disabled={disabled}
-            className="w-full"
-          />
+          
           <Select
             name="trophies"
             label="Affichage des trophées"
