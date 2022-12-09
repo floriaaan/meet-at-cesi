@@ -1,4 +1,9 @@
-import { Preference, PreferencePrivacy, User } from "@prisma/client";
+import {
+  Preference,
+  PreferencePrivacy,
+  User,
+  UserPrivacy,
+} from "@prisma/client";
 
 import { ExtendedUser } from "@/types/User";
 import { RoleFormValues } from "@/components/Admin/CustomTable/User/RoleForm";
@@ -96,4 +101,25 @@ export const changeRole = async (
   const { data, error } = await res.json();
   if (res.ok && res.status === 200) return data;
   return new Error(error.message);
+};
+
+export type EditPrivacyRequestInput = {
+  image: UserPrivacy;
+  trophies: UserPrivacy;
+  participations: UserPrivacy;
+  createdEvents: UserPrivacy;
+};
+export const editPrivacy = async (
+  values: EditPrivacyRequestInput
+): Promise<{ user: ExtendedUser } | false> => {
+  const response = await fetch(`/api/user/privacy`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+  if (response.ok) {
+    const { user } = await response.json();
+    return { user };
+  }
+  return false;
 };

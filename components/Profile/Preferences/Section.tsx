@@ -8,6 +8,7 @@ import {
 import { editPreferences } from "@/lib/fetchers";
 import { useState } from "react";
 import { EditPreferencesRequestInput } from "@/lib/fetchers/user";
+import { PreferencePrivacy } from "@prisma/client";
 
 export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
   const [preferences, setPreferences] = useState<ExtendedUser["preferences"]>(
@@ -44,7 +45,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
             campus: preferences?.campus || "",
             promotion: preferences?.promotion?.split(":")[0] || "",
             promotionYear: preferences?.promotion?.split(":")[1] || "",
-            privacy: preferences?.privacy || "public",
+            privacy: preferences?.privacy || PreferencePrivacy.PUBLIC,
           } as PreferencesFormValues
         }
         optionalButton={
@@ -56,6 +57,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
                   campus: "",
                   promotion: "",
                   promotionYear: "",
+                  privacy: PreferencePrivacy.PUBLIC,
                 }).then((result) => {
                   if (result && !(result instanceof Error)) {
                     setPreferences(result.user.preferences);
