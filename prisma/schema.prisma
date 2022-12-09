@@ -52,12 +52,20 @@ model VerificationToken {
   expires    DateTime              @default(dbgenerated("CURRENT_TIMESTAMP + INTERVAL '1 hour'"))
 }
 
+enum PreferencePrivacy {
+  PRIVATE
+  PUBLIC
+}
+
 model Preference {
   campus    String
   promotion String
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  campusPrivacy    PreferencePrivacy @default(PUBLIC)
+  promotionPrivacy PreferencePrivacy @default(PUBLIC)
 }
 
 enum Role {
