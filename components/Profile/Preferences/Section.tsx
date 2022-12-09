@@ -7,6 +7,7 @@ import {
 } from "@/components/Profile/Preferences/Form";
 import { editPreferences } from "@/lib/fetchers";
 import { useState } from "react";
+import { EditPreferencesRequestInput } from "@/lib/fetchers/user";
 
 export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
   const [preferences, setPreferences] = useState<ExtendedUser["preferences"]>(
@@ -28,8 +29,8 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
         Merci de sélectionner la promotion la plus récente.
       </p>
       <PreferencesForm
-        onSubmit={async ({ campus, promotion, promotionYear }) => {
-          return editPreferences({ campus, promotion, promotionYear }).then(
+        onSubmit={async (values) => {
+          return editPreferences(values as EditPreferencesRequestInput).then(
             (result) => {
               if (result && !(result instanceof Error)) {
                 setPreferences(result.user.preferences);
@@ -43,6 +44,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
             campus: preferences?.campus || "",
             promotion: preferences?.promotion?.split(":")[0] || "",
             promotionYear: preferences?.promotion?.split(":")[1] || "",
+            privacy: preferences?.privacy || "public",
           } as PreferencesFormValues
         }
         optionalButton={

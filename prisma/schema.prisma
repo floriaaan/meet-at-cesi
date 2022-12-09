@@ -55,6 +55,8 @@ model VerificationToken {
 enum PreferencePrivacy {
   PRIVATE
   PUBLIC
+  CAMPUS_ONLY
+  PROMOTION_ONLY
 }
 
 model Preference {
@@ -64,8 +66,7 @@ model Preference {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  campusPrivacy    PreferencePrivacy @default(PUBLIC)
-  promotionPrivacy PreferencePrivacy @default(PUBLIC)
+  privacy PreferencePrivacy @default(PUBLIC)
 }
 
 enum Role {
