@@ -55,6 +55,7 @@ export const CommentListItem = ({
           !isDeleted && "lg:border-2"
         )}
         user={author || { name: "Anonymous" }}
+        link
       />
       <div className="flex flex-col w-full md:flex-row md:items-start">
         <div className="flex flex-col gap-y-0.5 grow w-full">
