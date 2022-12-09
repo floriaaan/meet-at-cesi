@@ -1,9 +1,8 @@
 import { expect, test } from "vitest";
 import { render, screen, within } from "@testing-library/react";
+
 import Home from "@/pages/index";
 import campusList from "@/resources/campus-list";
-
-
 
 test("Home page", () => {
   const caption = "Hello from E2E Tests";
