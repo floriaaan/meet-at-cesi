@@ -24,6 +24,7 @@ export const ParticipantCard = ({
         className={
           style === "grid" ? "w-16 h-16 text-xl border-2" : "w-8 h-8 text-xs"
         }
+        link
       />
       <Name
         user={participant}

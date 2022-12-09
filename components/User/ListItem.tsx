@@ -30,6 +30,7 @@ export const UserListItem = ({
       onClick={() => onCheck?.(user)}
     >
       <AvatarWithName
+        link
         user={user}
         direction="row"
         avatarClassName={avatarClassName || "w-8 h-8 shrink-0"}

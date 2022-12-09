@@ -71,6 +71,7 @@ export const InvitationCard = ({
             avatarClassName ||
             "rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-16 shrink-0 -mr-2 border-0"
           }
+          link
         />
         <div className="flex flex-col grow items-start py-2 px-1.5 overflow-hidden">
           <h4 className="text-sm font-bold lg:text-lg whitespace-nowrap">
