@@ -1,43 +1,31 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { ExtendedUser } from "@/types/User";
+import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   // Check if user is authenticated
-  const session = await getSession({ req });
-  if (!session || !session.user) {
-    return res.status(401).json({ message: "Unauthorized." });
-  }
+  const session = await getSessionOrThrow(req);
 
   if (req.method === "GET") {
-    let user = await prisma.user.findUnique({
-      where: { email: session.user.email as string },
-      include: { preferences: true },
-    });
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
-    }
+    const user = getUserOrThrow(session, { include: { preferences: true } });
     return res.status(200).json(user);
   } else if (req.method === "PUT") {
     try {
-      let { campus, promotion, promotionYear } = req.body;
+      let { campus, promotion, promotionYear, privacy } = req.body;
       campus = campus || null;
       promotion = promotion || null;
       promotionYear = promotionYear || null;
+      privacy = privacy || null;
 
-      let user = await prisma.user.findUnique({
-        where: { email: session.user.email as string },
+      let user = (await getUserOrThrow(session, {
         include: { preferences: true },
-      });
-      if (!user) {
-        return res.status(404).json({ message: "User not found." });
-      }
+      })) as ExtendedUser;
 
-      if (!campus && !promotion && !promotionYear) {
+      if (!campus && !promotion && !promotionYear && !privacy) {
         if (user.preferences) {
           // @ts-ignore
           user = {
@@ -56,18 +44,20 @@ export default async function handler(
         } else return res.status(200).json({ user });
       }
 
-      user = await prisma.user.update({
+      const preferencesObject = {
+        campus,
+        promotion: `${promotion}:${promotionYear}`,
+        privacy,
+      };
+      user = (await prisma.user.update({
         where: { id: user.id },
         data: {
           preferences: {
-            upsert: {
-              create: { campus, promotion: `${promotion}:${promotionYear}` },
-              update: { campus, promotion: `${promotion}:${promotionYear}` },
-            },
+            upsert: { create: preferencesObject, update: preferencesObject },
           },
         },
         include: { preferences: true },
-      });
+      })) as ExtendedUser;
 
       res.status(202).json({ user });
     } catch (e) {
