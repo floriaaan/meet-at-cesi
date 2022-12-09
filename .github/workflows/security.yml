@@ -1,7 +1,8 @@
 name: "Security"
 on:
   - pull_request
-  
+  - workflow_dispatch
+
 jobs:
   security:
     timeout-minutes: 60
@@ -12,7 +13,7 @@ jobs:
         with:
           node-version: "18.x"
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: Run Snyk to check for security vulnerabilities
         uses: snyk/actions/node@master
         env:
