@@ -15,7 +15,7 @@ export const FeedbackTableModal = ({
   closeModal,
   ...feedback
 }: FeedbackTableModalProps) => {
-  const { user: creator, createdAt, text, history } = feedback;
+  const { user: creator, createdAt, text, history, id } = feedback;
 
   return (
     <Modal
@@ -44,8 +44,8 @@ export const FeedbackTableModal = ({
           </div>
           {history.length > 0 ? (
             <div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
-              {history.map((h, i) => (
-                <HistoryListItem route={h} key={i} />
+              {history.map((h) => (
+                <HistoryListItem route={h} key={`${id}-${h}`} />
               ))}
             </div>
           ) : (

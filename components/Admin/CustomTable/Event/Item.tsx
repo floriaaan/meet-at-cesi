@@ -14,12 +14,12 @@ export const EventTableItem = (props: ExtendedEvent) => {
     setIsModalOpen(true);
     router.push(`/admin/event?id=${props.id}`, undefined, { shallow: true });
   };
-  const closeModal = () => {
+  function closeModal() {
     setIsModalOpen(false);
     router.push(`/admin/event`, undefined, { shallow: true });
-  };
+  }
 
-  const { title, creator, participants, comments, ...event } = props;
+  const { title, creator, participants, comments } = props;
   return (
     <>
       <tr

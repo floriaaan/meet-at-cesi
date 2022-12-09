@@ -55,9 +55,7 @@ const AdminFeedbackPage: NextPage<Props> = ({ feedbacks }) => {
               "Historique partagé",
               "Créé le",
             ]}
-            renderItem={(feedback) => (
-              <FeedbackTableItem {...feedback} key={feedback.id} />
-            )}
+            renderItem={renderFeedback}
             pagination={{
               initialPage: 0,
               pageSize: 10,
@@ -70,3 +68,7 @@ const AdminFeedbackPage: NextPage<Props> = ({ feedbacks }) => {
 };
 
 export default AdminFeedbackPage;
+
+function renderFeedback(feedback: ExtendedFeedback) {
+  return <FeedbackTableItem {...feedback} key={feedback.id} />;
+}

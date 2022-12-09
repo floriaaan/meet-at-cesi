@@ -99,11 +99,9 @@ const AdminReportPage: NextPage<Props> = ({ reports }) => {
               "Utilisateur signalé",
               "Type",
               "Créé le",
-              "Statut"
+              "Statut",
             ]}
-            renderItem={(report) => (
-              <ReportTableItem {...report} key={report.id} />
-            )}
+            renderItem={renderReport}
             pagination={{
               initialPage: 0,
               pageSize: 10,
@@ -116,3 +114,7 @@ const AdminReportPage: NextPage<Props> = ({ reports }) => {
 };
 
 export default AdminReportPage;
+
+function renderReport(report: ExtendedReport) {
+  return <ReportTableItem {...report} key={report.id} />;
+}

@@ -1,6 +1,6 @@
 import { Avatar } from "@/components/UI/Avatar";
 import { Name } from "@/components/UI/Avatar/OnlyName";
-import { formatDate, formatRelative } from "@/lib/date";
+import { formatRelative } from "@/lib/date";
 import { ExtendedComment } from "@/types/Event";
 import Link from "next/link";
 

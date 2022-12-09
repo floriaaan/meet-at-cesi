@@ -23,6 +23,17 @@ export const UserTableModal = ({
 }: UserTableModalProps) => {
   const { name, createdAt, role } = user;
 
+  async function handleSubmit(values: RoleFormValues) {
+    return changeRole({
+      ...values,
+      userId: user.id,
+    } as ChangeRoleRequestInput).then((r) => {
+      if (!(r instanceof Error) && r.user.role) {
+        setRole(r.user.role);
+      }
+      return Promise.resolve(r);
+    });
+  }
   return (
     <Modal
       isOpen={isModalOpen}
@@ -46,17 +57,7 @@ export const UserTableModal = ({
           <RoleForm
             closeModal={closeModal}
             initialValues={{ role } as RoleFormValues}
-            onSubmit={(values) => {
-              return changeRole({
-                ...values,
-                userId: user.id,
-              } as ChangeRoleRequestInput).then((r) => {
-                if (!(r instanceof Error) && r.user.role) {
-                  setRole(r.user.role);
-                }
-                return Promise.resolve(r);
-              });
-            }}
+            onSubmit={handleSubmit}
           />
         </div>
       </div>

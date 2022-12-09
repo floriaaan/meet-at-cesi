@@ -30,7 +30,7 @@ export const RoleForm = ({
 }: RoleFormProps) => {
   const [disabled, setDisabled] = useState(false);
 
-  const handleOnSubmit = async (values: RoleFormValues) => {
+  async function handleOnSubmit(values: RoleFormValues) {
     let toastId: string | undefined;
     try {
       setDisabled(true);
@@ -53,7 +53,7 @@ export const RoleForm = ({
       toast.error("Unable to submit", { id: toastId });
       setDisabled(false);
     }
-  };
+  }
 
   return (
     <Formik

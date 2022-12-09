@@ -20,10 +20,10 @@ export const ReportTableItem = (props: ExtendedReport) => {
     setIsModalOpen(true);
     router.push(`/admin/report?id=${props.id}`, undefined, { shallow: true });
   };
-  const closeModal = () => {
+  function closeModal() {
     setIsModalOpen(false);
     router.push(`/admin/report`, undefined, { shallow: true });
-  };
+  }
 
   const {
     sender,

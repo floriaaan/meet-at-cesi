@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   MdCalendarToday,
   MdChatBubble,
@@ -5,19 +6,17 @@ import {
   MdGroups,
   MdLocationPin,
 } from "react-icons/md";
+import { useSession } from "next-auth/react";
 
 import audienceList from "@/resources/audience-list";
 import campusList from "@/resources/campus-list";
 import { Avatar, AvatarList, Name } from "@/components/UI/Avatar";
 import { Modal } from "@/components/UI/Modal";
 import { formatDate } from "@/lib/date";
-import { ExtendedComment, ExtendedEvent } from "@/types/Event";
+import { ExtendedEvent } from "@/types/Event";
 import { UserListItem } from "@/components/User/ListItem";
 import { Chip } from "@/components/UI/Chip";
-import { CommentListItem } from "@/components/Event/Comment";
 import { CommentFeedItem } from "@/components/Event/Comment/FeedItem";
-import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { ExtendedSession } from "@/types/Session";
 
 type EventTableModalProps = ExtendedEvent & {

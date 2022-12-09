@@ -46,7 +46,7 @@ const AdminEventPage: NextPage<Props> = ({ users }) => {
             title="Utilisateurs"
             items={users}
             columns={["Nom", "Email", "Rôle", "Inscrit le"]}
-            renderItem={(user) => <UserTableItem {...user} key={user.id} />}
+            renderItem={renderUser}
             pagination={{
               initialPage: 0,
               pageSize: 10,
@@ -59,3 +59,7 @@ const AdminEventPage: NextPage<Props> = ({ users }) => {
 };
 
 export default AdminEventPage;
+
+function renderUser(user: ExtendedUser) {
+  return <UserTableItem {...user} key={user.id} />;
+}

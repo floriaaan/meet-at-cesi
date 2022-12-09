@@ -135,24 +135,16 @@ function totalItemsReducer(
   state: PaginationState["totalItems"],
   action: TotalItemsActions
 ) {
-  switch (action.type) {
-    case "SET_TOTALITEMS":
-      return action.totalItems;
-    default:
-      return state;
-  }
+  if (action.type === "SET_TOTALITEMS") return action.totalItems;
+  return state;
 }
 
 function pageSizeReducer(
   state: PaginationState["pageSize"],
   action: PageSizeActions
 ) {
-  switch (action.type) {
-    case "SET_PAGESIZE":
-      return action.pageSize;
-    default:
-      return state;
-  }
+  if (action.type === "SET_PAGESIZE") return action.pageSize;
+  return state;
 }
 
 function paginationStateReducer(

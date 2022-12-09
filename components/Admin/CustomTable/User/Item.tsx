@@ -16,10 +16,10 @@ export const UserTableItem = (props: ExtendedUser) => {
     setIsModalOpen(true);
     router.push(`/admin/user?id=${props.id}`, undefined, { shallow: true });
   };
-  const closeModal = () => {
+  function closeModal() {
     setIsModalOpen(false);
     router.push(`/admin/user`, undefined, { shallow: true });
-  };
+  }
 
   const { createdAt, role: initialRole, email } = props;
 

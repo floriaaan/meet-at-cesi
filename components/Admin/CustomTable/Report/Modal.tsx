@@ -1,11 +1,3 @@
-import { Avatar, AvatarWithName, Name } from "@/components/UI/Avatar";
-import { Chip } from "@/components/UI/Chip";
-import { Modal } from "@/components/UI/Modal";
-import { formatDate } from "@/lib/date";
-import { acceptReport, pendReport, rejectReport } from "@/lib/fetchers/report";
-import { reportReasonList } from "@/resources/report-list";
-import toastStyle from "@/resources/toast.config";
-import { ExtendedReport } from "@/types/Report";
 import {
   Comment,
   Event,
@@ -16,6 +8,14 @@ import {
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { MdAccountCircle, MdOutlinedFlag } from "react-icons/md";
+
+import toastStyle from "@/resources/toast.config";
+import { Avatar, AvatarWithName, Name } from "@/components/UI/Avatar";
+import { Modal } from "@/components/UI/Modal";
+import { formatDate } from "@/lib/date";
+import { acceptReport, pendReport, rejectReport } from "@/lib/fetchers/report";
+import { reportReasonList } from "@/resources/report-list";
+import { ExtendedReport } from "@/types/Report";
 
 type ReportTableModalProps = ExtendedReport & {
   isModalOpen: boolean;

@@ -23,7 +23,6 @@ export type CustomTableProps = {
  *
  * See `./pages/admin/even.tsx` for an example.
  *
- * TODO: need to add pagination, and specify object type for pagination prop
  */
 const CustomTable = ({
   title,

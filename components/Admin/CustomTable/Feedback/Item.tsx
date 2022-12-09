@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
+import routes from "@/resources/routes";
 import { AvatarWithName } from "@/components/UI/Avatar/WithName";
 import { ExtendedFeedback } from "@/types/Feedback";
 import { FeedbackTableModal } from "@/components/Admin/CustomTable/Feedback/Modal";
-import routes from "@/resources/routes";
 import { formatDate } from "@/lib/date";
 import { Chip } from "@/components/UI/Chip";
 
@@ -16,10 +16,10 @@ export const FeedbackTableItem = (props: ExtendedFeedback) => {
     setIsModalOpen(true);
     router.push(`/admin/feedback?id=${props.id}`, undefined, { shallow: true });
   };
-  const closeModal = () => {
+  function closeModal() {
     setIsModalOpen(false);
     router.push(`/admin/feedback`, undefined, { shallow: true });
-  };
+  }
 
   const { createdAt, history, page, text, user } = props;
   return (

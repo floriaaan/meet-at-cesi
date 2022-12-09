@@ -51,7 +51,7 @@ const AdminEventPage: NextPage<Props> = ({ events }) => {
             title="Événements"
             items={events}
             columns={["Titre", "Créateur", "Participants", "Commentaires"]}
-            renderItem={(event) => <EventTableItem {...event} key={event.id} />}
+            renderItem={renderEvent}
             pagination={{
               initialPage: 0,
               pageSize: 10,
@@ -64,3 +64,7 @@ const AdminEventPage: NextPage<Props> = ({ events }) => {
 };
 
 export default AdminEventPage;
+
+function renderEvent(event: ExtendedEvent) {
+  return <EventTableItem {...event} key={event.id} />;
+}
