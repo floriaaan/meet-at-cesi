@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { PreferencesForm } from "@/components/Profile/Preferences/Form";
 import { editPreferences, getPreferences } from "@/lib/fetchers";
 import { MdClose } from "react-icons/md";
+import { EditPreferencesRequestInput } from "@/lib/fetchers/user";
 
 export const PreferencesPopup = () => {
   const [cookie, setCookie] = useCookies([
@@ -93,9 +94,10 @@ export const PreferencesPopup = () => {
         </div>
 
         <PreferencesForm
-          onSubmit={async ({ campus, promotion, promotionYear }) => {
+          onSubmit={async (values) => {
+            console.log(values)
             dismiss();
-            return editPreferences({ campus, promotion, promotionYear });
+            return editPreferences(values as EditPreferencesRequestInput);
           }}
           optionalButton={
             <button

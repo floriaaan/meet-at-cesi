@@ -9,11 +9,14 @@ import audienceList, { yearsList } from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
 import { ExtendedUser } from "@/types/User";
 import { useCookies } from "react-cookie";
+import { preferencesList } from "@/resources/preferences-list";
+import { PreferencePrivacy } from "@prisma/client";
 
 const PreferencesSchema = Yup.object().shape({
   promotion: Yup.string(),
   campus: Yup.string(),
   promotionYear: Yup.string(),
+  privacy: Yup.string().oneOf(Object.values(PreferencePrivacy)),
 });
 
 export type PreferencesFormValues = Yup.InferType<typeof PreferencesSchema>;
@@ -21,6 +24,7 @@ const initialFormValues: PreferencesFormValues = {
   promotion: "",
   promotionYear: "",
   campus: "",
+  privacy: "public",
 } as unknown as PreferencesFormValues;
 
 const DEFAULT_SELECT = {
@@ -131,6 +135,15 @@ export const PreferencesForm = ({
               },
               ...campusList,
             ]}
+            disabled={disabled}
+            className="w-full"
+            canHaveError={false}
+          />
+          <Select
+            name="privacy"
+            label="Confidentialité"
+            labelClassName={labelClassName}
+            options={preferencesList}
             disabled={disabled}
             className="w-full"
             canHaveError={false}
