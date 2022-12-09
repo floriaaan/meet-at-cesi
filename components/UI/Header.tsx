@@ -2,13 +2,24 @@ import classNames from "classnames";
 import type { ReactNode } from "react";
 
 type HeaderProps = {
-  text: string| ReactNode;
+  text: string | ReactNode;
   className?: string;
+  containerClassName?: string;
 };
 
-export const Header = ({ text, className }: HeaderProps) => {
+export const Header = ({
+  text,
+  className,
+  containerClassName,
+}: HeaderProps) => {
   return (
-    <div className="w-full p-6 pb-8 text-black bg-primary">
+    <div
+      className={classNames(
+        "w-full p-6 pb-8",
+        containerClassName,
+        !containerClassName?.includes("bg-") ? "text-black bg-primary" : ""
+      )}
+    >
       <h1
         className={classNames(
           "relative font-bold leading-none md:leading-normal font-heading",

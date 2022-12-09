@@ -37,7 +37,7 @@ export const MobileMenu = () => {
   }, []);
 
   const { data: session, status } = useSession();
-  const { user } = session as ExtendedSession || {};
+  const { user } = (session as ExtendedSession) || {};
 
   return (
     <div className="inline-flex items-center md:hidden">
@@ -86,7 +86,8 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
   const { data: session } = useSession() as {
     data: ExtendedSession | null | undefined;
   };
-  const { user, receivedInvitations = [] } = session || {};
+  const { user } = session || {};
+  const { receivedInvitations = [], role } = user || {};
 
   const LINKS = [
     user
@@ -162,6 +163,12 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
               onClick: () => signOut(),
             },
           ],
+        }
+      : null,
+    role === "ADMIN" || role === "MODERATOR"
+      ? {
+          title: "Administration",
+          options: [{ name: "Tableau de bord", href: "/admin" }],
         }
       : null,
   ].filter((link) => link !== null) as CategoryProps[];

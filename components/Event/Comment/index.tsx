@@ -42,10 +42,13 @@ export const CommentListItem = ({
   const [isReplying, setIsReplying] = useState(false);
 
   const { openReportModal } = useReport();
-  const { content, author, children, createdAt, isDeleted } = comment;
+  const { content, author, children, createdAt, isDeleted, id } = comment;
 
   return (
-    <div className="inline-flex items-start w-full gap-1 p-1 overflow-hidden duration-300 border border-dashed md:gap-2 md:p-2 hover:border-gray-300">
+    <div
+      className="inline-flex items-start w-full gap-1 p-1 overflow-hidden duration-300 border border-dashed md:gap-2 md:p-2 hover:border-gray-300"
+      id={id}
+    >
       <Avatar
         className={classNames(
           !isReply ? "lg:w-12 lg:h-12 w-6 h-6 " : "w-6 h-6 lg:w-8 lg:h-8",

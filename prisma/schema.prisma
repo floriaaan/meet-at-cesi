@@ -60,12 +60,19 @@ model Preference {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+enum Role {
+  ADMIN
+  MODERATOR
+  USER
+}
+
 model User {
   id             String    @id @default(cuid())
   name           String?
   email          String?   @unique
   emailVerified  DateTime?
   image          String?
+  role           Role      @default(USER)
   accounts       Account[]
   sessions       Session[]
   createdEvents  Event[]   @relation("event_creation")
@@ -171,6 +178,12 @@ enum ReportObject {
   NULL
 }
 
+enum ReportStatus {
+  PENDING
+  ACCEPTED
+  REFUSED
+}
+
 model Report {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -186,4 +199,6 @@ model Report {
 
   senderId String
   sender   User   @relation("report_user_sender", fields: [senderId], references: [id])
+
+  status ReportStatus @default(PENDING)
 }

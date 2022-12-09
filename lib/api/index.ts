@@ -1,4 +1,4 @@
-import { Comment, Event, User } from "@prisma/client";
+import { Comment, Event, Report, User } from "@prisma/client";
 import { NextApiRequest } from "next";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
@@ -67,4 +67,17 @@ export const getCommentOrThrow = async (
   if (!comment) throw new Error("Comment not found.");
 
   return comment;
+};
+
+export const getReportOrThrow = async (
+  reportId: string,
+  options?: any
+): Promise<Report> => {
+  const report = await prisma.report.findUnique({
+    where: { id: reportId },
+    ...options,
+  });
+  if (!report) throw new Error("Report not found.");
+
+  return report;
 };

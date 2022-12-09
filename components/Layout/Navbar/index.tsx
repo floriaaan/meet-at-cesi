@@ -10,12 +10,14 @@ import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
 import { Chip } from "@/components/UI/Chip";
+import { isAdmin, isModerator } from "@/lib/role";
 
 export const Navbar = () => {
   const { data: session } = useSession() as {
     data: ExtendedSession | null | undefined;
   };
-  const { user, receivedInvitations } = session || {};
+  const { user } = session || {};
+  const { receivedInvitations, role } = user || {};
   const [isTop, setIsTop] = useState<boolean>(true);
   const router = useRouter();
 
@@ -71,7 +73,7 @@ export const Navbar = () => {
           <AuthDropdown />
         </div>
 
-        {user ? (
+        {user && !router.pathname.includes("/admin") ? (
           <div className="hidden md:inline-flex items-center justify-between w-full py-2.5 bg-gray-100 px-9 gap-x-5">
             <div className="inline-flex items-center gap-x-5">
               <Link
@@ -86,6 +88,15 @@ export const Navbar = () => {
               >
                 Ma promotion
               </Link>
+
+              {isModerator(user) || isAdmin(user) ? (
+                <Link
+                  href="/admin"
+                  className="pl-5 border-l border-black subnav__link"
+                >
+                  {role === "ADMIN" ? "Administration" : "Modération"}
+                </Link>
+              ) : null}
             </div>
             {receivedInvitations ? (
               <div className="inline-flex items-center gap-x-5">

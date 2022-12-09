@@ -49,7 +49,7 @@ export const sessionCallback = async ({
   // extend session with user details
   session = {
     ...session,
-    ...userDetails,
+    user: { ...session.user, ...userDetails },
   };
 
   return session as ExtendedSession;
