@@ -34,6 +34,7 @@ export const sessionCallback = async ({
   const userDetails = await prisma.user.findUnique({
     where: { id: user.id },
     include: {
+      privacy: true,
       preferences: true,
       receivedInvitations: {
         include: { event: true, sender: true, receiver: true },

@@ -1,4 +1,9 @@
-import type { Preference, User, VerificationToken } from "@prisma/client";
+import type {
+  Preference,
+  PrivacySettings,
+  User,
+  VerificationToken,
+} from "@prisma/client";
 import type { ExtendedEvent, ExtendedInvitation } from "@/types/Event";
 
 export type UserMinimum = {
@@ -9,6 +14,8 @@ export type UserMinimum = {
 
 export type ExtendedUser = User & {
   preferences?: Preference;
+  privacy?: PrivacySettings;
+
   participations?: ExtendedEvent[];
   createdEvents?: ExtendedEvent[];
   receivedInvitations: ExtendedInvitation[];
