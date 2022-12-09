@@ -104,7 +104,6 @@ export const changeRole = async (
 };
 
 export type EditPrivacyRequestInput = {
-  image: UserPrivacy;
   trophies: UserPrivacy;
   participations: UserPrivacy;
   createdEvents: UserPrivacy;

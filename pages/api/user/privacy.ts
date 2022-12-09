@@ -16,12 +16,12 @@ export default async function handler(
     return res.status(200).json(user);
   } else if (req.method === "PUT") {
     try {
-      const { image, createdEvents, participations, trophies } =
+      const { createdEvents, participations, trophies } =
         req.body as EditPrivacyRequestInput;
 
       let user = (await getUserOrThrow(session)) as ExtendedUser;
 
-      const privacyObject = { image, createdEvents, participations, trophies };
+      const privacyObject = { createdEvents, participations, trophies };
       user = (await prisma.user.update({
         where: { id: user.id },
         data: {
