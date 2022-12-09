@@ -53,6 +53,10 @@ export const ProfileLayoutSidebar = () => {
               name: "Vérification de l'adresse email",
               href: "/profile/settings#email-verification",
             },
+            {
+              name: "Confidentialité des données",
+              href: "/profile/settings#privacy",
+            },
           ]}
         />
       </ul>
