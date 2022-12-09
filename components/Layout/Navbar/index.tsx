@@ -39,27 +39,30 @@ export const Navbar = () => {
         >
           <nav className="inline-flex items-center gap-x-2.5 lg:gap-x-5">
             <Link href="/">
-              <CESILogo
-                className={classnames(
-                  "shrink-0 border",
-                  // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
-                  {
-                    "lg:w-[38px] lg:h-[38px] w-12 h-12": !isTop,
-                    "w-12 h-12 lg:w-28 lg:h-28":
-                      isTop && router.pathname === "/",
-                    " w-12 h-12 lg:w-16 lg:h-16":
-                      isTop && router.pathname !== "/",
-                  },
-                  {
-                    "bg-primary text-black  border-[#afabba] ":
-                      router.pathname === "/",
-                  },
-                  {
-                    "border-transparent text-primary": router.pathname !== "/",
-                  }
-                )}
-              />
-              <span className="sr-only">Meet at CESI</span>
+              <span>
+                <CESILogo
+                  className={classnames(
+                    "shrink-0 border",
+                    // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
+                    {
+                      "lg:w-[38px] lg:h-[38px] w-12 h-12": !isTop,
+                      "w-12 h-12 lg:w-28 lg:h-28":
+                        isTop && router.pathname === "/",
+                      " w-12 h-12 lg:w-16 lg:h-16":
+                        isTop && router.pathname !== "/",
+                    },
+                    {
+                      "bg-primary text-black  border-[#afabba] ":
+                        router.pathname === "/",
+                    },
+                    {
+                      "border-transparent text-primary":
+                        router.pathname !== "/",
+                    }
+                  )}
+                />
+                <span className="sr-only">Meet at CESI</span>
+              </span>
             </Link>
 
             <NavLink href="/event">Tous les événements</NavLink>
@@ -104,28 +107,30 @@ export const Navbar = () => {
                   href="/profile#invitations"
                   className="font-bold subnav__link"
                 >
-                  <Chip
-                    className={
+                  <span>
+                    <Chip
+                      className={
+                        receivedInvitations.length > 0
+                          ? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2"
+                          : ""
+                      }
+                    >
+                      {receivedInvitations.length}
+                    </Chip>
+                    {`${
                       receivedInvitations.length > 0
-                        ? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2"
+                        ? getPlural(
+                            receivedInvitations.length,
+                            "nouvelle",
+                            "nouvelles"
+                          )
                         : ""
-                    }
-                  >
-                    {receivedInvitations.length}
-                  </Chip>
-                  {`${
-                    receivedInvitations.length > 0
-                      ? getPlural(
-                          receivedInvitations.length,
-                          "nouvelle",
-                          "nouvelles"
-                        )
-                      : ""
-                  } ${getPlural(
-                    receivedInvitations.length,
-                    "invitation reçue",
-                    "invitations reçues"
-                  )}`}
+                    } ${getPlural(
+                      receivedInvitations.length,
+                      "invitation reçue",
+                      "invitations reçues"
+                    )}`}
+                  </span>
                 </Link>
               </div>
             ) : null}

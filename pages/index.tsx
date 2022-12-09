@@ -21,29 +21,29 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const caption =
     POSSIBLE_CAPTIONS[Math.floor(Math.random() * POSSIBLE_CAPTIONS.length)];
 
-  const nextEvents = await prisma.event.findMany({
-    where: { date: { gte: new Date() } },
-    orderBy: { date: "asc" },
-    take: 3,
-    include: { creator: true, participants: true },
-  });
+  // const nextEvents = await prisma.event.findMany({
+  //   where: { date: { gte: new Date() } },
+  //   orderBy: { date: "asc" },
+  //   take: 3,
+  //   include: { creator: true, participants: true },
+  // });
   return {
     props: {
       caption,
-      nextEvents: JSON.parse(JSON.stringify(nextEvents)),
+      // nextEvents: JSON.parse(JSON.stringify(nextEvents)),
     },
   };
 };
 
 type Props = {
   caption: string;
-  nextEvents: ExtendedEvent[];
+  // nextEvents: ExtendedEvent[];
 };
 
-/**
- * TODO: refactor this page for better splitting components
- */
-const Home: NextPage<Props> = ({ caption, nextEvents }) => {
+const Home: NextPage<Props> = ({
+  caption,
+  //  nextEvents
+}) => {
   const router = useRouter();
   return (
     <AppLayout>
@@ -87,7 +87,10 @@ const Home: NextPage<Props> = ({ caption, nextEvents }) => {
               <span className="pb-2 pr-2 bg-white">
                 Découvrez les événements organisés par des étudiant.e.s CESI
               </span>
-              <div className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4">
+              <div
+                className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4"
+                data-testid="home-campus-list"
+              >
                 {campusList.sort().map((campus) => (
                   <Link
                     href={`/event?campus=${campus.value}`}
