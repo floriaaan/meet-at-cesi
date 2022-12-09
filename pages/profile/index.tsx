@@ -12,6 +12,7 @@ import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedS
 import { ParticipatingSection } from "@/components/Profile/Event/ParticipatingSection";
 import { CreatedSection } from "@/components/Profile/Event/CreatedSection";
 import { ProfileCard } from "@/components/Profile/Card";
+import { TrophiesSection } from "@/components/Profile/Trophies/Section";
 
 const INVITATIONS_PRISMA_INCLUDE = {
   include: {
@@ -89,6 +90,8 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
         >
           <ProfileCard user={user} />
           <div className="w-full h-auto">
+            <TrophiesSection user={user} />
+            <hr className="hidden w-full h-px border border-gray-100 md:block" />
             <section id="invitations" className="flex flex-col w-full">
               <InvitationsProvider
                 initialReceivedInvitations={receivedInvitations}
@@ -112,4 +115,3 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
 };
 
 export default ProfileIndexPage;
-
