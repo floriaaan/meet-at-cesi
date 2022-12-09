@@ -48,7 +48,7 @@ const Home: NextPage<Props> = ({
   return (
     <AppLayout>
       <NextSeo title="Accueil" />
-      <section className="relative w-full h-[50vh] md:h-[70vh]">
+      <section className="relative w-full h-[50vh] md:h-[70vh] mb-48">
         <Image
           priority={false}
           src={"/img/hero.avif"}
