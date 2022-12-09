@@ -30,17 +30,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         permanent: false,
       },
     };
+  const { id } = context.params as { id: string };
 
   const today = new Date(new Date().setDate(new Date().getDate() - 1));
   let user = await prisma.user.findFirst({
-    where: { email: session.user.email },
+    where: { id },
     include: {
       preferences: true,
-      receivedInvitations: {
-        ...INVITATIONS_PRISMA_INCLUDE,
-        where: { status: "PENDING" },
-      },
-      sendedInvitations: INVITATIONS_PRISMA_INCLUDE,
       participations: {
         where: {
           date: { gte: today },
@@ -64,6 +60,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
 
+  if (user.email === session.user.email) {
+    return {
+      redirect: {
+        destination: "/profile",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: { user },
   };
@@ -82,29 +87,18 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
   return (
     <AppLayout>
       <ProfileLayout>
-        <NextSeo noindex title={user.name || "Mon profil"} />
+        <NextSeo noindex title={user.name || "Profil"} />
         <section
           className="flex flex-col items-start w-full px-4 mx-auto mt-6 mb-12 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4"
           aria-label="Profile index page"
         >
           <ProfileCard user={user} />
           <div className="w-full h-auto">
-            <section id="invitations" className="flex flex-col w-full">
-              <InvitationsProvider
-                initialReceivedInvitations={receivedInvitations}
-                initialSendedInvitations={sendedInvitations}
-              >
-                <ReceivedInvitationSection />
-                <SendedInvitationSection />
-              </InvitationsProvider>
-            </section>
-            <hr className="hidden w-full h-px border border-gray-100 md:block" />
             <section id="events" className="flex flex-col w-full">
               <ParticipatingSection events={participations || []} />
               <CreatedSection events={createdEvents || []} />
             </section>
           </div>
-          {/* <pre className="text-xs">{JSON.stringify(user, undefined, 2)}</pre> */}
         </section>
       </ProfileLayout>
     </AppLayout>
@@ -112,4 +106,3 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
 };
 
 export default ProfileIndexPage;
-
