@@ -1,7 +1,7 @@
 {
   "theme_color": "#000000",
   "background_color": "#fbe216",
-  "display": "browser",
+  "display": "fullscreen",
   "scope": "/",
   "start_url": "/",
   "name": "Meet at CESI (dev)",
