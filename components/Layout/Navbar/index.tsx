@@ -1,10 +1,9 @@
 import Link from "next/link";
 import classnames from "classnames";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-import { CESILogo } from "@/components/Logo/CESI";
+import { Logo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
 import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
 import { ExtendedSession } from "@/types/Session";
@@ -18,17 +17,7 @@ export const Navbar = () => {
   };
   const { user } = session || {};
   const { receivedInvitations, role } = user || {};
-  const [isTop, setIsTop] = useState<boolean>(true);
   const router = useRouter();
-
-  useEffect(() => {
-    const scrollHandler = () => {
-      window.scrollY > 20 && setIsTop(false);
-      window.scrollY === 0 && setIsTop(true);
-    };
-    window.addEventListener("scroll", scrollHandler);
-    return () => window.removeEventListener("scroll", scrollHandler);
-  }, [isTop]);
 
   return (
     <>
@@ -40,27 +29,7 @@ export const Navbar = () => {
           <nav className="inline-flex items-center gap-x-2.5 lg:gap-x-5">
             <Link href="/">
               <span>
-                <CESILogo
-                  className={classnames(
-                    "shrink-0 border",
-                    // "transition-all duration-150", // BUG: #3 causes a flicker when the user scrolls down
-                    {
-                      "lg:w-[38px] lg:h-[38px] w-12 h-12": !isTop,
-                      "w-12 h-12 lg:w-28 lg:h-28":
-                        isTop && router.pathname === "/",
-                      " w-12 h-12 lg:w-16 lg:h-16":
-                        isTop && router.pathname !== "/",
-                    },
-                    {
-                      "bg-primary text-black  border-[#afabba] ":
-                        router.pathname === "/",
-                    },
-                    {
-                      "border-transparent text-primary":
-                        router.pathname !== "/",
-                    }
-                  )}
-                />
+                <Logo className="shrink-0 lg:w-[38px] lg:h-[38px] w-12 h-12 rounded-[12px] lg:rounded-[9px]" />
                 <span className="sr-only">Meet at CESI</span>
               </span>
             </Link>
