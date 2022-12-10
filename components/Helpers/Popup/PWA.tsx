@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { MdClose, MdDownload } from "react-icons/md";
+import { MdClose, MdDownload, MdIosShare, MdMoreVert } from "react-icons/md";
 
 export const PWAPopup = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
   const [cookie, setCookie] = useCookies(["meet-pwa_dismissed"]);
@@ -37,21 +37,32 @@ export const PWAPopup = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
           Pour accéder à {process.env.NEXT_PUBLIC_APP_NAME} plus rapidement,
           installez-le sur votre appareil.
         </p>
-        <div className="flex flex-col justify-between w-full gap-2 mt-2">
-          <button
-            onClick={dismiss}
-            className="px-2 py-2 text-xs underline underline-offset-2 decoration-white"
-          >
-            Ne plus me demander
-          </button>
-          <button
-            disabled
-            className="flex items-center justify-center px-4 py-2 text-xs btn__colors"
-          >
-            <MdDownload className="w-4 h-4" />
-            <span className="ml-2">Installer (bientôt)</span>
-          </button>
-        </div>
+        <ul className="flex flex-col gap-2">
+          <li className="flex flex-col text-xs">
+            <span className="inline-flex items-center">
+              <strong>Safari (iPhone uniquement)</strong>:
+            </span>
+            <span className="inline-flex items-center gap-x-1">
+              <MdIosShare className="w-4 h-4 text-blue-500" />
+              puis {`"Sur l'écran d'accueil"`} puis {`"Ajouter"`}
+            </span>
+          </li>
+          <li className="flex flex-col text-xs">
+            <span className="inline-flex items-center">
+              <strong>Chrome (Android)</strong>:
+            </span>
+            <span className="inline-flex items-center gap-x-1">
+              <MdMoreVert className="w-4 h-4 " />
+              puis {`"Ajouter à l'écran d'accueil"`} puis {`"Ajouter"`}
+            </span>
+          </li>
+        </ul>
+        <button
+          onClick={dismiss}
+          className="px-2 py-2 text-xs underline underline-offset-2 decoration-white"
+        >
+          Ne plus me demander
+        </button>
       </div>
     </div>
   ) : null;
