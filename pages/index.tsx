@@ -7,9 +7,6 @@ import { NextSeo } from "next-seo";
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout";
 import { SearchBar } from "@/components/UI/SearchBar";
-import prisma from "@/lib/prisma";
-import { ExtendedEvent } from "@/types/Event";
-import { EventList } from "@/components/Event/List";
 
 const POSSIBLE_CAPTIONS = [
   "Petite bière après les cours ? 🍻",
@@ -21,29 +18,18 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const caption =
     POSSIBLE_CAPTIONS[Math.floor(Math.random() * POSSIBLE_CAPTIONS.length)];
 
-  // const nextEvents = await prisma.event.findMany({
-  //   where: { date: { gte: new Date() } },
-  //   orderBy: { date: "asc" },
-  //   take: 3,
-  //   include: { creator: true, participants: true },
-  // });
   return {
     props: {
       caption,
-      // nextEvents: JSON.parse(JSON.stringify(nextEvents)),
     },
   };
 };
 
 type Props = {
   caption: string;
-  // nextEvents: ExtendedEvent[];
 };
 
-const Home: NextPage<Props> = ({
-  caption,
-  //  nextEvents
-}) => {
+const Home: NextPage<Props> = ({ caption }) => {
   const router = useRouter();
   return (
     <AppLayout>
@@ -105,9 +91,6 @@ const Home: NextPage<Props> = ({
           </div>
         </div>
       </section>
-      {/* <div className="relative flex flex-col items-center w-full px-4 mx-auto mt-48 mb-24 xl:mt-24 md:px-12 xl:px-0 xl:max-w-6xl">
-        <EventList events={nextEvents} />
-      </div> */}
     </AppLayout>
   );
 };
