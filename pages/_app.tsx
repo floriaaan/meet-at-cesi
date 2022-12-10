@@ -11,6 +11,7 @@ import { PreferencesPopup } from "@/components/Helpers/Popup/Preferences";
 import { ExtendedSession } from "@/types/Session";
 import { FeedbackWrapper } from "@/components/Helpers/Feedback";
 import { ReportProvider } from "@/components/Report/Wrapper";
+import Head from "next/head";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { session } = pageProps as {
@@ -28,6 +29,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <SessionProvider session={session}>
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+        />
+      </Head>
       <DefaultSeo
         defaultTitle={process.env.NEXT_PUBLIC_APP_NAME}
         titleTemplate={url || `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`}
