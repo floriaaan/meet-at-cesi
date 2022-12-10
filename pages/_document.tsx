@@ -19,7 +19,10 @@ export default function Document() {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
-        <link rel="manifest" href="/app/manifest.webmanifest" />
+        {process.env.NEXT_PUBLIC_APP_ENV === "production" ||
+        process.env.NEXT_PUBLIC_APP_ENV === undefined ? (
+          <link rel="manifest" href="/app/manifest.webmanifest" />
+        ) : <link rel="manifest" href="/app/dev/manifest.webmanifest" />}
 
         <link rel="apple-touch-icon" href="/app/icons/AppIcon@1024.png"></link>
         <meta name="theme-color" content="#ffffff" />
