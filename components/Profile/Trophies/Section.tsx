@@ -1,6 +1,6 @@
 import { Chip } from "@/components/UI/Chip";
 import { ExtendedUser } from "@/types/User";
-import Image from "next/image";
+import { Trophy } from "@/components/Profile/Trophies";
 
 type Props = {
   user: ExtendedUser;
@@ -30,25 +30,5 @@ export const TrophiesSection = ({ user }: Props) => {
         <Trophy trophyKey="EVENT_CREATION_20" />
       </div>
     </section>
-  );
-};
-
-export const Trophy = ({ trophyKey }: { trophyKey: string }) => {
-  return (
-    <div
-      className="flex flex-col items-center justify-center w-32 h-32 shrink-0"
-      key={trophyKey}
-    >
-      <Image
-        src={`/img/trophies/${trophyKey}.png`}
-        className="-m-2 w-28 h-28 shrink-0"
-        alt={`Trophée ${trophyKey}`}
-        aria-hidden="true"
-        width={512}
-        height={512}
-      />
-      <p className="text-[0.7rem] font-bold">{trophyKey}</p>
-      <p className="text-[0.55rem]">obtenu le 1 janv. 22</p>
-    </div>
   );
 };
