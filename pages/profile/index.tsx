@@ -54,6 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
         include: { creator: true, participants: true },
       },
+      trophies: true,
     },
   });
   user = JSON.parse(JSON.stringify(user));

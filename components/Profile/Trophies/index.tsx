@@ -1,8 +1,14 @@
+import { formatRelative } from "@/lib/date";
 import { trophies } from "@/resources/trophies-list";
 import { TrophyKey } from "@prisma/client";
 import Image from "next/image";
 
-export const Trophy = ({ trophyKey }: { trophyKey: TrophyKey }) => {
+type Props = {
+  trophyKey: TrophyKey;
+  createdAt: Date;
+};
+
+export const Trophy = ({ trophyKey, createdAt }: Props) => {
   return (
     <div
       className="flex flex-col items-center justify-center w-40 h-32 shrink-0"
@@ -20,7 +26,7 @@ export const Trophy = ({ trophyKey }: { trophyKey: TrophyKey }) => {
       <p className="text-sm font-bold whitespace-nowrap">
         {trophies[trophyKey].name}
       </p>
-      <p className="text-xs">obtenu le 1 janv. 22</p>
+      <p className="text-xs">obtenu il y a {formatRelative(createdAt)}</p>
     </div>
   );
 };

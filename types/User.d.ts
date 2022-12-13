@@ -1,6 +1,7 @@
 import type {
   Preference,
   PrivacySettings,
+  Trophy,
   User,
   VerificationToken,
 } from "@prisma/client";
@@ -16,6 +17,7 @@ export type ExtendedUser = User & {
   preferences?: Preference;
   privacy?: PrivacySettings;
 
+  trophies: Trophy[];
   participations?: ExtendedEvent[];
   createdEvents?: ExtendedEvent[];
   receivedInvitations: ExtendedInvitation[];

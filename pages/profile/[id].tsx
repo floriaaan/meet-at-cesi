@@ -12,7 +12,7 @@ import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedS
 import { ParticipatingSection } from "@/components/Profile/Event/ParticipatingSection";
 import { CreatedSection } from "@/components/Profile/Event/CreatedSection";
 import { ProfileCard } from "@/components/Profile/Card";
-import { PreferencePrivacy, UserPrivacy } from "@prisma/client";
+import { Preference, PreferencePrivacy, UserPrivacy } from "@prisma/client";
 import { TrophiesSection } from "@/components/Profile/Trophies/Section";
 
 const INVITATIONS_PRISMA_INCLUDE = {
@@ -35,25 +35,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params as { id: string };
 
   const today = new Date(new Date().setDate(new Date().getDate() - 1));
-  let user = await prisma.user.findFirst({
+  let user = (await prisma.user.findFirst({
     where: { id },
     include: {
       privacy: true,
       preferences: { select: { privacy: true } },
-      participations: {
-        where: {
-          date: { gte: today },
-        },
-        include: { creator: true, participants: true },
-      },
-      createdEvents: {
-        where: {
-          date: { gte: today },
-        },
-        include: { creator: true, participants: true },
-      },
     },
-  });
+  })) as ExtendedUser;
   user = JSON.parse(JSON.stringify(user));
   if (!user)
     return {
@@ -88,8 +76,31 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     promotion: undefined,
     privacy: user.preferences?.privacy || PreferencePrivacy.PUBLIC,
     ...preferences,
-  };
+  } as Preference;
 
+  if (user.privacy?.trophies === UserPrivacy.PUBLIC) {
+    user.trophies = await prisma.trophy.findMany({
+      where: { userId: user.id },
+    });
+  }
+
+  if (user.privacy?.participations === UserPrivacy.PUBLIC) {
+    user.participations = (await prisma.event.findMany({
+      where: {
+        date: { gte: today },
+      },
+      include: { creator: true, participants: true },
+    })) as ExtendedUser["participations"];
+  }
+
+  if (user.privacy?.createdEvents === UserPrivacy.PUBLIC) {
+    user.createdEvents = (await prisma.event.findMany({
+      where: { creatorId: user.id },
+      include: { creator: true, participants: true },
+    })) as ExtendedUser["createdEvents"];
+  }
+
+  user = JSON.parse(JSON.stringify(user));
   return {
     props: { user },
   };
