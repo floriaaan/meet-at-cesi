@@ -108,6 +108,7 @@ model User {
   blamedFor           Report[]     @relation("report_user_blamed")
   reported            Report[]     @relation("report_user_sender")
 
+  trophies           Trophy[]
   feedbacks          Feedback[]
   comments           Comment[]
   accounts           Account[]
@@ -116,6 +117,26 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum TrophyKey {
+  EVENT_CREATION_1
+  EVENT_CREATION_5
+  EVENT_CREATION_20
+  PARTICIPATION_1
+  PARTICIPATION_10
+  PARTICIPATION_100
+}
+
+model Trophy {
+  key    TrophyKey
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  // reference is `user.id`+ `trophy.key`
+  reference String @unique
+
+  createdAt DateTime @default(now())
 }
 
 model Event {
