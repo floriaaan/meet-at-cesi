@@ -4,18 +4,15 @@ import { getSession } from "next-auth/react";
 
 import type { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";
-import { formatRelative } from "@/lib/date";
-import audienceList from "@/resources/audience-list";
-import campusList from "@/resources/campus-list";
 import { InvitationsProvider } from "@/hooks/useInvitations";
 import { AppLayout } from "@/components/Layout";
 import { ProfileLayout } from "@/components/Layout/Profile/Layout";
-import { Header } from "@/components/UI/Header";
-import { Avatar } from "@/components/UI/Avatar";
 import { ReceivedInvitationSection } from "@/components/Profile/Invitation/ReceivedSection";
 import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedSection";
 import { ParticipatingSection } from "@/components/Profile/Event/ParticipatingSection";
 import { CreatedSection } from "@/components/Profile/Event/CreatedSection";
+import { ProfileCard } from "@/components/Profile/Card";
+import { TrophiesSection } from "@/components/Profile/Trophies/Section";
 
 const INVITATIONS_PRISMA_INCLUDE = {
   include: {
@@ -57,6 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
         include: { creator: true, participants: true },
       },
+      trophies: true,
     },
   });
   user = JSON.parse(JSON.stringify(user));
@@ -93,6 +91,8 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
         >
           <ProfileCard user={user} />
           <div className="w-full h-auto">
+            <TrophiesSection user={user} />
+            <hr className="hidden w-full h-px border border-gray-100 md:block" />
             <section id="invitations" className="flex flex-col w-full">
               <InvitationsProvider
                 initialReceivedInvitations={receivedInvitations}
@@ -116,50 +116,3 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
 };
 
 export default ProfileIndexPage;
-
-const getCampusLabel = (campus: string | undefined) =>
-  campusList.find((c) => c.value === campus)?.label || "Campus inconnu";
-
-const getPromotionLabel = (promotion: string | undefined) => {
-  if (!promotion) return "Promotion inconnue";
-  const [audience, year] = promotion.split(":");
-  const audienceLabel = audienceList.find(
-    (a) => a.value === audience
-  )?.shortLabel;
-  return `${audienceLabel} ${year}`;
-};
-
-const ProfileCard = ({ user }: { user: ExtendedUser }) => {
-  return (
-    <div className="relative inline-flex w-full bg-primary">
-      <span className="z-10 flex items-center h-auto pl-4 shrink-0 bg-primary w-fit">
-        <Avatar
-          user={user}
-          className="w-16 h-16 text-xl bg-black lg:w-32 lg:h-32 text-primary"
-        />
-      </span>
-
-      <span className="relative flex flex-col -left-2 ">
-        <Header
-          text={(user.name as string).toLowerCase()}
-          className="capitalize text-[32px] sm:text-[3.5rem]  md:text-[4rem]"
-        />
-
-        <div className="relative z-10 flex flex-col -mb-2 left-6 -top-6 md:-top-10">
-          <div className="flex flex-col truncate md:gap-1 md:flex-row">
-            <strong className="text-sm uppercase truncate md:text-base">
-              {getCampusLabel(user.preferences?.campus)}
-            </strong>
-            <span className="hidden md:block">-</span>
-            <strong className="text-sm uppercase truncate md:text-base">
-              {getPromotionLabel(user.preferences?.promotion)}
-            </strong>
-          </div>
-          <span className="text-xs md:text-sm">
-            {`inscrit il y a ${formatRelative(user.createdAt.toString())}`}
-          </span>
-        </div>
-      </span>
-    </div>
-  );
-};

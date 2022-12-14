@@ -1,4 +1,9 @@
-import { Preference, User } from "@prisma/client";
+import {
+  Preference,
+  PreferencePrivacy,
+  User,
+  UserPrivacy,
+} from "@prisma/client";
 
 import { ExtendedUser } from "@/types/User";
 import { RoleFormValues } from "@/components/Admin/CustomTable/User/RoleForm";
@@ -23,20 +28,19 @@ export const searchUsers = async (
   return [];
 };
 
-type EditPreferencesRequest = {
+export type EditPreferencesRequestInput = {
   campus?: string;
   promotion?: string;
   promotionYear?: string;
+  privacy?: PreferencePrivacy;
 };
-export const editPreferences = async ({
-  campus,
-  promotion,
-  promotionYear,
-}: EditPreferencesRequest): Promise<{ user: ExtendedUser } | false> => {
+export const editPreferences = async (
+  values: EditPreferencesRequestInput
+): Promise<{ user: ExtendedUser } | false> => {
   const response = await fetch(`/api/user/preferences`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ campus, promotion, promotionYear }),
+    body: JSON.stringify(values),
   });
   if (response.ok) {
     const { user } = await response.json();
@@ -97,4 +101,24 @@ export const changeRole = async (
   const { data, error } = await res.json();
   if (res.ok && res.status === 200) return data;
   return new Error(error.message);
+};
+
+export type EditPrivacyRequestInput = {
+  trophies: UserPrivacy;
+  participations: UserPrivacy;
+  createdEvents: UserPrivacy;
+};
+export const editPrivacy = async (
+  values: EditPrivacyRequestInput
+): Promise<{ user: ExtendedUser } | false> => {
+  const response = await fetch(`/api/user/privacy`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+  if (response.ok) {
+    const { user } = await response.json();
+    return { user };
+  }
+  return false;
 };

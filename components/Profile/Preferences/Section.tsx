@@ -7,11 +7,24 @@ import {
 } from "@/components/Profile/Preferences/Form";
 import { editPreferences } from "@/lib/fetchers";
 import { useState } from "react";
+import { EditPreferencesRequestInput } from "@/lib/fetchers/user";
+import { PreferencePrivacy } from "@prisma/client";
 
 export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
   const [preferences, setPreferences] = useState<ExtendedUser["preferences"]>(
     user.preferences || undefined
   );
+
+  async function handleSubmit(values: PreferencesFormValues) {
+    return editPreferences(values as EditPreferencesRequestInput).then(
+      (result) => {
+        if (result && !(result instanceof Error)) {
+          setPreferences(result.user.preferences);
+        }
+        return Promise.resolve(result);
+      }
+    );
+  }
 
   return (
     <div
@@ -19,7 +32,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
       id="preferences"
     >
       <h3 className="text-xl font-bold">
-        Sélection du campus et de la promotion
+        🎓 Sélection du campus et de la promotion
       </h3>
       <p className="text-sm text-gray-700 whitespace-pre-line">
         {
@@ -28,21 +41,13 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
         Merci de sélectionner la promotion la plus récente.
       </p>
       <PreferencesForm
-        onSubmit={async ({ campus, promotion, promotionYear }) => {
-          return editPreferences({ campus, promotion, promotionYear }).then(
-            (result) => {
-              if (result && !(result instanceof Error)) {
-                setPreferences(result.user.preferences);
-              }
-              return Promise.resolve(result);
-            }
-          );
-        }}
+        onSubmit={handleSubmit}
         initialValues={
           {
             campus: preferences?.campus || "",
             promotion: preferences?.promotion?.split(":")[0] || "",
             promotionYear: preferences?.promotion?.split(":")[1] || "",
+            privacy: preferences?.privacy || PreferencePrivacy.PUBLIC,
           } as PreferencesFormValues
         }
         optionalButton={
@@ -54,6 +59,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
                   campus: "",
                   promotion: "",
                   promotionYear: "",
+                  privacy: PreferencePrivacy.PUBLIC,
                 }).then((result) => {
                   if (result && !(result instanceof Error)) {
                     setPreferences(result.user.preferences);

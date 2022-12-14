@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { VerificationTokenType } from "@prisma/client";
 
 import { getSessionOrThrow, getUserOrThrow, SessionWithEmail } from "@/lib/api";
-import { checkEmail } from "@/functions/validateEmail";
+import { checkEmail } from "@/lib/validators/email";
 import plunk from "@/lib/plunk";
 import { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";

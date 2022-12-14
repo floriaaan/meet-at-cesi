@@ -10,6 +10,7 @@ import { ExtendedUser } from "@/types/User";
 import { PreferencesSection } from "@/components/Profile/Preferences/Section";
 import { ImageUploadSection } from "@/components/Profile/ImageUpload/Section";
 import { EmailVerificationSection } from "@/components/Profile/EmailVerification/Section";
+import { PrivacySection } from "@/components/Profile/Privacy/Section";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession(context);
@@ -24,7 +25,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   let user = await prisma.user.findUnique({
     where: { email: session.user?.email },
-    include: { preferences: true },
+    include: { preferences: true, privacy: true },
   });
 
   user = JSON.parse(JSON.stringify(user));
@@ -47,6 +48,7 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
           <div className="flex flex-col w-full divide-y">
             <ImageUploadSection user={user} />
             <PreferencesSection user={user} />
+            <PrivacySection user={user} />
             <EmailVerificationSection user={user} />
           </div>
         </section>

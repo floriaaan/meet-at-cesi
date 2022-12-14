@@ -18,6 +18,8 @@ const __session__: ExtendedSession = {
     createdEvents: [],
     participations: [],
     preferences: undefined,
+    trophies: [],
+    privacy: undefined,
 
     createdAt: new Date(),
     updatedAt: new Date(),

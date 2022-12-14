@@ -52,9 +52,33 @@ model VerificationToken {
   expires    DateTime              @default(dbgenerated("CURRENT_TIMESTAMP + INTERVAL '1 hour'"))
 }
 
+enum PreferencePrivacy {
+  PRIVATE
+  PUBLIC
+  CAMPUS_ONLY
+  PROMOTION_ONLY
+}
+
 model Preference {
   campus    String
   promotion String
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  privacy PreferencePrivacy @default(PUBLIC)
+}
+
+enum UserPrivacy {
+  PRIVATE
+  PUBLIC
+}
+
+model PrivacySettings {
+  image          UserPrivacy @default(PUBLIC)
+  trophies       UserPrivacy @default(PRIVATE)
+  participations UserPrivacy @default(PRIVATE)
+  createdEvents  UserPrivacy @default(PRIVATE)
 
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -67,31 +91,52 @@ enum Role {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String?   @unique
-  emailVerified  DateTime?
-  image          String?
-  role           Role      @default(USER)
-  accounts       Account[]
-  sessions       Session[]
-  createdEvents  Event[]   @relation("event_creation")
-  participations Event[]   @relation("event_participation")
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
 
   preferences Preference?
+  privacy     PrivacySettings?
+
+  createdEvents       Event[]      @relation("event_creation")
+  participations      Event[]      @relation("event_participation")
+  sendedInvitations   Invitation[] @relation("event_invitation_sended")
+  receivedInvitations Invitation[] @relation("event_invitation_received")
+  blamedFor           Report[]     @relation("report_user_blamed")
+  reported            Report[]     @relation("report_user_sender")
+
+  trophies           Trophy[]
+  feedbacks          Feedback[]
+  comments           Comment[]
+  accounts           Account[]
+  sessions           Session[]
+  verificationTokens VerificationToken[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
 
-  sendedInvitations   Invitation[] @relation("event_invitation_sended")
-  receivedInvitations Invitation[] @relation("event_invitation_received")
-  feedbacks           Feedback[]
-  comments            Comment[]
+enum TrophyKey {
+  EVENT_CREATION_1
+  EVENT_CREATION_5
+  EVENT_CREATION_20
+  PARTICIPATION_1
+  PARTICIPATION_10
+  PARTICIPATION_100
+}
 
-  blamedFor Report[] @relation("report_user_blamed")
-  reported  Report[] @relation("report_user_sender")
+model Trophy {
+  key    TrophyKey
+  user   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 
-  verificationTokens VerificationToken[]
+  // reference is `user.id`+ `trophy.key`
+  reference String @unique
+
+  createdAt DateTime @default(now())
 }
 
 model Event {
