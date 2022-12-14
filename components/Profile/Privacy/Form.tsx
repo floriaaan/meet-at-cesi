@@ -98,7 +98,7 @@ export const PrivacyForm = ({
             className="w-full"
           />
 
-          <div className="flex flex-col justify-end gap-1 mt-2">
+          <div className="flex flex-col justify-end gap-1 mt-2 lg:col-span-2">
             {optionalButton}
             <button
               type="submit"

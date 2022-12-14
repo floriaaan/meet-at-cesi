@@ -38,25 +38,21 @@ export const ProfileLayoutSidebar = () => {
           title="Paramètres"
           options={[
             {
-              name: "Changement de photo de profil",
+              name: "📸 Changement de photo de profil",
               href: "/profile/settings#avatar",
             },
             {
-              name: "Sélection du campus et de la promotion",
+              name: "🎓 Sélection du campus et de la promotion",
               href: "/profile/settings#preferences",
             },
             {
-              name: "Confidentialité des données",
+              name: "🔐 Confidentialité des données",
               href: "/profile/settings#privacy",
             },
             {
-              name: "Vérification de l'adresse email",
+              name: "📨 Vérification de l'adresse email",
               href: "/profile/settings#email-verification",
             },
-            {
-              name: "Confidentialité des données",
-              href: "/profile/settings#privacy",
-            }
           ]}
         />
       </ul>

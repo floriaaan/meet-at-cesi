@@ -1,3 +1,7 @@
+import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
+import { createEventParticipationTrophy } from "@/lib/api/trophy/event";
+import { ExtendedEvent } from "@/types/Event";
+import { User } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
@@ -7,39 +11,26 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // Check if user is authenticated
-  const session = await getSession({ req });
-  if (!session || !session.user) {
-    return res.status(401).json({ message: "Unauthorized." });
-  }
+  const session = await getSessionOrThrow(req);
 
   // Create new home
   if (req.method === "POST") {
     try {
       const { id } = req.body;
-      const user = await prisma.user.findUnique({
-        where: { email: session.user.email as string },
-      });
-      if (!user) {
-        return res.status(404).json({ message: "User not found." });
-      }
+      const user = (await getUserOrThrow(session, {
+        include: { participations: true },
+      })) as User & { participations: ExtendedEvent[] };
 
-      const event = await prisma.event.findUnique({
-        where: { id },
+      const { participants: oldParticipants } = (await getEventOrThrow(id, {
         include: { participants: true },
-      });
-      if (!event) {
-        return res.status(404).json({ message: "Event not found." });
-      }
-      const { participants: oldParticipants } = event;
+      })) as ExtendedEvent;
 
-      const isParticipant = oldParticipants.some((p) => p.id === user.id);
-      let updatedParticipants = oldParticipants;
-
-      if (isParticipant) {
-        updatedParticipants = oldParticipants.filter((p) => p.id !== user.id);
-      } else {
-        updatedParticipants = [...oldParticipants, user];
-      }
+      const isAlreadyParticipant = oldParticipants.some(
+        (p) => p.id === user.id
+      );
+      const updatedParticipants = isAlreadyParticipant
+        ? oldParticipants.filter((p) => p.id !== user.id)
+        : [...oldParticipants, user];
 
       const { participants } = await prisma.event.update({
         where: { id },
@@ -52,6 +43,9 @@ export default async function handler(
         },
         include: { participants: true },
       });
+
+      if (!isAlreadyParticipant)
+        createEventParticipationTrophy(user, user.participations.length + 1);
 
       res.status(201).json({ participants });
     } catch (e) {

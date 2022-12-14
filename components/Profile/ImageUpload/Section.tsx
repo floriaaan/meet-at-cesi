@@ -60,7 +60,7 @@ export const ImageUploadSection = ({ user }: ImageUploadSectionProps) => {
 
   return (
     <div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="avatar">
-      <h3 className="text-xl font-bold">Changement de photo de profil</h3>
+      <h3 className="text-xl font-bold">📸 Changement de photo de profil</h3>
       <ImageUploadForm
         initialImage={image}
         onChangeImage={upload}

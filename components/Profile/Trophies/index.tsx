@@ -26,7 +26,7 @@ export const Trophy = ({ trophyKey, createdAt }: Props) => {
       <p className="text-sm font-bold whitespace-nowrap">
         {trophies[trophyKey].name}
       </p>
-      <p className="text-xs">obtenu il y a {formatRelative(createdAt)}</p>
+      <p className="text-xs whitespace-nowrap">obtenu il y a {formatRelative(createdAt).replace("quelques secondes", "1 min.")}</p>
     </div>
   );
 };

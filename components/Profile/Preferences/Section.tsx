@@ -21,7 +21,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
       id="preferences"
     >
       <h3 className="text-xl font-bold">
-        Sélection du campus et de la promotion
+        🎓 Sélection du campus et de la promotion
       </h3>
       <p className="text-sm text-gray-700 whitespace-pre-line">
         {
