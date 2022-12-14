@@ -41,7 +41,7 @@ export const PrivacyForm = ({
 }: Props) => {
   const [disabled, setDisabled] = useState(false);
 
-  const handleOnSubmit = async (values: PrivacyFormValues) => {
+  async function handleOnSubmit(values: PrivacyFormValues) {
     let toastId: string | undefined;
     try {
       setDisabled(true);
@@ -62,7 +62,7 @@ export const PrivacyForm = ({
       toast.error("Unable to submit", { id: toastId });
       setDisabled(false);
     }
-  };
+  }
 
   return (
     <Formik
@@ -72,7 +72,6 @@ export const PrivacyForm = ({
     >
       {({ isSubmitting, isValid }) => (
         <Form className="grid w-full gap-1 lg:gap-2 lg:grid-cols-2">
-          
           <Select
             name="trophies"
             label="Affichage des trophées"

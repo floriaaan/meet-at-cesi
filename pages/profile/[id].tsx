@@ -4,24 +4,13 @@ import { getSession } from "next-auth/react";
 
 import type { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";
-import { InvitationsProvider } from "@/hooks/useInvitations";
 import { AppLayout } from "@/components/Layout";
 import { ProfileLayout } from "@/components/Layout/Profile/Layout";
-import { ReceivedInvitationSection } from "@/components/Profile/Invitation/ReceivedSection";
-import { SendedInvitationSection } from "@/components/Profile/Invitation/SendedSection";
 import { ParticipatingSection } from "@/components/Profile/Event/ParticipatingSection";
 import { CreatedSection } from "@/components/Profile/Event/CreatedSection";
 import { ProfileCard } from "@/components/Profile/Card";
 import { Preference, PreferencePrivacy, UserPrivacy } from "@prisma/client";
 import { TrophiesSection } from "@/components/Profile/Trophies/Section";
-
-const INVITATIONS_PRISMA_INCLUDE = {
-  include: {
-    event: { include: { creator: true } },
-    receiver: true,
-    sender: true,
-  },
-};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);

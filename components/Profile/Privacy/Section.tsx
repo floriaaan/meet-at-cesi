@@ -12,6 +12,15 @@ export const PrivacySection = ({ user }: { user: ExtendedUser }) => {
     user.privacy || undefined
   );
 
+  async function handleSubmit(values: PrivacyFormValues) {
+    return editPrivacy(values as EditPrivacyRequestInput).then((result) => {
+      if (result && !(result instanceof Error)) {
+        setPrivacy(result.user.privacy);
+      }
+      return Promise.resolve(result);
+    });
+  }
+
   return (
     <div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="privacy">
       <h3 className="text-xl font-bold">🔐 Confidentialité des données</h3>
@@ -21,16 +30,7 @@ export const PrivacySection = ({ user }: { user: ExtendedUser }) => {
         Vos trophées, participations aux événements et événements que vous avez créés sont privés par défaut.`}
       </p>
       <PrivacyForm
-        onSubmit={async (values) => {
-          return editPrivacy(values as EditPrivacyRequestInput).then(
-            (result) => {
-              if (result && !(result instanceof Error)) {
-                setPrivacy(result.user.privacy);
-              }
-              return Promise.resolve(result);
-            }
-          );
-        }}
+        onSubmit={handleSubmit}
         initialValues={
           {
             createdEvents: privacy?.createdEvents || UserPrivacy.PRIVATE,

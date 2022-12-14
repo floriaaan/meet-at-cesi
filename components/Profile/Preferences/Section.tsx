@@ -15,6 +15,17 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
     user.preferences || undefined
   );
 
+  async function handleSubmit(values: PreferencesFormValues) {
+    return editPreferences(values as EditPreferencesRequestInput).then(
+      (result) => {
+        if (result && !(result instanceof Error)) {
+          setPreferences(result.user.preferences);
+        }
+        return Promise.resolve(result);
+      }
+    );
+  }
+
   return (
     <div
       className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48"
@@ -30,16 +41,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
         Merci de sélectionner la promotion la plus récente.
       </p>
       <PreferencesForm
-        onSubmit={async (values) => {
-          return editPreferences(values as EditPreferencesRequestInput).then(
-            (result) => {
-              if (result && !(result instanceof Error)) {
-                setPreferences(result.user.preferences);
-              }
-              return Promise.resolve(result);
-            }
-          );
-        }}
+        onSubmit={handleSubmit}
         initialValues={
           {
             campus: preferences?.campus || "",
