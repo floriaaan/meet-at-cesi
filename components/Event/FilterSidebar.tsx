@@ -43,14 +43,14 @@ const FILTERS_CATEGORIES: FilterCategory[] = [
         name: "dateMin",
         type: "date",
         label: "À partir du",
-        defaultValue: new Date().toISOString().split("T")[0],
+        // defaultValue: new Date().toISOString().split("T")[0],
       },
       { name: "dateMax", type: "date", label: "Jusqu'au" },
     ],
   },
   // TODO: prepare the backend to handle this
   // {
-  //   label: "Promixité de l'événement",
+  //   label: "Proximité de l'événement",
   //   key: "proximity",
   //   inputs: [{ name: "proximity", type: "range", label: "", min: 0, max: 50 }],
   // },
