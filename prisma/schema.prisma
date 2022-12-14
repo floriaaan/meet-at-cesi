@@ -173,7 +173,18 @@ model Comment {
   parentId String?
   children Comment[] @relation("comment_parent")
 
-  isDeleted Boolean @default(false)
+  isDeleted Boolean          @default(false)
+  history   CommentHistory[]
+}
+
+model CommentHistory {
+  id          String   @id @default(cuid())
+  fromContent String
+  toContent   String
+  createdAt   DateTime @default(now())
+
+  commentId String
+  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 }
 
 enum InvitationStatus {
