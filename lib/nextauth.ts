@@ -5,8 +5,8 @@ import { AdapterUser } from "next-auth/adapters";
 
 import prisma from "@/lib/prisma";
 import { ExtendedSession } from "@/types/Session";
-import { checkEmail } from "@/functions/validateEmail";
-import generateToken from "./tokens/email-verification";
+import { checkEmail } from "@/lib/validators/email";
+import generateToken from "@/lib/tokens/email-verification";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;

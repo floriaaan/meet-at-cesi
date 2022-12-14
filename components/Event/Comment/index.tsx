@@ -37,7 +37,8 @@ export const CommentListItem = ({
   isReply = false,
 }: CommentListItemProps) => {
   const { data: session } = useSession();
-  const { user, id: userId } = (session as ExtendedSession) || {};
+  const { user } = (session as ExtendedSession) || {};
+  const { id: userId } = user || {};
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
 
@@ -54,8 +55,8 @@ export const CommentListItem = ({
           !isReply ? "lg:w-12 lg:h-12 w-6 h-6 " : "w-6 h-6 lg:w-8 lg:h-8",
           !isDeleted && "lg:border-2"
         )}
-        user={author || { name: "Anonymous" }}
-        link
+        user={author || { name: "?" }}
+        link={author?.id !== undefined}
       />
       <div className="flex flex-col w-full md:flex-row md:items-start">
         <div className="flex flex-col gap-y-0.5 grow w-full">
@@ -233,7 +234,7 @@ export const CommentListItem = ({
               }}
             >
               {({ open }) => (
-                <div className="flex flex-col max-w-[16rem] p-2 text-sm bg-white border border-black shadow-lg gap-y-1">
+                <div className="flex flex-col max-w-[16rem] p-2 text-sm bg-neutral-100 border border-black border-dashed shadow-lg gap-y-1">
                   <p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
                   <div className="mt-2 ml-auto">
                     <button
