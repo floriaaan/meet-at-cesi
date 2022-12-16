@@ -117,6 +117,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+  deletedAt DateTime?
 }
 
 enum TrophyKey {
@@ -148,21 +149,21 @@ model Event {
   audience       String
   audienceCampus String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   creator   User     @relation("event_creation", fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
 
   participants User[]       @relation("event_participation")
   invitations  Invitation[]
   comments     Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
 
 model Comment {
   id        String    @id @default(cuid())
   content   String
-  createdAt DateTime? @default(now())
-  updatedAt DateTime  @updatedAt
 
   author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String?
@@ -173,8 +174,11 @@ model Comment {
   parentId String?
   children Comment[] @relation("comment_parent")
 
-  isDeleted Boolean          @default(false)
   history   CommentHistory[]
+
+  createdAt DateTime? @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model CommentHistory {

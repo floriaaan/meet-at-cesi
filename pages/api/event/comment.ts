@@ -47,6 +47,13 @@ export default async function handler(
         select: { id: true },
       });
 
+      if (parentId) {
+        const { deletedAt } = await getCommentOrThrow(parentId, {
+          select: { deletedAt: true },
+        });
+        if (deletedAt) throw new Error("Parent comment has been deleted.");
+      }
+
       if (!content || content.length < 1)
         return res
           .status(400)
@@ -132,7 +139,7 @@ export default async function handler(
         where: { id: commentId },
         data: {
           content: "Ce commentaire a été supprimé.",
-          isDeleted: true,
+          deletedAt: new Date(),
           authorId: null,
         },
       });
