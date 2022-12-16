@@ -61,7 +61,7 @@ export default async function handler(
 
         })
         .toFormat("webp")
-        .webp({ quality: 75 })
+        .webp({ quality: 90 })
         .toBuffer();
 
       // Upload image
