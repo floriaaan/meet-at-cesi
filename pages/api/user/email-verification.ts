@@ -22,16 +22,24 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // Check if user is authenticated
-  const session = await getSessionOrThrow(req);
+  try {
+    const session = await getSessionOrThrow(req);
 
-  if (req.method === "GET") return GET(req, res, session);
-  else if (req.method === "POST") return POST(req, res, session);
-  // HTTP method not supported!
-  else {
-    res.setHeader("Allow", ["GET", "POST"]);
-    return res
-      .status(405)
-      .json({ message: `HTTP method ${req.method} is not supported.` });
+    if (req.method === "GET") return GET(req, res, session);
+    else if (req.method === "POST") return POST(req, res, session);
+    // HTTP method not supported!
+    else {
+      res.setHeader("Allow", ["GET", "POST"]);
+      return res
+        .status(405)
+        .json({ message: `HTTP method ${req.method} is not supported.` });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json({
+      data: null,
+      error: { message: err instanceof Error ? err.message : err },
+    });
   }
 }
 
@@ -143,4 +151,3 @@ const POST = async (
     });
   }
 };
-
