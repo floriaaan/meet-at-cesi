@@ -77,9 +77,7 @@ body {
   text-decoration-thickness: 1px !important;
 }
 
-body.blocking__popup {
-  @apply overflow-hidden xs:overflow-auto;
-}
+
 
 .shadow__button-purple {
   -webkit-box-shadow: 0 0.3rem 0 0 #afa5d1;

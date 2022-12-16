@@ -57,6 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       promotion:
         user.preferences?.privacy === PreferencePrivacy.PUBLIC ||
         user.preferences?.privacy === PreferencePrivacy.PROMOTION_ONLY,
+      userId: true,
     },
   });
 
@@ -111,7 +112,10 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
         >
           <ProfileCard user={user} />
           <div className="w-full h-auto">
-            {privacy?.trophies ? <TrophiesSection user={user} /> : null}
+            {privacy?.trophies === UserPrivacy.PUBLIC ||
+            privacy?.trophies === undefined ? (
+              <TrophiesSection user={user} />
+            ) : null}
             <section id="events" className="flex flex-col w-full">
               {privacy?.participations === UserPrivacy.PUBLIC ? (
                 <ParticipatingSection events={participations || []} />

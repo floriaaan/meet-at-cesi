@@ -76,7 +76,7 @@ enum UserPrivacy {
 
 model PrivacySettings {
   image          UserPrivacy @default(PUBLIC)
-  trophies       UserPrivacy @default(PRIVATE)
+  trophies       UserPrivacy @default(PUBLIC)
   participations UserPrivacy @default(PRIVATE)
   createdEvents  UserPrivacy @default(PRIVATE)
 

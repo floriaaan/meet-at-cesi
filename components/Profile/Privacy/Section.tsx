@@ -26,8 +26,8 @@ export const PrivacySection = ({ user }: { user: ExtendedUser }) => {
       <h3 className="text-xl font-bold">🔐 Confidentialité des données</h3>
       <p className="text-sm text-gray-700 whitespace-pre-line">
         {`Il est possible de choisir quels éléments de votre profil seront affiché.\n
-        Votre promotion, votre campus et votre année d'étude sont publics (voir section Sélection du campus et de la promotion).
-        Vos trophées, participations aux événements et événements que vous avez créés sont privés par défaut.`}
+        Vos trophées, votre promotion, votre campus et votre année d'étude sont publics par défaut.
+        Vos participations aux événements et événements que vous avez créés sont privés par défaut.`}
       </p>
       <PrivacyForm
         onSubmit={handleSubmit}
@@ -35,7 +35,7 @@ export const PrivacySection = ({ user }: { user: ExtendedUser }) => {
           {
             createdEvents: privacy?.createdEvents || UserPrivacy.PRIVATE,
             participations: privacy?.participations || UserPrivacy.PRIVATE,
-            trophies: privacy?.trophies || UserPrivacy.PRIVATE,
+            trophies: privacy?.trophies || UserPrivacy.PUBLIC,
           } as PrivacyFormValues
         }
       />

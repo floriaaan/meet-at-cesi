@@ -17,7 +17,7 @@ const PrivacySchema = Yup.object().shape({
 
 export type PrivacyFormValues = Yup.InferType<typeof PrivacySchema>;
 const initialFormValues: PrivacyFormValues = {
-  trophies: UserPrivacy.PRIVATE,
+  trophies: UserPrivacy.PUBLIC,
   participations: UserPrivacy.PRIVATE,
   createdEvents: UserPrivacy.PRIVATE,
 } as unknown as PrivacyFormValues;

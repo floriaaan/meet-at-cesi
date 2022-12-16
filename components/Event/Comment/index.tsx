@@ -190,7 +190,7 @@ export const CommentListItem = ({
               )}
             </button>
           ) : null}
-          {!isDeleted ? (
+          {!isDeleted && userId !== author.id ? (
             <button
               type="button"
               className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
