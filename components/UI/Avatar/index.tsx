@@ -12,7 +12,7 @@ export type AvatarProps = {
 
 const AvatarPicture = ({ user, className }: AvatarProps) => (
   <>
-    {user.image ? (
+    {user?.image ? (
       <Image
         width={64}
         height={64}
