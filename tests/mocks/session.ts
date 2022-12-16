@@ -23,6 +23,7 @@ const __session__: ExtendedSession = {
 
     createdAt: new Date(),
     updatedAt: new Date(),
+    deletedAt: null,
   },
   id: "123",
 };
