@@ -1,29 +1,29 @@
+import { ReportObject, ReportType } from "@prisma/client";
+import classNames from "classnames";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   MdDelete,
   MdEdit,
   MdEditOff,
   MdReply,
-  MdWarning,
+  MdWarning
 } from "react-icons/md";
-import classNames from "classnames";
-import toast from "react-hot-toast";
-import { useSession } from "next-auth/react";
 
-import { ExtendedSession } from "@/types/Session";
-import { ExtendedComment } from "@/types/Event";
-import toastStyle from "@/resources/toast.config";
 import {
   CommentForm,
-  CommentFormValues,
+  CommentFormValues
 } from "@/components/Event/Comment/Form";
-import { Avatar } from "@/components/UI/Avatar";
-import { createComment, deleteComment, editComment } from "@/lib/fetchers";
-import PopperMenu from "@/components/Helpers/PopperMenu";
 import { ReplyList } from "@/components/Event/Comment/ReplyList";
-import { formatDate, formatRelative } from "@/lib/date";
+import PopperMenu from "@/components/Helpers/PopperMenu";
 import { useReport } from "@/components/Report/Wrapper";
-import { ReportObject, ReportType } from "@prisma/client";
+import { Avatar } from "@/components/UI/Avatar";
+import { formatDate, formatRelative } from "@/lib/date";
+import { createComment, deleteComment, editComment } from "@/lib/fetchers";
+import toastStyle from "@/resources/toast.config";
+import { ExtendedComment } from "@/types/Event";
+import { ExtendedSession } from "@/types/Session";
 
 type CommentListItemProps = {
   comment: ExtendedComment;
@@ -43,7 +43,8 @@ export const CommentListItem = ({
   const [isReplying, setIsReplying] = useState(false);
 
   const { openReportModal } = useReport();
-  const { content, author, children, createdAt, isDeleted, id } = comment;
+  const { content, author, children, createdAt, id, deletedAt } = comment;
+  const isDeleted = deletedAt !== null;
 
   return (
     <div
@@ -190,7 +191,7 @@ export const CommentListItem = ({
               )}
             </button>
           ) : null}
-          {!isDeleted ? (
+          {!isDeleted && userId !== author.id ? (
             <button
               type="button"
               className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"

@@ -1,17 +1,18 @@
-import { SessionProvider, useSession } from "next-auth/react";
-import { AppProps } from "next/app";
-import { Toaster } from "react-hot-toast";
 import { Analytics } from "@vercel/analytics/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-
-import "@/styles/globals.css";
-import { PreferencesPopup } from "@/components/Helpers/Popup/Preferences";
-import { ExtendedSession } from "@/types/Session";
-import { FeedbackWrapper } from "@/components/Helpers/Feedback";
-import { ReportProvider } from "@/components/Report/Wrapper";
+import { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+
+import { FeedbackWrapper } from "@/components/Helpers/Feedback";
+import { PreferencesPopup } from "@/components/Helpers/Popup/Preferences";
+import { ReportProvider } from "@/components/Report/Wrapper";
+import "@/styles/globals.css";
+import "@/styles/nprogress.css";
+import { ExtendedSession } from "@/types/Session";
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { session } = pageProps as {

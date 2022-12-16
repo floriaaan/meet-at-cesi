@@ -11,6 +11,8 @@ import { ExtendedEvent } from "@/types/Event";
 import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
 import { useReport } from "@/components/Report/Wrapper";
+import { useSession } from "next-auth/react";
+import { ExtendedSession } from "@/types/Session";
 
 const HeroDetails = dynamic(
   () =>
@@ -52,6 +54,8 @@ export const HeroSection = ({
   const { openReportModal } = useReport();
 
   const router = useRouter();
+  const { data: session } = useSession();
+  const { user } = (session as ExtendedSession) || {};
   return (
     <div className="flex flex-col w-full">
       <div className="inline-flex items-end justify-between w-full">
@@ -119,21 +123,23 @@ export const HeroSection = ({
             >
               {isParticipant ? "Ne plus participer" : "Participer"}
             </button>
-            <button
-              className="py-2.5 btn-black w-fit px-2 sm:px-4"
-              onClick={() =>
-                openReportModal({
-                  content: "",
-                  object: ReportObject.EVENT,
-                  objectId: id,
-                  type: ReportType.OTHER,
-                  page: `/event/${id}`,
-                })
-              }
-            >
-              <MdWarning className="w-4 h-4 my-0.5" />
-              <span className="sr-only">{"Signaler l'événement"}</span>
-            </button>
+            {user?.id !== creator.id ? (
+              <button
+                className="py-2.5 btn-black w-fit px-2 sm:px-4"
+                onClick={() =>
+                  openReportModal({
+                    content: "",
+                    object: ReportObject.EVENT,
+                    objectId: id,
+                    type: ReportType.OTHER,
+                    page: `/event/${id}`,
+                  })
+                }
+              >
+                <MdWarning className="w-4 h-4 my-0.5" />
+                <span className="sr-only">{"Signaler l'événement"}</span>
+              </button>
+            ) : null}
           </div>
         </div>
       </div>
