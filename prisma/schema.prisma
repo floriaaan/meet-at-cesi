@@ -49,7 +49,7 @@ model VerificationToken {
 
   identifier VerificationTokenType
   token      String                @unique @default(cuid())
-  expires    DateTime              @default(dbgenerated("CURRENT_TIMESTAMP + INTERVAL '1 hour'"))
+  expires    DateTime              @default(dbgenerated("CURRENT_TIMESTAMP + INTERVAL '3 hour'"))
 }
 
 enum PreferencePrivacy {
