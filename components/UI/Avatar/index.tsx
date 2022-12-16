@@ -16,8 +16,8 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
       <Image
         width={64}
         height={64}
-        src={user.image}
-        alt={user.name || "Participant picture"}
+        src={user?.image}
+        alt={user?.name || "Participant picture"}
         className={classNames(
           "rounded-full object-cover object-center border border-black shrink-0",
           className
@@ -31,7 +31,7 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
           !className?.includes("bg-") ? "bg-primary" : null
         )}
       >
-        {user.name ? getInitials(user.name) : "?"}
+        {user?.name ? getInitials(user.name) : "?"}
       </span>
     )}
   </>
