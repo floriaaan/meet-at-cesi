@@ -1,9 +1,9 @@
 import { User } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
-const regex = new RegExp(/@viacesi.fr$/);
+const regex = new RegExp(/@(viacesi|cesi).fr$/);
 /**
- * validate email if finish by @viacesi.fr
+ * validate email if finish by @viacesi.fr or @cesi.fr
  *
  * */
 export const checkEmail = (email: string) => regex.test(email);

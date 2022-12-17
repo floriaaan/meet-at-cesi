@@ -15,6 +15,8 @@ const getDiff = (date: Date, from: Date) => {
 };
 
 export const formatRelative = (date: string | Date) => {
+  if (!date) return "";
+
   const { year, month, day, hour, minute } = getDiff(
     new Date(date),
     new Date()
@@ -58,6 +60,8 @@ export const formatDate = (
     day: "numeric",
   }
 ) => {
+  if (!date) return "";
+
   const dateObject = new Date(date);
   return dateObject.toLocaleDateString("fr-FR", options);
 };

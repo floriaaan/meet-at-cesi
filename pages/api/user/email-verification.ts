@@ -7,7 +7,7 @@ import plunk from "@/lib/plunk";
 import { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";
 import generateToken from "@/lib/tokens/email-verification";
-import { getTokenIfValidOrThrow } from "@/lib/api/handler";
+import { getTokenIfValidOrThrow } from "@/lib/api";
 
 type Result = {
   email: {

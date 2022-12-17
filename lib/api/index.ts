@@ -1,4 +1,4 @@
-import { Comment, Event, Report, User } from "@prisma/client";
+import { Comment, Event, Report, User, VerificationToken } from "@prisma/client";
 import { NextApiRequest } from "next";
 import { Session } from "next-auth";
 import { getSession } from "next-auth/react";
@@ -80,4 +80,18 @@ export const getReportOrThrow = async (
   if (!report) throw new Error("Report not found.");
 
   return report;
+};
+
+export const getTokenIfValidOrThrow = async (
+  verificationTokens: VerificationToken[]
+): Promise<VerificationToken> => {
+  if (verificationTokens.length === 0) throw new Error("Invalid token");
+  const verificationToken = verificationTokens[0];
+  if (verificationToken.expires < new Date()) {
+    await prisma.verificationToken.delete({
+      where: { token: verificationToken.token },
+    });
+    throw new Error("Token expired");
+  }
+  return verificationToken;
 };
