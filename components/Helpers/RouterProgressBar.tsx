@@ -9,26 +9,26 @@ const delay = 250;
 NProgress.configure({ showSpinner: false, parent: "#navbar-progressBar" });
 
 function load() {
-  if (state === "LOADING") {
-    return;
-  }
+	if (state === "LOADING") {
+		return;
+	}
 
-  state = "LOADING";
+	state = "LOADING";
 
-  timer = setTimeout(function () {
-    NProgress.start();
-  }, delay); // only show progress bar if it takes longer than the delay
+	timer = setTimeout(function () {
+		NProgress.start();
+	}, delay); // only show progress bar if it takes longer than the delay
 }
 
 function stop() {
-  if (activeRequests > 0) {
-    return;
-  }
+	if (activeRequests > 0) {
+		return;
+	}
 
-  state = "STOP";
+	state = "STOP";
 
-  clearTimeout(timer);
-  NProgress.done();
+	clearTimeout(timer);
+	NProgress.done();
 }
 
 Router.events.on("routeChangeStart", load);

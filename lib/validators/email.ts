@@ -15,15 +15,15 @@ export const checkEmail = (email: string) => regex.test(email);
  *  - if the email is not valid, it returns false.
  * */
 export default async function validateEmail(user: User): Promise<boolean> {
-  if (!user.id) throw new Error("User id is undefined");
-  if (!user.email) throw new Error("Email is required");
-  const isValid = checkEmail(user.email);
-  if (!isValid) return false;
+	if (!user.id) throw new Error("User id is undefined");
+	if (!user.email) throw new Error("Email is required");
+	const isValid = checkEmail(user.email);
+	if (!isValid) return false;
 
-  const result = await prisma.user.update({
-    where: { id: user.id },
-    data: { emailVerified: new Date() },
-  });
+	const result = await prisma.user.update({
+		where: { id: user.id },
+		data: { emailVerified: new Date() },
+	});
 
-  return result !== null;
+	return result !== null;
 }

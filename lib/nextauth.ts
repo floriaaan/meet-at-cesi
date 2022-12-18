@@ -13,45 +13,45 @@ const oldLinkAccount = adapter.linkAccount;
 const oldCreateUser = adapter.createUser;
 adapter.linkAccount = ({ ext_expires_in, ...data }) => oldLinkAccount(data);
 adapter.createUser = async (data) => {
-  const user = await oldCreateUser(data);
-  if (checkEmail(data.email)) await generateToken(user);
+	const user = await oldCreateUser(data);
+	if (checkEmail(data.email)) await generateToken(user);
 
-  return user;
+	return user;
 };
 
 export default adapter;
 
 export const sessionCallback = async ({
-  session,
-  user,
+	session,
+	user,
 }: {
-  session: Session;
-  user: User | AdapterUser;
+	session: Session;
+	user: User | AdapterUser;
 }) => {
-  // Send properties to the client, like an access_token from a provider.
-  session.user = user;
+	// Send properties to the client, like an access_token from a provider.
+	session.user = user;
 
-  const userDetails = await prisma.user.findUnique({
-    where: { id: user.id },
-    include: {
-      privacy: true,
-      preferences: true,
-      receivedInvitations: {
-        include: { event: true, sender: true, receiver: true },
-        where: { status: InvitationStatus.PENDING },
-      },
-      sendedInvitations: true,
-      participations: true,
-      createdEvents: true,
-    },
-  });
-  if (!userDetails) throw new Error("User not found");
+	const userDetails = await prisma.user.findUnique({
+		where: { id: user.id },
+		include: {
+			privacy: true,
+			preferences: true,
+			receivedInvitations: {
+				include: { event: true, sender: true, receiver: true },
+				where: { status: InvitationStatus.PENDING },
+			},
+			sendedInvitations: true,
+			participations: true,
+			createdEvents: true,
+		},
+	});
+	if (!userDetails) throw new Error("User not found");
 
-  // extend session with user details
-  session = {
-    ...session,
-    user: { ...session.user, ...userDetails },
-  };
+	// extend session with user details
+	session = {
+		...session,
+		user: { ...session.user, ...userDetails },
+	};
 
-  return session as ExtendedSession;
+	return session as ExtendedSession;
 };

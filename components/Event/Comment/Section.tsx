@@ -9,37 +9,41 @@ import { CommentForm } from "@/components/Event/Comment/Form";
 import { createComment } from "@/lib/fetchers";
 
 export const CommentSection = ({
-  initialComments,
-  eventId,
+	initialComments,
+	eventId,
 }: {
-  initialComments: ExtendedComment[];
-  eventId: string;
+	initialComments: ExtendedComment[];
+	eventId: string;
 }) => {
-  const { data: session } = useSession();
-  const { user } = session || {};
-  const [comments, setComments] = useState<ExtendedComment[]>(initialComments);
+	const { data: session } = useSession();
+	const { user } = session || {};
+	const [comments, setComments] = useState<ExtendedComment[]>(initialComments);
 
-  return (
-    <div className="flex flex-col w-full p-2 bg-gray-100 border border-black border-dashed md:p-4 gap-y-2">
-      <div className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
-        <Chip extendClassName="bg-purple">{comments.length}</Chip>{" "}
-        {getPlural(comments.length, "commentaire", "commentaires")}
-      </div>
-      {comments.map((comment) => (
-        <CommentListItem key={comment.id} comment={comment} setCommentList={setComments} />
-      ))}
-      {user && (
-        <CommentForm
-          onSubmit={async (values) => {
-            const result = await createComment({ ...values, eventId });
-            if (result && result.length > 0) {
-              setComments(result);
-              return result;
-            }
-            return false;
-          }}
-        />
-      )}
-    </div>
-  );
+	return (
+		<div className="flex flex-col w-full p-2 bg-gray-100 border border-black border-dashed md:p-4 gap-y-2">
+			<div className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
+				<Chip extendClassName="bg-purple">{comments.length}</Chip>{" "}
+				{getPlural(comments.length, "commentaire", "commentaires")}
+			</div>
+			{comments.map((comment) => (
+				<CommentListItem
+					key={comment.id}
+					comment={comment}
+					setCommentList={setComments}
+				/>
+			))}
+			{user && (
+				<CommentForm
+					onSubmit={async (values) => {
+						const result = await createComment({ ...values, eventId });
+						if (result && result.length > 0) {
+							setComments(result);
+							return result;
+						}
+						return false;
+					}}
+				/>
+			)}
+		</div>
+	);
 };
