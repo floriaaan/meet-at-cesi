@@ -6,7 +6,7 @@
  */
 
 import { vitest } from "vitest";
-import __session__ from "@/tests/mocks/session";
+import __session__ from "@/tests/mocks/users";
 
 vitest.mock("next-auth/react", () => {
   const originalModule = vitest.importActual("next-auth/react");

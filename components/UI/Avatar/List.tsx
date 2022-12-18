@@ -21,6 +21,7 @@ export const AvatarList = ({
         "inline-flex  items-center shrink-0",
         className
       )}
+      data-testid="avatar-list"
     >
       {users.map((user, index) =>
         index < limit ? (

@@ -1,5 +1,9 @@
 import classNames from "classnames";
+import { AvatarList } from "@/components/UI/Avatar/List";
+import { AvatarWithName } from "@/components/UI/Avatar/WithName";
+import { Name } from "@/components/UI/Avatar/OnlyName";
 import { User } from "@prisma/client";
+import Link from "next/link";
 import Image from "next/image";
 
 import { getInitials } from "@/lib/string";
@@ -22,6 +26,7 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
           "rounded-full object-cover object-center border border-black shrink-0",
           className
         )}
+        data-testid="avatar"
       />
     ) : (
       <span
@@ -30,6 +35,7 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
           className,
           !className?.includes("bg-") ? "bg-primary" : null
         )}
+        data-testid="avatar"
       >
         {user?.name ? getInitials(user.name) : "?"}
       </span>
@@ -39,17 +45,15 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
 
 const Avatar = ({ user, className, link = false }: AvatarProps) => {
   return link ? (
-    <Link href={`/profile/${user.id}`} className="hover:opacity-80 h-fit w-fit shrink-0">
+    <Link
+      href={`/profile/${user.id}`}
+      className="hover:opacity-80 h-fit w-fit shrink-0"
+    >
       <AvatarPicture user={user} className={className} />
     </Link>
   ) : (
     <AvatarPicture user={user} className={className} />
   );
 };
-
-import { AvatarList } from "@/components/UI/Avatar/List";
-import { AvatarWithName } from "@/components/UI/Avatar/WithName";
-import { Name } from "@/components/UI/Avatar/OnlyName";
-import Link from "next/link";
 
 export { Avatar, AvatarList, AvatarWithName, Name };

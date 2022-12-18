@@ -29,6 +29,7 @@ export const AvatarWithName = ({
         },
         className
       )}
+      data-testid="avatar-with-name"
     >
       <Avatar link={link} user={user} className={avatarClassName} />
       <Name
