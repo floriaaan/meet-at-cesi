@@ -9,6 +9,7 @@ type ChipProps = {
 export const Chip = ({ children, className, extendClassName }: ChipProps) => {
   return (
     <span
+      data-testid="chip"
       className={
         className ||
         classNames(

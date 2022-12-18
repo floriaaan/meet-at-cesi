@@ -104,7 +104,10 @@ const Input = ({
       </div>
 
       {error && (
-        <p className="text-sm text-red-600 first-letter:uppercase">
+        <p
+        className="text-sm text-red-600 first-letter:uppercase"
+        data-testid="input-error"
+        >
           {error}
         </p>
       )}
