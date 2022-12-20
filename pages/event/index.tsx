@@ -34,11 +34,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 					},
 				};
 			if (query.promotion === "user_preferred_promotion") {
-				const splittedPromotion = user.preferences?.promotion.split(":");
+				const splitPromotion = user.preferences?.promotion.split(":");
 				return {
 					redirect: {
 						destination: `/event?promotion=${
-							splittedPromotion?.[0] || "undefined"
+							splitPromotion?.[0] || "undefined"
 						}&campus=${user.preferences?.campus}`,
 						permanent: false,
 					},
@@ -48,27 +48,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	}
 
 	let events = await prisma.event.findMany({
-		include: {
-			creator: true,
-			participants: true,
-		},
-		orderBy: {
-			date: "asc",
-		},
+		include: { creator: true, participants: true },
+		orderBy: { date: "asc" },
 		where: {
-			date: {
-				// today, from 0AM
-				gte: new Date(new Date().setHours(0, 0, 0, 0)),
-			},
+			date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
 		},
 	});
 	events = JSON.parse(JSON.stringify(events));
 
-	return {
-		props: {
-			events,
-		},
-	};
+	return { props: { events } };
 };
 
 type Props = {

@@ -9,7 +9,7 @@ import { Prisma } from "@prisma/client";
  * It will create a new comment history record if the content has changed
  *
  * */
-export const commentHistoryMiddleware: Prisma.Middleware<any> = async (
+export const commentHistory: Prisma.Middleware<any> = async (
   params,
   next
 ) => {

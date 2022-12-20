@@ -76,7 +76,7 @@ export const Navbar = () => {
 									href="/profile#invitations"
 									className="font-bold subnav__link"
 								>
-									<span>
+									<span className="inline-flex items-center gap-x-1">
 										<Chip
 											className={
 												receivedInvitations.length > 0
