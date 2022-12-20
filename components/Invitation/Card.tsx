@@ -62,18 +62,19 @@ export const InvitationCard = ({
 			<div
 				className={
 					className ||
-					"inline-flex items-center w-full shrink-0 border border-black gap-2 divide-x divide-black"
+					"inline-flex items-center w-full shrink-0 border border-black  divide-x divide-black"
 				}
 			>
 				<Avatar
 					user={displayedUser}
 					className={
 						avatarClassName ||
-						"rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-16 shrink-0 -mr-2 border-0"
+						"rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-16 shrink-0  border-0"
 					}
 					link
+					linkClassName=" h-[3.25rem] lg:h-16 aspect-square w-[3.25rem] lg:w-16"
 				/>
-				<div className="flex flex-col grow items-start py-2 px-1.5 overflow-hidden">
+				<div className="flex flex-col grow items-start  py-2 px-2.5 overflow-hidden">
 					<h4 className="text-sm font-bold lg:text-lg whitespace-nowrap">
 						{displayedUser.name}
 					</h4>
@@ -137,6 +138,8 @@ export const InvitationCard = ({
 			>
 				<Avatar
 					user={displayedUser}
+					link
+					linkClassName="w-full h-full"
 					className={
 						avatarClassName ||
 						"rounded-none bg-black text-white w-full h-auto aspect-video shrink-0 border-0"

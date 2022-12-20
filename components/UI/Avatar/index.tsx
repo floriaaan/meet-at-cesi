@@ -12,6 +12,7 @@ export type AvatarProps = {
 	user: User;
 	className?: string;
 	link?: boolean;
+	linkClassName?: string;
 };
 
 const AvatarPicture = ({ user, className }: AvatarProps) => (
@@ -43,11 +44,11 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
 	</>
 );
 
-const Avatar = ({ user, className, link = false }: AvatarProps) => {
+const Avatar = ({ user, className, link = false, linkClassName }: AvatarProps) => {
 	return link ? (
 		<Link
 			href={`/profile/${user.id}`}
-			className="hover:opacity-80 h-fit w-fit shrink-0"
+			className={classNames("hover:opacity-80 shrink-0", linkClassName)}
 		>
 			<AvatarPicture user={user} className={className} />
 		</Link>
