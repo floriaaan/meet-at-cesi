@@ -21,6 +21,10 @@ module.exports = {
       screens: {
         xs: "500px",
       },
+			aria: {
+        asc: 'sort="ascending"',
+        desc: 'sort="descending"',
+      },
     },
   },
   plugins: [],

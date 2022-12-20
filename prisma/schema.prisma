@@ -167,7 +167,7 @@ model Comment {
 
   author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String?
-  event    Event   @relation(fields: [eventId], references: [id])
+  event    Event   @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId  String
 
   parent   Comment?  @relation("comment_parent", fields: [parentId], references: [id])

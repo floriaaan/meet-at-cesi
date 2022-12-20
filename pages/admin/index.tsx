@@ -13,102 +13,105 @@ import { Header } from "@/components/UI/Header";
 import { isAdmin, isModerator } from "@/lib/role";
 
 type Props = {
-  count: {
-    events: number;
-    users: number;
-    feedback: number;
-    reports: number;
-  };
+	count: {
+		events: number;
+		users: number;
+		feedback: number;
+		reports: number;
+	};
 
-  comments: ExtendedComment[];
+	comments: ExtendedComment[];
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = (await getSession(context)) as ExtendedSession;
-  const { user } = session || {};
-  if (!user || (!isAdmin(user) && !isModerator(user))) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+	const session = (await getSession(context)) as ExtendedSession;
+	const { user } = session || {};
+	if (!user || (!isAdmin(user) && !isModerator(user))) {
+		return {
+			redirect: {
+				destination: "/",
+				permanent: false,
+			},
+		};
+	}
 
-  const events = await prisma.event.count();
-  const users = await prisma.user.count();
-  const feedback = await prisma.feedback.count();
-  const reports = await prisma.report.count();
+	const events = await prisma.event.count();
+	const users = await prisma.user.count();
+	const feedback = await prisma.feedback.count();
+	const reports = await prisma.report.count();
 
-  const comments = JSON.parse(
-    JSON.stringify(
-      await prisma.comment.findMany({
-        orderBy: { createdAt: "desc" },
-        take: 3,
-        include: { author: true, event: true },
-      })
-    )
-  );
-  return {
-    props: {
-      count: { events, users, feedback, reports },
-      comments,
-    },
-  };
+	const comments = JSON.parse(
+		JSON.stringify(
+			await prisma.comment.findMany({
+				orderBy: { createdAt: "desc" },
+				take: 3,
+				include: { author: true, event: true },
+				where: {
+					OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+				},
+			})
+		)
+	);
+	return {
+		props: {
+			count: { events, users, feedback, reports },
+			comments,
+		},
+	};
 };
 
 const AdminIndexPage: NextPage<Props> = ({
-  count: { events, users, feedback, reports },
-  comments,
+	count: { events, users, feedback, reports },
+	comments,
 }) => {
-  const { data: session } = useSession();
-  const { user } = (session as ExtendedSession) || {};
-  return (
-    <AppLayout>
-      <AdminLayout>
-        <NextSeo title="Administration" />
-        <section className="grid w-full h-auto grid-cols-2 gap-4 px-4 mx-auto mt-6 lg:grid-cols-4 md:px-12 lg:px-0 lg:max-w-2xl xl:max-w-5xl">
-          <Header
-            text="Tableau de bord"
-            containerClassName="bg-black text-white col-span-2 md:col-span-4"
-            className="before:bg-primary"
-          />
+	const { data: session } = useSession();
+	const { user } = (session as ExtendedSession) || {};
+	return (
+		<AppLayout>
+			<AdminLayout>
+				<NextSeo title="Administration" />
+				<section className="grid w-full h-auto grid-cols-2 gap-4 px-4 mx-auto mt-6 lg:grid-cols-4 md:px-12 lg:px-0 lg:max-w-2xl xl:max-w-5xl">
+					<Header
+						text="Tableau de bord"
+						containerClassName="bg-black text-white col-span-2 md:col-span-4"
+						className="before:bg-primary"
+					/>
 
-          <StatCard
-            title="Utilisateurs"
-            value={users}
-            // colorClassName="bg-purple text-white"
-            href={isAdmin(user) ? "/admin/user" : undefined}
-          />
-          <StatCard
-            title="Événements"
-            value={events}
-            // colorClassName="bg-primary text-black"
-            href={isAdmin(user) ? "/admin/event" : undefined}
-          />
+					<StatCard
+						title="Utilisateurs"
+						value={users}
+						// colorClassName="bg-purple text-white"
+						href={isAdmin(user) ? "/admin/user" : undefined}
+					/>
+					<StatCard
+						title="Événements"
+						value={events}
+						// colorClassName="bg-primary text-black"
+						href={isAdmin(user) ? "/admin/event" : undefined}
+					/>
 
-          <StatCard
-            title="Feedback"
-            value={feedback}
-            // colorClassName="bg-green text-white"
-            href={isAdmin(user) ? "/admin/feedback" : undefined}
-          />
-          <StatCard
-            title="Signalements"
-            value={reports}
-            // colorClassName="bg-pink text-white"
-            href={isAdmin(user) ? "/admin/report" : undefined}
-          />
-          <div className="flex flex-col w-full col-span-2 p-3 border border-black border-dashed gap-y-2 md:col-span-4">
-            <h2 className="mb-3 text-xl font-bold">Derniers commentaires</h2>
-            {comments.map((comment) => (
-              <CommentFeedItem key={comment.id} {...comment} />
-            ))}
-          </div>
-        </section>
-      </AdminLayout>
-    </AppLayout>
-  );
+					<StatCard
+						title="Feedback"
+						value={feedback}
+						// colorClassName="bg-green text-white"
+						href={isAdmin(user) ? "/admin/feedback" : undefined}
+					/>
+					<StatCard
+						title="Signalements"
+						value={reports}
+						// colorClassName="bg-pink text-white"
+						href={isAdmin(user) ? "/admin/report" : undefined}
+					/>
+					<div className="flex flex-col w-full col-span-2 p-3 border border-black border-dashed gap-y-2 md:col-span-4">
+						<h2 className="mb-3 text-xl font-bold">Derniers commentaires</h2>
+						{comments.map((comment) => (
+							<CommentFeedItem key={comment.id} {...comment} />
+						))}
+					</div>
+				</section>
+			</AdminLayout>
+		</AppLayout>
+	);
 };
 
 export default AdminIndexPage;

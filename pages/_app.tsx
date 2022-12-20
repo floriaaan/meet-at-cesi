@@ -15,62 +15,62 @@ import "@/styles/nprogress.css";
 import { ExtendedSession } from "@/types/Session";
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { session } = pageProps as {
-    session: ExtendedSession | null | undefined;
-  };
-  const [url, setUrl] = useState<undefined | string>(undefined);
-  const router = useRouter();
+	const { session } = pageProps as {
+		session: ExtendedSession | null | undefined;
+	};
+	const [url, setUrl] = useState<undefined | string>(undefined);
+	const router = useRouter();
 
-  useEffect(() => {
-    const hostname = window.location.hostname;
-    if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
-    else if (hostname.includes("dev"))
-      setUrl(hostname.split(".")[0] + router.pathname);
-  }, [router.pathname]);
+	useEffect(() => {
+		const hostname = window.location.hostname;
+		if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
+		else if (hostname.includes("dev"))
+			setUrl(hostname.split(".")[0] + router.pathname);
+	}, [router.pathname]);
 
-  return (
-    <SessionProvider session={session}>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
-        />
-      </Head>
-      <DefaultSeo
-        defaultTitle={process.env.NEXT_PUBLIC_APP_NAME}
-        titleTemplate={url || `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`}
-        description={`${process.env.NEXT_PUBLIC_APP_NAME} est une application web qui permet de créer des événements et de les partager avec ses amis.`}
-        openGraph={{
-          type: "website",
-          locale: "fr_FR",
-          site_name: process.env.NEXT_PUBLIC_APP_NAME,
-        }}
-        twitter={{
-          handle: "@floriaaan",
-          cardType: "summary_large_image",
-        }}
-      />
-      <Wrapper>
-        <Component {...pageProps} />
-      </Wrapper>
-      <Toaster />
-      <Analytics />
-    </SessionProvider>
-  );
+	return (
+		<SessionProvider session={session}>
+			<Head>
+				<meta
+					name="viewport"
+					content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+				/>
+			</Head>
+			<DefaultSeo
+				defaultTitle={process.env.NEXT_PUBLIC_APP_NAME}
+				titleTemplate={url || `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`}
+				description={`${process.env.NEXT_PUBLIC_APP_NAME} est une application web qui permet de créer des événements et de les partager avec ses amis.`}
+				openGraph={{
+					type: "website",
+					locale: "fr_FR",
+					site_name: process.env.NEXT_PUBLIC_APP_NAME,
+				}}
+				twitter={{
+					handle: "@floriaaan",
+					cardType: "summary_large_image",
+				}}
+			/>
+			<Wrapper>
+				<Component {...pageProps} />
+			</Wrapper>
+			<Toaster />
+			<Analytics />
+		</SessionProvider>
+	);
 };
 
 export default App;
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
-  const { status } = useSession();
+	const { status } = useSession();
 
-  if (status !== "authenticated") return <>{children}</>;
+	if (status !== "authenticated") return <>{children}</>;
 
-  return (
-    <>
-      <ReportProvider>{children}</ReportProvider>
-      <PreferencesPopup />
-      <FeedbackWrapper />
-    </>
-  );
+	return (
+		<>
+			<ReportProvider>{children}</ReportProvider>
+			<PreferencesPopup />
+			<FeedbackWrapper />
+		</>
+	);
 };

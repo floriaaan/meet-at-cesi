@@ -13,157 +13,157 @@ import { preferencesList } from "@/resources/preferences-list";
 import { PreferencePrivacy } from "@prisma/client";
 
 const PreferencesSchema = Yup.object().shape({
-  promotion: Yup.string(),
-  campus: Yup.string(),
-  promotionYear: Yup.string(),
-  privacy: Yup.string().oneOf(Object.values(PreferencePrivacy)),
+	promotion: Yup.string(),
+	campus: Yup.string(),
+	promotionYear: Yup.string(),
+	privacy: Yup.string().oneOf(Object.values(PreferencePrivacy)),
 });
 
 export type PreferencesFormValues = Yup.InferType<typeof PreferencesSchema>;
 const initialFormValues: PreferencesFormValues = {
-  promotion: "",
-  promotionYear: "",
-  campus: "",
-  privacy: "public",
+	promotion: "",
+	promotionYear: "",
+	campus: "",
+	privacy: "public",
 } as unknown as PreferencesFormValues;
 
 const DEFAULT_SELECT = {
-  value: "",
-  label: "------",
+	value: "",
+	label: "------",
 };
 
 type Props = {
-  labelClassName?: string;
-  initialValues?: PreferencesFormValues;
-  onSubmit: (
-    values: PreferencesFormValues
-  ) => Promise<{ user: ExtendedUser } | false>;
-  optionalButton?: JSX.Element;
-  submitClassName?: string;
+	labelClassName?: string;
+	initialValues?: PreferencesFormValues;
+	onSubmit: (
+		values: PreferencesFormValues
+	) => Promise<{ user: ExtendedUser } | false>;
+	optionalButton?: JSX.Element;
+	submitClassName?: string;
 };
 
 export const PreferencesForm = ({
-  labelClassName,
-  initialValues = initialFormValues,
-  onSubmit,
-  optionalButton,
-  submitClassName,
+	labelClassName,
+	initialValues = initialFormValues,
+	onSubmit,
+	optionalButton,
+	submitClassName,
 }: Props) => {
-  const [, setCookie] = useCookies([
-    "meet-preferences",
-    "meet-preferences_dismissed",
-  ]);
-  const [disabled, setDisabled] = useState(false);
+	const [, setCookie] = useCookies([
+		"meet-preferences",
+		"meet-preferences_dismissed",
+	]);
+	const [disabled, setDisabled] = useState(false);
 
-  const handleOnSubmit = async (values: PreferencesFormValues) => {
-    let toastId: string | undefined;
-    try {
-      setDisabled(true);
-      toastId = toast.loading("Modification en cours...", toastStyle);
-      // Submit data
-      if (typeof onSubmit === "function") {
-        onSubmit(values).then((result) => {
-          if (result && !(result instanceof Error)) {
-            if (result.user.preferences) {
-              toast.success("Modification réussie 🥸", { id: toastId });
-              setCookie("meet-preferences", result.user.preferences, {
-                path: "/",
-                maxAge: 60 * 60 * 24 * 365,
-              });
-              setCookie("meet-preferences_dismissed", "true", { path: "/" });
-            } else {
-              toast.success("Suppression réussie 🥸", { id: toastId });
-              setCookie("meet-preferences", undefined, { path: "/" });
-              setCookie("meet-preferences_dismissed", "false", { path: "/" });
-            }
-          } else
-            toast.error("Erreur lors de la modification 😭", { id: toastId });
+	const handleOnSubmit = async (values: PreferencesFormValues) => {
+		let toastId: string | undefined;
+		try {
+			setDisabled(true);
+			toastId = toast.loading("Modification en cours...", toastStyle);
+			// Submit data
+			if (typeof onSubmit === "function") {
+				onSubmit(values).then((result) => {
+					if (result && !(result instanceof Error)) {
+						if (result.user.preferences) {
+							toast.success("Modification réussie 🥸", { id: toastId });
+							setCookie("meet-preferences", result.user.preferences, {
+								path: "/",
+								maxAge: 60 * 60 * 24 * 365,
+							});
+							setCookie("meet-preferences_dismissed", "true", { path: "/" });
+						} else {
+							toast.success("Suppression réussie 🥸", { id: toastId });
+							setCookie("meet-preferences", undefined, { path: "/" });
+							setCookie("meet-preferences_dismissed", "false", { path: "/" });
+						}
+					} else
+						toast.error("Erreur lors de la modification 😭", { id: toastId });
 
-          setDisabled(false);
-        });
-      }
-      // Redirect user
-      //   if (redirectPath) {
-      //     router.push(redirectPath);
-      //   }
-    } catch (e) {
-      console.error(e);
-      toast.error("Unable to submit", { id: toastId });
-      setDisabled(false);
-    }
-  };
+					setDisabled(false);
+				});
+			}
+			// Redirect user
+			//   if (redirectPath) {
+			//     router.push(redirectPath);
+			//   }
+		} catch (e) {
+			console.error(e);
+			toast.error("Unable to submit", { id: toastId });
+			setDisabled(false);
+		}
+	};
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={PreferencesSchema}
-      onSubmit={handleOnSubmit}
-    >
-      {({ isSubmitting, isValid }) => (
-        <Form className="flex flex-col w-full gap-y-1">
-          <div className="flex flex-col w-full gap-2 lg:flex-row">
-            <Select
-              name="promotion"
-              label="Ma promotion"
-              labelClassName={labelClassName}
-              options={[
-                DEFAULT_SELECT,
-                ...audienceList.filter((a) => a.value !== "everyone"),
-              ]}
-              disabled={disabled}
-              className="w-full lg:w-3/4"
-              canHaveError={false}
-            />
-            <Select
-              name="promotionYear"
-              label="Année"
-              labelClassName={labelClassName}
-              options={[DEFAULT_SELECT, ...yearsList]}
-              disabled={disabled}
-              className="w-full lg:w-1/4"
-              canHaveError={false}
-            />
-          </div>
-          <Select
-            name="campus"
-            label="Mon campus"
-            labelClassName={labelClassName}
-            options={[
-              {
-                value: "",
-                label: "Sélectionner un campus",
-              },
-              ...campusList,
-            ]}
-            disabled={disabled}
-            className="w-full"
-            canHaveError={false}
-          />
-          <Select
-            name="privacy"
-            label="Confidentialité"
-            labelClassName={labelClassName}
-            options={preferencesList}
-            disabled={disabled}
-            className="w-full"
-            canHaveError={false}
-          />
+	return (
+		<Formik
+			initialValues={initialValues}
+			validationSchema={PreferencesSchema}
+			onSubmit={handleOnSubmit}
+		>
+			{({ isSubmitting, isValid }) => (
+				<Form className="flex flex-col w-full gap-y-1">
+					<div className="flex flex-col w-full gap-2 lg:flex-row">
+						<Select
+							name="promotion"
+							label="Ma promotion"
+							labelClassName={labelClassName}
+							options={[
+								DEFAULT_SELECT,
+								...audienceList.filter((a) => a.value !== "everyone"),
+							]}
+							disabled={disabled}
+							className="w-full lg:w-3/4"
+							canHaveError={false}
+						/>
+						<Select
+							name="promotionYear"
+							label="Année"
+							labelClassName={labelClassName}
+							options={[DEFAULT_SELECT, ...yearsList]}
+							disabled={disabled}
+							className="w-full lg:w-1/4"
+							canHaveError={false}
+						/>
+					</div>
+					<Select
+						name="campus"
+						label="Mon campus"
+						labelClassName={labelClassName}
+						options={[
+							{
+								value: "",
+								label: "Sélectionner un campus",
+							},
+							...campusList,
+						]}
+						disabled={disabled}
+						className="w-full"
+						canHaveError={false}
+					/>
+					<Select
+						name="privacy"
+						label="Confidentialité"
+						labelClassName={labelClassName}
+						options={preferencesList}
+						disabled={disabled}
+						className="w-full"
+						canHaveError={false}
+					/>
 
-          <div className="flex flex-col justify-end gap-1 mt-2">
-            {optionalButton}
-            <button
-              type="submit"
-              //   disabled={disabled || !isValid}
-              className={
-                submitClassName ||
-                "border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"
-              }
-            >
-              {isSubmitting ? "Envoi en cours..." : "Modifier"}
-            </button>
-          </div>
-        </Form>
-      )}
-    </Formik>
-  );
+					<div className="flex flex-col justify-end gap-1 mt-2">
+						{optionalButton}
+						<button
+							type="submit"
+							//   disabled={disabled || !isValid}
+							className={
+								submitClassName ||
+								"border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"
+							}
+						>
+							{isSubmitting ? "Envoi en cours..." : "Modifier"}
+						</button>
+					</div>
+				</Form>
+			)}
+		</Formik>
+	);
 };
