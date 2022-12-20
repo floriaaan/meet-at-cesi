@@ -10,7 +10,7 @@ import { ExtendedSession } from "@/types/Session";
 import { isAdmin } from "@/lib/role";
 import { ExtendedReport } from "@/types/Report";
 import { ReportTableItem } from "@/components/Admin/CustomTable/Report/Item";
-import { ReportObject } from "@prisma/client";
+import { ReportObject, ReportStatus } from "@prisma/client";
 
 type Props = {
 	reports: ExtendedReport[];
@@ -65,21 +65,29 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-	reports = reports.map((report) => {
-		if (report.object === ReportObject.EVENT) {
-			const event = events.find((e) => e.id === report.objectId);
-			return { ...report, related: event };
-		}
-		if (report.object === ReportObject.COMMENT) {
-			const comment = comments.find((c) => c.id === report.objectId);
-			return { ...report, related: comment };
-		}
-		if (report.object === ReportObject.USER) {
-			const user = users.find((u) => u.id === report.objectId);
-			return { ...report, related: user };
-		}
-		return report;
-	});
+	reports = reports
+		.map((report) => {
+			if (report.object === ReportObject.EVENT) {
+				const event = events.find((e) => e.id === report.objectId);
+				return { ...report, related: event };
+			}
+			if (report.object === ReportObject.COMMENT) {
+				const comment = comments.find((c) => c.id === report.objectId);
+				return { ...report, related: comment };
+			}
+			if (report.object === ReportObject.USER) {
+				const user = users.find((u) => u.id === report.objectId);
+				return { ...report, related: user };
+			}
+			return report;
+		})
+		.sort((a, b) => {
+			const isAPending = a.status === ReportStatus.PENDING;
+			const isBPending = b.status === ReportStatus.PENDING;
+			if (isAPending && !isBPending) return -1;
+			if (!isAPending && isBPending) return 1;
+			return 0;
+		});
 
 	return {
 		props: { reports: JSON.parse(JSON.stringify(reports)) },

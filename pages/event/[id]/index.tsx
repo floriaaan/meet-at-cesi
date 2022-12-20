@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 
 import type { ExtendedEvent } from "@/types/Event";
@@ -17,6 +17,8 @@ import { CommentSection } from "@/components/Event/Comment/Section";
 import { Header } from "@/components/UI/Header";
 import Link from "next/link";
 import { MdArrowRightAlt } from "react-icons/md";
+import { ExtendedSession } from "@/types/Session";
+import { isAdmin } from "@/lib/role";
 
 type Props = {
 	event: ExtendedEvent;
@@ -25,10 +27,15 @@ type Props = {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { id } = context.params as { id: string };
+	const session = (await getSession(context)) as ExtendedSession;
+	const { user } = session || {};
 
-	let event = await prisma.event.findUnique({
+	let event = await prisma.event.findFirst({
 		where: {
 			id,
+			...(isAdmin(user)
+				? { OR: [{ deletedAt: null }, { deletedAt: { not: null } }] }
+				: {}),
 		},
 		include: {
 			creator: true,
@@ -52,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const EventPage: NextPage<Props> = (props) => {
 	const { data: session } = useSession();
+	const { user } = (session as ExtendedSession) || {};
 	const {
 		creator,
 		participants: initialParticipants,
@@ -62,19 +70,18 @@ const EventPage: NextPage<Props> = (props) => {
 		location,
 		date,
 		comments: initialComments,
+		deletedAt,
 	} = props.event;
 	const [participants, setParticipants] = useState(initialParticipants);
-	const isParticipant = participants.some(
-		(p) => p.email === session?.user?.email
-	);
-	const isOwner = creator.email === session?.user?.email;
+	const isParticipant = participants.some((p) => p.email === user?.email);
+	const isOwner = creator.email === user?.email;
 
 	const handleParticipate = async () => {
 		let toastId: string | undefined;
 		try {
 			toastId = toast.loading(
 				isParticipant ? "Désinscription en cours..." : "Inscription en cours",
-				toastStyle
+				toastStyle,
 			);
 			participate(id).then((result) => {
 				if (result) {
@@ -82,7 +89,7 @@ const EventPage: NextPage<Props> = (props) => {
 						isParticipant
 							? "Participation retirée 😔"
 							: "Participation réussie 😍",
-						{ id: toastId }
+						{ id: toastId },
 					);
 					setParticipants(result.participants);
 				} else
@@ -99,6 +106,20 @@ const EventPage: NextPage<Props> = (props) => {
 	return (
 		<AppLayout>
 			<NextSeo title={title} />
+			{deletedAt && user ? (
+				<div className="inline-flex items-center justify-center w-full h-8 text-xs text-white gap-x-2 bg-red">
+					{"L'élément a été désactivé par un administrateur"}
+					{isAdmin(user) ? (
+						<Link
+							className="inline-flex items-center font-bold underline gap-x-1"
+							href={`/admin/event?id=${id}`}
+						>
+							Restaurer
+							<MdArrowRightAlt />
+						</Link>
+					) : null}
+				</div>
+			) : null}
 			<section className="flex flex-col items-start w-full h-full px-4 pt-6 mx-auto md:px-12 lg:px-0 lg:max-w-5xl xl:max-w-6xl gap-y-4">
 				<HeroSection
 					id={id}

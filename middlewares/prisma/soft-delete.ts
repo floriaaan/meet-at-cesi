@@ -43,21 +43,14 @@ export const softDelete: Prisma.Middleware<any> = async (params, next) => {
 	if (action === "findFirst" || action === "findUnique") {
 		switch (model) {
 			case "Comment":
-				// Change to findFirst - you cannot filter
-				// by anything except ID / unique with findUnique
-				params.action = "findFirst";
-				// Add 'deleted' filter
-				// ID filter maintained
-				params.args.where["deletedAt"] = null;
+				params = mutateFindFirstParams(params);
 				break;
 			case "Event":
-				params.action = "findFirst";
-				params.args.where["deletedAt"] = null;
+				params = mutateFindFirstParams(params);
 				break;
 
 			case "User":
-				params.action = "findFirst";
-				params.args.where["deletedAt"] = null;
+				params = mutateFindFirstParams(params);
 				break;
 
 			default:
@@ -67,15 +60,15 @@ export const softDelete: Prisma.Middleware<any> = async (params, next) => {
 	if (params.action === "findMany") {
 		switch (model) {
 			case "Comment":
-				params = mutateParams(params);
+				params = mutateFindManyParams(params);
 				break;
 
 			case "Event":
-				params = mutateParams(params);
+				params = mutateFindManyParams(params);
 				break;
 
 			case "User":
-				params = mutateParams(params);
+				params = mutateFindManyParams(params);
 				break;
 
 			default:
@@ -114,7 +107,20 @@ const softDeleteUser = async ({
 	});
 };
 
-const mutateParams = (
+const mutateFindFirstParams = (
+	params: Prisma.MiddlewareParams,
+): Prisma.MiddlewareParams => {
+	// Change to findFirst - you cannot filter
+	// by anything except ID / unique with findUnique
+	params.action = "findFirst";
+	if (params.args.where.OR) return params;
+	// Add 'deleted' filter
+	// ID filter maintained
+	params.args.where["deletedAt"] = null;
+	return params;
+};
+
+const mutateFindManyParams = (
 	params: Prisma.MiddlewareParams,
 ): Prisma.MiddlewareParams => {
 	if (params.args.where) {

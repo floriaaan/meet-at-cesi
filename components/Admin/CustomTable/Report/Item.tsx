@@ -10,7 +10,14 @@ import {
 	reportReasonList,
 	reportStatusList,
 } from "@/resources/report-list";
-import { Comment, Event, ReportObject, User } from "@prisma/client";
+import {
+	Comment,
+	Event,
+	ReportObject,
+	ReportStatus,
+	User,
+} from "@prisma/client";
+import classNames from "classnames";
 
 export const ReportTableItem = (props: ExtendedReport) => {
 	const router = useRouter();
@@ -40,7 +47,10 @@ export const ReportTableItem = (props: ExtendedReport) => {
 	return (
 		<>
 			<tr
-				className="w-full text-black bg-white cursor-pointer hover:bg-neutral-100"
+				className={classNames(
+					"w-full text-black bg-white cursor-pointer hover:bg-neutral-100",
+					{ "opacity-50": status !== ReportStatus.PENDING },
+				)}
 				onClick={openModal}
 			>
 				<td className="px-6 py-4">

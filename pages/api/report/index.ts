@@ -17,7 +17,7 @@ import { isAdmin, isModerator } from "@/lib/role";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
 	const session = await getSessionOrThrow(req);
@@ -35,7 +35,7 @@ export default async function handler(
 
 const getReportSubject = async (
 	objectId: string,
-	objectType: ReportCreateRequestInput["object"]
+	objectType: ReportCreateRequestInput["object"],
 ) => {
 	let object: Event | Comment | User | null = null;
 	let blamedUserId: string | null = null;
@@ -59,7 +59,7 @@ const getReportSubject = async (
 const POST = async (
 	req: NextApiRequest,
 	res: NextApiResponse,
-	session: SessionWithEmail
+	session: SessionWithEmail,
 ) => {
 	try {
 		const user = await getUserOrThrow(session, { select: { id: true } });
@@ -73,7 +73,7 @@ const POST = async (
 
 		const { object, blamedUserId } = await getReportSubject(
 			objectId,
-			objectType
+			objectType,
 		);
 
 		const report = await prisma.report.create({
@@ -99,7 +99,7 @@ const POST = async (
 const PUT = async (
 	req: NextApiRequest,
 	res: NextApiResponse,
-	session: SessionWithEmail
+	session: SessionWithEmail,
 ) => {
 	try {
 		const { reportId, status } = req.body as ReportActionRequestInput;
@@ -107,7 +107,11 @@ const PUT = async (
 		if (!status || !Object.values(ReportStatus).includes(status))
 			throw new Error("Missing report status.");
 
-		const { id } = await getReportOrThrow(reportId);
+		const {
+			id,
+			objectId,
+			object: objectType,
+		} = await getReportOrThrow(reportId);
 		const user = await getUserOrThrow(session, { select: { role: true } });
 		if (!isModerator(user) && !isAdmin(user)) throw new Error("Unauthorized.");
 
@@ -120,7 +124,16 @@ const PUT = async (
 				});
 				break;
 			case ReportStatus.ACCEPTED:
-				//TODO: soft delete the object
+				const { object } = await getReportSubject(
+					objectId as string,
+					objectType,
+				);
+				if (objectType === "COMMENT")
+					await prisma.comment.delete({ where: { id: object.id } });
+				if (objectType === "EVENT")
+					await prisma.event.delete({ where: { id: object.id } });
+				if (objectType === "USER")
+					await prisma.user.delete({ where: { id: object.id } });
 
 				result = await prisma.report.update({
 					where: { id },
