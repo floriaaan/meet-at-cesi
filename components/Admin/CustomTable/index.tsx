@@ -1,6 +1,7 @@
 import { usePagination } from "@/hooks/usePagination";
 import classNames from "classnames";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { ReactNode } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
@@ -8,10 +9,18 @@ export type Pagination = {
 	initialPage: number;
 	pageSize: number;
 };
+
+export type Column =
+	| {
+			label: string;
+			props?: Partial<JSX.IntrinsicElements["th"]>;
+	  }
+	| string;
+
 export type CustomTableProps = {
 	title: string;
 	items: any[];
-	columns: string[];
+	columns: Column[];
 	renderItem: (item: any) => ReactNode;
 
 	pagination?: Pagination;
@@ -89,17 +98,34 @@ const CustomTable = ({
 				) : null}
 			</div>
 			<div className="border-t border-black border-dashed">
-				<table className="block w-full overflow-x-auto md:table whitespace-nowrap">
+				<table className="block w-full overflow-x-auto xl:table whitespace-nowrap">
 					<thead className={classNames("px-4 py-5 bg-neutral-50 md:px-6")}>
 						<tr>
-							{columns.map((column) => (
-								<td
-									key={column}
-									className="p-4 text-sm font-medium text-left text-neutral-500"
-								>
-									{column}
-								</td>
-							))}
+							{columns.map((column) => {
+								if (typeof column === "object") {
+									return (
+										<th
+											key={column.label}
+											{...column.props}
+											className={classNames(
+												"p-4 text-sm font-medium text-left text-neutral-500",
+												column.props?.className,
+											)}
+										>
+											{column.label}
+											
+										</th>
+									);
+								}
+								return (
+									<td
+										key={column}
+										className="p-4 text-sm font-medium text-left text-neutral-500"
+									>
+										{column}
+									</td>
+								);
+							})}
 						</tr>
 					</thead>
 					<tbody className="w-full">

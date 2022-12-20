@@ -110,7 +110,13 @@ const AdminReportPage: NextPage<Props> = ({ reports }) => {
 							"Utilisateur signalé",
 							"Type",
 							"Créé le",
-							"Statut",
+							{
+								label: "Statut",
+								props: {
+									"aria-sort": "ascending",
+									className:"aria-[sort=ascending]:bg-[url('/img/sort-arrow.svg')]"
+								},
+							},
 						]}
 						renderItem={renderReport}
 						pagination={{

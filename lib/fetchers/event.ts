@@ -99,3 +99,14 @@ export const getPlaceSuggestions = async (query: string) => {
 	if (res.ok) return predictions;
 	return [];
 };
+
+
+export const restoreEvent = async (id: string): Promise<true | false> => {
+	const response = await fetch(`/api/admin/event/restore`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ id }),
+	});
+	if (response.ok) return true;
+	return false;
+};

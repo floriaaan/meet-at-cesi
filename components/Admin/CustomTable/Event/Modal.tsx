@@ -18,15 +18,20 @@ import { UserListItem } from "@/components/User/ListItem";
 import { Chip } from "@/components/UI/Chip";
 import { CommentFeedItem } from "@/components/Event/Comment/FeedItem";
 import { ExtendedSession } from "@/types/Session";
+import { restoreEvent } from "@/lib/fetchers/event";
+import { toast } from "react-hot-toast";
+import toastStyle from "@/resources/toast.config";
 
 type EventTableModalProps = ExtendedEvent & {
 	isModalOpen: boolean;
 	closeModal: () => void;
+	setDeletedAt: (deletedAt: null) => void;
 };
 
 export const EventTableModal = ({
 	isModalOpen,
 	closeModal,
+	setDeletedAt,
 	...event
 }: EventTableModalProps) => {
 	const {
@@ -140,18 +145,41 @@ export const EventTableModal = ({
 					)}
 				</div>
 
-				<div className="flex flex-col items-center w-full gap-2 md:justify-end md:flex-row md:col-span-2">
-					{user?.role === "ADMIN" ? (
-						<Link
-							href={`/event/${event.id}/edit`}
-							className="border-0 md:w-fit btn-black"
-						>
-							Modifier
-						</Link>
-					) : null}
+				<div className="flex flex-col items-center w-full gap-2 md:justify-between md:flex-row md:col-span-2">
+					<div className="inline-flex items-center gap-2">
+						{user?.role === "ADMIN" ? (
+							<Link
+								href={`/event/${event.id}/edit`}
+								className="border-0 md:w-fit btn-black"
+							>
+								Modifier
+							</Link>
+						) : null}
+						{user?.role === "ADMIN" && event.deletedAt !== null ? (
+							<button
+								onClick={async () => {
+									let toastId = toast.loading(
+										"Restauration en cours...",
+										toastStyle,
+									);
+									const result = await restoreEvent(event.id);
+									if (result) {
+										toast.success("Restauration réussie", { id: toastId });
+										setDeletedAt(null);
+									} else {
+										toast.error("Restauration échouée", { id: toastId });
+									}
+								}}
+								className="border-0 md:w-fit btn-black"
+							>
+								Restaurer
+							</button>
+						) : null}
+					</div>
+
 					<Link
 						href={`/event/${event.id}`}
-						className="border-0 md:w-48 btn-black"
+						className="border-0 md:w-fit btn-black"
 					>
 						Aller
 					</Link>
