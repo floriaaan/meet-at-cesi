@@ -1,0 +1,794 @@
+[
+	{
+		"value": "everyone",
+		"label": "Tout le monde",
+		"niveau": "Tout",
+		"domaine": "Tout"
+	},
+	{
+		"value": "developpeurse-web-sous-statut-etudiant",
+		"label": "Développeur·se web sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "developpeurse-web-en-apprentissage",
+		"label": "Développeur·se web en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "technicienne-performance-industrielle-en-apprentissage",
+		"label": "Technicien·ne performance industrielle en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "technicienne-systemes-et-reseaux-sous-statut-etudiant",
+		"label": "Technicien·ne systèmes et réseaux sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "responsable-de-chantier-batiment-et-travaux-publics-sous-statut-etudiant",
+		"label": "Responsable de chantier – Bâtiment et travaux publics sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "gestionnaire-en-maintenance-et-support-informatique-sous-statut-etudiant",
+		"label": "Gestionnaire en maintenance et support informatique sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "animateurtrice-qualite-securite-environnement-sous-statut-etudiant",
+		"label": "Animateur·trice qualité sécurité environnement sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "technicienne-performance-industrielle-sous-statut-etudiant",
+		"label": "Technicien·ne performance industrielle sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "assistante-ressources-humaines-sous-statut-etudiant",
+		"label": "Assistant·e Ressources Humaines sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "developpeurse-informatique-sous-statut-etudiant",
+		"label": "Développeur·se informatique sous statut étudiant",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "assistante-ressources-humaines-en-apprentissage",
+		"label": "Assistant·e Ressources Humaines en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "developpeurse-informatique-en-apprentissage",
+		"label": "Développeur·se informatique en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "gestionnaire-en-maintenance-et-support-informatique-en-apprentissage",
+		"label": "Gestionnaire en maintenance et support informatique en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "animateurtrice-qualite-securite-environnement-en-apprentissage",
+		"label": "Animateur·trice qualité sécurité environnement en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "technicienne-systemes-et-reseaux-en-apprentissage",
+		"label": "Technicien·ne systèmes et réseaux en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "responsable-de-chantier-batiment-et-travaux-publics-en-apprentissage",
+		"label": "Responsable de chantier – Bâtiment et travaux publics en apprentissage",
+		"niveau": "BAC+2",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-developpeurse-web",
+		"label": "VAE avec accompagnement Développeur·se web",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-technicienne-systemes-et-reseaux",
+		"label": "VAE avec accompagnement Technicien·ne systèmes et réseaux",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-responsable-de-chantier-batiment-et-travaux-publics",
+		"label": "VAE avec accompagnement Responsable de chantier bâtiment et travaux publics",
+		"niveau": "BAC+2",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-gestionnaire-en-maintenance-et-support-informatique",
+		"label": "VAE avec accompagnement Gestionnaire en maintenance et support informatique",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-developpeurse-informatique",
+		"label": "VAE avec accompagnement Développeur·se informatique",
+		"niveau": "BAC+2",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-animateurtrice-qualite-securite-environnement",
+		"label": "VAE avec accompagnement Animateur·trice qualité sécurité environnement",
+		"niveau": "BAC+2",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-technicienne-performance-industrielle",
+		"label": "VAE avec accompagnement Technicien·ne performance industrielle",
+		"niveau": "BAC+2",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-manager-de-proximite",
+		"label": "VAE avec accompagnement Manager de proximité",
+		"niveau": "BAC+2",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "vae-avec-accompagnement-assistante-ressources-humaines",
+		"label": "VAE avec accompagnement Assistant·e Ressources Humaines",
+		"niveau": "BAC+2",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "bachelor-en-sciences-et-ingenierie-ia-pour-la-sante-en-apprentissage",
+		"label": "Bachelor en sciences et ingénierie – IA pour la santé en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-en-sciences-et-ingenierie-specialite-maintenance-data-apprentissage",
+		"label": "Bachelor en sciences et ingénierie spécialité maintenance & data apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "bachelor-en-sciences-et-ingenierie-informatique-ia-en-apprentissage",
+		"label": "Bachelor en sciences et ingénierie informatique – IA en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-en-sciences-et-en-ingenierie-specialite-btp-bim-en-apprentissage",
+		"label": "Bachelor en sciences et en ingénierie spécialité BTP (BIM) en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "bachelor-passerelle-ingenieure-transition-numerique",
+		"label": "Bachelor passerelle ingénieur·e – Transition Numérique",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-passerelle-ingenieure-transition-ecologique",
+		"label": "Bachelor passerelle ingénieur·e – Transition Écologique",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "bachelor-chargee-des-ressources-humaines-en-apprentissage",
+		"label": "Bachelor Chargé·e des Ressources Humaines en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "bachelor-concepteurtrice-developpeurse-dapplications-en-apprentissage",
+		"label": "Bachelor Concepteur·trice développeur·se d’applications en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-administrateurtrice-systemes-et-reseaux-en-apprentissage",
+		"label": "Bachelor Administrateur·trice systèmes et réseaux en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-cheffe-de-projet-digital-en-apprentissage",
+		"label": "Bachelor Chef·fe de projet digital en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-chargee-daffaires-btp-en-apprentissage",
+		"label": "Bachelor Chargé·e d’affaires BTP en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "bachelor-responsable-qualite-securite-environnement-en-apprentissage",
+		"label": "Bachelor Responsable qualité sécurité environnement en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "bachelor-responsable-performance-industrielle-en-apprentissage",
+		"label": "Bachelor Responsable performance industrielle en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "bachelor-cheffe-de-projet-informatique-en-apprentissage",
+		"label": "Bachelor Chef·fe de projet informatique en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-responsable-formation-en-apprentissage",
+		"label": "Bachelor Responsable formation en apprentissage",
+		"niveau": "BAC+3",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "bachelor-passerelle-ingenieure-transition-numerique",
+		"label": "Bachelor passerelle ingénieur·e – Transition Numérique",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "bachelor-passerelle-ingenieure-transition-ecologique",
+		"label": "Bachelor passerelle ingénieur·e – Transition Écologique",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-cheffe-de-projet-en-informatique",
+		"label": "VAE avec accompagnement Chef·fe de projet en informatique",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-responsable-formation-et-developpement-des-competences",
+		"label": "VAE avec accompagnement Responsable formation et développement des compétences",
+		"niveau": "BAC+3",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "vae-avec-accompagnement-responsable-ressources-humaines",
+		"label": "VAE avec accompagnement Responsable Ressources Humaines",
+		"niveau": "BAC+3",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "vae-avec-accompagnement-concepteurtrice-developpeurse-dapplications",
+		"label": "VAE avec accompagnement Concepteur·trice développeur·se d’applications",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-administrateurtrice-systemes-et-reseaux",
+		"label": "VAE avec accompagnement Administrateur·trice systèmes et réseaux",
+		"niveau": "BAC+3",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-chargee-daffaires-btp",
+		"label": "VAE avec accompagnement Chargé·e d’affaires BTP",
+		"niveau": "BAC+3",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-responsable-performance-industrielle",
+		"label": "VAE avec accompagnement Responsable performance industrielle",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-responsable-qualite-securite-environnement",
+		"label": "VAE avec accompagnement Responsable qualité sécurité environnement",
+		"niveau": "BAC+3",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-responsable-en-management-dunite-et-de-projet",
+		"label": "VAE avec accompagnement Responsable en management d’unité et de projet",
+		"niveau": "BAC+4",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "cycle-ingenieur-informatique-en-apprentissage",
+		"label": "Cycle Ingénieur – Informatique – en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "cycle-ingenieur-systemes-embarques-en-apprentissage",
+		"label": "Cycle Ingénieur – Systèmes Embarqués en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "ingenieure-specialite-informatique-sous-statut-etudiant",
+		"label": "Ingénieur·e spécialité informatique sous statut étudiant",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "cycle-ingenieur-btp-en-apprentissage",
+		"label": "Cycle Ingénieur – BTP – en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "ingenieure-generaliste-sous-statut-etudiant",
+		"label": "Ingénieur·e généraliste sous statut étudiant",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "cycle-ingenieur-generaliste-en-apprentissage",
+		"label": "Cycle Ingénieur – Généraliste – en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "manager-de-projet-web-digital-en-apprentissage",
+		"label": "Manager de projet web digital en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "manager-en-architecture-et-applications-logicielles-des-si-en-apprentissage",
+		"label": "Manager en architecture et applications logicielles des SI en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "manager-en-infrastructures-et-cybersecurite-des-si-en-apprentissage",
+		"label": "Manager en infrastructures et cybersécurité des SI en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "manager-de-direction-operationnelle-btp-en-apprentissage",
+		"label": "Manager de direction opérationnelle – BTP en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "manager-de-direction-operationnelle-marketing-digital-en-apprentissage",
+		"label": "Manager de direction opérationnelle – Marketing digital en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "manager-de-direction-operationnelle-qse-en-apprentissage",
+		"label": "Manager de direction opérationnelle – QSE en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "manager-du-developpement-des-ressources-humaines-en-apprentissage",
+		"label": "Manager du développement des Ressources Humaines en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "manager-de-direction-operationnelle-innovation-en-apprentissage",
+		"label": "Manager de direction opérationnelle – Innovation en apprentissage",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-manager-en-infrastructures-et-cybersecurite-des-si",
+		"label": "VAE avec accompagnement Manager en infrastructures et cybersécurité des SI",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-manager-en-architecture-et-applications-logicielles-si",
+		"label": "VAE avec accompagnement Manager en architecture et applications logicielles SI",
+		"niveau": "BAC+5",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "vae-avec-accompagnement-manager-du-developpement-des-ressources-humaines",
+		"label": "VAE avec accompagnement Manager du développement des Ressources Humaines",
+		"niveau": "BAC+5",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "vae-avec-accompagnement-ingenieure-generaliste",
+		"label": "VAE avec accompagnement ingénieur·e généraliste",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-ingenieure-specialite-systemes-embarques",
+		"label": "VAE avec accompagnement ingénieur·e spécialité systèmes embarqués",
+		"niveau": "BAC+5",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-ingenieure-specialite-btp",
+		"label": "VAE avec accompagnement ingénieur·e spécialité BTP",
+		"niveau": "BAC+5",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-erp",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – ERP",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-strategie",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Stratégie",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-amelioration-continue-excellence-operationnelle",
+		"label": "Mastère Spécialisé® Manager Amélioration Continue – Excellence Opérationnelle",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-de-la-securite-et-des-risques-industriels",
+		"label": "Mastère Spécialisé® Management de la Sécurité et des Risques Industriels",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-qualite-securite-environnement-strategie",
+		"label": "Mastère Spécialisé® Management Qualité Sécurité Environnement – Stratégie",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-la-securite-des-systemes-dinformation",
+		"label": "Mastère Spécialisé® Manager de la Sécurité des Systèmes d’Information",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-cimhs",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – CIMHS",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "double-diplome-ms-manager-de-portefeuille-de-projets-strategiedess-gp-uqo",
+		"label": "Double diplôme MS® Manager de Portefeuille de Projets – Stratégie/DESS GP UQO",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-efficacite-energetique-et-environnementale-batiment",
+		"label": "Mastère Spécialisé® Efficacité Énergétique et Environnementale – Bâtiment",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-industrial-leadership",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Industrial Leadership",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-transition-numerique",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Transition Numérique",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-innovation",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Innovation",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-business-international",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Business International",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-amelioration-continue-supply-chain",
+		"label": "Mastère Spécialisé® Manager Amélioration Continue – Supply Chain",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-amelioration-continue-maintenance",
+		"label": "Mastère Spécialisé® Manager Amélioration Continue – Maintenance",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-qualite-securite-environnement-rse",
+		"label": "Mastère Spécialisé® Management Qualité Sécurité Environnement – RSE",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialisemanagement-de-projets-de-construction",
+		"label": "VAE avec accompagnement Mastère Spécialisé®Management de Projets de Construction",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-manager-industrialisation-40",
+		"label": "Mastère Spécialisé® Manager Industrialisation 4.0",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-bim",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – BIM",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-management-sri",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Management SRI",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-management-par-projets",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Management Par Projets",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-transports-urbains",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – Transports urbains",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-manager-de-lamelioration-continue",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Manager de l’Amélioration Continue",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-construction-durable",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – Construction Durable",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-projet-international",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – Projet International",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-management-qse",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Management QSE",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-linnovation-et-du-developpement-dactivite",
+		"label": "Mastère Spécialisé® Manager de l’Innovation et du Développement d’Activité",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-efficacite-energetique-et-environnementale-industrie",
+		"label": "Mastère Spécialisé® Efficacité Énergétique et Environnementale – Industrie",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialisemanagement-de-projets-de-construction",
+		"label": "VAE avec accompagnement Mastère Spécialisé®Management de Projets de Construction",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-management-sri",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Management SRI",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-management-par-projets",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Management Par Projets",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-manager-de-lamelioration-continue",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Manager de l’Amélioration Continue",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "vae-avec-accompagnement-mastere-specialise-management-qse",
+		"label": "VAE avec accompagnement Mastère Spécialisé® Management QSE",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-erp",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – ERP",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-amelioration-continue-excellence-operationnelle",
+		"label": "Mastère Spécialisé® Manager Amélioration Continue – Excellence Opérationnelle",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-strategie",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Stratégie",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-management-de-la-securite-et-des-risques-industriels",
+		"label": "Mastère Spécialisé® Management de la Sécurité et des Risques Industriels",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-qualite-securite-environnement-strategie",
+		"label": "Mastère Spécialisé® Management Qualité Sécurité Environnement – Stratégie",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-la-securite-des-systemes-dinformation",
+		"label": "Mastère Spécialisé® Manager de la Sécurité des Systèmes d’Information",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Informatique & Numérique"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-cimhs",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – CIMHS",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "double-diplome-ms-manager-de-portefeuille-de-projets-strategiedess-gp-uqo",
+		"label": "Double diplôme MS® Manager de Portefeuille de Projets – Stratégie/DESS GP UQO",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-efficacite-energetique-et-environnementale-batiment",
+		"label": "Mastère Spécialisé® Efficacité Énergétique et Environnementale – Bâtiment",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-industrial-leadership",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Industrial Leadership",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-transition-numerique",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Transition Numérique",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-innovation",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Innovation",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-de-portefeuille-de-projets-business-international",
+		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Business International",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-manager-amelioration-continue-supply-chain",
+		"label": "Mastère Spécialisé® Manager Amélioration Continue – Supply Chain",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-amelioration-continue-maintenance",
+		"label": "Mastère Spécialisé® Manager Amélioration Continue – Maintenance",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-qualite-securite-environnement-rse",
+		"label": "Mastère Spécialisé® Management Qualité Sécurité Environnement – RSE",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-manager-industrialisation-40",
+		"label": "Mastère Spécialisé® Manager Industrialisation 4.0",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-bim",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – BIM",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-transports-urbains",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – Transports urbains",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-construction-durable",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – Construction Durable",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-management-de-projets-de-construction-projet-international",
+		"label": "Mastère Spécialisé® Management de Projets de Construction – Projet International",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Bâtiment & Travaux Publics"
+	},
+	{
+		"value": "mastere-specialise-manager-de-linnovation-et-du-developpement-dactivite",
+		"label": "Mastère Spécialisé® Manager de l’Innovation et du Développement d’Activité",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Ressources Humaines & Management"
+	},
+	{
+		"value": "mastere-specialise-efficacite-energetique-et-environnementale-industrie",
+		"label": "Mastère Spécialisé® Efficacité Énergétique et Environnementale – Industrie",
+		"niveau": "BAC+6 et plus",
+		"domaine": "Industrie"
+	},
+	{
+		"value": "cycle-preparatoire-integre-btp",
+		"label": "Cycle préparatoire intégré BTP",
+		"niveau": "Bâtiment & Travaux Publics",
+		"domaine": "2 ans"
+	},
+	{
+		"value": "cycle-preparatoire-integre-systemes-embarques",
+		"label": "Cycle préparatoire intégré systèmes embarqués",
+		"niveau": "Industrie",
+		"domaine": "2 ans"
+	},
+	{
+		"value": "cycle-preparatoire-integre-generaliste",
+		"label": "Cycle préparatoire intégré généraliste",
+		"niveau": "Industrie",
+		"domaine": "2 ans"
+	},
+	{
+		"value": "cycle-preparatoire-integre-informatique",
+		"label": "Cycle préparatoire intégré informatique",
+		"niveau": "Informatique & Numérique",
+		"domaine": "2 ans"
+	}
+]

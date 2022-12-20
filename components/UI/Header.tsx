@@ -15,9 +15,9 @@ export const Header = ({
 	textCanOverflow = false,
 }: HeaderProps) => {
 	const ref = useRef<HTMLHeadingElement>(null);
-	const [isFullTextVisible, setIsFullTextVisible] = useState(
-		(ref.current?.scrollHeight || 0) > (ref.current?.clientHeight || 1),
-	);
+	const isClamped =
+		(ref.current?.scrollHeight || 0) - 16 > (ref.current?.clientHeight || 1);
+	const [isFullTextVisible, setIsFullTextVisible] = useState(isClamped);
 	return (
 		<div
 			className={classNames(
@@ -26,7 +26,7 @@ export const Header = ({
 				!containerClassName?.includes("bg-") ? "text-black bg-primary" : "",
 			)}
 		>
-			{textCanOverflow && (
+			{textCanOverflow && isClamped && (
 				<>
 					<button
 						className="inline-flex items-center font-bold underline gap-x-1"
