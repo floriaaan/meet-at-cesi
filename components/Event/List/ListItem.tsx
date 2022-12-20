@@ -39,7 +39,7 @@ export const EventListItem = ({
 		>
 			<DateComponent date={dateObject} />
 			<div className="flex flex-col p-2 grow">
-				<h3 className="overflow-hidden text-xl font-bold text-black group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
+				<h3 className="overflow-hidden text-xl font-bold text-black line-clamp-1 group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
 					{title}
 				</h3>
 				<DetailsList

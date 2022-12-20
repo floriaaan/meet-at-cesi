@@ -17,7 +17,7 @@ import { ExtendedSession } from "@/types/Session";
 const HeroDetails = dynamic(
 	() =>
 		import("@/components/Event/Hero/Details").then((mod) => mod.HeroDetails),
-	{ ssr: false }
+	{ ssr: false },
 );
 
 export const HeroSection = ({
@@ -48,7 +48,7 @@ export const HeroSection = ({
 }) => {
 	const campusDisplay = campusList.find((c) => c.value === campus)?.label;
 	const audienceDisplay = audienceList.find(
-		(a) => a.value === audience
+		(a) => a.value === audience,
 	)?.shortLabel;
 
 	const { openReportModal } = useReport();
@@ -57,7 +57,7 @@ export const HeroSection = ({
 	const { data: session } = useSession();
 	const { user } = (session as ExtendedSession) || {};
 	return (
-		<div className="flex flex-col w-full">
+		<div className="flex flex-col w-full ">
 			<div className="inline-flex items-end justify-between w-full">
 				<div className="inline-flex items-end overflow-hidden text-white uppercase">
 					<div
@@ -65,7 +65,7 @@ export const HeroSection = ({
 							"hidden sm:inline-block", // responsive : hidden on small screens like mobile
 							"relative mb-8 ml-12 bg-black py-1 pr-4 text-sm",
 							"before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:bg-black before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
-							"after:translate-y-[100%] after:absolute after:bg-black after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] "
+							"after:translate-y-[100%] after:absolute after:bg-black after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] ",
 						)}
 					>
 						<div className="inline-flex items-start py-2 divide-x-2 divide-white gap-x-4">
@@ -76,7 +76,7 @@ export const HeroSection = ({
 									before="_"
 									className={classNames(
 										"relative -mt-1.5 -mb-1 w-min md:w-auto",
-										"before:content-[attr(before)] before:absolute before:right-[100%]"
+										"before:content-[attr(before)] before:absolute before:right-[100%]",
 									)}
 								>
 									{campusDisplay}
@@ -89,7 +89,7 @@ export const HeroSection = ({
 									before="_"
 									className={classNames(
 										"relative -mt-1.5 -mb-1 w-min xs:w-auto",
-										"before:content-[attr(before)] before:absolute before:right-[100%]"
+										"before:content-[attr(before)] before:absolute before:right-[100%]",
 									)}
 								>
 									{audienceDisplay}
@@ -145,7 +145,12 @@ export const HeroSection = ({
 			</div>
 
 			<div className="flex flex-col border-t border-black lg:flex-row">
-				<Header text={title} className="text-[2.5rem] md:text-[4rem]" />
+				<Header
+					text={title}
+					className="text-[2.5rem] md:text-[4rem]"
+					containerClassName="lg:grow"
+					textCanOverflow
+				/>
 				<HeroDetails
 					event={
 						{
@@ -156,11 +161,6 @@ export const HeroSection = ({
 							date,
 							location,
 							id,
-							// participants,
-							// coordinates,
-							// createdAt,
-							// creatorId,
-							// updatedAt,
 						} as ExtendedEvent
 					}
 				/>

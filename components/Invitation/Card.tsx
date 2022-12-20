@@ -147,7 +147,7 @@ export const InvitationCard = ({
 					<h4 className="text-sm font-bold">{displayedUser.name}</h4>
 					<Link
 						href={`/event/${event.id}`}
-						className="text-xs decoration-dotted hover:underline underline-offset-2"
+						className="h-8 text-xs line-clamp-2 decoration-dotted hover:underline underline-offset-2"
 					>
 						{event.title}
 					</Link>
