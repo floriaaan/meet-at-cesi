@@ -46,6 +46,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 				orderBy: { createdAt: "desc" },
 				take: 3,
 				include: { author: true, event: true },
+				where: {
+					OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+				},
 			})
 		)
 	);

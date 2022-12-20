@@ -21,7 +21,7 @@ export const UserTableItem = (props: ExtendedUser) => {
 		router.push(`/admin/user`, undefined, { shallow: true });
 	}
 
-	const { createdAt, role: initialRole, email } = props;
+	const { createdAt, role: initialRole, email, deletedAt } = props;
 
 	const [role, setRole] = useState(initialRole);
 	return (
@@ -50,6 +50,17 @@ export const UserTableItem = (props: ExtendedUser) => {
 						hour: "numeric",
 						minute: "numeric",
 					})}
+				</td>
+				<td className="pl-3 pr-6 text-sm">
+					{deletedAt === null ? (
+						<span className="inline-flex items-center gap-x-1">
+							✅<span className="sr-only">actif</span>
+						</span>
+					) : (
+						<span>
+							❌<span className="sr-only">désactivé</span>
+						</span>
+					)}
 				</td>
 			</tr>
 			<UserTableModal

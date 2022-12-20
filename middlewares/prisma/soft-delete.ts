@@ -67,27 +67,15 @@ export const softDelete: Prisma.Middleware<any> = async (params, next) => {
 	if (params.action === "findMany") {
 		switch (model) {
 			case "Comment":
-				if (params.args.where) {
-					if (params.args.where.deletedAt === undefined) {
-						// Exclude deleted records if they have not been explicitly requested
-						params.args.where["deletedAt"] = null;
-					}
-				} else {
-					params.args["where"] = { deletedAt: null };
-				}
+				params = mutateParams(params);
 				break;
+
 			case "Event":
-				if (params.args.where) {
-					if (params.args.where.deletedAt === undefined)
-						params.args.where["deletedAt"] = null;
-				} else params.args["where"] = { deletedAt: null };
+				params = mutateParams(params);
 				break;
 
 			case "User":
-				if (params.args.where) {
-					if (params.args.where.deletedAt === undefined)
-						params.args.where["deletedAt"] = null;
-				} else params.args["where"] = { deletedAt: null };
+				params = mutateParams(params);
 				break;
 
 			default:
@@ -97,8 +85,6 @@ export const softDelete: Prisma.Middleware<any> = async (params, next) => {
 
 	return next(params);
 };
-
-
 
 const softDeleteComment = async ({
 	where: { id },
@@ -126,4 +112,14 @@ const softDeleteUser = async ({
 		where: { id },
 		data: { deletedAt: new Date() },
 	});
+};
+
+const mutateParams = (
+	params: Prisma.MiddlewareParams,
+): Prisma.MiddlewareParams => {
+	if (params.args.where) {
+		if (params.args.where.deletedAt === undefined && !params.args.where.OR)
+			params.args.where["deletedAt"] = null;
+	} else params.args["where"] = { deletedAt: null };
+	return params;
 };

@@ -32,6 +32,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			creator: true,
 			participants: true,
 		},
+		where: {
+			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+		},
 	});
 
 	events = JSON.parse(JSON.stringify(events));
@@ -50,7 +53,7 @@ const AdminEventPage: NextPage<Props> = ({ events }) => {
 					<CustomTable
 						title="Événements"
 						items={events}
-						columns={["Titre", "Créateur", "Participants", "Commentaires"]}
+						columns={["Titre", "Créateur", "Participants", "Commentaires", "Actif"]}
 						renderItem={renderEvent}
 						pagination={{
 							initialPage: 0,

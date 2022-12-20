@@ -27,6 +27,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 	let users = await prisma.user.findMany({
 		orderBy: { createdAt: "asc" },
+		where: {
+			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+		},
 	});
 
 	users = JSON.parse(JSON.stringify(users));
@@ -45,7 +48,7 @@ const AdminEventPage: NextPage<Props> = ({ users }) => {
 					<CustomTable
 						title="Utilisateurs"
 						items={users}
-						columns={["Nom", "Email", "Rôle", "Inscrit le"]}
+						columns={["Nom", "Email", "Rôle", "Inscrit le", "Actif"]}
 						renderItem={renderUser}
 						pagination={{
 							initialPage: 0,

@@ -13,7 +13,7 @@ export const Name = ({ user, className, badgeClassName }: NameProps) => {
 			className="inline-flex items-center gap-0.5 whitespace-nowrap"
 			data-testid="avatar-name"
 		>
-			<span className={className || "text-sm font-bold"}>{user?.name}</span>
+			<span className={className || "text-sm font-bold"}>{user?.name || "Anonyme"}</span>
 			{user?.emailVerified ? (
 				<MdVerified className={badgeClassName || "w-4 h-4 shrink-0"} />
 			) : null}

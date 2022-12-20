@@ -5,6 +5,7 @@ import { AvatarWithName } from "@/components/UI/Avatar/WithName";
 import { getPlural } from "@/lib/string";
 import { ExtendedEvent } from "@/types/Event";
 import { EventTableModal } from "@/components/Admin/CustomTable/Event/Modal";
+import { formatDate } from "@/lib/date";
 
 export const EventTableItem = (props: ExtendedEvent) => {
 	const router = useRouter();
@@ -19,7 +20,7 @@ export const EventTableItem = (props: ExtendedEvent) => {
 		router.push(`/admin/event`, undefined, { shallow: true });
 	}
 
-	const { title, creator, participants, comments } = props;
+	const { title, creator, participants, comments, deletedAt } = props;
 	return (
 		<>
 			<tr
@@ -56,6 +57,17 @@ export const EventTableItem = (props: ExtendedEvent) => {
 					) : (
 						<span className="text-xs text-black text-left inline-flex items-center gap-x-0.5">
 							aucun commentaire
+						</span>
+					)}
+				</td>
+				<td className="pl-3 pr-6 text-sm">
+					{deletedAt === null ? (
+						<span className="inline-flex items-center gap-x-1">
+							✅<span className="sr-only">actif</span>
+						</span>
+					) : (
+						<span>
+							❌<span className="sr-only">désactivé</span>
 						</span>
 					)}
 				</td>

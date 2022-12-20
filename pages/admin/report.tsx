@@ -39,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 					.filter((r) => r.object === ReportObject.EVENT)
 					.map((r) => r.objectId) as string[],
 			},
+			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
 		},
 	});
 	const comments = await prisma.comment.findMany({
@@ -49,6 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 					.filter((r) => r.object === ReportObject.COMMENT)
 					.map((r) => r.objectId) as string[],
 			},
+			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
 		},
 	});
 	const users = await prisma.user.findMany({
@@ -59,6 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 					.filter((r) => r.object === ReportObject.USER)
 					.map((r) => r.objectId) as string[],
 			},
+			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
 		},
 	});
 
