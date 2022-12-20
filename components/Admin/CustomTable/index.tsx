@@ -1,9 +1,10 @@
-import { usePagination } from "@/hooks/usePagination";
 import classNames from "classnames";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { ReactNode } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+
+
+import { usePagination } from "@/hooks/usePagination";
 
 export type Pagination = {
 	initialPage: number;

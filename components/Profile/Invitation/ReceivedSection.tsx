@@ -2,8 +2,7 @@ import { InvitationCard } from "@/components/Invitation/Card";
 import { Chip } from "@/components/UI/Chip";
 import { useInvitations } from "@/hooks/useInvitations";
 
-type InviteSectionProps = {};
-export const ReceivedInvitationSection = ({}: InviteSectionProps) => {
+export const ReceivedInvitationSection = () => {
 	const { receivedInvitations: invitations } = useInvitations();
 
 	return (

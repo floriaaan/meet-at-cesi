@@ -2,10 +2,7 @@ import { InvitationCard } from "@/components/Invitation/Card";
 import { Chip } from "@/components/UI/Chip";
 import { useInvitations } from "@/hooks/useInvitations";
 
-type InviteSectionProps = {
-	// initialData: ExtendedUser["receivedInvitations"];
-};
-export const SendedInvitationSection = ({}: InviteSectionProps) => {
+export const SendedInvitationSection = () => {
 	const { sendedInvitations: invitations } = useInvitations();
 
 	return (

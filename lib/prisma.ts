@@ -1,4 +1,3 @@
-// import { commentHistory } from "@/middlewares/prisma/comment";
 import { softDelete } from "@/middlewares/prisma/soft-delete";
 import { Prisma, PrismaClient } from "@prisma/client";
 
@@ -25,7 +24,6 @@ if (process.env.NODE_ENV === "production") {
 
 	prisma = (global as GlobalWithPrisma).prisma;
 }
-// prisma.$use(commentHistory);
 prisma.$use(softDelete);
 
 export default prisma;
