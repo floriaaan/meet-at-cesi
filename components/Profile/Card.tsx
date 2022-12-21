@@ -6,7 +6,7 @@ import { Preferences } from "@/components/Profile/Preferences/Card";
 
 export const ProfileCard = ({ user }: { user: ExtendedUser }) => {
 	return (
-		<div className="relative inline-flex w-full bg-primary">
+		<div className="relative inline-flex w-full overflow-hidden bg-primary">
 			<span className="z-10 flex items-center h-auto pl-4 shrink-0 bg-primary w-fit">
 				<Avatar
 					user={user}
@@ -20,10 +20,10 @@ export const ProfileCard = ({ user }: { user: ExtendedUser }) => {
 					className="capitalize text-[32px] sm:text-[3.5rem]  md:text-[4rem]"
 				/>
 
-				<div className="relative z-10 flex flex-col -mb-2 left-6 -top-6 md:-top-10">
+				<div className="relative z-10 flex flex-col pr-2 -mb-2 left-6 -top-6 md:-top-10">
 					<Preferences preferences={user.preferences} />
 					<span className="text-xs md:text-sm">
-						{`inscrit il y a ${formatRelative(user.createdAt.toString())}`}
+						{`inscrit.e il y a ${formatRelative(user.createdAt.toString())}`}
 					</span>
 				</div>
 			</span>
