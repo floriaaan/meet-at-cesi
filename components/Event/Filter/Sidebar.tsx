@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 
+import { useRouter } from "next/router";
 import { Fragment, useState } from "react";
 import { Form, Formik } from "formik";
 import { Disclosure } from "@headlessui/react";
@@ -8,11 +9,11 @@ import classNames from "classnames";
 
 import type { ExtendedEvent } from "@/types/Event";
 import { search, EventSearchRequestInput } from "@/lib/fetchers";
-import campusList from "@/resources/campus-list";
-import Input from "@/components/UI/Form/Input";
+import { campusList } from "@/resources/campus-list";
+import { audienceList } from "@/resources/audience-list";
+import { useFilter } from "@/components/Event/Filter/Provider";
 import Select from "@/components/UI/Form/Select";
-import audienceList from "@/resources/audience-list";
-import { useRouter } from "next/router";
+import Input from "@/components/UI/Form/Input";
 
 type FilterSidebarProps = {
 	setEvents: (events: ExtendedEvent[]) => void;
@@ -25,8 +26,9 @@ type FilterInput = {
 	label: string;
 	min?: number;
 	max?: number;
-	options?: { value: string; label: string }[];
+	options?: { value: string; label: string; [key: string]: any }[];
 	defaultValue?: string | number;
+	groupBy?: string;
 };
 type FilterCategory = {
 	label: string;
@@ -74,7 +76,11 @@ const FILTERS_CATEGORIES: FilterCategory[] = [
 				name: "promotion",
 				type: "select",
 				label: "",
-				options: [{ label: "------", value: "" }, ...audienceList],
+				options: [
+					{ label: "------", value: "", niveau: "Par défaut" },
+					...audienceList,
+				],
+				groupBy: "niveau",
 			},
 		],
 	},
@@ -89,7 +95,7 @@ const FilterSchema = Yup.object().shape({
 });
 
 export type FilterValues = Yup.InferType<typeof FilterSchema>;
-const DEFAULT_INITIALS: FilterValues = {
+export const DEFAULT_INITIALS: FilterValues = {
 	dateMin: new Date().toISOString().split("T")[0],
 	dateMax: undefined,
 	proximity: undefined,
@@ -101,7 +107,9 @@ export const FilterSidebar = ({
 	setEvents,
 	setLoading,
 }: FilterSidebarProps) => {
+	const { setFilters } = useFilter();
 	const handleChanges = async (values: FilterValues) => {
+		setFilters(values);
 		setLoading(true);
 		const events = await search(values as unknown as EventSearchRequestInput);
 		setEvents(events);
@@ -122,7 +130,7 @@ export const FilterSidebar = ({
 	} as unknown as FilterValues;
 
 	return (
-		<div className="flex flex-col p-4 gap-y-4">
+		<div className="flex flex-col p-4 gap-y-4 shrink-0">
 			<button
 				onClick={() => setSmallIsOpen(!smallIsOpen)}
 				className="lg:hidden btn-outline__pill"

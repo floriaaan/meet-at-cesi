@@ -3,12 +3,11 @@ import { createEventParticipationTrophy } from "@/lib/api/trophy/event";
 import { ExtendedEvent } from "@/types/Event";
 import { User } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import prisma from "../../../lib/prisma";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
 	const session = await getSessionOrThrow(req);
@@ -26,7 +25,7 @@ export default async function handler(
 			})) as ExtendedEvent;
 
 			const isAlreadyParticipant = oldParticipants.some(
-				(p) => p.id === user.id
+				(p) => p.id === user.id,
 			);
 			const updatedParticipants = isAlreadyParticipant
 				? oldParticipants.filter((p) => p.id !== user.id)
@@ -44,8 +43,17 @@ export default async function handler(
 				include: { participants: true },
 			});
 
-			if (!isAlreadyParticipant)
+			if (!isAlreadyParticipant) {
 				createEventParticipationTrophy(user, user.participations.length + 1);
+
+				// remove invitation
+				const invitation = await prisma.invitation.findFirst({
+					where: { eventId: id, receiverId: user.id },
+				});
+				if (invitation) {
+					await prisma.invitation.delete({ where: { id: invitation.id } });
+				}
+			}
 
 			res.status(201).json({ participants });
 		} catch (e) {
