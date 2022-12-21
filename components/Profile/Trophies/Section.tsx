@@ -17,9 +17,9 @@ const TrophiesSectionComponent = ({ user }: Props) => {
 			id="trophies"
 			aria-label="Trophies section"
 		>
-			<div className="inline-flex items-center justify-between w-full">
+			<div className="inline-flex items-center justify-between w-full truncate">
 				<div className="inline-flex items-center gap-x-2">
-					<h3 className="text-xl font-bold underline decoration-primary decoration-dashed underline-offset-2">
+					<h3 className="text-lg font-bold underline md:text-xl decoration-primary decoration-dashed underline-offset-2">
 						🏆 Trophées obtenus
 					</h3>
 					<Chip className="text-xs font-bold text-black bg-primary py-0.5 px-2">
@@ -30,7 +30,8 @@ const TrophiesSectionComponent = ({ user }: Props) => {
 					href="/profile/trophies"
 					className="inline-flex items-center gap-1 text-xs font-bold hover:underline decoration-white underline-offset-2"
 				>
-					Voir tout les trophées
+					<span>Voir tout</span>
+					<span className="hidden md:block">les trophées</span>
 					<MdArrowRightAlt />
 				</Link>
 			</div>
