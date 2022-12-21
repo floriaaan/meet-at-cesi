@@ -1,8 +1,8 @@
 import type { User } from "@prisma/client";
 import { MdFace, MdLocationPin, MdPerson } from "react-icons/md";
 
-import audienceList from "@/resources/audience-list";
-import campusList from "@/resources/campus-list";
+import { audienceList } from "@/resources/audience-list";
+import { campusList } from "@/resources/campus-list";
 import { DetailsListItem } from "@/components/Event/List/DetailsListItem";
 import { getPlural } from "@/lib/string";
 import { AvatarWithName } from "@/components/UI/Avatar/WithName";
@@ -21,9 +21,7 @@ export const DetailsList = ({
 	audienceCampus,
 	participants,
 }: DetailsListProps) => {
-	const audienceDisplay = audienceList.find(
-		(a) => a.value === audience
-	)?.shortLabel;
+	const audienceDisplay = audienceList.find((a) => a.value === audience)?.label;
 	const campusDisplay =
 		campusList.find((c) => c.value === audienceCampus) || null;
 	return (
@@ -44,7 +42,7 @@ export const DetailsList = ({
 				value={`${participants.length} ${getPlural(
 					participants.length,
 					"participant inscrit",
-					"participants inscrits"
+					"participants inscrits",
 				)}`}
 			/>
 			<DetailsListItem

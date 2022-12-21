@@ -1,21 +1,13 @@
 import { AvatarWithName } from "@/components/UI/Avatar";
-import { Name } from "@/components/UI/Avatar/OnlyName";
 import { fromLocalDate } from "@/lib/date";
-import audienceList from "@/resources/audience-list";
-import campusList from "@/resources/campus-list";
+import { audienceList } from "@/resources/audience-list";
+import { campusList } from "@/resources/campus-list";
 import { ExtendedEvent } from "@/types/Event";
-import {
-	MdAccountCircle,
-	MdCalendarToday,
-	MdLocationPin,
-	MdPerson,
-} from "react-icons/md";
+import { MdCalendarToday, MdLocationPin, MdPerson } from "react-icons/md";
 
 export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
 	const { location, date, audienceCampus, creator } = event;
-	const audience = audienceList.find(
-		(a) => a.value === event.audience
-	)?.shortLabel;
+	const audience = audienceList.find((a) => a.value === event.audience)?.label;
 	const campus = campusList.find((c) => c.value === audienceCampus)?.label;
 	return (
 		<div className="flex flex-col items-start justify-between w-full px-2 py-2 -mt-4 text-sm font-bold lg:shrink lg:w-fit sm:px-6 md:-mt-12 lg:mt-0 md:px-2 whitespace-nowrap bg-primary md:items-end">

@@ -3,16 +3,16 @@ import { ReportObject, ReportType, User } from "@prisma/client";
 import classNames from "classnames";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-
-import { Header } from "@/components/UI/Header";
-import { MdChevronLeft, MdEdit, MdWarning } from "react-icons/md";
-import { useRouter } from "next/router";
-import { ExtendedEvent } from "@/types/Event";
-import campusList from "@/resources/campus-list";
-import audienceList from "@/resources/audience-list";
-import { useReport } from "@/components/Report/Wrapper";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { MdChevronLeft, MdEdit, MdWarning } from "react-icons/md";
+
 import { ExtendedSession } from "@/types/Session";
+import { Header } from "@/components/UI/Header";
+import { ExtendedEvent } from "@/types/Event";
+import { campusList } from "@/resources/campus-list";
+import { audienceList } from "@/resources/audience-list";
+import { useReport } from "@/components/Report/Wrapper";
 
 const HeroDetails = dynamic(
 	() =>
@@ -47,9 +47,7 @@ export const HeroSection = ({
 	participate: () => void;
 }) => {
 	const campusDisplay = campusList.find((c) => c.value === campus)?.label;
-	const audienceDisplay = audienceList.find(
-		(a) => a.value === audience,
-	)?.shortLabel;
+	const audienceDisplay = audienceList.find((a) => a.value === audience)?.label;
 
 	const { openReportModal } = useReport();
 
