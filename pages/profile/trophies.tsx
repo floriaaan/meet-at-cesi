@@ -5,12 +5,8 @@ import { NextSeo } from "next-seo";
 import prisma from "@/lib/prisma";
 import { AppLayout } from "@/components/Layout";
 import { Header } from "@/components/UI/Header";
-import { trophies, Trophy } from "@/resources/trophies-list";
+import { trophies } from "@/resources/trophies-list";
 import { ExtendedUser } from "@/types/User";
-import { Trophy as UserTrophy } from "@prisma/client";
-import Image from "next/image";
-import { formatDate } from "@/lib/date";
-import classNames from "classnames";
 import { TrophyListItem } from "@/components/Profile/Trophies/TrophyListItem";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -23,7 +19,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			},
 		};
 
-	const today = new Date(new Date().setDate(new Date().getDate() - 1));
 	const user = await prisma.user.findFirst({
 		where: { email: session.user.email },
 		include: { trophies: true },
@@ -69,4 +64,3 @@ const ProfileTrophiesPage: NextPage<Props> = ({ user }) => {
 };
 
 export default ProfileTrophiesPage;
-
