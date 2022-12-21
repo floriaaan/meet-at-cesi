@@ -23,7 +23,7 @@ export const Category = ({ title, options, titleClassName }: CategoryProps) => {
 			<span
 				className={classNames(
 					"relative font-bold select-none",
-					"before:absolute before:bottom-0 before:h-[0.2rem] before:w-4 before:bg-primary",
+					"before:absolute before:bottom-0 before:h-[0.2rem] before:w-8 before:bg-primary",
 					titleClassName
 				)}
 			>

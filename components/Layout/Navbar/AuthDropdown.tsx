@@ -78,7 +78,7 @@ const MenuPanel = ({ open }: { open: boolean }) => {
 	return (
 		<div className="flex -top-px z-[49] flex-col min-w-[16rem] lg:min-w-[24rem] max-w-fit w-full right-0 absolute py-4 px-5 bg-white border rounded-tl-3xl rounded-b-3xl border-gray-400 gap-x-2 gap-y-3 lg:grid grid-cols-2">
 			<Category
-				title="Mon compte"
+				title="🧑 Mon compte"
 				options={[
 					{ name: "Mon profil", href: "/profile" },
 					{ name: "Mes événements", href: "/profile#events" },
@@ -90,7 +90,7 @@ const MenuPanel = ({ open }: { open: boolean }) => {
 				]}
 			/>
 			<Category
-				title="Événements"
+				title="🗓️ Événements"
 				options={[
 					{ name: "À venir", href: "/event" },
 					{
@@ -105,7 +105,7 @@ const MenuPanel = ({ open }: { open: boolean }) => {
 				]}
 			/>
 			<Category
-				title="Social"
+				title="👫 Social"
 				options={[{ name: "Invitations", href: "/profile#invitations" }]}
 			/>
 			<Category

@@ -19,6 +19,7 @@ export const ParticipatingSection = ({ events }: ParticipatingSectionProps) => {
 		>
 			<div className="inline-flex items-center gap-2">
 				<h3 className="text-xl font-bold">
+					🗓️{" "}
 					{id
 						? "L'utilisateur participe à ces événements"
 						: "Je participe à ces événements"}

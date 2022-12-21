@@ -17,7 +17,7 @@ const TrophiesSectionComponent = ({ user }: Props) => {
 		>
 			<div className="inline-flex items-center gap-x-2">
 				<h3 className="text-xl font-bold underline decoration-primary decoration-dashed underline-offset-2">
-					Trophées obtenus
+					🏆 Trophées obtenus
 				</h3>
 				<Chip className="text-xs font-bold text-black bg-primary py-0.5 px-2">
 					{trophies?.length || 0}
@@ -46,5 +46,5 @@ export const TrophiesSection = dynamic(
 	() => Promise.resolve(TrophiesSectionComponent),
 	{
 		ssr: false,
-	}
+	},
 );

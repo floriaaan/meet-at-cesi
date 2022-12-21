@@ -19,6 +19,7 @@ export const CreatedSection = ({ events }: CreatedSectionProps) => {
 		>
 			<div className="inline-flex items-center gap-2">
 				<h3 className="text-xl font-bold">
+					🗓️{" "}
 					{id
 						? "L'utilisateur organise ces événements"
 						: "J'organise ces événements"}

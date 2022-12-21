@@ -17,19 +17,19 @@ export const ProfileLayoutSidebar = () => {
 					title="Mon compte"
 					options={[
 						{
-							name: session?.user?.name || "Mon compte",
+							name: `🧑 ${session?.user?.name || "Mon compte"}`,
 							href: "/profile",
 						},
 						{
-							name: "Mes trophées",
+							name: "🏆 Mes trophées",
 							href: "/profile#trophies",
 						},
 						{
-							name: "Mes événements",
+							name: "🗓️ Mes événements",
 							href: "/profile#events",
 						},
 						{
-							name: "Mes invitations",
+							name: "🎟️ Mes invitations",
 							href: "/profile#invitations",
 						},
 					]}
