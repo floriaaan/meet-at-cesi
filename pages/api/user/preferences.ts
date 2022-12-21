@@ -5,7 +5,7 @@ import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
 	const session = await getSessionOrThrow(req);
@@ -25,7 +25,7 @@ export default async function handler(
 				include: { preferences: true },
 			})) as ExtendedUser;
 
-			if (!campus && !promotion && !promotionYear && !privacy) {
+			if (!campus && !promotion && !promotionYear) {
 				if (user.preferences) {
 					// @ts-ignore
 					user = {
@@ -37,7 +37,7 @@ export default async function handler(
 								},
 							},
 						})),
-						preferences: undefined,
+						preferences: null,
 					} as ExtendedUser;
 
 					return res.status(200).json({ user });

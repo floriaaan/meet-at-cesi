@@ -19,7 +19,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
 		return editPreferences(values as EditPreferencesRequestInput).then(
 			(result) => {
 				if (result && !(result instanceof Error)) {
-					setPreferences(result.user.preferences);
+					setPreferences(result.user.preferences || undefined);
 				}
 				return Promise.resolve(result);
 			}

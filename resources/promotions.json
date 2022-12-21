@@ -246,18 +246,6 @@
 		"domaine": "Ressources Humaines & Management"
 	},
 	{
-		"value": "bachelor-passerelle-ingenieure-transition-numerique",
-		"label": "Bachelor passerelle ingénieur·e – Transition Numérique",
-		"niveau": "BAC+3",
-		"domaine": "Informatique & Numérique"
-	},
-	{
-		"value": "bachelor-passerelle-ingenieure-transition-ecologique",
-		"label": "Bachelor passerelle ingénieur·e – Transition Écologique",
-		"niveau": "BAC+3",
-		"domaine": "Industrie"
-	},
-	{
 		"value": "vae-avec-accompagnement-cheffe-de-projet-en-informatique",
 		"label": "VAE avec accompagnement Chef·fe de projet en informatique",
 		"niveau": "BAC+3",
@@ -600,195 +588,27 @@
 		"domaine": "Industrie"
 	},
 	{
-		"value": "vae-avec-accompagnement-mastere-specialisemanagement-de-projets-de-construction",
-		"label": "VAE avec accompagnement Mastère Spécialisé®Management de Projets de Construction",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Bâtiment & Travaux Publics"
-	},
-	{
-		"value": "vae-avec-accompagnement-mastere-specialise-management-sri",
-		"label": "VAE avec accompagnement Mastère Spécialisé® Management SRI",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "vae-avec-accompagnement-mastere-specialise-management-par-projets",
-		"label": "VAE avec accompagnement Mastère Spécialisé® Management Par Projets",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "vae-avec-accompagnement-mastere-specialise-manager-de-lamelioration-continue",
-		"label": "VAE avec accompagnement Mastère Spécialisé® Manager de l’Amélioration Continue",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "vae-avec-accompagnement-mastere-specialise-management-qse",
-		"label": "VAE avec accompagnement Mastère Spécialisé® Management QSE",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-manager-de-portefeuille-de-projets-erp",
-		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – ERP",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-manager-amelioration-continue-excellence-operationnelle",
-		"label": "Mastère Spécialisé® Manager Amélioration Continue – Excellence Opérationnelle",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-manager-de-portefeuille-de-projets-strategie",
-		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Stratégie",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-management-de-la-securite-et-des-risques-industriels",
-		"label": "Mastère Spécialisé® Management de la Sécurité et des Risques Industriels",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-management-qualite-securite-environnement-strategie",
-		"label": "Mastère Spécialisé® Management Qualité Sécurité Environnement – Stratégie",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-manager-de-la-securite-des-systemes-dinformation",
-		"label": "Mastère Spécialisé® Manager de la Sécurité des Systèmes d’Information",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Informatique & Numérique"
-	},
-	{
-		"value": "mastere-specialise-management-de-projets-de-construction-cimhs",
-		"label": "Mastère Spécialisé® Management de Projets de Construction – CIMHS",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Bâtiment & Travaux Publics"
-	},
-	{
-		"value": "double-diplome-ms-manager-de-portefeuille-de-projets-strategiedess-gp-uqo",
-		"label": "Double diplôme MS® Manager de Portefeuille de Projets – Stratégie/DESS GP UQO",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-efficacite-energetique-et-environnementale-batiment",
-		"label": "Mastère Spécialisé® Efficacité Énergétique et Environnementale – Bâtiment",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-manager-de-portefeuille-de-projets-industrial-leadership",
-		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Industrial Leadership",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-manager-de-portefeuille-de-projets-transition-numerique",
-		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Transition Numérique",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-manager-de-portefeuille-de-projets-innovation",
-		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Innovation",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-manager-de-portefeuille-de-projets-business-international",
-		"label": "Mastère Spécialisé® Manager de Portefeuille de Projets – Business International",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-manager-amelioration-continue-supply-chain",
-		"label": "Mastère Spécialisé® Manager Amélioration Continue – Supply Chain",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-manager-amelioration-continue-maintenance",
-		"label": "Mastère Spécialisé® Manager Amélioration Continue – Maintenance",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-management-qualite-securite-environnement-rse",
-		"label": "Mastère Spécialisé® Management Qualité Sécurité Environnement – RSE",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-manager-industrialisation-40",
-		"label": "Mastère Spécialisé® Manager Industrialisation 4.0",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
-		"value": "mastere-specialise-management-de-projets-de-construction-bim",
-		"label": "Mastère Spécialisé® Management de Projets de Construction – BIM",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Bâtiment & Travaux Publics"
-	},
-	{
-		"value": "mastere-specialise-management-de-projets-de-construction-transports-urbains",
-		"label": "Mastère Spécialisé® Management de Projets de Construction – Transports urbains",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Bâtiment & Travaux Publics"
-	},
-	{
-		"value": "mastere-specialise-management-de-projets-de-construction-construction-durable",
-		"label": "Mastère Spécialisé® Management de Projets de Construction – Construction Durable",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Bâtiment & Travaux Publics"
-	},
-	{
-		"value": "mastere-specialise-management-de-projets-de-construction-projet-international",
-		"label": "Mastère Spécialisé® Management de Projets de Construction – Projet International",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Bâtiment & Travaux Publics"
-	},
-	{
-		"value": "mastere-specialise-manager-de-linnovation-et-du-developpement-dactivite",
-		"label": "Mastère Spécialisé® Manager de l’Innovation et du Développement d’Activité",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Ressources Humaines & Management"
-	},
-	{
-		"value": "mastere-specialise-efficacite-energetique-et-environnementale-industrie",
-		"label": "Mastère Spécialisé® Efficacité Énergétique et Environnementale – Industrie",
-		"niveau": "BAC+6 et plus",
-		"domaine": "Industrie"
-	},
-	{
 		"value": "cycle-preparatoire-integre-btp",
 		"label": "Cycle préparatoire intégré BTP",
-		"niveau": "Bâtiment & Travaux Publics",
-		"domaine": "2 ans"
+		"niveau": "(prépa intégrée)",
+		"domaine": "Bâtiment & Travaux Publics"
 	},
 	{
 		"value": "cycle-preparatoire-integre-systemes-embarques",
 		"label": "Cycle préparatoire intégré systèmes embarqués",
-		"niveau": "Industrie",
-		"domaine": "2 ans"
+		"niveau": "(prépa intégrée)",
+		"domaine": "Industrie"
 	},
 	{
 		"value": "cycle-preparatoire-integre-generaliste",
 		"label": "Cycle préparatoire intégré généraliste",
-		"niveau": "Industrie",
-		"domaine": "2 ans"
+		"niveau": "(prépa intégrée)",
+		"domaine": "Industrie"
 	},
 	{
 		"value": "cycle-preparatoire-integre-informatique",
 		"label": "Cycle préparatoire intégré informatique",
-		"niveau": "Informatique & Numérique",
-		"domaine": "2 ans"
+		"niveau": "(prépa intégrée)",
+		"domaine": "Informatique & Numérique"
 	}
 ]

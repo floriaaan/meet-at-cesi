@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
@@ -30,13 +30,14 @@ const initialFormValues: PreferencesFormValues = {
 const DEFAULT_SELECT = {
 	value: "",
 	label: "------",
+	niveau: "Par défaut"
 };
 
 type Props = {
 	labelClassName?: string;
 	initialValues?: PreferencesFormValues;
 	onSubmit: (
-		values: PreferencesFormValues
+		values: PreferencesFormValues,
 	) => Promise<{ user: ExtendedUser } | false>;
 	optionalButton?: JSX.Element;
 	submitClassName?: string;
@@ -110,6 +111,7 @@ export const PreferencesForm = ({
 								DEFAULT_SELECT,
 								...audienceList.filter((a) => a.value !== "everyone"),
 							]}
+							groupBy="niveau"
 							disabled={disabled}
 							className="w-full lg:w-3/4"
 							canHaveError={false}
