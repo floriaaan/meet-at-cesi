@@ -25,14 +25,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	let feedbacks = await prisma.feedback.findMany({
+	const feedbacks = await prisma.feedback.findMany({
 		orderBy: { createdAt: "asc" },
 		include: {
 			user: true,
 		},
 	});
 
-	feedbacks = JSON.parse(JSON.stringify(feedbacks));
 
 	return {
 		props: { feedbacks },

@@ -25,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	let events = await prisma.event.findMany({
+	const events = await prisma.event.findMany({
 		orderBy: { createdAt: "asc" },
 		include: {
 			comments: { include: { author: true, children: true } },
@@ -37,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-	events = JSON.parse(JSON.stringify(events));
 
 	return {
 		props: { events },

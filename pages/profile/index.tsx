@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 
 	const today = new Date(new Date().setDate(new Date().getDate() - 1));
-	let user = await prisma.user.findFirst({
+	const user = await prisma.user.findFirst({
 		where: { email: session.user.email },
 		include: {
 			preferences: true,
@@ -57,7 +57,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			trophies: true,
 		},
 	});
-	user = JSON.parse(JSON.stringify(user));
 	if (!user)
 		return {
 			redirect: {

@@ -90,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		});
 
 	return {
-		props: { reports: JSON.parse(JSON.stringify(reports)) },
+		props: { reports },
 	};
 };
 
@@ -114,7 +114,8 @@ const AdminReportPage: NextPage<Props> = ({ reports }) => {
 								label: "Statut",
 								props: {
 									"aria-sort": "ascending",
-									className:"aria-[sort=ascending]:bg-[url('/img/sort-arrow.svg')]"
+									className:
+										"aria-[sort=ascending]:bg-[url('/img/sort-arrow.svg')]",
 								},
 							},
 						]}

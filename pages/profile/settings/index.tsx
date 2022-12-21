@@ -23,12 +23,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 		};
 	}
 
-	let user = await prisma.user.findUnique({
+	const user = await prisma.user.findUnique({
 		where: { email: session.user?.email },
 		include: { preferences: true, privacy: true },
 	});
 
-	user = JSON.parse(JSON.stringify(user));
 	return {
 		props: { user },
 	};

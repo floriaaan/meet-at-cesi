@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 	const { id } = context.params as { id: string };
 
-	let event = await prisma.event.findUnique({
+	const event = await prisma.event.findUnique({
 		where: {
 			id,
 		},
@@ -41,7 +41,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			participants: true,
 		},
 	});
-	event = JSON.parse(JSON.stringify(event));
 
 	if (
 		!event ||

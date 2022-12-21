@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const session = (await getSession(context)) as ExtendedSession;
 	const { user } = session || {};
 
-	let event = await prisma.event.findFirst({
+	const event = await prisma.event.findFirst({
 		where: {
 			id,
 			...(isAdmin(user)
@@ -47,7 +47,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-	event = JSON.parse(JSON.stringify(event));
 
 	return {
 		props: {

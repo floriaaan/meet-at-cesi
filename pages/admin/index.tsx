@@ -40,18 +40,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const feedback = await prisma.feedback.count();
 	const reports = await prisma.report.count();
 
-	const comments = JSON.parse(
-		JSON.stringify(
-			await prisma.comment.findMany({
-				orderBy: { createdAt: "desc" },
-				take: 3,
-				include: { author: true, event: true },
-				where: {
-					OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
-				},
-			})
-		)
-	);
+	const comments = await prisma.comment.findMany({
+		orderBy: { createdAt: "desc" },
+		take: 3,
+		include: { author: true, event: true },
+		where: {
+			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+		},
+	});
+
 	return {
 		props: {
 			count: { events, users, feedback, reports },

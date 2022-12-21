@@ -47,14 +47,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		}
 	}
 
-	let events = await prisma.event.findMany({
+	const events = await prisma.event.findMany({
 		include: { creator: true, participants: true },
 		orderBy: { date: "asc" },
 		where: {
 			date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
 		},
 	});
-	// events = JSON.parse(JSON.stringify(events));
 
 	return { props: { events } };
 };

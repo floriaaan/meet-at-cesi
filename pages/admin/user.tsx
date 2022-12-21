@@ -25,14 +25,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		};
 	}
 
-	let users = await prisma.user.findMany({
+	const users = await prisma.user.findMany({
 		orderBy: { createdAt: "asc" },
 		where: {
 			OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
 		},
 	});
 
-	users = JSON.parse(JSON.stringify(users));
 
 	return {
 		props: { users },

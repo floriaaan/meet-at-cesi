@@ -31,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			preferences: { select: { privacy: true } },
 		},
 	})) as ExtendedUser;
-	user = JSON.parse(JSON.stringify(user));
 	if (!user)
 		return {
 			redirect: {
@@ -90,7 +89,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		})) as ExtendedUser["createdEvents"];
 	}
 
-	user = JSON.parse(JSON.stringify(user));
 	return {
 		props: { user },
 	};
