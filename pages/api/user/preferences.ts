@@ -11,7 +11,7 @@ export default async function handler(
 	const session = await getSessionOrThrow(req);
 
 	if (req.method === "GET") {
-		const user = getUserOrThrow(session, { include: { preferences: true } });
+		const user = await getUserOrThrow(session, { include: { preferences: true } });
 		return res.status(200).json(user);
 	} else if (req.method === "PUT") {
 		try {

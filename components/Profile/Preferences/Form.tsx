@@ -30,7 +30,7 @@ const initialFormValues: PreferencesFormValues = {
 const DEFAULT_SELECT = {
 	value: "",
 	label: "------",
-	niveau: "Par défaut"
+	niveau: "Par défaut",
 };
 
 type Props = {
@@ -83,10 +83,6 @@ export const PreferencesForm = ({
 					setDisabled(false);
 				});
 			}
-			// Redirect user
-			//   if (redirectPath) {
-			//     router.push(redirectPath);
-			//   }
 		} catch (e) {
 			console.error(e);
 			toast.error("Unable to submit", { id: toastId });
@@ -149,6 +145,7 @@ export const PreferencesForm = ({
 						disabled={disabled}
 						className="w-full"
 						canHaveError={false}
+						defaultValue={PreferencePrivacy.PUBLIC}
 					/>
 
 					<div className="flex flex-col justify-end gap-1 mt-2">

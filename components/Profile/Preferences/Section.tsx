@@ -9,11 +9,18 @@ import { editPreferences } from "@/lib/fetchers";
 import { useState } from "react";
 import { EditPreferencesRequestInput } from "@/lib/fetchers/user";
 import { PreferencePrivacy } from "@prisma/client";
+import { toast } from "react-hot-toast";
+import toastStyle from "@/resources/toast.config";
+import { useCookies } from "react-cookie";
 
 export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
 	const [preferences, setPreferences] = useState<ExtendedUser["preferences"]>(
-		user.preferences || undefined
+		user.preferences || undefined,
 	);
+	const [, setCookie] = useCookies([
+		"meet-preferences",
+		"meet-preferences_dismissed",
+	]);
 
 	async function handleSubmit(values: PreferencesFormValues) {
 		return editPreferences(values as EditPreferencesRequestInput).then(
@@ -22,7 +29,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
 					setPreferences(result.user.preferences || undefined);
 				}
 				return Promise.resolve(result);
-			}
+			},
 		);
 	}
 
@@ -55,14 +62,24 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
 						<button
 							type="button"
 							onClick={async () => {
+								let toastId = toast.loading(
+									"Suppression en cours...",
+									toastStyle,
+								);
 								return editPreferences({
 									campus: "",
 									promotion: "",
 									promotionYear: "",
 									privacy: PreferencePrivacy.PUBLIC,
 								}).then((result) => {
-									if (result && !(result instanceof Error)) {
-										setPreferences(result.user.preferences);
+									const { user } = result || {};
+									if (user?.preferences === null) {
+										toast.success("Suppression réussie", { id: toastId });
+										setCookie("meet-preferences", undefined, { path: "/" });
+										setCookie("meet-preferences_dismissed", "false", {
+											path: "/",
+										});
+										setPreferences(undefined);
 									}
 									return Promise.resolve(result);
 								});
