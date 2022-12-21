@@ -2,8 +2,8 @@
 	{
 		"value": "everyone",
 		"label": "Tout le monde",
-		"niveau": "Tout",
-		"domaine": "Tout"
+		"niveau": "",
+		"domaine": "Tout le monde"
 	},
 	{
 		"value": "developpeurse-web-sous-statut-etudiant",

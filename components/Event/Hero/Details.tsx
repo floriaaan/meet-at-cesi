@@ -28,8 +28,8 @@ export const HeroDetails = ({ event }: { event: ExtendedEvent }) => {
 						minute: "numeric",
 					})}
 				</div>
-				<div className="inline-flex items-center text-black sm:hidden gap-x-1">
-					<MdPerson className="w-4 h-4" />
+				<div className="inline-flex items-start text-black whitespace-pre-wrap md:text-right gap-x-1">
+					<MdPerson className="w-4 h-4 shrink-0" />
 					{audience} - {campus}
 				</div>
 				<AvatarWithName

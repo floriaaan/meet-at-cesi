@@ -13,6 +13,7 @@ import { ExtendedEvent } from "@/types/Event";
 import { campusList } from "@/resources/campus-list";
 import { audienceList } from "@/resources/audience-list";
 import { useReport } from "@/components/Report/Wrapper";
+import { getInitialsFromPromotionLabel } from "@/lib/string";
 
 const HeroDetails = dynamic(
 	() =>
@@ -47,7 +48,7 @@ export const HeroSection = ({
 	participate: () => void;
 }) => {
 	const campusDisplay = campusList.find((c) => c.value === campus)?.label;
-	const audienceDisplay = audienceList.find((a) => a.value === audience)?.label;
+	const audienceDisplay = audienceList.find((a) => a.value === audience);
 
 	const { openReportModal } = useReport();
 
@@ -61,38 +62,42 @@ export const HeroSection = ({
 					<div
 						className={classNames(
 							"hidden sm:inline-block", // responsive : hidden on small screens like mobile
-							"relative mb-8 ml-12 bg-black py-1 pr-4 text-sm",
+							"relative mb-8 ml-12 bg-black py-1 pr-4 text-xs md:text-sm max-w-sm xl:max-w-md",
 							"before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:bg-black before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
 							"after:translate-y-[100%] after:absolute after:bg-black after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] ",
 						)}
 					>
 						<div className="inline-flex items-start py-2 divide-x-2 divide-white gap-x-4">
-							<div className="flex flex-col">
-								<span className="">Campus</span>
-								<strong
-									// @ts-ignore
-									before="_"
-									className={classNames(
-										"relative -mt-1.5 -mb-1 w-min md:w-auto",
-										"before:content-[attr(before)] before:absolute before:right-[100%]",
-									)}
-								>
-									{campusDisplay}
-								</strong>
-							</div>
-							<div className="flex flex-col pl-4">
-								<span className="">Invités</span>
-								<strong
-									// @ts-ignore
-									before="_"
-									className={classNames(
-										"relative -mt-1.5 -mb-1 w-min xs:w-auto",
-										"before:content-[attr(before)] before:absolute before:right-[100%]",
-									)}
-								>
-									{audienceDisplay}
-								</strong>
-							</div>
+							{campusDisplay !== null ? (
+								<div className="flex flex-col">
+									<span className="">Campus</span>
+									<strong
+										// @ts-ignore
+										before="_"
+										className={classNames(
+											"relative xs:-mt-1.5 -mb-1 w-min md:w-auto",
+											"before:content-[attr(before)] before:absolute before:right-[100%]",
+										)}
+									>
+										{campusDisplay}
+									</strong>
+								</div>
+							) : null}
+							{audienceDisplay !== undefined ? (
+								<div className="flex flex-col pl-4">
+									<span className="">Invités</span>
+									<strong
+										// @ts-ignore
+										before="_"
+										className={classNames(
+											"relative -mb-1 w-min leading-3  xs:w-auto line-clamp-2 whitespace-pre-line",
+											"before:content-[attr(before)] before:absolute before:right-[100%]",
+										)}
+									>
+										{`${audienceDisplay?.domaine}\n${audienceDisplay?.niveau}`}
+									</strong>
+								</div>
+							) : null}
 						</div>
 					</div>
 				</div>

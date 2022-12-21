@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) },
 		},
 	});
-	events = JSON.parse(JSON.stringify(events));
+	// events = JSON.parse(JSON.stringify(events));
 
 	return { props: { events } };
 };

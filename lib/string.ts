@@ -13,3 +13,12 @@ export const getInitials = (name: string) => {
 		.join("");
 	return initials;
 };
+
+export const getInitialsFromPromotionLabel = (label: string | undefined) => {
+	if (!label) return "";
+	const initials = label
+		.split(" ")
+		.map((name) => name[0])
+		.join("");
+	return initials;
+};
