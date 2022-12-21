@@ -25,7 +25,7 @@ export const Preferences = ({ preferences }: { preferences?: Preference }) => {
 		>
 			{privacy === PreferencePrivacy.PROMOTION_ONLY ||
 			privacy === PreferencePrivacy.PUBLIC ? (
-				<strong className="text-sm uppercase whitespace-pre-line md:leading-4 line-clamp-3 md:text-base">
+				<strong className="pr-6 text-sm uppercase whitespace-pre-line md:leading-4 line-clamp-3 md:text-base">
 					{getPromotionLabel(promotion)}
 				</strong>
 			) : null}
