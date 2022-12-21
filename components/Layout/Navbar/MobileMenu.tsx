@@ -61,6 +61,7 @@ export const MobileMenu = () => {
 				<span className="underline underline-offset-2">
 					{user ? "Menus" : ""}
 				</span>
+				<span className="sr-only">Ouvrir le menu</span>
 				{!isMenuOpen ? (
 					<>
 						{user ? (
@@ -121,15 +122,15 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 									? `${receivedInvitations.length} ${getPlural(
 											receivedInvitations.length,
 											"nouvelle",
-											"nouvelles"
+											"nouvelles",
 									  )} ${getPlural(
 											receivedInvitations.length,
 											"invitation",
-											"invitations"
+											"invitations",
 									  )} ${getPlural(
 											receivedInvitations.length,
 											"reçue",
-											"reçues"
+											"reçues",
 									  )}`
 									: "Invitations",
 							href: "/profile#invitations",
@@ -179,7 +180,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 				className={classNames(
 					"top-16 fixed px-4 pt-7 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow md:hidden",
 					"flex flex-col bg-white",
-					isMenuRendered ? "opacity-100" : "opacity-0"
+					isMenuRendered ? "opacity-100" : "opacity-0",
 				)}
 			>
 				{session?.user?.name ? (
@@ -206,7 +207,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 							"text-sm font-semibold border-b last:border-b-0 text-neutral-900 border-neutral-200",
 							isMenuRendered
 								? "opacity-100 w-full translate-x-0"
-								: "opacity-0 w-0 -translate-x-4"
+								: "opacity-0 w-0 -translate-x-4",
 						)}
 						style={{ transitionDelay: `${150 + 25 * i}ms` }}
 					>
