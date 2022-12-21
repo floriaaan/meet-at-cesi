@@ -76,7 +76,7 @@ export const Navbar = () => {
 									href="/profile#invitations"
 									className="font-bold subnav__link"
 								>
-									<span className="inline-flex items-center gap-x-1">
+									<span className="inline-flex items-center gap-x-1 group">
 										<Chip
 											className={
 												receivedInvitations.length > 0
@@ -86,19 +86,11 @@ export const Navbar = () => {
 										>
 											{receivedInvitations.length}
 										</Chip>
-										{`${
-											receivedInvitations.length > 0
-												? getPlural(
-														receivedInvitations.length,
-														"nouvelle",
-														"nouvelles"
-												  )
-												: ""
-										} ${getPlural(
+										{getPlural(
 											receivedInvitations.length,
-											"invitation reçue",
-											"invitations reçues"
-										)}`}
+											"nouvelle invitation reçue",
+											"nouvelles invitations reçues",
+										)}
 									</span>
 								</Link>
 							</div>
