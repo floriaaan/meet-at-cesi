@@ -40,7 +40,7 @@ export const MobileMenu = () => {
 	const { user } = (session as ExtendedSession) || {};
 
 	return (
-		<div className="inline-flex items-center md:hidden">
+		<div className="inline-flex items-center md:hidden shrink-0">
 			{status === "loading" ? <Spinner /> : null}
 			{status !== "loading" && !user ? (
 				<button
@@ -58,9 +58,9 @@ export const MobileMenu = () => {
 				className="inline-flex items-center md:hidden gap-x-3"
 				onClick={toggleMenu}
 			>
-				<span className="underline underline-offset-2">
+				{/* <span className="underline underline-offset-2">
 					{user ? "Menus" : ""}
-				</span>
+				</span> */}
 				<span className="sr-only">Ouvrir le menu</span>
 				{!isMenuOpen ? (
 					<>

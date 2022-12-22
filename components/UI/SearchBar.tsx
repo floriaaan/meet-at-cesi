@@ -46,9 +46,10 @@ export const SearchBar = ({
 			) : null}
 			<div
 				className={classNames(
-					"relative shrink inline-flex w-full",
+					"relative shrink inline-flex ",
 					className,
 					!className?.includes("rounded-") && "rounded-full",
+					!className?.includes("w-") && "w-full",
 				)}
 			>
 				{icon ? (
@@ -66,6 +67,7 @@ export const SearchBar = ({
 						inputClassName,
 						!inputClassName?.includes("rounded-l-") && "rounded-l-full",
 					)}
+					
 					placeholder="Rechercher un événement..."
 					value={value}
 					onChange={(e) => setValue(e.target.value)}

@@ -39,24 +39,36 @@ export const Navbar = () => {
 							if (e.target === e.currentTarget) setIsSearchBarVisible(false);
 						}}
 						className={classnames(
-							"inline-flex items-center gap-x-2.5 2xl:gap-x-5 grow",
-							isSearchBarVisible && "cursor-pointer"
+							"inline-flex items-center gap-x-2.5 2xl:gap-x-5 shrink md:shrink-0 md:grow",
+							isSearchBarVisible && "cursor-pointer",
 						)}
 					>
-						<Link href="/" className="md:mr-4 shrink-0">
+						<Link
+							href="/"
+							className="md:mr-4 shrink-0"
+							onClick={(e) => {
+								if (isSearchBarVisible) {
+									e.preventDefault();
+									setIsSearchBarVisible(false);
+								}
+							}}
+						>
 							<>
 								<Logo className="shrink-0 lg:w-[38px] lg:h-[38px] w-12 h-12 rounded-[12px] lg:rounded-[9px]" />
 								<span className="sr-only">Meet at CESI</span>
 							</>
 						</Link>
 
-						<button onClick={() => setIsSearchBarVisible(!isSearchBarVisible)}>
+						<button
+							onClick={() => setIsSearchBarVisible(!isSearchBarVisible)}
+							className={classnames(isSearchBarVisible && "hidden md:block")}
+						>
 							<MdSearch className="w-5 h-5 shrink-0" />
 						</button>
 
 						{isSearchBarVisible ? (
 							<form
-								className="w-full md:max-w-md"
+								className="w-full overflow-hidden md:max-w-md"
 								action="#"
 								onSubmit={(e) => {
 									e.preventDefault();
@@ -73,10 +85,10 @@ export const Navbar = () => {
 							>
 								<SearchBar
 									label={null}
-									className="border border-black border-dashed rounded-none"
-									inputClassName="rounded-l-none"
+									className="border border-black border-dashed rounded-none "
+									inputClassName="rounded-l-none placeholder-invisible sm:placeholder-visible"
 									buttonClassName="rounded-r-none"
-									inputPaddingClassName="px-2 py-1"
+									inputPaddingClassName="px-2 py-1 w-48 sm:w-96 md:w-full"
 									buttonPaddingClassName="px-2 py-1"
 									icon={false}
 								/>
