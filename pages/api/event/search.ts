@@ -25,21 +25,21 @@ export default async function handler(
 	// Create new home
 	if (req.method === "POST") {
 		try {
-			let { dateMin, dateMax, proximity, campus, name, promotion } =
+			let { dateMin, dateMax, proximity, campus, title, promotion } =
 				req.body as EventSearchRequestInput;
 			dateMin = dateMin || undefined;
 			dateMax = dateMax || undefined;
 			proximity = proximity || undefined;
 			campus = campus || undefined;
 			promotion = promotion || undefined;
-			name = name || undefined;
+			title = title || undefined;
 
 			const events = await prisma.event.findMany({
 				where: {
 					date: getDateFilter(dateMin, dateMax),
 					audienceCampus: campus,
 					title: {
-						contains: name,
+						contains: title,
 						mode: "insensitive",
 					},
 					audience: promotion?.split(":")[0], // todo: add year support

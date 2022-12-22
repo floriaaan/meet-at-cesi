@@ -15,7 +15,7 @@ import { Header } from "@/components/UI/Header";
 import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/Filter/Sidebar";
 import { Chip } from "@/components/UI/Chip";
-import { FilterProvider } from "@/components/Event/Filter/Provider";
+import { FilterProvider, useFilter } from "@/components/Event/Filter/Provider";
 import { FilterList } from "@/components/Event/Filter/List";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -65,7 +65,7 @@ type Props = {
 };
 
 const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
-	const { query } = useRouter();
+	const { query, ...router } = useRouter();
 	const [events, setEvents] = useState<ExtendedEvent[]>(initialEvents);
 	const [loading, setLoading] = useState<boolean>(false);
 
@@ -115,7 +115,7 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
 									) {
 										setLoading(true);
 										const events = await search({
-											name: input.value,
+											title: input.value,
 											dateMin: undefined,
 											dateMax: undefined,
 											proximity: undefined,
@@ -123,6 +123,20 @@ const EventIndexPage: NextPage<Props> = ({ events: initialEvents }) => {
 										});
 										setLoading(false);
 										setEvents(events);
+										
+										router.push(
+											"/event",
+											{
+												query: {
+													title: input.value,
+													dateMin: undefined,
+													dateMax: undefined,
+													proximity: undefined,
+													campus: undefined,
+												},
+											},
+											{ shallow: true },
+										);
 									} else {
 										setEvents(initialEvents);
 									}

@@ -75,7 +75,7 @@ export type EventSearchRequestInput = {
 	proximity?: number;
 	campus?: string;
 	promotion?: string;
-	name?: string;
+	title?: string;
 };
 
 export const search = async (

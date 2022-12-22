@@ -6,10 +6,16 @@ import { useSession } from "next-auth/react";
 import { Logo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
 import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
+
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
 import { Chip } from "@/components/UI/Chip";
 import { isAdmin, isModerator } from "@/lib/role";
+import { MdSearch } from "react-icons/md";
+import { getEnv } from "@/lib/env";
+import { useState } from "react";
+import { SearchBar } from "@/components/UI/SearchBar";
+import { i } from "vitest/dist/index-81973d31";
 
 export const Navbar = () => {
 	const { data: session } = useSession() as {
@@ -17,27 +23,74 @@ export const Navbar = () => {
 	};
 	const { user } = session || {};
 	const { receivedInvitations, role } = user || {};
+	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 	const router = useRouter();
+	const env = getEnv();
 
 	return (
 		<>
 			<div className="sticky top-0 z-[41] flex flex-col bg-white shadow-xl lg:shadow-none">
 				<div
 					aria-label="Navigation principale"
-					className="inline-flex items-center justify-between w-full px-5 py-2.5"
+					className="inline-flex items-center justify-between w-full px-5 gap-x-5 py-2.5"
 				>
-					<nav className="inline-flex items-center gap-x-2.5 lg:gap-x-5">
-						<Link href="/">
-							<span>
+					<nav
+						onClick={(e) => {
+							if (e.target === e.currentTarget) setIsSearchBarVisible(false);
+						}}
+						className={classnames(
+							"inline-flex items-center gap-x-2.5 2xl:gap-x-5 grow",
+							isSearchBarVisible && "cursor-pointer"
+						)}
+					>
+						<Link href="/" className="md:mr-4 shrink-0">
+							<>
 								<Logo className="shrink-0 lg:w-[38px] lg:h-[38px] w-12 h-12 rounded-[12px] lg:rounded-[9px]" />
 								<span className="sr-only">Meet at CESI</span>
-							</span>
+							</>
 						</Link>
 
-						<NavLink href="/event">Tous les événements</NavLink>
-						{user && (
+						<button onClick={() => setIsSearchBarVisible(!isSearchBarVisible)}>
+							<MdSearch className="w-5 h-5 shrink-0" />
+						</button>
+
+						{isSearchBarVisible ? (
+							<form
+								className="w-full md:max-w-md"
+								action="#"
+								onSubmit={(e) => {
+									e.preventDefault();
+									const form = e.target as HTMLFormElement;
+									const input = form[0] as HTMLInputElement;
+									if (
+										input.value &&
+										typeof input.value === "string" &&
+										input.value !== ""
+									) {
+										router.push(`/event?title=${input.value}`);
+									}
+								}}
+							>
+								<SearchBar
+									label={null}
+									className="border border-black border-dashed rounded-none"
+									inputClassName="rounded-l-none"
+									buttonClassName="rounded-r-none"
+									inputPaddingClassName="px-2 py-1"
+									buttonPaddingClassName="px-2 py-1"
+									icon={false}
+								/>
+							</form>
+						) : (
 							<>
-								<NavLink href="/event/create">Organiser mon événement</NavLink>
+								<NavLink href="/event">Tous les événements</NavLink>
+								{user && (
+									<>
+										<NavLink href="/event/create">
+											Organiser mon événement
+										</NavLink>
+									</>
+								)}
 							</>
 						)}
 					</nav>
@@ -97,6 +150,11 @@ export const Navbar = () => {
 						) : null}
 					</div>
 				) : null}
+				{env !== "production" ? (
+					<div className="flex items-center justify-center w-full h-6 text-xs font-bold text-white bg-green">
+						Environnement : <u className="ml-1 uppercase">{env}</u>
+					</div>
+				) : null}
 			</div>
 		</>
 	);
@@ -114,10 +172,13 @@ const NavLink = ({
 	return (
 		<Link
 			href={href}
-			className={classnames("hidden nav__link border md:inline-flex", {
-				"border-transparent": !isActive,
-				"bg-primary text-black border-black": isActive,
-			})}
+			className={classnames(
+				"hidden nav__link shrink-0 whitespace-nowrap md:inline-flex",
+				{
+					"underline decoration-dotted decoration-black underline-offset-2":
+						isActive,
+				},
+			)}
 		>
 			{children}
 		</Link>

@@ -6,6 +6,7 @@ const record = new Map([
 	["promotion", "Promotion"],
 	["dateMin", "Date de début"],
 	["dateMax", "Date de fin"],
+	["title", "Titre contient"],
 ]);
 
 export const FilterList = () => {

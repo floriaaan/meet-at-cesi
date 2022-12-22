@@ -107,17 +107,23 @@ export const FilterSidebar = ({
 	setEvents,
 	setLoading,
 }: FilterSidebarProps) => {
-	const { setFilters } = useFilter();
+	const { query, ...router } = useRouter();
+	const { setFilters, filters } = useFilter();
 	const handleChanges = async (values: FilterValues) => {
 		setFilters(values);
 		setLoading(true);
 		const events = await search(values as unknown as EventSearchRequestInput);
 		setEvents(events);
 		setLoading(false);
+
+		router.push(
+			"/event",
+			{ query: { ...filters, ...values } },
+			{ shallow: true },
+		);
 	};
 	const [smallIsOpen, setSmallIsOpen] = useState<boolean>(false);
 
-	const { query } = useRouter();
 	const { campus, promotion } = query as {
 		campus?: string;
 		promotion?: string;

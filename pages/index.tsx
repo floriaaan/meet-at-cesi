@@ -61,7 +61,11 @@ const Home: NextPage<Props> = ({ caption }) => {
 										typeof input.value === "string" &&
 										input.value !== ""
 									) {
-										router.push(`/event?name=${input.value}`);
+										router.push("/event", {
+											query: {
+												title: input.value,
+											},
+										});
 									}
 								}}
 								className="flex flex-col w-full"
