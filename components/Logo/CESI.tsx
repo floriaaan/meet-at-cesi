@@ -38,7 +38,7 @@ const getSrc = () => {
 export const Logo = ({ className }: { className?: string }) => {
 	return (
 		<Image
-			src={getSrc()}
+			src={"/logo.svg"}
 			alt="Meet at CESI"
 			className={classNames("", className)}
 			width={128}
