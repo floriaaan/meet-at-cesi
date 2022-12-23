@@ -101,20 +101,23 @@ model User {
   preferences Preference?
   privacy     PrivacySettings?
 
+  // needed relations for webapp frontend
   createdEvents       Event[]        @relation("event_creation")
   participations      Event[]        @relation("event_participation")
   sendedInvitations   Invitation[]   @relation("event_invitation_sended")
   receivedInvitations Invitation[]   @relation("event_invitation_received")
-  blames              Report[]       @relation("report_user_blamed")
-  reports             Report[]       @relation("report_user_sender")
-  notifications       Notification[] @relation("notification")
+  notifications       Notification[] @relation("notification_received")
+  trophies            Trophy[]
+  feedbacks           Feedback[]
 
-  trophies           Trophy[]
-  feedbacks          Feedback[]
-  comments           Comment[]
-  accounts           Account[]
-  sessions           Session[]
-  verificationTokens VerificationToken[]
+  // needed relations for prisma client
+  comments            Comment[]
+  accounts            Account[]
+  sessions            Session[]
+  blames              Report[]            @relation("report_user_blamed")
+  reports             Report[]            @relation("report_user_sender")
+  sendedNotifications Notification[]      @relation("notification_sended")
+  verificationTokens  VerificationToken[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
@@ -280,16 +283,19 @@ enum NotificationType {
 }
 
 model Notification {
-  id     String           @id @default(cuid())
-  user   User             @relation("notification", fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-  type   NotificationType
+  id       String  @id @default(cuid())
+  userId   String
+  senderId String?
+
+  user   User  @relation("notification_received", fields: [userId], references: [id], onDelete: Cascade)
+  sender User? @relation("notification_sended", fields: [senderId], references: [id], onDelete: SetNull)
+
+  type NotificationType
 
   eventId    String?
   commentId  String?
   reportId   String?
   feedbackId String?
-	
 
   createdAt DateTime @default(now())
 }

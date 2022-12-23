@@ -5,6 +5,14 @@ import prisma from "@/lib/prisma";
 const isNotNull = <T>(value: T | null): value is T => value !== null;
 const getOptions = (ids: string[]) => ({ where: { id: { in: ids } } });
 
+const {
+	event: { findMany: findEvents },
+	comment: { findMany: findComments },
+	report: { findMany: findReports },
+	feedback: { findMany: findFeedbacks },
+	user: { findMany: findUsers },
+} = prisma;
+
 export const toExtendedNotifications = async (
 	notifications: Notification[],
 ): Promise<ExtendedNotification[]> => {
@@ -13,22 +21,21 @@ export const toExtendedNotifications = async (
 	const reportIds = notifications.map((n) => n.reportId).filter(isNotNull);
 	const feedbackIds = notifications.map((n) => n.feedbackId).filter(isNotNull);
 
+	const usersIds = [
+		...notifications.map((n) => n.userId).filter(isNotNull),
+		...notifications.map((n) => n.senderId).filter(isNotNull),
+	];
+
 	const events =
-		eventsIds.length > 0
-			? await prisma.event.findMany(getOptions(eventsIds))
-			: [];
+		eventsIds.length > 0 ? await findEvents(getOptions(eventsIds)) : [];
 	const comments =
-		commentsIds.length > 0
-			? await prisma.comment.findMany(getOptions(commentsIds))
-			: [];
+		commentsIds.length > 0 ? await findComments(getOptions(commentsIds)) : [];
 	const reports =
-		reportIds.length > 0
-			? await prisma.report.findMany(getOptions(reportIds))
-			: [];
+		reportIds.length > 0 ? await findReports(getOptions(reportIds)) : [];
 	const feedbacks =
-		feedbackIds.length > 0
-			? await prisma.feedback.findMany(getOptions(feedbackIds))
-			: [];
+		feedbackIds.length > 0 ? await findFeedbacks(getOptions(feedbackIds)) : [];
+	const users =
+		usersIds.length > 0 ? await findUsers(getOptions(usersIds)) : [];
 
 	return notifications.map((n) => ({
 		...n,
@@ -36,6 +43,8 @@ export const toExtendedNotifications = async (
 		comment: comments.find((c) => c.id === n.commentId),
 		report: reports.find((r) => r.id === n.reportId),
 		feedback: feedbacks.find((f) => f.id === n.feedbackId),
+		user: users.find((u) => u.id === n.userId),
+		sender: users.find((u) => u.id === n.senderId),
 	})) as ExtendedNotification[];
 };
 
