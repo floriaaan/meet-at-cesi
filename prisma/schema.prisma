@@ -101,12 +101,13 @@ model User {
   preferences Preference?
   privacy     PrivacySettings?
 
-  createdEvents       Event[]      @relation("event_creation")
-  participations      Event[]      @relation("event_participation")
-  sendedInvitations   Invitation[] @relation("event_invitation_sended")
-  receivedInvitations Invitation[] @relation("event_invitation_received")
-  blamedFor           Report[]     @relation("report_user_blamed")
-  reported            Report[]     @relation("report_user_sender")
+  createdEvents       Event[]        @relation("event_creation")
+  participations      Event[]        @relation("event_participation")
+  sendedInvitations   Invitation[]   @relation("event_invitation_sended")
+  receivedInvitations Invitation[]   @relation("event_invitation_received")
+  blames              Report[]       @relation("report_user_blamed")
+  reports             Report[]       @relation("report_user_sender")
+  notifications       Notification[] @relation("notification")
 
   trophies           Trophy[]
   feedbacks          Feedback[]
@@ -115,8 +116,8 @@ model User {
   sessions           Session[]
   verificationTokens VerificationToken[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
 }
 
@@ -149,21 +150,21 @@ model Event {
   audience       String
   audienceCampus String
 
-  creator   User     @relation("event_creation", fields: [creatorId], references: [id], onDelete: Cascade)
+  creator   User   @relation("event_creation", fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
 
   participants User[]       @relation("event_participation")
   invitations  Invitation[]
   comments     Comment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 }
 
 model Comment {
-  id        String    @id @default(cuid())
-  content   String
+  id      String @id @default(cuid())
+  content String
 
   author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String?
@@ -174,7 +175,7 @@ model Comment {
   parentId String?
   children Comment[] @relation("comment_parent")
 
-  history   CommentHistory[]
+  history CommentHistory[]
 
   createdAt DateTime? @default(now())
   updatedAt DateTime  @updatedAt
@@ -261,4 +262,34 @@ model Report {
   sender   User   @relation("report_user_sender", fields: [senderId], references: [id])
 
   status ReportStatus @default(PENDING)
+}
+
+enum NotificationType {
+  EVENT_INVITATION
+  EVENT_PARTICIPATION
+  EVENT_CREATION
+  EVENT_MODIFICATION
+  EVENT_DELETION
+
+  COMMENT_CREATION
+
+  REPORT_ACCEPTED
+  REPORT_REFUSED
+
+  FEEDBACK_RESPONSE
+}
+
+model Notification {
+  id     String           @id @default(cuid())
+  user   User             @relation("notification", fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  type   NotificationType
+
+  eventId    String?
+  commentId  String?
+  reportId   String?
+  feedbackId String?
+	
+
+  createdAt DateTime @default(now())
 }
