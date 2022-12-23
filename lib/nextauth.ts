@@ -1,12 +1,13 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { InvitationStatus } from "@prisma/client";
+import { InvitationStatus, Notification } from "@prisma/client";
 import { Session, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 
 import prisma from "@/lib/prisma";
+import generateToken from "@/lib/tokens/email-verification";
 import { ExtendedSession } from "@/types/Session";
 import { checkEmail } from "@/lib/validators/email";
-import generateToken from "@/lib/tokens/email-verification";
+import { toExtendedNotifications } from "@/lib/transformers/notification";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;
@@ -29,9 +30,8 @@ export const sessionCallback = async ({
 	user: User | AdapterUser;
 }) => {
 	// Send properties to the client, like an access_token from a provider.
-	session.user = user;
 
-	const userDetails = await prisma.user.findUnique({
+	const extendedUser = await prisma.user.findUniqueOrThrow({
 		where: { id: user.id },
 		include: {
 			privacy: true,
@@ -43,14 +43,19 @@ export const sessionCallback = async ({
 			sendedInvitations: true,
 			participations: true,
 			createdEvents: true,
+			feedbacks: true,
+			notifications: true,
 		},
 	});
-	if (!userDetails) throw new Error("User not found");
 
 	// extend session with user details
 	session = {
 		...session,
-		user: { ...session.user, ...userDetails },
+		user: {
+			...extendedUser,
+			// extends notifications with event, comment, report and feedback
+			notifications: await toExtendedNotifications(extendedUser.notifications),
+		} as ExtendedSession["user"],
 	};
 
 	return session as ExtendedSession;
