@@ -7,12 +7,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
+import { ExtendedSession } from "@/types/Session";
 import { FeedbackWrapper } from "@/components/Helpers/Feedback";
 import { PreferencesPopup } from "@/components/Helpers/Popup/Preferences";
 import { ReportProvider } from "@/components/Report/Wrapper";
+import { NotificationsProvider } from "@/hooks/useNotifications";
 import "@/styles/globals.css";
 import "@/styles/nprogress.css";
-import { ExtendedSession } from "@/types/Session";
 
 const App = ({ Component, pageProps }: AppProps) => {
 	const { session } = pageProps as {
@@ -68,7 +69,9 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
 
 	return (
 		<>
-			<ReportProvider>{children}</ReportProvider>
+			<NotificationsProvider>
+				<ReportProvider>{children}</ReportProvider>
+			</NotificationsProvider>
 			<PreferencesPopup />
 			<FeedbackWrapper />
 		</>

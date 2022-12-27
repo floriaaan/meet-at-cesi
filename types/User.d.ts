@@ -8,6 +8,7 @@ import type {
 	VerificationToken,
 } from "@prisma/client";
 import type { ExtendedEvent, ExtendedInvitation } from "@/types/Event";
+import { ExtendedNotification } from "@/types/Notification";
 
 export type UserMinimum = {
 	id: User["id"];
@@ -25,7 +26,7 @@ export type ExtendedUser = User & {
 	receivedInvitations: ExtendedInvitation[];
 	sendedInvitations: ExtendedInvitation[];
 	feedbacks: Feedback[];
-	notifications: Notification[];
+	notifications: ExtendedNotification[];
 
 	verificationTokens: VerificationToken[];
 };
