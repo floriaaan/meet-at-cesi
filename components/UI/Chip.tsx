@@ -13,8 +13,10 @@ export const Chip = ({ children, className, extendClassName }: ChipProps) => {
 			className={
 				className ||
 				classNames(
-					"font-bold text-white bg-black py-0.5 px-2",
+					"font-bold text-white bg-black  ",
 					!extendClassName?.includes("text-") ? "text-xs" : "",
+					!extendClassName?.includes("py-") ? "py-0.5" : "",
+					!extendClassName?.includes("px-") ? "px-2" : "",
 					extendClassName,
 				)
 			}

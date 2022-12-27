@@ -27,7 +27,7 @@ export default function PopperMenu({
 		<Menu>
 			{({ open }) => (
 				<>
-					<Menu.Button className="focus:outline-none" ref={trigger}>
+					<Menu.Button className="flex items-center focus:outline-none" ref={trigger}>
 						{buttonChildren({ open })}
 					</Menu.Button>
 

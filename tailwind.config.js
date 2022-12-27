@@ -25,6 +25,9 @@ module.exports = {
 				asc: 'sort="ascending"',
 				desc: 'sort="descending"',
 			},
+			width: {
+				inherit: "inherit",
+			},
 		},
 	},
 	plugins: [require("@tailwindcss/line-clamp")],
