@@ -7,6 +7,7 @@ import {
 
 import { ExtendedUser } from "@/types/User";
 import { RoleFormValues } from "@/components/Admin/CustomTable/User/RoleForm";
+import { ExtendedNotification } from "@/types/Notification";
 
 export type UserSearchRequestInput = {
 	name?: string;
@@ -14,7 +15,7 @@ export type UserSearchRequestInput = {
 };
 
 export const searchUsers = async (
-	params: UserSearchRequestInput
+	params: UserSearchRequestInput,
 ): Promise<User[]> => {
 	const response = await fetch(`/api/user/search`, {
 		method: "POST",
@@ -35,7 +36,7 @@ export type EditPreferencesRequestInput = {
 	privacy?: PreferencePrivacy;
 };
 export const editPreferences = async (
-	values: EditPreferencesRequestInput
+	values: EditPreferencesRequestInput,
 ): Promise<{ user: ExtendedUser } | false> => {
 	const response = await fetch(`/api/user/preferences`, {
 		method: "PUT",
@@ -91,7 +92,7 @@ export const sendVerificationEmail = async (): Promise<boolean> => {
 
 export type ChangeRoleRequestInput = RoleFormValues & { userId: User["id"] };
 export const changeRole = async (
-	values: ChangeRoleRequestInput
+	values: ChangeRoleRequestInput,
 ): Promise<{ user: User } | Error> => {
 	const res = await fetch("/api/admin/user/role", {
 		method: "PUT",
@@ -109,7 +110,7 @@ export type EditPrivacyRequestInput = {
 	createdEvents: UserPrivacy;
 };
 export const editPrivacy = async (
-	values: EditPrivacyRequestInput
+	values: EditPrivacyRequestInput,
 ): Promise<{ user: ExtendedUser } | false> => {
 	const response = await fetch(`/api/user/privacy`, {
 		method: "PUT",
@@ -121,4 +122,11 @@ export const editPrivacy = async (
 		return { user };
 	}
 	return false;
+};
+
+export const getNotifications = async (): Promise<ExtendedNotification[]> => {
+	const res = await fetch("/api/user/notification");
+	const { notifications } = await res.json();
+	if (res.ok) return notifications;
+	return [];
 };

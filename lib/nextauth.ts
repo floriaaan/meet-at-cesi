@@ -44,7 +44,6 @@ export const sessionCallback = async ({
 			participations: true,
 			createdEvents: true,
 			feedbacks: true,
-			notifications: true,
 		},
 	});
 
@@ -53,8 +52,6 @@ export const sessionCallback = async ({
 		...session,
 		user: {
 			...extendedUser,
-			// extends notifications with event, comment, report and feedback
-			notifications: await toExtendedNotifications(extendedUser.notifications),
 		} as ExtendedSession["user"],
 	};
 
