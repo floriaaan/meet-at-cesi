@@ -4,11 +4,18 @@ export type ChipProps = {
 	children: React.ReactNode;
 	className?: string;
 	extendClassName?: string;
+	onClick?: Function;
 };
 
-export const Chip = ({ children, className, extendClassName }: ChipProps) => {
+export const Chip = ({
+	children,
+	className,
+	extendClassName,
+	onClick,
+}: ChipProps) => {
 	return (
 		<span
+			onClick={() => onClick && onClick()}
 			data-testid="chip"
 			className={
 				className ||
@@ -18,6 +25,7 @@ export const Chip = ({ children, className, extendClassName }: ChipProps) => {
 					!extendClassName?.includes("py-") ? "py-0.5" : "",
 					!extendClassName?.includes("px-") ? "px-2" : "",
 					extendClassName,
+					onClick && "cursor-pointer",
 				)
 			}
 		>
