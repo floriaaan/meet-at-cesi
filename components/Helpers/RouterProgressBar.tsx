@@ -6,7 +6,10 @@ let state: "LOADING" | "STOP" = "STOP";
 let activeRequests = 0;
 const delay = 250;
 
-NProgress.configure({ showSpinner: false, parent: "#navbar-progressBar" });
+NProgress.configure({
+	showSpinner: false,
+	//  parent: "#navbar-progressBar"
+});
 
 function load() {
 	if (state === "LOADING") {
