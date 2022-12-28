@@ -297,5 +297,7 @@ model Notification {
   reportId   String?
   feedbackId String?
 
+  isRead Boolean @default(false)
+
   createdAt DateTime @default(now())
 }
