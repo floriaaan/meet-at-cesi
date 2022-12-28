@@ -18,7 +18,7 @@ export const ParticipatingSection = ({ events }: ParticipatingSectionProps) => {
 			aria-label="Participating events section"
 		>
 			<div className="inline-flex items-center gap-2">
-				<h3 className="text-xl font-bold">
+				<h3 className="text-2xl font-bold">
 					🗓️{" "}
 					{id
 						? "L'utilisateur participe à ces événements"

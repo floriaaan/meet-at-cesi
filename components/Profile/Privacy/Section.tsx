@@ -23,7 +23,7 @@ export const PrivacySection = ({ user }: { user: ExtendedUser }) => {
 
 	return (
 		<div className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48" id="privacy">
-			<h3 className="text-xl font-bold">🔐 Confidentialité des données</h3>
+			<h3 className="text-2xl font-bold">🔐 Confidentialité des données</h3>
 			<p className="text-sm text-gray-700 whitespace-pre-line">
 				{`Il est possible de choisir quels éléments de votre profil seront affiché.\n
         Vos trophées, votre promotion, votre campus et votre année d'étude sont publics par défaut.

@@ -38,7 +38,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
 			className="flex flex-col w-full p-4 gap-y-2 scroll-mt-48"
 			id="preferences"
 		>
-			<h3 className="text-xl font-bold">
+			<h3 className="text-2xl font-bold">
 				🎓 Sélection du campus et de la promotion
 			</h3>
 			<p className="text-sm text-gray-700 whitespace-pre-line">

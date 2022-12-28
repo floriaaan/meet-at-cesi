@@ -50,6 +50,10 @@ export const ProfileLayoutSidebar = () => {
 							href: "/profile/settings#privacy",
 						},
 						{
+							name: "📬 Préférences des notifications",
+							href: "/profile/settings#notifications",
+						},
+						{
 							name: "📨 Vérification de l'adresse email",
 							href: "/profile/settings#email-verification",
 						},
@@ -60,23 +64,3 @@ export const ProfileLayoutSidebar = () => {
 	);
 };
 
-type SidebarLinkProps = {
-	href: string;
-	children: React.ReactNode;
-};
-const SidebarLink = ({ href, children }: SidebarLinkProps) => {
-	const router = useRouter();
-	const isActive = router.pathname === href;
-	return (
-		<li>
-			<Link
-				className={classNames("nav__link", {
-					"text-pink underline decoration-pink": isActive,
-				})}
-				href={href}
-			>
-				{children}
-			</Link>
-		</li>
-	);
-};
