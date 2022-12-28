@@ -98,8 +98,9 @@ model User {
   image         String?
   role          Role      @default(USER)
 
-  preferences Preference?
-  privacy     PrivacySettings?
+  preferences          Preference?
+  privacy              PrivacySettings?
+  notificationSettings NotificationSettings?
 
   // needed relations for webapp frontend
   createdEvents       Event[]        @relation("event_creation")
@@ -300,4 +301,21 @@ model Notification {
   isRead Boolean @default(false)
 
   createdAt DateTime @default(now())
+}
+
+model NotificationSettings {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  EVENT_INVITATION    Boolean @default(true)
+  EVENT_PARTICIPATION Boolean @default(false)
+  EVENT_CREATION      Boolean @default(false)
+  EVENT_MODIFICATION  Boolean @default(false)
+  EVENT_DELETION      Boolean @default(false)
+  COMMENT_CREATION    Boolean @default(false)
+  REPORT_ACCEPTED     Boolean @default(false)
+  REPORT_REFUSED      Boolean @default(false)
+  FEEDBACK_RESPONSE   Boolean @default(false)
 }
