@@ -1,23 +1,25 @@
-import {
-	useContext,
-	createContext,
-	useState,
-	Dispatch,
-	useEffect,
-} from "react";
+import { useContext, createContext, useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 
-import { ExtendedUser } from "@/types/User";
 import toastStyle from "@/resources/toast.config";
-import { getNotifications } from "@/lib/fetchers/user";
+import {
+	deleteNotification,
+	getNotifications,
+	readAllNotifications,
+	readNotification,
+} from "@/lib/fetchers/user";
 import { ExtendedNotification } from "@/types/Notification";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const NotificationsContext = createContext({});
 
 type NotificationsContextType = {
-	notifications: ExtendedUser["notifications"];
+	notifications: ExtendedNotification[];
+	read: (notificationId: string) => Promise<void>;
+	readAll: () => Promise<void>;
 	remove: (notificationId: string) => Promise<void>;
+	isLoaded: boolean;
 };
 
 export const useNotifications = () => {
@@ -37,38 +39,79 @@ type Props = {
 };
 
 export const NotificationsProvider = ({ children }: Props) => {
-	const { data: session, status } = useSession();
+	const { status } = useSession();
 
-	const [notifications, setNotifications] = useState<ExtendedNotification[]>(
-		[],
-	);
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [n, setNotifications] = useState<ExtendedNotification[]>([]);
 
-	const remove = async (id: string) => {
-		const result = await (() => {
-			return Promise.resolve(false);
-		})();
+	const intervalRef = useRef<NodeJS.Timer>();
+	const router = useRouter();
+
+	const read = async (notificationId: ExtendedNotification["id"]) => {
+		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+		const url = await readNotification(notificationId);
+		if (url) {
+			toast.success("Notification lue 👍", { id: toastId });
+			router.push(url);
+		} else {
+			toast.error("Une erreur est survenue 😢", { id: toastId });
+		}
+	};
+
+	const readAll = async () => {
+		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+		const result = await readAllNotifications();
 		if (result) {
-			toast.success("Notification supprimée 😉", toastStyle);
-			// setNotifications(result);
-		} else toast.error("Une erreur est survenue 😕", toastStyle);
+			setNotifications((n) => n.map((n) => ({ ...n, read: true })));
+			toast.success("Toutes les notifications ont été lues 👍", {
+				id: toastId,
+			});
+		} else {
+			toast.error("Une erreur est survenue 😢", { id: toastId });
+		}
+	};
+
+	const remove = async (notificationId: ExtendedNotification["id"]) => {
+		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+
+		const result = await deleteNotification(notificationId);
+		if (result) {
+			setNotifications((n) => n.filter((n) => n.id !== notificationId));
+			toast.success("Notification supprimée 👍", { id: toastId });
+		} else {
+			toast.error("Une erreur est survenue 😢", { id: toastId });
+		}
 	};
 
 	useEffect(() => {
-		// polling notifications every 30 seconds with a check if the user is on the browser tab
-		const interval = setInterval(() => {
-			if (!document.hidden && status === "authenticated" && session?.user) {
-				getNotifications().then(setNotifications);
-			} else console.log("not polling notifications");
+		if (status !== "authenticated") return;
+
+		// get notifications on mount
+		getNotifications().then((notifications) => {
+			setNotifications(notifications);
+			setIsLoaded(true);
+		});
+
+		// polling notifications every 15 seconds with a check if the user is on the browser tab
+		intervalRef.current = setInterval(async () => {
+			if (!document.hidden && status === "authenticated") {
+				const notifications = await getNotifications();
+				setNotifications(notifications);
+				setIsLoaded(true);
+			}
 		}, 15000);
 
-		return () => clearInterval(interval);
-	}, [status, session?.user]);
+		return () => clearInterval(intervalRef.current);
+	}, [status]);
 
 	return (
 		<NotificationsContext.Provider
 			value={{
-				notifications,
+				notifications: n,
+				read,
+				readAll,
 				remove,
+				isLoaded,
 			}}
 		>
 			{children}

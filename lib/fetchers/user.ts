@@ -130,3 +130,38 @@ export const getNotifications = async (): Promise<ExtendedNotification[]> => {
 	if (res.ok) return notifications;
 	return [];
 };
+
+export type NotificationRequestInput = {
+	id: ExtendedNotification["id"];
+};
+export const readNotification = async (
+	notificationId: ExtendedNotification["id"],
+): Promise<string> => {
+	const res = await fetch(`/api/user/notification?action=read`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ id: notificationId }),
+	});
+	const { url } = await res.json();
+	return url || "/";
+};
+export const deleteNotification = async (
+	notificationId: ExtendedNotification["id"],
+): Promise<boolean> => {
+	const res = await fetch(`/api/user/notification`, {
+		method: "DELETE",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({ id: notificationId }),
+	});
+	if (res.ok) return true;
+	return false;
+};
+
+export const readAllNotifications = async (): Promise<boolean> => {
+	const res = await fetch(`/api/user/notification?action=read-all`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+	});
+	if (res.ok) return true;
+	return false;
+};

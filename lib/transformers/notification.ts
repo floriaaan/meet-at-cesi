@@ -1,6 +1,7 @@
 import { ExtendedNotification } from "@/types/Notification";
-import { Notification } from "@prisma/client";
+import { Notification, NotificationType } from "@prisma/client";
 import prisma from "@/lib/prisma";
+import { ExtendedComment } from "@/types/Event";
 
 const isNotNull = <T>(value: T | null): value is T =>
 	value !== null && value !== undefined;
@@ -69,4 +70,17 @@ export const toExtendedNotification = async (
 ): Promise<ExtendedNotification | null> => {
 	const notifications = await toExtendedNotifications([notification]);
 	return notifications[0] || null;
+};
+
+export const getContentUrl = (notification: ExtendedNotification): string => {
+	if(notification.type === NotificationType.EVENT_INVITATION) return `/profile#invitations`;
+
+	if (notification.event) return `/event/${notification.event.id}`;
+	if (notification.comment)
+		return `/event/${
+			(notification.comment as unknown as ExtendedComment).event.id
+		}#${notification.commentId}`;
+	// if (notification.report) return `/report/${notification.report.id}`;
+	// if (notification.feedback) return `/feedback/${notification.feedback.id}`;
+	return "#";
 };
