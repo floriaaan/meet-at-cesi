@@ -4,20 +4,25 @@ import {
 	NotificationsForm,
 	NotificationsFormValues,
 } from "@/components/Profile/Notifications/Form";
+import {
+	editNotificationSettings,
+	EditNotificationSettingsRequestInput,
+} from "@/lib/fetchers/user";
 
 export const NotificationsSection = ({ user }: { user: ExtendedUser }) => {
-	const [notifications, setNotifications] = useState<
-		ExtendedUser["notifications"]
-	>(user.notifications || undefined);
+	const [settings, setSettings] = useState<
+		ExtendedUser["notificationsSettings"]
+	>(user.notificationsSettings || undefined);
 
 	async function handleSubmit(values: NotificationsFormValues) {
-		// return editNotifications(values as EditNotificationsRequestInput).then((result) => {
-		// 	if (result && !(result instanceof Error)) {
-		// 		setNotifications(result.user.notifications);
-		// 	}
-		// 	return Promise.resolve(result);
-		// });
-		return Promise.resolve(false as false);
+		return editNotificationSettings(
+			values as EditNotificationSettingsRequestInput,
+		).then((result) => {
+			if (result && !(result instanceof Error)) {
+				setSettings(result);
+			}
+			return Promise.resolve(result);
+		});
 	}
 
 	return (
@@ -31,7 +36,7 @@ export const NotificationsSection = ({ user }: { user: ExtendedUser }) => {
 			</p>
 			<NotificationsForm
 				onSubmit={handleSubmit}
-				initialValues={{} as NotificationsFormValues}
+				initialValues={settings as unknown as NotificationsFormValues}
 			/>
 		</div>
 	);

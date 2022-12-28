@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
 	const user = await prisma.user.findUnique({
 		where: { email: session.user?.email },
-		include: { preferences: true, privacy: true },
+		include: { preferences: true, privacy: true, notificationSettings: true },
 	});
 
 	return {

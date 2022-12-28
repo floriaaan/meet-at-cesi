@@ -1,6 +1,7 @@
 import type {
 	Feedback,
 	Notification,
+	NotificationSettings,
 	Preference,
 	PrivacySettings,
 	Trophy,
@@ -19,6 +20,7 @@ export type UserMinimum = {
 export type ExtendedUser = User & {
 	preferences?: Preference;
 	privacy?: PrivacySettings;
+	notificationsSettings?: NotificationSettings;
 
 	trophies: Trophy[];
 	participations?: ExtendedEvent[];

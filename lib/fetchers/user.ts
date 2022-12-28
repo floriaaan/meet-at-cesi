@@ -1,4 +1,5 @@
 import {
+	NotificationSettings,
 	Preference,
 	PreferencePrivacy,
 	User,
@@ -163,5 +164,31 @@ export const readAllNotifications = async (): Promise<boolean> => {
 		headers: { "Content-Type": "application/json" },
 	});
 	if (res.ok) return true;
+	return false;
+};
+
+export type EditNotificationSettingsRequestInput = {
+	EVENT_INVITATION: boolean;
+	EVENT_PARTICIPATION: boolean;
+	EVENT_CREATION: boolean;
+	EVENT_MODIFICATION: boolean;
+	EVENT_DELETION: boolean;
+	COMMENT_CREATION: boolean;
+	REPORT_ACCEPTED: boolean;
+	REPORT_REFUSED: boolean;
+	FEEDBACK_RESPONSE: boolean;
+};
+export const editNotificationSettings = async (
+	values: EditNotificationSettingsRequestInput,
+): Promise<NotificationSettings | false> => {
+	const res = await fetch(`/api/user/notification?action=edit-settings`, {
+		method: "PUT",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(values),
+	});
+	if (res.ok) {
+		const { notificationSettings } = await res.json();
+		return notificationSettings;
+	}
 	return false;
 };

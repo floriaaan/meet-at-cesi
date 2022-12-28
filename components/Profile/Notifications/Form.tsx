@@ -5,19 +5,40 @@ import { useState } from "react";
 
 import toastStyle from "@/resources/toast.config";
 import { ExtendedUser } from "@/types/User";
+import Input from "@/components/UI/Form/Input";
+import { NotificationSettings } from "@prisma/client";
 
-const NotificationsSchema = Yup.object().shape({});
+const NotificationsSchema = Yup.object().shape({
+	EVENT_INVITATION: Yup.boolean(),
+	EVENT_PARTICIPATION: Yup.boolean(),
+	EVENT_CREATION: Yup.boolean(),
+	EVENT_MODIFICATION: Yup.boolean(),
+	EVENT_DELETION: Yup.boolean(),
+	COMMENT_CREATION: Yup.boolean(),
+	REPORT_ACCEPTED: Yup.boolean(),
+	REPORT_REFUSED: Yup.boolean(),
+	FEEDBACK_RESPONSE: Yup.boolean(),
+});
 
 export type NotificationsFormValues = Yup.InferType<typeof NotificationsSchema>;
-const initialFormValues: NotificationsFormValues =
-	{} as unknown as NotificationsFormValues;
+const initialFormValues: NotificationsFormValues = {
+	EVENT_INVITATION: true,
+	EVENT_PARTICIPATION: false,
+	EVENT_CREATION: false,
+	EVENT_MODIFICATION: false,
+	EVENT_DELETION: false,
+	COMMENT_CREATION: false,
+	REPORT_ACCEPTED: false,
+	REPORT_REFUSED: false,
+	FEEDBACK_RESPONSE: false,
+} as unknown as NotificationsFormValues;
 
 type Props = {
 	labelClassName?: string;
 	initialValues?: NotificationsFormValues;
 	onSubmit: (
 		values: NotificationsFormValues,
-	) => Promise<{ user: ExtendedUser } | false | Error>;
+	) => Promise<NotificationSettings | false | Error>;
 	optionalButton?: JSX.Element;
 	submitClassName?: string;
 };
@@ -60,6 +81,51 @@ export const NotificationsForm = ({
 		>
 			{({ isSubmitting, isValid }) => (
 				<Form className="grid w-full gap-1 lg:gap-2 lg:grid-cols-2">
+					<Input
+						type="checkbox"
+						label="Invitation à un événement"
+						name="EVENT_INVITATION"
+					/>
+					<Input
+						type="checkbox"
+						label="Participation à un événement"
+						name="EVENT_PARTICIPATION"
+					/>
+					<Input
+						type="checkbox"
+						label="Création d'un événement"
+						name="EVENT_CREATION"
+					/>
+					<Input
+						type="checkbox"
+						label="Modification d'un événement"
+						name="EVENT_MODIFICATION"
+					/>
+					<Input
+						type="checkbox"
+						label="Suppression d'un événement"
+						name="EVENT_DELETION"
+					/>
+					<Input
+						type="checkbox"
+						label="Création d'un commentaire"
+						name="COMMENT_CREATION"
+					/>
+					<Input
+						type="checkbox"
+						label="Signalement accepté"
+						name="REPORT_ACCEPTED"
+					/>
+					<Input
+						type="checkbox"
+						label="Signalement refusé"
+						name="REPORT_REFUSED"
+					/>
+					<Input
+						type="checkbox"
+						label="Réponse à un feedback"
+						name="FEEDBACK_RESPONSE"
+					/>
 					<div className="flex flex-col justify-end gap-1 mt-2 lg:col-span-2">
 						<button
 							type="submit"

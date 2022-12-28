@@ -5,7 +5,10 @@ import {
 	getSessionOrThrow,
 	getUserOrThrow,
 } from "@/lib/api";
-import { NotificationRequestInput } from "@/lib/fetchers/user";
+import {
+	EditNotificationSettingsRequestInput,
+	NotificationRequestInput,
+} from "@/lib/fetchers/user";
 import {
 	getContentUrl,
 	toExtendedNotification,
@@ -63,6 +66,22 @@ export default async function handler(
 			});
 
 			return res.status(200).json({ notifications: update });
+		} catch (e) {
+			console.error(e);
+			res.status(500).json({ message: e instanceof Error ? e.message : e });
+		}
+	} else if (req.method === "PUT" && req.query.action === "edit-settings") {
+		try {
+			const { id } = await getUserOrThrow(session);
+			const input = req.body as EditNotificationSettingsRequestInput;
+
+			const update = await prisma.notificationSettings.upsert({
+				where: { userId: id },
+				update: input,
+				create: { ...input, userId: id },
+			});
+
+			return res.status(200).json({ notificationSettings: update });
 		} catch (e) {
 			console.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
