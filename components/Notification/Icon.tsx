@@ -60,68 +60,39 @@ export const NotificationIcon = ({
 
 			<>
 				{type === c_creation && (
-					<TypeIcon
-						icon={({ className }) => <MdComment className={className} />}
-						className="text-black bg-pink"
-					/>
+					<TypeIcon icon={CommentIcon} className="text-black bg-pink" />
 				)}
 			</>
 
 			<>
 				{type === e_creation && (
-					<TypeIcon
-						icon={({ className }) => <MdCalendarToday className={className} />}
-						className="text-white bg-green"
-					/>
+					<TypeIcon icon={CalendarTodayIcon} className="text-white bg-green" />
 				)}
 				{type === e_deletion && (
-					<TypeIcon
-						icon={({ className }) => <MdDelete className={className} />}
-						className="text-white bg-green"
-					/>
+					<TypeIcon icon={DeleteIcon} className="text-white bg-green" />
 				)}
 				{type === e_invitation && (
 					<TypeIcon
-						icon={({ className }) => (
-							<MdPermContactCalendar className={className} />
-						)}
+						icon={PermContactCalendarIcon}
 						className="text-white bg-green"
 					/>
 				)}
 				{type === e_modification && (
-					<TypeIcon
-						icon={({ className }) => <MdEditCalendar className={className} />}
-						className="text-white bg-green"
-					/>
+					<TypeIcon icon={EditCalendarIcon} className="text-white bg-green" />
 				)}
 				{type === e_participation && (
-					<TypeIcon
-						icon={({ className }) => <MdPersonAdd className={className} />}
-						className="text-white bg-green"
-					/>
+					<TypeIcon icon={PersonAddIcon} className="text-white bg-green" />
 				)}
 			</>
 
-			<>
-				{type === f_response && (
-					<TypeIcon
-						icon={({ className }) => <MdFeedback className={className} />}
-					/>
-				)}
-			</>
+			<>{type === f_response && <TypeIcon icon={FeedbackIcon} />}</>
 
 			<>
 				{type === r_accepted && (
-					<TypeIcon
-						icon={({ className }) => <MdWarning className={className} />}
-						className="text-black bg-purple"
-					/>
+					<TypeIcon icon={WarningIcon} className="text-black bg-purple" />
 				)}
 				{type === r_refused && (
-					<TypeIcon
-						icon={({ className }) => <MdWarning className={className} />}
-						className="text-black bg-purple"
-					/>
+					<TypeIcon icon={WarningIcon} className="text-black bg-purple" />
 				)}
 			</>
 		</div>
@@ -146,3 +117,32 @@ const TypeIcon = ({
 		</span>
 	);
 };
+
+type IconProps = {
+	className?: string;
+};
+
+function CommentIcon({ className }: IconProps) {
+	return <MdComment className={className} />;
+}
+function CalendarTodayIcon({ className }: IconProps) {
+	return <MdCalendarToday className={className} />;
+}
+function DeleteIcon({ className }: IconProps) {
+	return <MdDelete className={className} />;
+}
+function PermContactCalendarIcon({ className }: IconProps) {
+	return <MdPermContactCalendar className={className} />;
+}
+function EditCalendarIcon({ className }: IconProps) {
+	return <MdEditCalendar className={className} />;
+}
+function PersonAddIcon({ className }: IconProps) {
+	return <MdPersonAdd className={className} />;
+}
+function FeedbackIcon({ className }: IconProps) {
+	return <MdFeedback className={className} />;
+}
+function WarningIcon({ className }: IconProps) {
+	return <MdWarning className={className} />;
+}

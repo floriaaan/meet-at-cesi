@@ -1,4 +1,12 @@
-import { useContext, createContext, useState, useEffect, useRef } from "react";
+import {
+	useContext,
+	createContext,
+	useState,
+	useEffect,
+	useRef,
+	useMemo,
+	useCallback,
+} from "react";
 import toast from "react-hot-toast";
 
 import toastStyle from "@/resources/toast.config";
@@ -47,18 +55,24 @@ export const NotificationsProvider = ({ children }: Props) => {
 	const intervalRef = useRef<NodeJS.Timer>();
 	const router = useRouter();
 
-	const read = async (notificationId: ExtendedNotification["id"]) => {
-		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
-		const url = await readNotification(notificationId);
-		if (url) {
-			toast.success("Notification lue 👍", { id: toastId });
-			router.push(url);
-		} else {
-			toast.error("Une erreur est survenue 😢", { id: toastId });
-		}
-	};
+	const read = useCallback(
+		async (notificationId: ExtendedNotification["id"]) => {
+			let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+			const url = await readNotification(notificationId);
+			if (url) {
+				setNotifications((n) =>
+					n.map((n) => (n.id === notificationId ? { ...n, read: true } : n)),
+				);
+				toast.success("Notification lue 👍", { id: toastId });
+				router.push(url);
+			} else {
+				toast.error("Une erreur est survenue 😢", { id: toastId });
+			}
+		},
+		[router],
+	);
 
-	const readAll = async () => {
+	const readAll = useCallback(async () => {
 		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
 		const result = await readAllNotifications();
 		if (result) {
@@ -69,19 +83,22 @@ export const NotificationsProvider = ({ children }: Props) => {
 		} else {
 			toast.error("Une erreur est survenue 😢", { id: toastId });
 		}
-	};
+	}, []);
 
-	const remove = async (notificationId: ExtendedNotification["id"]) => {
-		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+	const remove = useCallback(
+		async (notificationId: ExtendedNotification["id"]) => {
+			let toastId = toast.loading("Chargement... ⌛️", toastStyle);
 
-		const result = await deleteNotification(notificationId);
-		if (result) {
-			setNotifications((n) => n.filter((n) => n.id !== notificationId));
-			toast.success("Notification supprimée 👍", { id: toastId });
-		} else {
-			toast.error("Une erreur est survenue 😢", { id: toastId });
-		}
-	};
+			const result = await deleteNotification(notificationId);
+			if (result) {
+				setNotifications((n) => n.filter((n) => n.id !== notificationId));
+				toast.success("Notification supprimée 👍", { id: toastId });
+			} else {
+				toast.error("Une erreur est survenue 😢", { id: toastId });
+			}
+		},
+		[],
+	);
 
 	useEffect(() => {
 		if (status !== "authenticated") return;
@@ -104,16 +121,19 @@ export const NotificationsProvider = ({ children }: Props) => {
 		return () => clearInterval(intervalRef.current);
 	}, [status]);
 
+	const memoizedValue = useMemo(
+		() => ({
+			notifications: n,
+			read,
+			readAll,
+			remove,
+			isLoaded,
+		}),
+		[n, isLoaded, read, readAll, remove],
+	);
+
 	return (
-		<NotificationsContext.Provider
-			value={{
-				notifications: n,
-				read,
-				readAll,
-				remove,
-				isLoaded,
-			}}
-		>
+		<NotificationsContext.Provider value={memoizedValue}>
 			{children}
 		</NotificationsContext.Provider>
 	);

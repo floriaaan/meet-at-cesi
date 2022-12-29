@@ -7,12 +7,12 @@ import { MdSearch } from "react-icons/md";
 
 import { Logo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
-import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
+import { AuthDropdown } from "@/components/Dropdown/AuthDropdown";
 import { ExtendedSession } from "@/types/Session";
 import { isAdmin, isModerator } from "@/lib/role";
-import { getEnv } from "@/lib/env";
 import { SearchBar } from "@/components/UI/SearchBar";
-import { NotificationDropdown } from "@/components/Layout/Navbar/NotificationDropdown";
+import { NotificationDropdown } from "@/components/Dropdown/NotificationDropdown";
+import { getEnv } from "@/lib/env";
 
 export const Navbar = () => {
 	const { data: session } = useSession() as {
@@ -135,31 +135,6 @@ export const Navbar = () => {
 								</Link>
 							) : null}
 						</div>
-						{/* {receivedInvitations ? (
-							<div className="inline-flex items-center gap-x-5">
-								<Link
-									href="/profile#invitations"
-									className="font-bold subnav__link"
-								>
-									<span className="inline-flex items-center gap-x-1 group">
-										<Chip
-											className={
-												receivedInvitations.length > 0
-													? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2"
-													: ""
-											}
-										>
-											{receivedInvitations.length}
-										</Chip>
-										{getPlural(
-											receivedInvitations.length,
-											"nouvelle invitation reçue",
-											"nouvelles invitations reçues",
-										)}
-									</span>
-								</Link>
-							</div>
-						) : null} */}
 						<NotificationDropdown />
 					</div>
 				) : null}

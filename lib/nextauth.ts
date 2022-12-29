@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { InvitationStatus, Notification } from "@prisma/client";
+import { InvitationStatus } from "@prisma/client";
 import { Session, User } from "next-auth";
 import { AdapterUser } from "next-auth/adapters";
 
@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 import generateToken from "@/lib/tokens/email-verification";
 import { ExtendedSession } from "@/types/Session";
 import { checkEmail } from "@/lib/validators/email";
-import { toExtendedNotifications } from "@/lib/transformers/notification";
+import { getUserFromIdOrThrow } from "./api";
 
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;
@@ -31,28 +31,12 @@ export const sessionCallback = async ({
 }) => {
 	// Send properties to the client, like an access_token from a provider.
 
-	const extendedUser = await prisma.user.findUniqueOrThrow({
-		where: { id: user.id },
-		include: {
-			privacy: true,
-			preferences: true,
-			receivedInvitations: {
-				include: { event: true, sender: true, receiver: true },
-				where: { status: InvitationStatus.PENDING },
-			},
-			sendedInvitations: true,
-			participations: true,
-			createdEvents: true,
-			feedbacks: true,
-		},
-	});
+	const extendedUser = await getUserFromIdOrThrow(user.id);
 
 	// extend session with user details
 	session = {
 		...session,
-		user: {
-			...extendedUser,
-		} as ExtendedSession["user"],
+		user: extendedUser as ExtendedSession["user"],
 	};
 
 	return session as ExtendedSession;

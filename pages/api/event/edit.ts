@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+
 import prisma from "@/lib/prisma";
-import { ExtendedEvent, MapFeature } from "@/types/Event";
+import { ExtendedEvent } from "@/types/Event";
 import { isAdmin } from "@/lib/role";
 import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 import { triggerNotification } from "@/lib/notification/trigger";

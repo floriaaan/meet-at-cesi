@@ -28,16 +28,16 @@ export default async function handler(
 			include: { notifications: true },
 		})) as ExtendedUser;
 
-		const notifications = await toExtendedNotifications(n);
+		const notifications = (await toExtendedNotifications(n)).sort((a, b) => {
+			// sort by isRead and createdAt
+			if (a.isRead === b.isRead) {
+				return a.createdAt > b.createdAt ? -1 : 1;
+			}
+			return a.isRead ? 1 : -1;
+		});
 
 		return res.status(200).json({
-			notifications: notifications.sort((a, b) => {
-				// sort by isRead and createdAt
-				if (a.isRead === b.isRead) {
-					return a.createdAt > b.createdAt ? -1 : 1;
-				}
-				return a.isRead ? 1 : -1;
-			}),
+			notifications: notifications,
 		});
 	} else if (req.method === "PUT" && req.query.action === "read") {
 		try {

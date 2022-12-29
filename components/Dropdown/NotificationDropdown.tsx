@@ -1,19 +1,19 @@
 import classNames from "classnames";
 
-import PopperMenu from "@/components/Helpers/PopperMenu";
 import {
 	MdMoreVert,
 	MdNotifications,
-	// MdOutlineMarkAsUnread,
 	MdOutlineNotifications,
 	MdSettings,
 } from "react-icons/md";
+import Link from "next/link";
+import { useState } from "react";
+
+import PopperMenu from "@/components/Helpers/PopperMenu";
+import { ChipList } from "@/components/UI/Chip/List";
 import { Chip } from "@/components/UI/Chip";
 import { useNotifications } from "@/hooks/useNotifications";
 import { NotificationItem } from "@/components/Notification";
-import { useState } from "react";
-import { ChipList } from "@/components/UI/Chip/List";
-import Link from "next/link";
 
 const CHIP_CLASSNAME =
 	"py-1 px-3 md:py-0.5 md:px-2 font-bold text-sm md:text-xs cursor-pointer";
@@ -24,13 +24,9 @@ export const NotificationDropdown = () => {
 
 	return (
 		<PopperMenu
-			buttonChildren={({ open }) =>
-				isLoaded ? (
-					<MenuButton open={open} />
-				) : (
-					<span className="text-xs">Chargement des notifications ⌛️</span>
-				)
-			}
+			buttonChildren={({ open }) => (
+				<MenuButtonWrapper open={open} isLoaded={isLoaded} />
+			)}
 			popperOptions={{
 				strategy: "absolute",
 				modifiers: [{ name: "offset", options: { offset: [0, 6] } }],
@@ -130,44 +126,44 @@ const MenuPanel = () => {
 					)}
 				</div>
 			) : (
-				<div className="flex items-center justify-center h-16">Chargement en cours... ⌛️</div>
+				<div className="flex items-center justify-center h-16">
+					Chargement en cours... ⌛️
+				</div>
 			)}
 		</div>
 	);
 };
 
 const SubMenu = () => {
-	// const { readAll } = useNotifications();
-	// async function handleReadAll() {
-	// 	console.log("read all")
-	// 	await readAll();
-	// }
 	return (
 		<PopperMenu
-			buttonChildren={() => <MdMoreVert className="w-6 h-6 shrink-0" />}
+			buttonChildren={() => <SubMenuButton />}
 			popperOptions={{
 				strategy: "absolute",
 				modifiers: [{ name: "offset", options: { offset: [8, 8] } }],
 			}}
 		>
-			{() => (
-				<div className="flex -top-px z-[50] flex-col gap-y-2 w-fit p-2 bg-white md:border border-dashed shadow-2xl border-neutral-400 md:shadow-xl text-sm">
-					<Link
-						href="/profile/settings#notifications"
-						className="inline-flex items-center w-full gap-x-2 hover:underline underline-offset-2"
-					>
-						<MdSettings className="w-5 h-5 shrink-0" />
-						<span className="">Paramètres des notifications</span>
-					</Link>
-					{/* <span
-						onClick={handleReadAll}
-						className="inline-flex items-center w-full cursor-pointer gap-x-2 hover:underline underline-offset-2"
-					>
-						<MdOutlineMarkAsUnread className="w-5 h-5 shrink-0" />
-						<span className="">Tout lire</span>
-					</span> */}
-				</div>
-			)}
+			{() => <SubMenuPanel />}
 		</PopperMenu>
 	);
 };
+
+const MenuButtonWrapper = (props: { isLoaded: boolean; open: boolean }) =>
+	props.isLoaded ? (
+		<MenuButton open={props.open} />
+	) : (
+		<span className="text-xs">Chargement des notifications ⌛️</span>
+	);
+
+const SubMenuButton = () => <MdMoreVert className="w-6 h-6 shrink-0" />;
+const SubMenuPanel = () => (
+	<div className="flex -top-px z-[50] flex-col gap-y-2 w-fit p-2 bg-white md:border border-dashed shadow-2xl border-neutral-400 md:shadow-xl text-sm">
+		<Link
+			href="/profile/settings#notifications"
+			className="inline-flex items-center w-full gap-x-2 hover:underline underline-offset-2"
+		>
+			<MdSettings className="w-5 h-5 shrink-0" />
+			<span className="">Paramètres des notifications</span>
+		</Link>
+	</div>
+);
