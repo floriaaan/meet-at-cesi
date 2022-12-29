@@ -16,7 +16,9 @@ import Select from "@/components/UI/Form/Select";
 import Input from "@/components/UI/Form/Input";
 
 type FilterSidebarProps = {
+	// eslint-disable-next-line no-unused-vars
 	setEvents: (events: ExtendedEvent[]) => void;
+	// eslint-disable-next-line no-unused-vars
 	setLoading: (bool: boolean) => void;
 };
 

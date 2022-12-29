@@ -103,6 +103,7 @@ const TypeIcon = ({
 	icon,
 	className,
 }: {
+	// eslint-disable-next-line no-unused-vars
 	icon: ({ className }: { className: string }) => React.ReactNode;
 	className?: string;
 }) => {

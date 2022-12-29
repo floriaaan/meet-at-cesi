@@ -27,6 +27,7 @@ type Props = {
 	labelClassName?: string;
 	initialValues?: PrivacyFormValues;
 	onSubmit: (
+		// eslint-disable-next-line no-unused-vars
 		values: PrivacyFormValues
 	) => Promise<{ user: ExtendedUser } | false | Error>;
 	optionalButton?: JSX.Element;
@@ -102,7 +103,7 @@ export const PrivacyForm = ({
 						{optionalButton}
 						<button
 							type="submit"
-							//   disabled={disabled || !isValid}
+							  disabled={disabled || !isValid}
 							className={
 								submitClassName ||
 								"border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"

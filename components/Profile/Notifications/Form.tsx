@@ -37,6 +37,7 @@ type Props = {
 	labelClassName?: string;
 	initialValues?: NotificationsFormValues;
 	onSubmit: (
+		// eslint-disable-next-line no-unused-vars
 		values: NotificationsFormValues,
 	) => Promise<NotificationSettings | false | Error>;
 	optionalButton?: JSX.Element;

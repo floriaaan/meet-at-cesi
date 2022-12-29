@@ -1,6 +1,5 @@
 import { Chip, ChipProps } from "@/components/UI/Chip";
 import classNames from "classnames";
-import { MdClose } from "react-icons/md";
 
 type FilterChipProps = ChipProps & {
 	type: "campus" | "promotion" | "dateMin" | "dateMax";
@@ -23,9 +22,6 @@ export const FilterChip = ({
 			>
 				{children}
 			</Chip>
-			{/* <button className="bg-white py-0.5 h-fit hover:bg-black hover:text-white text-black">
-				<MdClose className="w-4 h-4 shrink-0" />
-			</button> */}
 		</div>
 	);
 };

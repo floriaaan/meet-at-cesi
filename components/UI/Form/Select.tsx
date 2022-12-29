@@ -23,7 +23,7 @@ const Select = ({
 	canHaveError = true,
 	...props
 }: SelectProps) => {
-	const [field, meta, helpers] = useField(
+	const [field, meta] = useField(
 		props as FieldHookConfig<any>,
 	) as unknown as [
 		field: any,

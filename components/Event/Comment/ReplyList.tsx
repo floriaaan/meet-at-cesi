@@ -3,6 +3,7 @@ import { CommentListItem } from ".";
 
 type ReplyListProps = {
 	replies: ExtendedComment[];
+	// eslint-disable-next-line no-unused-vars
 	setCommentList: (comments: ExtendedComment[]) => void;
 };
 

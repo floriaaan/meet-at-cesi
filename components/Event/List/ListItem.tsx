@@ -17,10 +17,8 @@ export const EventListItem = ({
 	title,
 	audience,
 	audienceCampus,
-	createdAt,
 	date,
 	location,
-	updatedAt,
 	creator,
 	participants,
 }: Props) => {

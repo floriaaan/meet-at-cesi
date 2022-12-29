@@ -80,7 +80,7 @@ const MenuButton = ({ user, open }: { user?: User; open: boolean }) =>
 		</span>
 	) : null;
 
-const MenuPanel = ({ open }: { open: boolean }) => {
+const MenuPanel = ({}: { open: boolean }) => {
 	return (
 		<div className="flex -top-px z-[49] flex-col min-w-[16rem] lg:min-w-[24rem] max-w-fit w-full right-0 absolute py-4 px-5 bg-white border rounded-tl-3xl rounded-b-3xl border-gray-400 gap-x-2 gap-y-3 lg:grid grid-cols-2">
 			<Category

@@ -1,4 +1,3 @@
-import { Avatar } from "@/components/UI/Avatar";
 import classNames from "classnames";
 import { User } from "@prisma/client";
 import { AvatarWithName } from "../UI/Avatar/WithName";
@@ -10,6 +9,7 @@ type Props = {
 	avatarClassName?: string;
 
 	checked?: boolean;
+	// eslint-disable-next-line no-unused-vars
 	onCheck?: (user: User) => void;
 };
 

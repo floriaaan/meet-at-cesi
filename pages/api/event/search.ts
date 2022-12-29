@@ -5,7 +5,7 @@ import { log } from "@/lib/log";
 
 const getDateFilter = (
 	dateMin: string | undefined,
-	dateMax: string | undefined
+	dateMax: string | undefined,
 ) => {
 	const dateMinFilter = dateMin
 		? { gte: new Date(new Date(dateMin).setHours(0, 0, 0, 0)) }
@@ -21,16 +21,15 @@ const getDateFilter = (
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Create new home
 	if (req.method === "POST") {
 		try {
-			let { dateMin, dateMax, proximity, campus, title, promotion } =
+			let { dateMin, dateMax, campus, title, promotion } =
 				req.body as EventSearchRequestInput;
 			dateMin = dateMin || undefined;
 			dateMax = dateMax || undefined;
-			proximity = proximity || undefined;
 			campus = campus || undefined;
 			promotion = promotion || undefined;
 			title = title || undefined;

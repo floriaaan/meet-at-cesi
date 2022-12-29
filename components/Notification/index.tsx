@@ -32,9 +32,11 @@ export const NotificationItem = ({
 	id,
 }: ExtendedNotification) => {
 	const { read, remove } = useNotifications();
+	// eslint-disable-next-line no-unused-vars
 	function handleRead(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
 		read(id);
 	}
+	// eslint-disable-next-line no-unused-vars
 	function handleRemove(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 		remove(id);
 	}
@@ -46,7 +48,10 @@ export const NotificationItem = ({
 				isRead ? "border-neutral-200 opacity-60" : "border-black border-dashed",
 			)}
 		>
-			<div className="inline-flex w-full cursor-pointer group gap-x-3" onClick={handleRead}>
+			<div
+				className="inline-flex w-full cursor-pointer group gap-x-3"
+				onClick={handleRead}
+			>
 				<NotificationIcon type={type} sender={sender} />
 				<div className="flex flex-col gap-1 ">
 					<div className="flex flex-col text-sm xl:gap-1 xl:flex-row">

@@ -7,7 +7,6 @@ import useDelayedRender from "@/hooks/useDelayedRender";
 import { Category, CategoryProps } from "@/components/UI/Link/Category";
 import { Header } from "@/components/UI/Header";
 import { Avatar } from "@/components/UI/Avatar";
-import { UserMinimum } from "@/types/User";
 import { PWAPopup } from "@/components/Helpers/Popup/PWA";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";

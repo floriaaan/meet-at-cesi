@@ -11,6 +11,7 @@ export type Image = {
 
 type ImageUploadFormProps = {
 	initialImage?: Image | null;
+	// eslint-disable-next-line no-unused-vars
 	onChangeImage: (image: string | null) => Promise<void>;
 	deleteImage: () => Promise<void>;
 

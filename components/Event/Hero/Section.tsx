@@ -13,7 +13,6 @@ import { ExtendedEvent } from "@/types/Event";
 import { campusList } from "@/resources/campus-list";
 import { audienceList } from "@/resources/audience-list";
 import { useReport } from "@/components/Report/Wrapper";
-import { getInitialsFromPromotionLabel } from "@/lib/string";
 
 const HeroDetails = dynamic(
 	() =>

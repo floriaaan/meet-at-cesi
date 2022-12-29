@@ -30,6 +30,7 @@ const initialFormValues: ReportFormValues = {
 type Props = {
 	labelClassName?: string;
 	initialValues?: ReportFormValues;
+	// eslint-disable-next-line no-unused-vars
 	onSubmit: (values: ReportCreateRequestInput) => Promise<boolean>;
 	optionalButton?: JSX.Element;
 	submitClassName?: string;
@@ -99,7 +100,7 @@ export const ReportForm = ({
 						name="content"
 						type="textarea"
 						labelClassName={labelClassName}
-						disabled={disabled}
+						disabled={disabled || !isValid}
 					/>
 
 					<div className="inline-flex justify-end gap-1 mt-2">

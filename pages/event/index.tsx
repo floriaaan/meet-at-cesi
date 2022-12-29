@@ -15,7 +15,7 @@ import { Header } from "@/components/UI/Header";
 import { SearchBar } from "@/components/UI/SearchBar";
 import { FilterSidebar } from "@/components/Event/Filter/Sidebar";
 import { Chip } from "@/components/UI/Chip";
-import { FilterProvider, useFilter } from "@/components/Event/Filter/Provider";
+import { FilterProvider } from "@/components/Event/Filter/Provider";
 import { FilterList } from "@/components/Event/Filter/List";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

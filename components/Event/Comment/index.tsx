@@ -27,6 +27,7 @@ import { ExtendedSession } from "@/types/Session";
 
 type CommentListItemProps = {
 	comment: ExtendedComment;
+	// eslint-disable-next-line no-unused-vars
 	setCommentList: (comments: ExtendedComment[]) => void;
 	isReply?: boolean;
 };
@@ -54,7 +55,7 @@ export const CommentListItem = ({
 			<Avatar
 				className={classNames(
 					!isReply ? "lg:w-12 lg:h-12 w-6 h-6 " : "w-6 h-6 lg:w-8 lg:h-8",
-					!isDeleted && "lg:border-2"
+					!isDeleted && "lg:border-2",
 				)}
 				user={author || { name: "?" }}
 				link={author?.id !== undefined}
@@ -63,13 +64,13 @@ export const CommentListItem = ({
 				<div className="flex flex-col gap-y-0.5 grow w-full">
 					<div
 						className={classNames(
-							"inline-flex items-center gap-x-1 md:gap-x-2"
+							"inline-flex items-center gap-x-1 md:gap-x-2",
 						)}
 					>
 						<strong
 							className={classNames(
 								"whitespace-nowrap text-xs",
-								!isReply ? "md:text-base" : ""
+								!isReply ? "md:text-base" : "",
 							)}
 						>
 							{author?.name || "Commentaire supprimé"}
@@ -80,7 +81,7 @@ export const CommentListItem = ({
 								<span
 									className={classNames(
 										"block text-gray-600 truncate text-xs",
-										!isReply ? "md:text-sm" : ""
+										!isReply ? "md:text-sm" : "",
 									)}
 								>
 									{createdAt ? formatRelative(createdAt) : null}
@@ -88,7 +89,7 @@ export const CommentListItem = ({
 								<span
 									className={classNames(
 										"hidden md:inline-flex text-gray-600 truncate text-xs",
-										!isReply ? "md:text-sm" : ""
+										!isReply ? "md:text-sm" : "",
 									)}
 								>
 									<span className="mr-1">-</span>
@@ -99,7 +100,7 @@ export const CommentListItem = ({
 							<span
 								className={classNames(
 									"block text-gray-500 truncate text-xs",
-									!isReply ? "md:text-sm" : ""
+									!isReply ? "md:text-sm" : "",
 								)}
 							>
 								supprimé
@@ -216,7 +217,7 @@ export const CommentListItem = ({
 										"p-1 text-xs font-bold border",
 										open
 											? "border-red text-red"
-											: "hover:border-black border-transparent border-dashed"
+											: "hover:border-black border-transparent border-dashed",
 									)}
 								>
 									<MdDelete className="w-4 h-4" />
@@ -234,7 +235,7 @@ export const CommentListItem = ({
 								],
 							}}
 						>
-							{({ open }) => (
+							{() => (
 								<div className="flex flex-col max-w-[16rem] p-2 text-sm bg-neutral-100 border border-black border-dashed shadow-lg gap-y-1">
 									<p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
 									<div className="mt-2 ml-auto">
@@ -243,7 +244,7 @@ export const CommentListItem = ({
 											onClick={async () => {
 												let toastId = toast.loading(
 													"Suppression en cours...",
-													toastStyle
+													toastStyle,
 												);
 												const result = await deleteComment({
 													commentId: comment.id,

@@ -20,6 +20,7 @@ import { ExtendedReport } from "@/types/Report";
 type ReportTableModalProps = ExtendedReport & {
 	isModalOpen: boolean;
 	closeModal: () => void;
+	// eslint-disable-next-line no-unused-vars
 	setStatus: (status: ReportStatus) => void;
 };
 

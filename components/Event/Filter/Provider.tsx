@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 const FilterContext = createContext({});
 type FilterContextType = {
 	filters: FilterValues;
+	// eslint-disable-next-line no-unused-vars
 	setFilters: (filters: FilterValues) => void;
 };
 export const useFilter = (): FilterContextType =>

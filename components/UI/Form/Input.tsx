@@ -26,7 +26,7 @@ const Input = ({
 	canHaveError = true,
 	...props
 }: InputProps) => {
-	const [field, meta, helpers] = useField(
+	const [field, meta] = useField(
 		props as FieldHookConfig<any>,
 	) as unknown as [
 		field: any,
@@ -92,6 +92,7 @@ const Input = ({
 								type !== "textarea"
 									? "-translate-y-1/2 top-1/2 right-0"
 									: " top-2 right-0",
+								errorClassName,
 							)}
 						>
 							<MdError className="w-4 h-4 text-red-500 lg:w-6 lg:h-6" />

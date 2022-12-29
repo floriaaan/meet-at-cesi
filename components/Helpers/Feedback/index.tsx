@@ -6,6 +6,7 @@ import { FeedbackModal } from "@/components/Helpers/Feedback/Modal";
 
 type FeedbackContextType = {
 	isFeedbackOpen: boolean;
+	// eslint-disable-next-line no-unused-vars
 	setIsFeedbackOpen: (value: boolean) => void;
 	history: string[];
 };

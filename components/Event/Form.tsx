@@ -25,14 +25,14 @@ const EventSchema = Yup.object().shape({
 	date: Yup.date()
 		.min(
 			new Date(new Date().setDate(new Date().getDate())),
-			"Tu veux vraiment organiser un événement passé ?"
+			"Tu veux vraiment organiser un événement passé ?",
 		)
 		.required("Je cite: \"C'est quand l'événement ?\" 🤔"),
 	audience: Yup.string().required(
-		"L'audience est requise. Qui est invité ? 🤔"
+		"L'audience est requise. Qui est invité ? 🤔",
 	),
 	"audience-campus": Yup.string().required(
-		"Le campus est requis. C'est où ? 🤔"
+		"Le campus est requis. C'est où ? 🤔",
 	),
 });
 
@@ -52,6 +52,7 @@ export const EventForm = ({
 }: {
 	isEditing?: boolean;
 	initialValues?: EventFormValues;
+	// eslint-disable-next-line no-unused-vars
 	onSubmit: (values: EventFormValues) => Promise<Event | false | Error>;
 }) => {
 	const router = useRouter();
@@ -63,7 +64,7 @@ export const EventForm = ({
 			setDisabled(true);
 			toastId = toast.loading(
 				!isEditing ? "Création en cours..." : "Modification en cours...",
-				toastStyle
+				toastStyle,
 			);
 			// Submit data
 			if (typeof onSubmit === "function") {
@@ -71,7 +72,7 @@ export const EventForm = ({
 					if (result && !(result instanceof Error)) {
 						toast.success(
 							!isEditing ? "Création réussie 😍" : "Modification réussie 🥸",
-							{ id: toastId }
+							{ id: toastId },
 						);
 						router.push(`/event/${result.id}`);
 					} else
@@ -79,7 +80,7 @@ export const EventForm = ({
 							!isEditing
 								? "Erreur lors de la création 😭"
 								: "Erreur lors de la modification 😭",
-							{ id: toastId }
+							{ id: toastId },
 						);
 				});
 			}
@@ -153,7 +154,7 @@ export const EventForm = ({
 					<div className="flex justify-end mt-4">
 						<button
 							type="submit"
-							//   disabled={disabled || !isValid}
+							disabled={disabled || !isValid}
 							className="px-6 py-3 font-bold uppercase rounded-full font-body shrink-0 btn__colors disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{isSubmitting

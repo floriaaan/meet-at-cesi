@@ -48,7 +48,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-
 	return {
 		props: {
 			exists: !!event,
@@ -149,7 +148,7 @@ const EventPage: NextPage<Props> = (props) => {
 	);
 };
 
-const EventNotFoundPage: NextPage<Props> = (props) => {
+const EventNotFoundPage: NextPage<Props> = () => {
 	return (
 		<AppLayout>
 			<NextSeo title="Événement introuvable" />

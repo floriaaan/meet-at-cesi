@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import { useRef, useState } from "react";
+import {  useState } from "react";
 
 import Select from "@/components/UI/Form/Select";
 import campusList from "@/resources/campus-list";
@@ -38,6 +38,7 @@ type Props = {
 	labelClassName?: string;
 	initialValues?: PreferencesFormValues;
 	onSubmit: (
+		// eslint-disable-next-line no-unused-vars
 		values: PreferencesFormValues,
 	) => Promise<{ user: ExtendedUser } | false>;
 	optionalButton?: JSX.Element;
@@ -153,7 +154,7 @@ export const PreferencesForm = ({
 						{optionalButton}
 						<button
 							type="submit"
-							//   disabled={disabled || !isValid}
+							  disabled={disabled || !isValid}
 							className={
 								submitClassName ||
 								"border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"

@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import plunk from "@/lib/plunk";
 import { cryptoRandomString } from "./crypto-random-string";
 
-const generateToken = async (user: {
+export const generateToken = async (user: {
 	id: User["id"];
 	email: User["email"];
 }) => {
@@ -31,4 +31,3 @@ const generateToken = async (user: {
 	});
 };
 
-export default generateToken;

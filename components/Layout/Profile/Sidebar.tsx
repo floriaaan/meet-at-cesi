@@ -1,7 +1,4 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import classNames from "classnames";
-import Link from "next/link";
 
 import { Category } from "@/components/UI/Link/Category";
 

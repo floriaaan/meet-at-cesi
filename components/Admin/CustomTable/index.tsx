@@ -22,6 +22,7 @@ export type CustomTableProps = {
 	title: string;
 	items: any[];
 	columns: Column[];
+	// eslint-disable-next-line no-unused-vars
 	renderItem: (item: any) => ReactNode;
 
 	pagination?: Pagination;

@@ -12,6 +12,7 @@ import { Role } from "@prisma/client";
 type UserTableModalProps = ExtendedUser & {
 	isModalOpen: boolean;
 	closeModal: () => void;
+	// eslint-disable-next-line no-unused-vars
 	setRole: (role: Role) => void;
 };
 

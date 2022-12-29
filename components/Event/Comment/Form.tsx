@@ -18,9 +18,12 @@ const initialFormValues: CommentFormValues = {
 } as unknown as CommentFormValues;
 
 type SetFieldValue = (
+	// eslint-disable-next-line no-unused-vars
 	field: string,
+	// eslint-disable-next-line no-unused-vars
 	value: any,
-	shouldValidate?: boolean | undefined
+	// eslint-disable-next-line no-unused-vars
+	shouldValidate?: boolean | undefined,
 ) => void;
 
 export const CommentForm = ({
@@ -33,21 +36,22 @@ export const CommentForm = ({
 	isReplying?: boolean;
 	initialValues?: CommentFormValues;
 	onSubmit: (
-		values: CommentFormValues
+		// eslint-disable-next-line no-unused-vars
+		values: CommentFormValues,
 	) => Promise<ExtendedComment[] | false | Error>;
 }) => {
 	const [disabled, setDisabled] = useState(false);
 
 	const handleOnSubmit = async (
 		values: CommentFormValues,
-		setFieldValue: SetFieldValue
+		setFieldValue: SetFieldValue,
 	) => {
 		let toastId: string | undefined;
 		try {
 			setDisabled(true);
 			toastId = toast.loading(
 				!isEditing ? "Envoi en cours..." : "Modification en cours...",
-				toastStyle
+				toastStyle,
 			);
 			// Submit data
 			if (typeof onSubmit === "function") {
@@ -55,7 +59,7 @@ export const CommentForm = ({
 					if (result) {
 						toast.success(
 							!isEditing ? "Commentaire ajouté 😎" : "Modification réussie 🥸",
-							{ id: toastId }
+							{ id: toastId },
 						);
 						setFieldValue("content", "", false);
 					} else
@@ -63,7 +67,7 @@ export const CommentForm = ({
 							!isEditing
 								? "Erreur lors de la création 😭"
 								: "Erreur lors de la modification 😭",
-							{ id: toastId }
+							{ id: toastId },
 						);
 
 					setDisabled(false);
@@ -113,7 +117,7 @@ export const CommentForm = ({
 
 					<button
 						type="submit"
-						disabled={disabled || !isValid}
+						disabled={disabled || !isValid || isSubmitting}
 						className={
 							isReplying
 								? "py-1 border-b btn-black shrink-0 w-fit"

@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useCookies } from "react-cookie";
-import { MdClose, MdDownload, MdIosShare, MdMoreVert } from "react-icons/md";
+import { MdClose,  MdIosShare, MdMoreVert } from "react-icons/md";
 
 export const PWAPopup = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 	const [cookie, setCookie] = useCookies(["meet-pwa_dismissed"]);

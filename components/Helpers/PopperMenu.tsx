@@ -5,7 +5,9 @@ import { Menu } from "@headlessui/react";
 import { usePopper } from "@/hooks/usePopper";
 
 type PopperMenuProps = {
+	// eslint-disable-next-line no-unused-vars
 	children: ({ open }: { open: boolean }) => ReactNode;
+	// eslint-disable-next-line no-unused-vars
 	buttonChildren: ({ open }: { open: boolean }) => ReactNode;
 	popperOptions?: Parameters<typeof usePopper>[0];
 };

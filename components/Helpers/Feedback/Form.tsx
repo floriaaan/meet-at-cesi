@@ -28,6 +28,7 @@ const initialFormValues: FeedbackFormValues = {
 type Props = {
 	labelClassName?: string;
 	initialValues?: FeedbackFormValues;
+	// eslint-disable-next-line no-unused-vars
 	onSubmit: (values: FeedbackFormValues) => Promise<boolean>;
 	optionalButton?: JSX.Element;
 	submitClassName?: string;
@@ -105,7 +106,7 @@ export const FeedbackForm = ({
 					<div className="flex flex-col justify-end gap-1 mt-2">
 						<button
 							type="submit"
-							disabled={disabled}
+							disabled={disabled || !isValid}
 							className={
 								submitClassName ||
 								"border-0 btn-black w-fit disabled:opacity-50 disabled:cursor-not-allowed"

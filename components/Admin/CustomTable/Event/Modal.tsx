@@ -25,6 +25,7 @@ import toastStyle from "@/resources/toast.config";
 type EventTableModalProps = ExtendedEvent & {
 	isModalOpen: boolean;
 	closeModal: () => void;
+	// eslint-disable-next-line no-unused-vars
 	setDeletedAt: (deletedAt: null) => void;
 };
 

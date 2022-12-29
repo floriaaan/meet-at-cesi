@@ -1,26 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { VerificationTokenType } from "@prisma/client";
 
+import plunk from "@/lib/plunk";
+import prisma from "@/lib/prisma";
 import { getSessionOrThrow, getUserOrThrow, SessionWithEmail } from "@/lib/api";
 import { checkEmail } from "@/lib/validators/email";
-import plunk from "@/lib/plunk";
 import { ExtendedUser } from "@/types/User";
-import prisma from "@/lib/prisma";
-import generateToken from "@/lib/tokens/email-verification";
+import { generateToken } from "@/lib/tokens/email-verification";
 import { getTokenIfValidOrThrow } from "@/lib/api";
 import { log } from "@/lib/log";
 
-type Result = {
-	email: {
-		sent: boolean;
-		alreadyVerified: boolean;
-		gotVerified: boolean;
-	};
-};
-
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
 	try {
@@ -47,7 +39,7 @@ export default async function handler(
 const GET = async (
 	req: NextApiRequest,
 	res: NextApiResponse,
-	session: SessionWithEmail
+	session: SessionWithEmail,
 ) => {
 	try {
 		const { token } = req.query as { token: string };
@@ -93,7 +85,7 @@ const GET = async (
 const POST = async (
 	req: NextApiRequest,
 	res: NextApiResponse,
-	session: SessionWithEmail
+	session: SessionWithEmail,
 ) => {
 	try {
 		const user = (await getUserOrThrow(session, {

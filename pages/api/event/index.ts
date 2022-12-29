@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Event, User } from "@prisma/client";
 
 import prisma from "@/lib/prisma";
 import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";

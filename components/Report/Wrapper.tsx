@@ -13,8 +13,10 @@ type ReportContextType = {
 	object: ReportCreateRequestInput;
 
 	isReportModalOpen: boolean;
+	// eslint-disable-next-line no-unused-vars
 	setIsReportModalOpen: (isOpen: boolean) => void;
-
+	
+	// eslint-disable-next-line no-unused-vars
 	openReportModal: (report: ReportCreateRequestInput) => void;
 };
 const ReportContext = createContext({});

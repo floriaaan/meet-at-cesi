@@ -2,7 +2,7 @@ import { GetServerSidePropsContext, NextPage } from "next";
 import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 
-import { EventForm, EventFormValues } from "@/components/Event/Form";
+import { EventForm } from "@/components/Event/Form";
 import { AppLayout } from "@/components/Layout";
 import { Header } from "@/components/UI/Header";
 import { createEvent } from "@/lib/fetchers";
