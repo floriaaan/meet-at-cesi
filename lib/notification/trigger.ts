@@ -15,6 +15,7 @@ export type NotificationEvent =
 
 export type Data = {
 	[key: string]: any;
+	senderId?: string;
 
 	userName?: string;
 
@@ -41,13 +42,13 @@ export const triggerNotification = async (
 		data: {
 			type: event,
 			userId: user.id,
+			senderId: data.senderId,
 
 			eventId: data.eventId,
 			feedbackId: data.feedbackId,
 			reportId: data.reportId,
 			commentId: data.commentId,
 
-			senderId: data.senderId,
 		},
 	});
 	const email = await sendNotificationEmail(event, user, data);

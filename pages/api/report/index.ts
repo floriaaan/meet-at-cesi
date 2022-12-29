@@ -158,6 +158,7 @@ const PUT = async (
 		if (status === ReportStatus.ACCEPTED) {
 			await triggerNotification(sender, "REPORT_ACCEPTED", {
 				reportId: id,
+				senderId: user.id,
 				senderName: user.name as string,
 			});
 		}
@@ -165,6 +166,7 @@ const PUT = async (
 		if (status === ReportStatus.REFUSED) {
 			await triggerNotification(sender, "REPORT_REFUSED", {
 				reportId: id,
+				senderId: user.id,
 				senderName: user.name as string,
 			});
 		}

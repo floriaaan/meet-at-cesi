@@ -80,6 +80,7 @@ export default async function handler(
 					{
 						eventId: id,
 						eventTitle: title,
+						senderId: user.id,
 						senderName: user.name as string,
 					},
 				);

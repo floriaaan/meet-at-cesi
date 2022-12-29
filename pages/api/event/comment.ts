@@ -77,11 +77,12 @@ export default async function handler(
 				eventCreator as ExtendedUser,
 				"COMMENT_CREATION",
 				{
+					senderId: authorId,
 					senderName: authorName as string,
 					eventId,
+					eventTitle: eventTitle as string,
 					commentId: id,
 					commentContent: content,
-					eventTitle: eventTitle as string,
 				},
 			);
 

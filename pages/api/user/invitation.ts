@@ -65,6 +65,7 @@ export default async function handler(
 					userName: invitedUser.name as string,
 					eventId: id,
 					eventTitle: title,
+					senderId: sender.id,
 					senderName: sender.name as string,
 				},
 			);
@@ -139,6 +140,7 @@ export default async function handler(
 						eventId: invitation.eventId,
 						eventTitle: title,
 						senderName: receiver.name as string,
+						senderId: receiver.id,
 					},
 				);
 			}

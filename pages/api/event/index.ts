@@ -57,6 +57,7 @@ export default async function handler(
 						{
 							eventId: event.id,
 							eventTitle: title,
+							senderId: user.id,
 							senderName: user.name as string,
 						},
 					);
