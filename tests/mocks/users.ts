@@ -7,19 +7,23 @@ const __session__: ExtendedSession = {
     email: "jean.bon@viacesi.fr",
     id: "001",
     name: "Jean Bon",
-
     emailVerified: new Date("2021-01-01T00:00:00.000Z"),
     image: null,
     role: Role.USER,
 
-    receivedInvitations: [],
-    sendedInvitations: [],
-    verificationTokens: [],
+    preferences: undefined,
+    privacy: undefined,
+		notificationsSettings: undefined,
+
     createdEvents: [],
     participations: [],
-    preferences: undefined,
+    sendedInvitations: [],
+    receivedInvitations: [],
+		notifications: [],
     trophies: [],
-    privacy: undefined,
+		feedbacks: [],
+
+    verificationTokens: [],
 
     createdAt: new Date(),
     updatedAt: new Date(),
