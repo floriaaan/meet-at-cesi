@@ -2,45 +2,54 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { isAdmin } from "@/lib/role";
+import { triggerNotification } from "@/lib/notification/trigger";
+import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
+import { ExtendedEvent } from "@/types/Event";
+import { ExtendedUser } from "@/types/User";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSession({ req });
-	if (!session || !session.user) {
-		return res.status(401).json({ message: "Unauthorized." });
-	}
+	const session = await getSessionOrThrow(req);
 
 	// Create new home
 	if (req.method === "DELETE") {
 		try {
 			const { id } = req.body;
 
-			const user = await prisma.user.findUnique({
-				where: { email: session.user.email as string },
+			const user = await getUserOrThrow(session, {
+				include: { notificationsSettings: true },
 			});
-			if (!user) {
-				return res.status(404).json({ message: "User not found." });
-			}
 
-			let event = await prisma.event.findUnique({
-				where: { id },
-				include: { creator: true },
-			});
-			if (!event) {
-				return res.status(404).json({ message: "Event not found." });
-			}
+			const { creator, title, participants } = (await getEventOrThrow(id, {
+				include: {
+					creator: true,
+					participants: { include: { notificationsSettings: true } },
+				},
+			})) as ExtendedEvent;
 
-			if (event.creator.id !== user.id && !isAdmin(user)) {
+			if (creator.id !== user.id && !isAdmin(user)) {
 				return res.status(401).json({ message: "Unauthorized." });
 			}
 
-			// @ts-ignore
 			await prisma.event.delete({
 				where: { id },
 			});
+
+			for await (const participant of participants) {
+				await triggerNotification(
+					participant as ExtendedUser,
+					"EVENT_DELETION",
+					{
+						eventId: id,
+						eventTitle: title,
+						senderId: creator.id,
+						senderName: creator.name as string,
+					},
+				);
+			}
 
 			res.status(201).json({ message: "Event deleted." });
 		} catch (e) {

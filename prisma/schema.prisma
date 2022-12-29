@@ -98,25 +98,30 @@ model User {
   image         String?
   role          Role      @default(USER)
 
-  preferences Preference?
-  privacy     PrivacySettings?
+  preferences          Preference?
+  privacy              PrivacySettings?
+  notificationSettings NotificationSettings?
 
-  createdEvents       Event[]      @relation("event_creation")
-  participations      Event[]      @relation("event_participation")
-  sendedInvitations   Invitation[] @relation("event_invitation_sended")
-  receivedInvitations Invitation[] @relation("event_invitation_received")
-  blamedFor           Report[]     @relation("report_user_blamed")
-  reported            Report[]     @relation("report_user_sender")
+  // needed relations for webapp frontend
+  createdEvents       Event[]        @relation("event_creation")
+  participations      Event[]        @relation("event_participation")
+  sendedInvitations   Invitation[]   @relation("event_invitation_sended")
+  receivedInvitations Invitation[]   @relation("event_invitation_received")
+  notifications       Notification[] @relation("notification_received")
+  trophies            Trophy[]
+  feedbacks           Feedback[]
 
-  trophies           Trophy[]
-  feedbacks          Feedback[]
-  comments           Comment[]
-  accounts           Account[]
-  sessions           Session[]
-  verificationTokens VerificationToken[]
+  // needed relations for prisma client
+  comments            Comment[]
+  accounts            Account[]
+  sessions            Session[]
+  blames              Report[]            @relation("report_user_blamed")
+  reports             Report[]            @relation("report_user_sender")
+  sendedNotifications Notification[]      @relation("notification_sended")
+  verificationTokens  VerificationToken[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
   deletedAt DateTime?
 }
 
@@ -149,21 +154,21 @@ model Event {
   audience       String
   audienceCampus String
 
-  creator   User     @relation("event_creation", fields: [creatorId], references: [id], onDelete: Cascade)
+  creator   User   @relation("event_creation", fields: [creatorId], references: [id], onDelete: Cascade)
   creatorId String
 
   participants User[]       @relation("event_participation")
   invitations  Invitation[]
   comments     Comment[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 }
 
 model Comment {
-  id        String    @id @default(cuid())
-  content   String
+  id      String @id @default(cuid())
+  content String
 
   author   User?   @relation(fields: [authorId], references: [id], onDelete: SetNull)
   authorId String?
@@ -174,7 +179,7 @@ model Comment {
   parentId String?
   children Comment[] @relation("comment_parent")
 
-  history   CommentHistory[]
+  history CommentHistory[]
 
   createdAt DateTime? @default(now())
   updatedAt DateTime  @updatedAt
@@ -261,4 +266,56 @@ model Report {
   sender   User   @relation("report_user_sender", fields: [senderId], references: [id])
 
   status ReportStatus @default(PENDING)
+}
+
+enum NotificationType {
+  EVENT_INVITATION
+  EVENT_PARTICIPATION
+  EVENT_CREATION
+  EVENT_MODIFICATION
+  EVENT_DELETION
+
+  COMMENT_CREATION
+
+  REPORT_ACCEPTED
+  REPORT_REFUSED
+
+  FEEDBACK_RESPONSE
+}
+
+model Notification {
+  id       String  @id @default(cuid())
+  userId   String
+  senderId String?
+
+  user   User  @relation("notification_received", fields: [userId], references: [id], onDelete: Cascade)
+  sender User? @relation("notification_sended", fields: [senderId], references: [id], onDelete: SetNull)
+
+  type NotificationType
+
+  eventId    String?
+  commentId  String?
+  reportId   String?
+  feedbackId String?
+
+  isRead Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model NotificationSettings {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  EVENT_INVITATION    Boolean @default(true)
+  EVENT_PARTICIPATION Boolean @default(false)
+  EVENT_CREATION      Boolean @default(false)
+  EVENT_MODIFICATION  Boolean @default(false)
+  EVENT_DELETION      Boolean @default(false)
+  COMMENT_CREATION    Boolean @default(false)
+  REPORT_ACCEPTED     Boolean @default(false)
+  REPORT_REFUSED      Boolean @default(false)
+  FEEDBACK_RESPONSE   Boolean @default(false)
 }

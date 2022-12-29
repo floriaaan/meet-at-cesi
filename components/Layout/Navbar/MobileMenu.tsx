@@ -40,7 +40,7 @@ export const MobileMenu = () => {
 	const { user } = (session as ExtendedSession) || {};
 
 	return (
-		<div className="inline-flex items-center md:hidden shrink-0">
+		<div className="inline-flex items-center md:hidden shrink-0 gap-x-5">
 			{status === "loading" ? <Spinner /> : null}
 			{status !== "loading" && !user ? (
 				<button

@@ -27,7 +27,7 @@ const Input = ({
 	...props
 }: InputProps) => {
 	const [field, meta, helpers] = useField(
-		props as FieldHookConfig<any>
+		props as FieldHookConfig<any>,
 	) as unknown as [
 		field: any,
 		meta: {
@@ -35,7 +35,7 @@ const Input = ({
 			error: string;
 			touched: boolean;
 		},
-		helpers: any
+		helpers: any,
 	];
 	const error = meta.touched && canHaveError ? meta.error : "";
 
@@ -61,11 +61,12 @@ const Input = ({
 							className={
 								inputClassName ||
 								classNames(
-									" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
+									" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed  border placeholder:text-sm",
+									type === "checkbox" ? "accent-primary" : "w-full",
 									error
 										? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
 										: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
-									inputExtraClassName
+									inputExtraClassName,
 								)
 							}
 							{...props}
@@ -79,7 +80,7 @@ const Input = ({
 								" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
 								error
 									? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
-									: "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
+									: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
 							)}
 						/>
 					)}
@@ -90,7 +91,7 @@ const Input = ({
 								"absolute  pr-2 ",
 								type !== "textarea"
 									? "-translate-y-1/2 top-1/2 right-0"
-									: " top-2 right-0"
+									: " top-2 right-0",
 							)}
 						>
 							<MdError className="w-4 h-4 text-red-500 lg:w-6 lg:h-6" />

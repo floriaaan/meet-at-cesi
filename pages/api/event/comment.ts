@@ -11,6 +11,9 @@ import {
 	getSessionOrThrow,
 	getUserOrThrow,
 } from "@/lib/api";
+import { ExtendedEvent } from "@/types/Event";
+import { ExtendedUser } from "@/types/User";
+import { triggerNotification } from "@/lib/notification/trigger";
 
 const getComments = async (eventId: string) => {
 	const comments = await prisma.comment.findMany({
@@ -27,7 +30,7 @@ const getComments = async (eventId: string) => {
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
 	const session = await getSessionOrThrow(req);
@@ -40,12 +43,14 @@ export default async function handler(
 				parentId,
 			} = req.body as CommentCreateRequestInput;
 
-			const { id: authorId } = await getUserOrThrow(session, {
-				select: { id: true },
-			});
-			const { id: eventId } = await getEventOrThrow(requestedEventId, {
-				select: { id: true },
-			});
+			const { id: authorId, name: authorName } = await getUserOrThrow(session);
+			const {
+				id: eventId,
+				creator: eventCreator,
+				title: eventTitle,
+			} = (await getEventOrThrow(requestedEventId, {
+				include: { creator: { include: { notificationsSettings: true } } },
+			})) as ExtendedEvent;
 
 			if (parentId) {
 				const { deletedAt } = await getCommentOrThrow(parentId, {
@@ -59,7 +64,7 @@ export default async function handler(
 					.status(400)
 					.json({ message: "Comment content is required." });
 
-			await prisma.comment.create({
+			const { id } = await prisma.comment.create({
 				data: {
 					content,
 					eventId,
@@ -67,6 +72,19 @@ export default async function handler(
 					authorId,
 				},
 			});
+
+			await triggerNotification(
+				eventCreator as ExtendedUser,
+				"COMMENT_CREATION",
+				{
+					senderId: authorId,
+					senderName: authorName as string,
+					eventId,
+					eventTitle: eventTitle as string,
+					commentId: id,
+					commentContent: content,
+				},
+			);
 
 			return res.status(201).json({ comments: await getComments(eventId) });
 		} catch (e) {

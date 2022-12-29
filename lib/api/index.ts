@@ -1,6 +1,7 @@
 import {
 	Comment,
 	Event,
+	Notification,
 	Report,
 	User,
 	VerificationToken,
@@ -14,7 +15,7 @@ import prisma from "@/lib/prisma";
 export type SessionWithEmail = Session & { user: { email: string } };
 
 export const getSessionOrThrow = async (
-	req: NextApiRequest
+	req: NextApiRequest,
 ): Promise<SessionWithEmail> => {
 	const session = await getSession({ req });
 	if (!session || !session.user || !session.user.email)
@@ -25,7 +26,7 @@ export const getSessionOrThrow = async (
 
 export const getUserOrThrow = async (
 	session: SessionWithEmail,
-	options?: any
+	options?: any,
 ): Promise<User> => {
 	const user = await prisma.user.findUnique({
 		where: { email: session.user.email },
@@ -38,7 +39,7 @@ export const getUserOrThrow = async (
 
 export const getUserFromIdOrThrow = async (
 	userId: string,
-	options?: any
+	options?: any,
 ): Promise<User> => {
 	const user = await prisma.user.findUnique({
 		where: { id: userId },
@@ -51,7 +52,7 @@ export const getUserFromIdOrThrow = async (
 
 export const getEventOrThrow = async (
 	eventId: string,
-	options?: any
+	options?: any,
 ): Promise<Event> => {
 	const event = await prisma.event.findUnique({
 		where: { id: eventId },
@@ -64,7 +65,7 @@ export const getEventOrThrow = async (
 
 export const getCommentOrThrow = async (
 	commentId: string,
-	options?: any
+	options?: any,
 ): Promise<Comment> => {
 	const comment = await prisma.comment.findUnique({
 		where: { id: commentId },
@@ -77,7 +78,7 @@ export const getCommentOrThrow = async (
 
 export const getReportOrThrow = async (
 	reportId: string,
-	options?: any
+	options?: any,
 ): Promise<Report> => {
 	const report = await prisma.report.findUnique({
 		where: { id: reportId },
@@ -89,7 +90,7 @@ export const getReportOrThrow = async (
 };
 
 export const getTokenIfValidOrThrow = async (
-	verificationTokens: VerificationToken[]
+	verificationTokens: VerificationToken[],
 ): Promise<VerificationToken> => {
 	if (verificationTokens.length === 0) throw new Error("Invalid token");
 	const verificationToken = verificationTokens[0];
@@ -100,4 +101,17 @@ export const getTokenIfValidOrThrow = async (
 		throw new Error("Token expired");
 	}
 	return verificationToken;
+};
+
+export const getNotificationOrThrow = async (
+	notificationId: string,
+	options?: any,
+): Promise<Notification> => {
+	const notification = await prisma.notification.findUnique({
+		where: { id: notificationId },
+		...options,
+	});
+	if (!notification) throw new Error("Notification not found.");
+
+	return notification;
 };

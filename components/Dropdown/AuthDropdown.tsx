@@ -1,12 +1,13 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { MdChevronRight, MdVerified } from "react-icons/md";
 import classNames from "classnames";
+import nProgress from "nprogress";
+import { User } from "@prisma/client";
 
 import PopperMenu from "@/components/Helpers/PopperMenu";
 import { Spinner } from "@/components/UI/Fallback/Spinner";
 import { Category } from "@/components/UI/Link/Category";
 import { Avatar } from "@/components/UI/Avatar";
-import { User } from "@prisma/client";
 
 export const AuthDropdown = () => {
 	const { data: session, status } = useSession();
@@ -26,11 +27,16 @@ export const AuthDropdown = () => {
 					{status === "unauthenticated" && (
 						<button
 							className="nav__link"
-							onClick={() =>
-								signIn("azure-ad", {
+							onClick={async () => {
+								// trigger progress bar linked to sign in method
+								nProgress.start();
+
+								await signIn("azure-ad", {
 									redirect: false,
-								})
-							}
+								}).then(() => {
+									nProgress.done();
+								});
+							}}
 						>
 							Se connecter
 						</button>
@@ -59,7 +65,7 @@ const MenuButton = ({ user, open }: { user?: User; open: boolean }) =>
 		<span
 			className={classNames(
 				"pr-2 gap-x-1 nav__link border whitespace-nowrap transition-none relative bg-white z-[50] focus:outline-none",
-				open ? "border-gray-400 border-b-white relative" : "border-transparent"
+				open ? "border-gray-400 border-b-white relative" : "border-transparent",
 			)}
 		>
 			<Avatar user={user} className="w-8 h-8 mr-2 ring-white" />
@@ -68,7 +74,7 @@ const MenuButton = ({ user, open }: { user?: User; open: boolean }) =>
 			<MdChevronRight
 				className={classNames(
 					"inline-block w-5 h-5 transition-transform duration-200",
-					open ? "rotate-[270deg]" : "rotate-90"
+					open ? "rotate-[270deg]" : "rotate-90",
 				)}
 			/>
 		</span>

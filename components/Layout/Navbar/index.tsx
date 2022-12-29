@@ -2,27 +2,24 @@ import Link from "next/link";
 import classnames from "classnames";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { MdSearch } from "react-icons/md";
 
 import { Logo } from "@/components/Logo/CESI";
 import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
-import { AuthDropdown } from "@/components/Layout/Navbar/AuthDropdown";
-
+import { AuthDropdown } from "@/components/Dropdown/AuthDropdown";
 import { ExtendedSession } from "@/types/Session";
-import { getPlural } from "@/lib/string";
-import { Chip } from "@/components/UI/Chip";
 import { isAdmin, isModerator } from "@/lib/role";
-import { MdSearch } from "react-icons/md";
-import { getEnv } from "@/lib/env";
-import { useState } from "react";
 import { SearchBar } from "@/components/UI/SearchBar";
-import { i } from "vitest/dist/index-81973d31";
+import { NotificationDropdown } from "@/components/Dropdown/NotificationDropdown";
+import { getEnv } from "@/lib/env";
 
 export const Navbar = () => {
 	const { data: session } = useSession() as {
 		data: ExtendedSession | null | undefined;
 	};
 	const { user } = session || {};
-	const { receivedInvitations, role } = user || {};
+	const { role } = user || {};
 	const [isSearchBarVisible, setIsSearchBarVisible] = useState(false);
 	const router = useRouter();
 	const env = getEnv();
@@ -32,7 +29,7 @@ export const Navbar = () => {
 			<div className="sticky top-0 z-[41] flex flex-col bg-white shadow-xl lg:shadow-none">
 				<div
 					aria-label="Navigation principale"
-					className="inline-flex items-center justify-between w-full px-5 gap-x-5 py-2.5"
+					className="inline-flex items-center justify-between w-full px-5 gap-x-2 md:gap-x-5 py-2.5"
 				>
 					<nav
 						onClick={(e) => {
@@ -88,7 +85,7 @@ export const Navbar = () => {
 									className="border border-black border-dashed rounded-none "
 									inputClassName="rounded-l-none placeholder-invisible sm:placeholder-visible"
 									buttonClassName="rounded-r-none"
-									inputPaddingClassName="px-2 py-1 w-48 sm:w-96 md:w-full"
+									inputPaddingClassName="px-2 py-1 w-inherit max-w-[12rem] md:max-w-none sm:w-96 md:w-full"
 									buttonPaddingClassName="px-2 py-1"
 									icon={false}
 								/>
@@ -106,7 +103,10 @@ export const Navbar = () => {
 							</>
 						)}
 					</nav>
-					<MobileMenu />
+					<span className="inline-flex items-center md:hidden gap-x-5">
+						<NotificationDropdown />
+						<MobileMenu />
+					</span>
 					<AuthDropdown />
 				</div>
 
@@ -135,31 +135,7 @@ export const Navbar = () => {
 								</Link>
 							) : null}
 						</div>
-						{receivedInvitations ? (
-							<div className="inline-flex items-center gap-x-5">
-								<Link
-									href="/profile#invitations"
-									className="font-bold subnav__link"
-								>
-									<span className="inline-flex items-center gap-x-1 group">
-										<Chip
-											className={
-												receivedInvitations.length > 0
-													? "bg-red text-xs font-bold text-white hover:decoration-red py-0.5 px-2"
-													: ""
-											}
-										>
-											{receivedInvitations.length}
-										</Chip>
-										{getPlural(
-											receivedInvitations.length,
-											"nouvelle invitation reçue",
-											"nouvelles invitations reçues",
-										)}
-									</span>
-								</Link>
-							</div>
-						) : null}
+						<NotificationDropdown />
 					</div>
 				) : null}
 				{env !== "production" ? (
