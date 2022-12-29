@@ -14,6 +14,8 @@ import { ReportCreateRequestInput } from "@/lib/fetchers";
 import { Comment, Event, ReportStatus, User } from "@prisma/client";
 import { ReportActionRequestInput } from "@/lib/fetchers/report";
 import { isAdmin, isModerator } from "@/lib/role";
+import { ExtendedReport } from "@/types/Report";
+import { triggerNotification } from "@/lib/notification/trigger";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -111,7 +113,10 @@ const PUT = async (
 			id,
 			objectId,
 			object: objectType,
-		} = await getReportOrThrow(reportId);
+			sender,
+		} = (await getReportOrThrow(reportId, {
+			include: { sender: { include: { notificationsSettings: true } } },
+		})) as ExtendedReport;
 		const user = await getUserOrThrow(session, { select: { role: true } });
 		if (!isModerator(user) && !isAdmin(user)) throw new Error("Unauthorized.");
 
@@ -148,6 +153,20 @@ const PUT = async (
 				break;
 			default:
 				throw new Error("Invalid report status.");
+		}
+
+		if (status === ReportStatus.ACCEPTED) {
+			await triggerNotification(sender, "REPORT_ACCEPTED", {
+				reportId: id,
+				senderName: user.name as string,
+			});
+		}
+
+		if (status === ReportStatus.REFUSED) {
+			await triggerNotification(sender, "REPORT_REFUSED", {
+				reportId: id,
+				senderName: user.name as string,
+			});
 		}
 
 		return res.status(200).json({ data: result, error: null });

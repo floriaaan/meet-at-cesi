@@ -3,23 +3,21 @@ import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { ExtendedUser } from "@/types/User";
 import { InvitationStatus } from "@prisma/client";
+import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
+import { triggerNotification } from "@/lib/notification/trigger";
+import { ExtendedEvent } from "@/types/Event";
+import { createEventParticipationTrophy } from "@/lib/api/trophy/event";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSession({ req });
-	if (!session || !session.user) {
-		return res.status(401).json({ message: "Unauthorized." });
-	}
+	const session = await getSessionOrThrow(req);
 
 	// Creation
 	if (req.method === "POST") {
-		const sender = await prisma.user.findUnique({
-			where: { email: session.user?.email as string },
-		});
-		if (!sender) return res.status(404).json({ message: "Sender not found." });
+		const sender = await getUserOrThrow(session);
 
 		const { receiver, eventId } = req.body as {
 			receiver: string[];
@@ -29,11 +27,11 @@ export default async function handler(
 		if (!receiver || receiver.length === 0)
 			return res.status(404).json({ message: "Receiver not found." });
 
-		const event = await prisma.event.findUnique({ where: { id: eventId } });
-		if (!event) return res.status(404).json({ message: "Event not found." });
+		const { id, title } = await getEventOrThrow(eventId);
 
 		const users = await prisma.user.findMany({
 			where: { id: { in: receiver } },
+			include: { notificationSettings: true },
 		});
 		if (!users || users.length === 0)
 			return res.status(404).json({ message: "Users not found." });
@@ -45,19 +43,32 @@ export default async function handler(
 				receiverId: { in: users.map((user) => user.id) },
 			},
 		});
-		const invitations = await prisma.invitation.createMany({
-			data: users
-				.filter((user) => {
-					return !existingInvitations.some(
-						(invitation) => invitation.receiverId === user.id
-					);
-				})
-				.map((user) => ({
-					eventId,
-					senderId: sender.id,
-					receiverId: user.id,
-				})),
+		const newInvitationsUsers = users.filter((user) => {
+			return !existingInvitations.some(
+				(invitation) => invitation.receiverId === user.id,
+			);
 		});
+		const invitations = await prisma.invitation.createMany({
+			data: newInvitationsUsers.map((user) => ({
+				eventId,
+				senderId: sender.id,
+				receiverId: user.id,
+			})),
+		});
+
+		// trigger notification
+		for await (const invitedUser of newInvitationsUsers) {
+			await triggerNotification(
+				invitedUser as unknown as ExtendedUser,
+				"EVENT_INVITATION",
+				{
+					userName: invitedUser.name as string,
+					eventId: id,
+					eventTitle: title,
+					senderName: sender.name as string,
+				},
+			);
+		}
 
 		return res.status(201).json(invitations);
 	} else if (req.method === "PUT") {
@@ -65,15 +76,13 @@ export default async function handler(
 			invitationId: string;
 			status: InvitationStatus;
 		};
-		const receiver = await prisma.user.findUnique({
-			where: { email: session.user?.email as string },
-			include: { receivedInvitations: true },
-		});
-		if (!receiver)
-			return res.status(404).json({ message: "Receiver not found." });
+		const receiver = getUserOrThrow(session, {
+			include: { receivedInvitations: true, participations: true },
+		}) as unknown as ExtendedUser;
+
 		if (
 			!receiver.receivedInvitations.some(
-				(invitation) => invitation.id === invitationId
+				(invitation) => invitation.id === invitationId,
 			)
 		)
 			return res.status(404).json({ message: "Invitation not found." });
@@ -85,23 +94,27 @@ export default async function handler(
 
 		// If invitation is accepted, add user to event
 		if (status === InvitationStatus.ACCEPTED) {
-			let event = await prisma.event.findUnique({
-				where: { id: invitation.eventId },
-				include: { participants: true },
-			});
-			if (!event) return res.status(404).json({ message: "Event not found." });
-			const { participants: oldParticipants } = event;
+			const {
+				participants: oldParticipants,
+				creator,
+				title,
+			} = (await getEventOrThrow(invitation.eventId, {
+				include: {
+					participants: true,
+					creator: {
+						include: { notificationSettings: true },
+					},
+				},
+			})) as ExtendedEvent;
 
-			const isParticipant = oldParticipants.some(
-				(p) => p.id === invitation.receiverId
+			const isAlreadyParticipant = oldParticipants.some(
+				(p) => p.id === receiver.id,
 			);
-			let updatedParticipants = oldParticipants;
+			const updatedParticipants = isAlreadyParticipant
+				? oldParticipants.filter((p) => p.id !== receiver.id)
+				: [...oldParticipants, receiver];
 
-			if (!isParticipant) {
-				updatedParticipants = [...oldParticipants, receiver];
-			}
-
-			event = await prisma.event.update({
+			const event = await prisma.event.update({
 				where: { id: invitation.eventId },
 				data: {
 					participants: {
@@ -112,6 +125,24 @@ export default async function handler(
 				},
 				include: { participants: true },
 			});
+
+			if (!isAlreadyParticipant) {
+				createEventParticipationTrophy(
+					receiver,
+					receiver.participations ? receiver.participations.length + 1 : -1,
+				);
+
+				await triggerNotification(
+					creator as ExtendedUser,
+					"EVENT_PARTICIPATION",
+					{
+						eventId: invitation.eventId,
+						eventTitle: title,
+						senderName: receiver.name as string,
+					},
+				);
+			}
+
 			return res.status(200).json({ event, invitation });
 		}
 
@@ -125,7 +156,7 @@ export default async function handler(
 		if (!sender) return res.status(404).json({ message: "Sender not found." });
 		if (
 			!sender.sendedInvitations.some(
-				(invitation) => invitation.id === invitationId
+				(invitation) => invitation.id === invitationId,
 			)
 		)
 			return res.status(404).json({ message: "Invitation not found." });

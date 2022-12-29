@@ -1,14 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
-import prisma from "@/lib/prisma";
-import { MapFeature } from "@/types/Event";
-import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 import { Event, User } from "@prisma/client";
+
+import prisma from "@/lib/prisma";
+import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 import { createEventCreationTrophy } from "@/lib/api/trophy/event";
+import { getCoordinates } from "@/lib/fetchers/api-adresse-data-gouv";
+import { ExtendedUser } from "@/types/User";
+import { triggerNotification } from "@/lib/notification/trigger";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	try {
 		const session = await getSessionOrThrow(req);
@@ -20,21 +22,10 @@ export default async function handler(
 				const audienceCampus = req.body["audience-campus"];
 
 				const user = (await getUserOrThrow(session, {
-					include: { createdEvents: true },
-				})) as User & { createdEvents: Event[] };
+					include: { createdEvents: true, preferences: true },
+				})) as ExtendedUser;
 
-				// Destructure location object to get coordinates
-				const {
-					features: [
-						{
-							geometry: { coordinates },
-						},
-					],
-				} = (await (
-					await fetch(`https://api-adresse.data.gouv.fr/search/?q=${location}`)
-				).json()) as { features: MapFeature[] };
-				const [lng, lat] = coordinates;
-
+				const coordinates = await getCoordinates(location);
 				const event = await prisma.event.create({
 					data: {
 						title,
@@ -42,12 +33,39 @@ export default async function handler(
 						date: new Date(date),
 						audience,
 						audienceCampus,
-						coordinates: [lat, lng],
+						coordinates,
 						creatorId: user.id,
 					},
 				});
 
-				await createEventCreationTrophy(user, user.createdEvents.length + 1);
+				const potentialsParticipants = await prisma.user.findMany({
+					where: {
+						preferences: {
+							campus: user.preferences?.campus,
+							promotion: {
+								startsWith: user.preferences?.promotion?.split(":")[0],
+							},
+						},
+					},
+					include: { notificationSettings: true },
+				});
+
+				for await (const participant of potentialsParticipants) {
+					await triggerNotification(
+						participant as unknown as ExtendedUser,
+						"EVENT_CREATION",
+						{
+							eventId: event.id,
+							eventTitle: title,
+							senderName: user.name as string,
+						},
+					);
+				}
+
+				await createEventCreationTrophy(
+					user,
+					user.createdEvents ? user.createdEvents.length + 1 : -1,
+				);
 
 				res.status(201).json(event);
 			} catch (e) {

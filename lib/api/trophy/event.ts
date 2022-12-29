@@ -4,10 +4,12 @@ import { Trophy, User } from "@prisma/client";
 
 export const createEventCreationTrophy = async (
 	user: User,
-	createdEvents: number
+	createdEvents: number,
 ): Promise<Trophy | undefined> => {
+	if (createdEvents === -1) return undefined;
+
 	const possiblesTrophies = Object.values(trophies).filter((t) =>
-		t.id.startsWith("EVENT_CREATION")
+		t.id.startsWith("EVENT_CREATION"),
 	);
 	const earnedTrophy = possiblesTrophies
 		.filter((t) => t.trigger(createdEvents))
@@ -27,10 +29,12 @@ export const createEventCreationTrophy = async (
 
 export const createEventParticipationTrophy = async (
 	user: User,
-	participations: number
+	participations: number,
 ): Promise<Trophy | undefined> => {
+	if (participations === -1) return undefined;
+
 	const possiblesTrophies = Object.values(trophies).filter((t) =>
-		t.id.startsWith("PARTICIPATION")
+		t.id.startsWith("PARTICIPATION"),
 	);
 	const earnedTrophy = possiblesTrophies
 		.filter((t) => t.trigger(participations))

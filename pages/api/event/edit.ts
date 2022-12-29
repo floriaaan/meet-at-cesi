@@ -1,57 +1,45 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
-import { MapFeature } from "@/types/Event";
+import { ExtendedEvent, MapFeature } from "@/types/Event";
 import { isAdmin } from "@/lib/role";
+import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
+import { triggerNotification } from "@/lib/notification/trigger";
+import { ExtendedUser } from "@/types/User";
+import { getCoordinates } from "@/lib/fetchers/api-adresse-data-gouv";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSession({ req });
-	if (!session || !session.user) {
-		return res.status(401).json({ message: "Unauthorized." });
-	}
+	const session = await getSessionOrThrow(req);
 
-	// Create new home
+	// Edit event
 	if (req.method === "PUT") {
 		try {
 			const { title, location, date, audience, id } = req.body;
 			const audienceCampus = req.body["audience-campus"];
 
-			const user = await prisma.user.findUnique({
-				where: { email: session.user.email as string },
-			});
-			if (!user) {
-				return res.status(404).json({ message: "User not found." });
-			}
+			const user = await getUserOrThrow(session);
 
-			let event = await prisma.event.findUnique({
-				where: { id },
-				include: { creator: true },
-			});
-			if (!event) {
-				return res.status(404).json({ message: "Event not found." });
-			}
-			if (event.creator.id !== user.id && !isAdmin(user)) {
+			const {
+				creator,
+				participants,
+				title: oldTitle,
+			} = (await getEventOrThrow(id, {
+				include: {
+					creator: true,
+					participants: { include: { notificationsSettings: true } },
+				},
+			})) as ExtendedEvent;
+			if (creator.id !== user.id && !isAdmin(user)) {
 				return res.status(401).json({ message: "Unauthorized." });
 			}
 
-			// Destructure location object to get coordinates
-			const {
-				features: [
-					{
-						geometry: { coordinates },
-					},
-				],
-			} = (await (
-				await fetch(`https://api-adresse.data.gouv.fr/search/?q=${location}`)
-			).json()) as { features: MapFeature[] };
-			const [lng, lat] = coordinates;
+			const coordinates = await getCoordinates(location);
 
-			// @ts-ignore
-			event = await prisma.event.update({
+			const updatedEvent = await prisma.event.update({
 				where: { id },
 				data: {
 					title,
@@ -59,11 +47,23 @@ export default async function handler(
 					date: new Date(date),
 					audience,
 					audienceCampus,
-					coordinates: [lat, lng],
+					coordinates,
 				},
 			});
 
-			res.status(201).json(event);
+			for await (const participant of participants) {
+				await triggerNotification(
+					participant as ExtendedUser,
+					"EVENT_MODIFICATION",
+					{
+						eventId: id,
+						eventTitle: oldTitle,
+						senderName: creator.name as string,
+					},
+				);
+			}
+
+			res.status(201).json(updatedEvent);
 		} catch (e) {
 			console.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });

@@ -4,7 +4,6 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 
 import toastStyle from "@/resources/toast.config";
-import { ExtendedUser } from "@/types/User";
 import Input from "@/components/UI/Form/Input";
 import { NotificationSettings } from "@prisma/client";
 

@@ -1,9 +1,12 @@
+import { NextApiRequest, NextApiResponse } from "next";
+
 import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 import { createEventParticipationTrophy } from "@/lib/api/trophy/event";
 import { ExtendedEvent } from "@/types/Event";
-import { User } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import { ExtendedUser } from "@/types/User";
+import prisma from "@/lib/prisma";
+import { triggerNotification } from "@/lib/notification/trigger";
+import { InvitationStatus } from "@prisma/client";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -12,16 +15,25 @@ export default async function handler(
 	// Check if user is authenticated
 	const session = await getSessionOrThrow(req);
 
-	// Create new home
+	// Create new participation
 	if (req.method === "POST") {
 		try {
 			const { id } = req.body;
 			const user = (await getUserOrThrow(session, {
 				include: { participations: true },
-			})) as User & { participations: ExtendedEvent[] };
+			})) as ExtendedUser;
 
-			const { participants: oldParticipants } = (await getEventOrThrow(id, {
-				include: { participants: true },
+			const {
+				participants: oldParticipants,
+				creator,
+				title,
+			} = (await getEventOrThrow(id, {
+				include: {
+					participants: true,
+					creator: {
+						include: { notificationSettings: true },
+					},
+				},
 			})) as ExtendedEvent;
 
 			const isAlreadyParticipant = oldParticipants.some(
@@ -44,15 +56,33 @@ export default async function handler(
 			});
 
 			if (!isAlreadyParticipant) {
-				createEventParticipationTrophy(user, user.participations.length + 1);
+				createEventParticipationTrophy(
+					user,
+					user.participations ? user.participations.length + 1 : -1,
+				);
 
 				// remove invitation
 				const invitation = await prisma.invitation.findFirst({
 					where: { eventId: id, receiverId: user.id },
 				});
 				if (invitation) {
-					await prisma.invitation.delete({ where: { id: invitation.id } });
+					await prisma.invitation.update({
+						where: { id: invitation.id },
+						data: {
+							status: InvitationStatus.ACCEPTED,
+						},
+					});
 				}
+
+				await triggerNotification(
+					creator as ExtendedUser,
+					"EVENT_PARTICIPATION",
+					{
+						eventId: id,
+						eventTitle: title,
+						senderName: user.name as string,
+					},
+				);
 			}
 
 			res.status(201).json({ participants });
