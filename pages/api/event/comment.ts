@@ -14,6 +14,7 @@ import {
 import { ExtendedEvent } from "@/types/Event";
 import { ExtendedUser } from "@/types/User";
 import { triggerNotification } from "@/lib/notification/trigger";
+import { log } from "@/lib/log";
 
 const getComments = async (eventId: string) => {
 	const comments = await prisma.comment.findMany({
@@ -88,7 +89,7 @@ export default async function handler(
 
 			return res.status(201).json({ comments: await getComments(eventId) });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}
@@ -127,7 +128,7 @@ export default async function handler(
 
 			return res.status(200).json({ comments: await getComments(eventId) });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}
@@ -164,7 +165,7 @@ export default async function handler(
 
 			return res.status(200).json({ comments: await getComments(eventId) });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}

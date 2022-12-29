@@ -11,6 +11,7 @@ import campusList from "@/resources/campus-list";
 import audienceList from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
 import { PlaceSearch } from "@/components/UI/Form/PlaceSearch";
+import { log } from "@/lib/log";
 
 const EventSchema = Yup.object().shape({
 	title: Yup.string()
@@ -87,7 +88,7 @@ export const EventForm = ({
 			//     router.push(redirectPath);
 			//   }
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}

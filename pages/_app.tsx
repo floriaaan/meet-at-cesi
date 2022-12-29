@@ -27,6 +27,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 		if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
 		else if (hostname.includes("dev"))
 			setUrl(hostname.split(".")[0] + router.pathname);
+
 	}, [router.pathname]);
 
 	return (
@@ -55,7 +56,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 				<Component {...pageProps} />
 			</Wrapper>
 			<Toaster />
-			<Analytics />
+			<Analytics debug={false} />
 		</SessionProvider>
 	);
 };

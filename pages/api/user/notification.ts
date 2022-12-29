@@ -15,6 +15,7 @@ import {
 	toExtendedNotifications,
 } from "@/lib/transformers/notification";
 import prisma from "@/lib/prisma";
+import { log } from "@/lib/log";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -54,7 +55,7 @@ export default async function handler(
 				.status(200)
 				.json({ notification: update, url: getContentUrl(notification) });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	} else if (req.method === "PUT" && req.query.action === "read-all") {
@@ -67,7 +68,7 @@ export default async function handler(
 
 			return res.status(200).json({ notifications: update });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	} else if (req.method === "PUT" && req.query.action === "edit-settings") {
@@ -83,7 +84,7 @@ export default async function handler(
 
 			return res.status(200).json({ notificationSettings: update });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	} else if (req.method === "DELETE") {
@@ -97,7 +98,7 @@ export default async function handler(
 
 			return res.status(200).json({ result });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}

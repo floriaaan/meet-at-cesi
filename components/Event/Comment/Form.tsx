@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import Input from "@/components/UI/Form/Input";
 import { ExtendedComment } from "@/types/Event";
 import toastStyle from "@/resources/toast.config";
+import { log } from "@/lib/log";
 
 const CommentSchema = Yup.object().shape({
 	content: Yup.string().trim().required("Tu voulais dire quoi ?"),
@@ -69,7 +70,7 @@ export const CommentForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}

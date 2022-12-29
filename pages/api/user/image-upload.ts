@@ -6,6 +6,7 @@ import sharp from "sharp";
 
 import prisma from "@/lib/prisma";
 import { storage } from "@/lib/storage";
+import { log } from "@/lib/log";
 
 export const config = {
 	api: {
@@ -75,7 +76,7 @@ export default async function handler(
 				});
 
 			if (uploadError) {
-				console.error(uploadError);
+				log.error(uploadError);
 				throw new Error("Unable to upload image to storage");
 			}
 

@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { ExtendedUser } from "@/types/User";
 import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 import { EditPrivacyRequestInput } from "@/lib/fetchers/user";
+import { log } from "@/lib/log";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -34,7 +35,7 @@ export default async function handler(
 
 			res.status(202).json({ user });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}

@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import type { ExtendedEvent } from "@/types/Event";
 import { deleteEvent } from "@/lib/fetchers";
 import toastProps from "@/resources/toast.config";
+import { log } from "@/lib/log";
 
 export const DeleteModal = ({
 	event,
@@ -27,7 +28,7 @@ export const DeleteModal = ({
 				router.push("/event");
 			} else toast.error("Une erreur est survenue... 😣", { id: toastId });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Une erreur est survenue... 😣", toastProps);
 		}
 	};

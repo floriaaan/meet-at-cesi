@@ -7,6 +7,7 @@ import { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";
 import { triggerNotification } from "@/lib/notification/trigger";
 import { InvitationStatus } from "@prisma/client";
+import { log } from "@/lib/log";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -88,7 +89,7 @@ export default async function handler(
 
 			res.status(201).json({ participants });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}

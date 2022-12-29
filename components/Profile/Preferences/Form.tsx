@@ -11,6 +11,7 @@ import { ExtendedUser } from "@/types/User";
 import { useCookies } from "react-cookie";
 import { preferencesList } from "@/resources/preferences-list";
 import { PreferencePrivacy } from "@prisma/client";
+import { log } from "@/lib/log";
 
 const PreferencesSchema = Yup.object().shape({
 	promotion: Yup.string(),
@@ -84,7 +85,7 @@ export const PreferencesForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}

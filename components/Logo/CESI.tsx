@@ -27,14 +27,6 @@ export const CESILogo = ({ className }: { className: string }) => {
 	);
 };
 
-const getSrc = () => {
-	if (process.env.NEXT_PUBLIC_APP_ENV === "production") return "/favicon.png";
-	if (process.env.NEXT_PUBLIC_APP_ENV === "development")
-		return "/favicon-dev.png";
-	if (process.env.NEXT_PUBLIC_APP_ENV === "local") return "/favicon-local.png";
-	return "/favicon.png";
-};
-
 export const Logo = ({ className }: { className?: string }) => {
 	return (
 		<Image
@@ -43,6 +35,7 @@ export const Logo = ({ className }: { className?: string }) => {
 			className={classNames("", className)}
 			width={128}
 			height={128}
+			priority
 		/>
 	);
 };

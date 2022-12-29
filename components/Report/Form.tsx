@@ -10,6 +10,7 @@ import Select from "@/components/UI/Form/Select";
 import { ReportType } from "@prisma/client";
 import { ReportCreateRequestInput } from "@/lib/fetchers";
 import { reportReasonList } from "@/resources/report-list";
+import { log } from "@/lib/log";
 
 const ReportSchema = Yup.object().shape({
 	content: Yup.string().required(
@@ -66,7 +67,7 @@ export const ReportForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Erreur lors de l'envoi.", { id: toastId });
 			setDisabled(false);
 		}

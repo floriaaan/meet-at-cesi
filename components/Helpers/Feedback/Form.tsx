@@ -8,6 +8,7 @@ import Input from "@/components/UI/Form/Input";
 import { useFeedback } from "@/components/Helpers/Feedback";
 import Select from "@/components/UI/Form/Select";
 import routes from "@/resources/routes";
+import { log } from "@/lib/log";
 
 const FeedbackSchema = Yup.object().shape({
 	text: Yup.string().required(
@@ -58,7 +59,7 @@ export const FeedbackForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}

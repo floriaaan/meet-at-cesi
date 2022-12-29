@@ -7,6 +7,7 @@ import { Role, User } from "@prisma/client";
 import Select from "@/components/UI/Form/Select";
 import toastStyle from "@/resources/toast.config";
 import { roleList } from "@/resources/role-list";
+import { log } from "@/lib/log";
 
 const RoleSchema = Yup.object().shape({
 	role: Yup.string().oneOf([Role.USER, Role.ADMIN, Role.MODERATOR]).required(),
@@ -49,7 +50,7 @@ export const RoleForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}

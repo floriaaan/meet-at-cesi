@@ -19,6 +19,7 @@ import Link from "next/link";
 import { MdArrowRightAlt } from "react-icons/md";
 import { ExtendedSession } from "@/types/Session";
 import { isAdmin } from "@/lib/role";
+import { log } from "@/lib/log";
 
 type Props = {
 	event: ExtendedEvent;
@@ -97,7 +98,7 @@ const EventPage: NextPage<Props> = (props) => {
 					});
 			});
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 		}
 	};

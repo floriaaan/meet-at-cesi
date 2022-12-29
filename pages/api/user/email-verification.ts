@@ -8,6 +8,7 @@ import { ExtendedUser } from "@/types/User";
 import prisma from "@/lib/prisma";
 import generateToken from "@/lib/tokens/email-verification";
 import { getTokenIfValidOrThrow } from "@/lib/api";
+import { log } from "@/lib/log";
 
 type Result = {
 	email: {
@@ -35,7 +36,7 @@ export default async function handler(
 				.json({ message: `HTTP method ${req.method} is not supported.` });
 		}
 	} catch (err) {
-		console.error(err);
+		log.error(err);
 		return res.status(400).json({
 			data: null,
 			error: { message: err instanceof Error ? err.message : err },

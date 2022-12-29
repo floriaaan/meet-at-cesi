@@ -6,6 +6,7 @@ import { useState } from "react";
 import toastStyle from "@/resources/toast.config";
 import Input from "@/components/UI/Form/Input";
 import { NotificationSettings } from "@prisma/client";
+import { log } from "@/lib/log";
 
 const NotificationsSchema = Yup.object().shape({
 	EVENT_INVITATION: Yup.boolean(),
@@ -66,7 +67,7 @@ export const NotificationsForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}

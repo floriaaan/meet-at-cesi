@@ -3,6 +3,7 @@ import { User } from "@prisma/client";
 import { EventFormValues } from "@/components/Event/Form";
 import { toLocalDate } from "@/lib/date";
 import { ExtendedEvent } from "@/types/Event";
+import { log } from "@/lib/log";
 
 export const participate = async (
 	id: string
@@ -32,7 +33,7 @@ export const createEvent = async (
 		if (res.ok && res.status === 201) return await res.json();
 		else return false;
 	} catch (error) {
-		console.error(error);
+		log.error(error);
 		return await Promise.reject(error);
 	}
 };
@@ -54,7 +55,7 @@ export const editEvent = async (
 		if (res.ok && res.status === 201) return res.json();
 		else return false;
 	} catch (error) {
-		console.error(error);
+		log.error(error);
 		return Promise.reject(error);
 	}
 };

@@ -16,6 +16,7 @@ import { ReportActionRequestInput } from "@/lib/fetchers/report";
 import { isAdmin, isModerator } from "@/lib/role";
 import { ExtendedReport } from "@/types/Report";
 import { triggerNotification } from "@/lib/notification/trigger";
+import { log } from "@/lib/log";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -93,7 +94,7 @@ const POST = async (
 
 		res.status(201).json(report);
 	} catch (e) {
-		console.error(e);
+		log.error(e);
 		res.status(500).json({ message: e instanceof Error ? e.message : e });
 	}
 };
@@ -173,7 +174,7 @@ const PUT = async (
 
 		return res.status(200).json({ data: result, error: null });
 	} catch (e) {
-		console.error(e);
+		log.error(e);
 		return res.status(500).json({
 			data: null,
 			error: { message: e instanceof Error ? e.message : e },

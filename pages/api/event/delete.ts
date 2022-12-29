@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+
 import prisma from "@/lib/prisma";
 import { isAdmin } from "@/lib/role";
 import { triggerNotification } from "@/lib/notification/trigger";
 import { getEventOrThrow, getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 import { ExtendedEvent } from "@/types/Event";
 import { ExtendedUser } from "@/types/User";
+import { log } from "@/lib/log";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -53,7 +54,7 @@ export default async function handler(
 
 			res.status(201).json({ message: "Event deleted." });
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
 		}
 	}

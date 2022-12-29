@@ -8,6 +8,7 @@ import toastStyle from "@/resources/toast.config";
 import { privacyList } from "@/resources/privacy-list";
 import { UserPrivacy } from "@prisma/client";
 import { ExtendedUser } from "@/types/User";
+import { log } from "@/lib/log";
 
 const PrivacySchema = Yup.object().shape({
 	trophies: Yup.string().oneOf(Object.values(UserPrivacy)),
@@ -58,7 +59,7 @@ export const PrivacyForm = ({
 				});
 			}
 		} catch (e) {
-			console.error(e);
+			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}
