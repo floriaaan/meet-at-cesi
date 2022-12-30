@@ -7,6 +7,7 @@ import {
 	ReactNode,
 	useContext,
 	useEffect,
+	useMemo,
 	useState,
 } from "react";
 
@@ -58,9 +59,12 @@ export const FilterProvider = ({
 		}
 	}, [query, initialsEvents, push]);
 
+	const values = useMemo(
+		() => ({ filters, events, loading }),
+		[filters, events, loading],
+	);
+
 	return (
-		<FilterContext.Provider value={{ filters, events, loading }}>
-			{children}
-		</FilterContext.Provider>
+		<FilterContext.Provider value={values}>{children}</FilterContext.Provider>
 	);
 };

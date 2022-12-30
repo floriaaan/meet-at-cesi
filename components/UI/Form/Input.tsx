@@ -55,6 +55,9 @@ const GlobalInput = ({
 		},
 	];
 	const error = meta.touched && canHaveError ? meta.error : "";
+	const checkbox = (type === "checkbox"
+	? { checked: field.value as unknown as boolean }
+	: {});
 
 	return (
 		<div className={classNames(className, "flex flex-col gap-y-1")}>
@@ -74,9 +77,7 @@ const GlobalInput = ({
 							{...field}
 							id={field.name}
 							type={type}
-							{...(type === "checkbox"
-								? { checked: field.value as unknown as boolean }
-								: {})}
+							{...checkbox}
 							className={
 								inputClassName ||
 								classNames(
@@ -146,6 +147,9 @@ const UncontrolledInput = ({
 	icon,
 	...props
 }: InputProps) => {
+	const checkbox = (type === "checkbox"
+	? { checked: props.value as unknown as boolean }
+	: {})
 	return (
 		<div className={classNames(className, "flex flex-col gap-y-1")}>
 			{label ? (
@@ -164,9 +168,7 @@ const UncontrolledInput = ({
 							{...(props as HTMLInputProps)}
 							id={props.name}
 							type={type}
-							{...(type === "checkbox"
-								? { checked: props.value as unknown as boolean }
-								: {})}
+							{...checkbox}
 							className={
 								inputClassName ||
 								classNames(

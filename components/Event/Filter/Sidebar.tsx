@@ -142,22 +142,26 @@ export const FilterSidebar = () => {
 												<Select
 													uncontrolled
 													{...(input as FilterSelectInput)}
-													onChange={(
+													onChange={function (
 														e: React.ChangeEvent<
 															HTMLSelectElement | HTMLInputElement
 														>,
-													) => handleFilterChange(e, input)}
+													) {
+														handleFilterChange(e, input);
+													}}
 													value={filters[input.name] || ""}
 												/>
 											) : (
 												<Input
 													uncontrolled
 													{...input}
-													onChange={(
+													onChange={function (
 														e: React.ChangeEvent<
 															HTMLSelectElement | HTMLInputElement
 														>,
-													) => handleFilterChange(e, input)}
+													) {
+														handleFilterChange(e, input);
+													}}
 													defaultValue={filters[input.name]}
 												/>
 											)}
