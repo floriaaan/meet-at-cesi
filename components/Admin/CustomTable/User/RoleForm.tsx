@@ -15,7 +15,6 @@ const RoleSchema = Yup.object().shape({
 
 export type RoleFormValues = Yup.InferType<typeof RoleSchema>;
 
-
 type RoleFormProps = {
 	initialValues: RoleFormValues;
 	// eslint-disable-next-line no-unused-vars
@@ -72,7 +71,7 @@ export const RoleForm = ({
 					<div className="flex justify-end mt-4">
 						<button
 							type="submit"
-							  disabled={disabled || !isValid}
+							disabled={disabled || !isValid}
 							className="px-6 py-3 font-bold uppercase rounded-full font-body shrink-0 btn__colors disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{isSubmitting ? "Envoi en cours..." : "Modifier"}

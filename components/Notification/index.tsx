@@ -32,14 +32,8 @@ export const NotificationItem = ({
 	id,
 }: ExtendedNotification) => {
 	const { read, remove } = useNotifications();
-	// eslint-disable-next-line no-unused-vars
-	function handleRead(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-		read(id);
-	}
-	// eslint-disable-next-line no-unused-vars
-	function handleRemove(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-		remove(id);
-	}
+	const handleRead = () => read(id);
+	const handleRemove = () => remove(id);
 
 	return (
 		<div

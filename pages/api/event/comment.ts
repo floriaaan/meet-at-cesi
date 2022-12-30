@@ -50,7 +50,7 @@ export default async function handler(
 				creator: eventCreator,
 				title: eventTitle,
 			} = (await getEventOrThrow(requestedEventId, {
-				include: { creator: { include: { notificationsSettings: true } } },
+				include: { creator: { include: { notificationSettings: true } } },
 			})) as ExtendedEvent;
 
 			if (parentId) {

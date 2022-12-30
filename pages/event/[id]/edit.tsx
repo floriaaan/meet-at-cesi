@@ -98,9 +98,7 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
 							location: event.location,
 						} as EventFormValues
 					}
-					// TODO: fix this
-					// @ts-ignore
-					onSubmit={async (values: EventFormValues) =>
+					onSubmit={async (values) =>
 						editEvent(event.id, values)
 					}
 				/>

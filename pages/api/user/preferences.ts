@@ -28,7 +28,6 @@ export default async function handler(
 
 			if (!campus && !promotion && !promotionYear) {
 				if (user.preferences) {
-					// @ts-ignore
 					user = {
 						...(await prisma.user.update({
 							where: { email: session.user.email as string },
@@ -39,7 +38,7 @@ export default async function handler(
 							},
 						})),
 						preferences: null,
-					} as ExtendedUser;
+					} as unknown as ExtendedUser;
 
 					return res.status(200).json({ user });
 				} else return res.status(200).json({ user });

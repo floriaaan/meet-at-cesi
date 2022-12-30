@@ -8,13 +8,16 @@ type SelectProps = FieldHookConfig<string> & {
 	options: {
 		value: string;
 		label: string;
-		[key: string]: any; // allow any other key to be passed
+		[key: string]: string; // allow any other key to be passed
 	}[];
 	groupBy?: string; // key of the option object to group by
 	canHaveError?: boolean;
-};
+} & React.DetailedHTMLProps<
+		React.SelectHTMLAttributes<HTMLSelectElement>,
+		HTMLSelectElement
+	>;
 
-const Select = ({
+const SelectInput = ({
 	label,
 	labelClassName,
 	className = "",
@@ -24,15 +27,19 @@ const Select = ({
 	...props
 }: SelectProps) => {
 	const [field, meta] = useField(
-		props as FieldHookConfig<any>,
+		props as FieldHookConfig<HTMLSelectElement>,
 	) as unknown as [
-		field: any,
+		field: {
+			name: string;
+			value: string;
+			onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+			onBlur: (e: React.FocusEvent<HTMLSelectElement>) => void;
+		},
 		meta: {
 			value: string;
 			error: string;
 			touched: boolean;
 		},
-		helpers: any,
 	];
 	const error = meta.touched && canHaveError ? meta.error : false;
 
@@ -60,42 +67,7 @@ const Select = ({
 								: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
 						)}
 					>
-						{groupBy === undefined ? (
-							<>
-								{options
-									.sort((a, b) => a.label.localeCompare(b.label))
-									.map((option) => (
-										<option key={option.value} value={option.value}>
-											{option.label}
-										</option>
-									))}
-							</>
-						) : (
-							<>
-								{(() => {
-									const groups = options.reduce((acc, option) => {
-										const group = option[groupBy];
-										if (acc[group] === undefined) {
-											acc[group] = [];
-										}
-										acc[group].push(option);
-										return acc;
-									}, {} as { [key: string]: typeof options });
-
-									return Object.keys(groups).map((group) => (
-										<optgroup key={group} label={group}>
-											{groups[group]
-												.sort((a, b) => a.label.localeCompare(b.label))
-												.map((option) => (
-													<option key={option.value} value={option.value}>
-														{option.label}
-													</option>
-												))}
-										</optgroup>
-									));
-								})()}
-							</>
-						)}
+						<SelectChildren options={options} groupBy={groupBy} />
 					</select>
 					<MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
 				</div>
@@ -105,6 +77,107 @@ const Select = ({
 				<p className="text-sm text-red-600 first-letter:uppercase">{error}</p>
 			)}
 		</div>
+	);
+};
+
+const UncontrolledSelectInput = ({
+	label,
+	labelClassName,
+	className = "",
+	options,
+	groupBy,
+	...props
+}: SelectProps) => {
+	return (
+		<div className={classNames(className, "flex flex-col space-y-1")}>
+			{label ? (
+				<label
+					htmlFor={props.name}
+					className={labelClassName || "font-bold text-black font-body"}
+				>
+					{label}
+				</label>
+			) : null}
+
+			<div className="flex-1">
+				<div className="relative">
+					<select
+						{...props}
+						id={props.name}
+						className={classNames(
+							"py-1.5 lg:py-3 px-3 pr-6 focus:outline-none appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white text-[16px] sm:text-sm placeholder:text-sm",
+							"border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+						)}
+					>
+						<SelectChildren options={options} groupBy={groupBy} />
+					</select>
+					<MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
+				</div>
+			</div>
+		</div>
+	);
+};
+
+type SelectWrapperProps = SelectProps & {
+	uncontrolled?: boolean;
+};
+export const Select = ({
+	uncontrolled = false,
+	...props
+}: SelectWrapperProps) => {
+	return !uncontrolled ? (
+		<SelectInput {...props} />
+	) : (
+		<UncontrolledSelectInput {...props} />
+	);
+};
+
+const SelectChildren = ({
+	groupBy,
+	options,
+}: {
+	groupBy?: string;
+	options: { value: string; label: string; [key: string]: string }[];
+}) => {
+	return (
+		<>
+			{groupBy === undefined ? (
+				<>
+					{options
+						.sort((a, b) => a.label.localeCompare(b.label))
+						.map((option) => (
+							<option key={option.value} value={option.value}>
+								{option.label}
+							</option>
+						))}
+				</>
+			) : (
+				<>
+					{(() => {
+						const groups = options.reduce((acc, option) => {
+							const group = option[groupBy];
+							if (acc[group] === undefined) {
+								acc[group] = [];
+							}
+							acc[group].push(option);
+							return acc;
+						}, {} as { [key: string]: typeof options });
+
+						return Object.keys(groups).map((group) => (
+							<optgroup key={group} label={group}>
+								{groups[group]
+									.sort((a, b) => a.label.localeCompare(b.label))
+									.map((option) => (
+										<option key={option.value} value={option.value}>
+											{option.label}
+										</option>
+									))}
+							</optgroup>
+						));
+					})()}
+				</>
+			)}
+		</>
 	);
 };
 

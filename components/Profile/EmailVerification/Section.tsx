@@ -15,7 +15,7 @@ export const EmailVerificationSection = ({
 }: EmailVerificationSectionProps) => {
 	const [disabled, setDisabled] = useState(!!user.emailVerified);
 	const handleVerifyEmail = async () => {
-		let toastId = toast.loading("Envoi du mail de vérification...", toastStyle);
+		const toastId = toast.loading("Envoi du mail de vérification...", toastStyle);
 		setDisabled(true);
 		try {
 			const result = await sendVerificationEmail();

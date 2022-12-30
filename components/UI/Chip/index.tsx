@@ -4,7 +4,7 @@ export type ChipProps = {
 	children: React.ReactNode;
 	className?: string;
 	extendClassName?: string;
-	onClick?: Function;
+	onClick?: () => void;
 };
 
 export const Chip = ({

@@ -116,7 +116,7 @@ const PUT = async (
 			object: objectType,
 			sender,
 		} = (await getReportOrThrow(reportId, {
-			include: { sender: { include: { notificationsSettings: true } } },
+			include: { sender: { include: { notificationSettings: true } } },
 		})) as ExtendedReport;
 		const user = await getUserOrThrow(session, { select: { role: true } });
 		if (!isModerator(user) && !isAdmin(user)) throw new Error("Unauthorized.");
@@ -129,7 +129,7 @@ const PUT = async (
 					data: { status },
 				});
 				break;
-			case ReportStatus.ACCEPTED:
+			case ReportStatus.ACCEPTED: {
 				const { object } = await getReportSubject(
 					objectId as string,
 					objectType,
@@ -146,6 +146,7 @@ const PUT = async (
 					data: { status },
 				});
 				break;
+			}
 			case ReportStatus.REFUSED:
 				result = await prisma.report.update({
 					where: { id },

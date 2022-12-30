@@ -48,7 +48,7 @@ const AdminEventPage: NextPage<Props> = ({ users }) => {
 						title="Utilisateurs"
 						items={users}
 						columns={["Nom", "Email", "Rôle", "Inscrit le", "Actif"]}
-						renderItem={renderUser}
+						renderItem={renderUser as (item: unknown) => JSX.Element}
 						pagination={{
 							initialPage: 0,
 							pageSize: 10,

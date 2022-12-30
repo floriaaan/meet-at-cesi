@@ -22,7 +22,7 @@ export default async function handler(
 ) {
 	// Upload image to Supabase
 	if (req.method === "POST") {
-		let { image } = req.body;
+		const { image } = req.body;
 
 		if (!image) {
 			return res.status(500).json({ message: "No image provided" });

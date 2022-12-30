@@ -43,7 +43,7 @@ export const ReportTableModal = ({
 
 	const handleAction = async (status: ReportStatus) => {
 		let result: boolean;
-		let toastId: string = toast.loading("Modification en cours...", toastStyle);
+		const toastId: string = toast.loading("Modification en cours...", toastStyle);
 
 		try {
 			switch (status) {

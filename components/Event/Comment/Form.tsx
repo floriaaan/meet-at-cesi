@@ -18,11 +18,8 @@ const initialFormValues: CommentFormValues = {
 } as unknown as CommentFormValues;
 
 type SetFieldValue = (
-	// eslint-disable-next-line no-unused-vars
 	field: string,
-	// eslint-disable-next-line no-unused-vars
-	value: any,
-	// eslint-disable-next-line no-unused-vars
+	value: string | number | boolean | Date | undefined,
 	shouldValidate?: boolean | undefined,
 ) => void;
 
@@ -36,7 +33,6 @@ export const CommentForm = ({
 	isReplying?: boolean;
 	initialValues?: CommentFormValues;
 	onSubmit: (
-		// eslint-disable-next-line no-unused-vars
 		values: CommentFormValues,
 	) => Promise<ExtendedComment[] | false | Error>;
 }) => {

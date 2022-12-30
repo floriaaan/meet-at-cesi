@@ -21,13 +21,13 @@ export default async function handler(
 			const { id } = req.body;
 
 			const user = await getUserOrThrow(session, {
-				include: { notificationsSettings: true },
+				include: { notificationSettings: true },
 			});
 
 			const { creator, title, participants } = (await getEventOrThrow(id, {
 				include: {
 					creator: true,
-					participants: { include: { notificationsSettings: true } },
+					participants: { include: { notificationSettings: true } },
 				},
 			})) as ExtendedEvent;
 

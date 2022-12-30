@@ -62,7 +62,7 @@ export const PreferencesSection = ({ user }: { user: ExtendedUser }) => {
 						<button
 							type="button"
 							onClick={async () => {
-								let toastId = toast.loading(
+								const toastId = toast.loading(
 									"Suppression en cours...",
 									toastStyle,
 								);

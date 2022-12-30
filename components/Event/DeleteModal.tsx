@@ -20,7 +20,7 @@ export const DeleteModal = ({
 	const router = useRouter();
 	const handleDelete = async () => {
 		try {
-			let toastId = toast.loading("Suppression de l'événement...", toastProps);
+			const toastId = toast.loading("Suppression de l'événement...", toastProps);
 			const result = await deleteEvent(event.id);
 			if (result) {
 				toast.success("Événement supprimé 👍", { id: toastId });

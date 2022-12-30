@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-
 	return {
 		props: { feedbacks },
 	};
@@ -54,7 +53,7 @@ const AdminFeedbackPage: NextPage<Props> = ({ feedbacks }) => {
 							"Historique partagé",
 							"Créé le",
 						]}
-						renderItem={renderFeedback}
+						renderItem={renderFeedback as (item: unknown) => JSX.Element}
 						pagination={{
 							initialPage: 0,
 							pageSize: 10,

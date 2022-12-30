@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('next').NextConfig} */
 
 const withPWA = require("next-pwa")({
@@ -22,9 +23,7 @@ const nextConfig = {
 		];
 		return config;
 	},
-	compiler: {
-		removeConsole: true,
-	},
+
 	// ---------- remove junk dev logs  ----------
 
 	experimental: {
