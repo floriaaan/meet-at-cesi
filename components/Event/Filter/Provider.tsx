@@ -1,3 +1,7 @@
+import { search } from "@/lib/fetchers";
+import { defaultDate } from "@/pages/event";
+import { ExtendedEvent } from "@/types/Event";
+import { useRouter } from "next/router";
 import {
 	createContext,
 	ReactNode,
@@ -5,48 +9,57 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import {
-	DEFAULT_INITIALS,
-	FilterValues,
-} from "@/components/Event/Filter/Sidebar";
-import { useRouter } from "next/router";
+
+type Filter = {
+	[key: string]: string;
+};
 
 const FilterContext = createContext({});
 type FilterContextType = {
-	filters: FilterValues;
-	// eslint-disable-next-line no-unused-vars
-	setFilters: (filters: FilterValues) => void;
+	filters: Filter;
+	events: ExtendedEvent[];
+	loading: boolean;
+	// setFilters: (filters: Filter) => void;
 };
 export const useFilter = (): FilterContextType =>
 	useContext(FilterContext) as FilterContextType;
 
-type Filter = FilterValues & { title?: string };
-export const FilterProvider = ({ children }: { children: ReactNode }) => {
-	const [filters, setFilters] = useState<Filter>({
-		...DEFAULT_INITIALS,
-		title: "",
-	} as Filter);
-	const { query } = useRouter();
+export const FilterProvider = ({
+	children,
+	initialsEvents = [],
+}: {
+	children: ReactNode;
+	initialsEvents: ExtendedEvent[];
+}) => {
+	const { query, push } = useRouter();
+	const [filters, setFilters] = useState<Filter>({});
+	const [events, setEvents] = useState<ExtendedEvent[]>(initialsEvents);
+	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (query && Object.keys(query).length > 0) {
-			setFilters({
-				dateMin: query.dateMin as unknown as Date,
-				dateMax: query.dateMax as unknown as Date,
-				campus: query.campus as string,
-				promotion: query.promotion as string,
-				title: query.title as string,
-			} as Filter);
+			setFilters(query as Filter);
+			setLoading(true);
+			search(query).then((result) => {
+				setEvents(result);
+				setLoading(false);
+			});
+		} else {
+			push(
+				{
+					query: {
+						dateMin: defaultDate.toISOString().split("T")[0],
+					},
+				},
+				undefined,
+				{ shallow: true },
+			);
+			setEvents(initialsEvents);
 		}
-	}, [query]);
+	}, [query, initialsEvents, push]);
 
 	return (
-		<FilterContext.Provider
-			value={{
-				filters,
-				setFilters,
-			}}
-		>
+		<FilterContext.Provider value={{ filters, events, loading }}>
 			{children}
 		</FilterContext.Provider>
 	);
