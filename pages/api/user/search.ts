@@ -10,8 +10,7 @@ export default async function handler(
 	// Create new home
 	if (req.method === "POST") {
 		try {
-			let { name, offset = 0 } = req.body as UserSearchRequestInput;
-			name = name || undefined;
+			const { name, offset = 0 } = req.body as UserSearchRequestInput;
 
 			const users = await prisma.user.findMany({
 				where: {

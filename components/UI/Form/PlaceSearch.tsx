@@ -12,6 +12,10 @@ type InputProps = FieldHookConfig<string> & {
 	label: string;
 	type: string;
 };
+type HTMLInputProps = React.DetailedHTMLProps<
+	React.InputHTMLAttributes<HTMLInputElement>,
+	HTMLInputElement
+>;
 
 export const PlaceSearch = ({
 	label,
@@ -21,19 +25,25 @@ export const PlaceSearch = ({
 	...props
 }: InputProps) => {
 	const [field, meta, helpers] = useField(
-		props as FieldHookConfig<any>
+		props as FieldHookConfig<string>,
 	) as unknown as [
-		field: any,
+		field: {
+			name: string;
+			value: string;
+			onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+		},
 		meta: {
 			value: string;
 			error: string;
 			touched: boolean;
 		},
-		helpers: any
+		helpers: {
+			setValue: (value: string) => void;
+		},
 	];
 	const error = meta.touched ? meta.error : "";
 
-	let timeout = useRef();
+	const timeout = useRef<NodeJS.Timer>();
 	const [suggestions, setSuggestions] = useState<Prediction[]>([]);
 	const [preventFromFetching, setPreventFromFetching] =
 		useState<boolean>(false);
@@ -55,7 +65,6 @@ export const PlaceSearch = ({
 			return;
 		}
 
-		// @ts-ignore
 		timeout.current = setTimeout(async () => {
 			if (!preventFromFetching) {
 				const res = await getPlaceSuggestions(value);
@@ -91,7 +100,7 @@ export const PlaceSearch = ({
 				<div className="relative">
 					<input
 						{...field}
-						{...props}
+						{...props as HTMLInputProps}
 						onChange={handleOnChange}
 						id={field.name}
 						type={type}
@@ -99,7 +108,7 @@ export const PlaceSearch = ({
 							" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
 							error
 								? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
-								: "border-gray-300 focus:border-gray-400 focus:ring-gray-400"
+								: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
 						)}
 					/>
 					{error && type !== "number" ? (

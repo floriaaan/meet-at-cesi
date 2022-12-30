@@ -159,7 +159,7 @@ export const EventTableModal = ({
 						{user?.role === "ADMIN" && event.deletedAt !== null ? (
 							<button
 								onClick={async () => {
-									let toastId = toast.loading(
+									const toastId = toast.loading(
 										"Restauration en cours...",
 										toastStyle,
 									);

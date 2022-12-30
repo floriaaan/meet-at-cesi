@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Event, User } from "@prisma/client";
 
 import { EventFormValues } from "@/components/Event/Form";
 import { toLocalDate } from "@/lib/date";

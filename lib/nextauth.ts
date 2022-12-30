@@ -11,8 +11,10 @@ import { getUserFromIdOrThrow } from "./api";
 const adapter = PrismaAdapter(prisma);
 const oldLinkAccount = adapter.linkAccount;
 const oldCreateUser = adapter.createUser;
-// eslint-disable-next-line no-unused-vars
-adapter.linkAccount = ({ _ext_expires_in, ...data }) => oldLinkAccount(data);
+adapter.linkAccount = (data) => {
+	delete data._ext_expires_in;
+	return oldLinkAccount(data);
+};
 adapter.createUser = async (data) => {
 	const user = await oldCreateUser(data);
 	if (checkEmail(data.email)) await generateToken(user);

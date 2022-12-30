@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
+
 function getStackTrace() {
 	let stack;
 
@@ -15,7 +17,7 @@ function getStackTrace() {
 const getInitiator = () => {
 	// _getInitiatorLine, _ObjectInfoLine, caller
 	const [, , caller] = getStackTrace();
-	let file = caller.split("/").at(-1) || "";
+	const file = caller.split("/").at(-1) || "";
 	return file.replace(")", "");
 };
 

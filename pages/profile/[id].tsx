@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const { id } = context.params as { id: string };
 
 	const today = new Date(new Date().setDate(new Date().getDate() - 1));
-	let user = (await prisma.user.findFirst({
+	const user = (await prisma.user.findFirst({
 		where: { id },
 		include: {
 			privacy: true,

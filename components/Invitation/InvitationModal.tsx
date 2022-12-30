@@ -50,7 +50,7 @@ export const InvitationModal = ({
 	const handleSubmit = async () => {
 		if (selectedUsers.length > 0) {
 			setIsSubmitting(true);
-			let toastId = toast.loading(
+			const toastId = toast.loading(
 				`${getPlural(
 					selectedUsers.length,
 					"Invitation",

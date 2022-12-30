@@ -14,16 +14,17 @@ export type NotificationEvent =
 	| "FEEDBACK_RESPONSE";
 
 export type Data = {
-	[key: string]: any;
 	senderId?: string;
-
+	
 	userName?: string;
-
+	
 	eventId?: string;
 	eventTitle?: string;
 	senderName?: string;
 	commentId?: string;
 	commentContent?: string;
+	
+	[key: string]: string | undefined;
 };
 
 /**

@@ -17,7 +17,7 @@ export default function PopperMenu({
 	buttonChildren,
 	popperOptions,
 }: PopperMenuProps) {
-	let [trigger, container] = usePopper({
+	const [trigger, container] = usePopper({
 		placement: popperOptions?.placement || "bottom-end",
 		strategy: popperOptions?.strategy || "fixed",
 		modifiers: popperOptions?.modifiers || [
@@ -45,8 +45,8 @@ export default function PopperMenu({
 }
 
 function Portal(props: { children: ReactNode }) {
-	let { children } = props;
-	let [mounted, setMounted] = useState(false);
+	const { children } = props;
+	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => setMounted(true), []);
 

@@ -242,7 +242,7 @@ export const CommentListItem = ({
 										<button
 											className="border-b btn-red"
 											onClick={async () => {
-												let toastId = toast.loading(
+												const toastId = toast.loading(
 													"Suppression en cours...",
 													toastStyle,
 												);

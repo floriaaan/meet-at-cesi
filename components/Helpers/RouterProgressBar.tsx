@@ -3,7 +3,7 @@ import NProgress from "nprogress";
 
 let timer: NodeJS.Timeout;
 let state: "LOADING" | "STOP" = "STOP";
-let activeRequests = 0;
+const activeRequests = 0;
 const delay = 250;
 
 NProgress.configure({

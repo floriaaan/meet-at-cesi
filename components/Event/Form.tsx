@@ -53,7 +53,7 @@ export const EventForm = ({
 	isEditing?: boolean;
 	initialValues?: EventFormValues;
 	// eslint-disable-next-line no-unused-vars
-	onSubmit: (values: EventFormValues) => Promise<Event | false | Error>;
+	onSubmit: (values: EventFormValues) => Promise<Event | Error | false>;
 }) => {
 	const router = useRouter();
 	const [disabled, setDisabled] = useState(false);

@@ -6,14 +6,18 @@
 	// 	"prettier/prettier": "error"
 	// }
 
-
-	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended","next/core-web-vitals"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "root": true,
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"next/core-web-vitals"
+	],
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["@typescript-eslint"],
+	"root": true,
 	"rules": {
 		"no-console": "error",
 		"no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "warn"
+		"@typescript-eslint/no-unused-vars": "warn",
+		"no-mixed-spaces-and-tabs": "off"
 	}
 }

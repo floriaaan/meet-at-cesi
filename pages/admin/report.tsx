@@ -119,7 +119,7 @@ const AdminReportPage: NextPage<Props> = ({ reports }) => {
 								},
 							},
 						]}
-						renderItem={renderReport}
+						renderItem={renderReport as (item: unknown) => JSX.Element}
 						pagination={{
 							initialPage: 0,
 							pageSize: 10,

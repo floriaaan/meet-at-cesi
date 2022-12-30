@@ -37,7 +37,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		},
 	});
 
-
 	return {
 		props: { events },
 	};
@@ -52,8 +51,14 @@ const AdminEventPage: NextPage<Props> = ({ events }) => {
 					<CustomTable
 						title="Événements"
 						items={events}
-						columns={["Titre", "Créateur", "Participants", "Commentaires", "Actif"]}
-						renderItem={renderEvent}
+						columns={[
+							"Titre",
+							"Créateur",
+							"Participants",
+							"Commentaires",
+							"Actif",
+						]}
+						renderItem={renderEvent as (item: unknown) => JSX.Element}
 						pagination={{
 							initialPage: 0,
 							pageSize: 10,

@@ -31,7 +31,7 @@ export default async function handler(
 			} = (await getEventOrThrow(id, {
 				include: {
 					creator: true,
-					participants: { include: { notificationsSettings: true } },
+					participants: { include: { notificationSettings: true } },
 				},
 			})) as ExtendedEvent;
 			if (creator.id !== user.id && !isAdmin(user)) {

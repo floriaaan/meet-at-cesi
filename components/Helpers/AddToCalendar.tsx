@@ -49,19 +49,19 @@ const MenuButton = ({ open }: { open: boolean }) => {
 const MenuPanel = ({ event }: { open: boolean; event: ExtendedEvent }) => {
 	const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
 		e.preventDefault();
-		let type = e.currentTarget.getAttribute("data-type") as string;
-		let url = buildUrl(event, type);
+		const type = e.currentTarget.getAttribute("data-type") as string;
+		const url = buildUrl(event, type);
 
 		if (!isMobile() && (url.startsWith("data") || url.startsWith("BEGIN"))) {
-			let filename = "download.ics";
-			let blob = new Blob([url], { type: "text/calendar;charset=utf-8" });
+			const filename = "download.ics";
+			const blob = new Blob([url], { type: "text/calendar;charset=utf-8" });
 
 			/****************************************************************
         // many browsers do not properly support downloading data URIs
         // (even with "download" attribute in use) so this solution
         // ensures the event will download cross-browser
         ****************************************************************/
-			let link = document.createElement("a");
+			const link = document.createElement("a");
 			link.href = window.URL.createObjectURL(blob);
 			link.setAttribute("download", filename);
 			document.body.appendChild(link);

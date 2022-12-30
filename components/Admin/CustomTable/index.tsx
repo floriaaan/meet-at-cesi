@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
-
 import { usePagination } from "@/hooks/usePagination";
 
 export type Pagination = {
@@ -15,15 +14,15 @@ export type Column =
 	| {
 			label: string;
 			props?: Partial<JSX.IntrinsicElements["th"]>;
-	  }
+		}
 	| string;
 
 export type CustomTableProps = {
 	title: string;
-	items: any[];
+	items: unknown[];
 	columns: Column[];
 	// eslint-disable-next-line no-unused-vars
-	renderItem: (item: any) => ReactNode;
+	renderItem: (item: unknown) => ReactNode;
 
 	pagination?: Pagination;
 };
@@ -115,7 +114,6 @@ const CustomTable = ({
 											)}
 										>
 											{column.label}
-											
 										</th>
 									);
 								}

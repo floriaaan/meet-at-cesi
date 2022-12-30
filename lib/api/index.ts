@@ -2,6 +2,7 @@ import {
 	Comment,
 	Event,
 	Notification,
+	Prisma,
 	Report,
 	User,
 	VerificationToken,
@@ -26,7 +27,7 @@ export const getSessionOrThrow = async (
 
 export const getUserOrThrow = async (
 	session: SessionWithEmail,
-	options?: any,
+	options?: Omit<Prisma.UserFindUniqueArgs, "where">,
 ): Promise<User> => {
 	const user = await prisma.user.findUnique({
 		where: { email: session.user.email },
@@ -39,7 +40,7 @@ export const getUserOrThrow = async (
 
 export const getUserFromIdOrThrow = async (
 	userId: string,
-	options?: any,
+	options?: Omit<Prisma.UserFindUniqueArgs, "where">,
 ): Promise<User> => {
 	const user = await prisma.user.findUnique({
 		where: { id: userId },
@@ -52,7 +53,7 @@ export const getUserFromIdOrThrow = async (
 
 export const getEventOrThrow = async (
 	eventId: string,
-	options?: any,
+	options?: Omit<Prisma.EventFindUniqueArgs, "where">,
 ): Promise<Event> => {
 	const event = await prisma.event.findUnique({
 		where: { id: eventId },
@@ -65,7 +66,7 @@ export const getEventOrThrow = async (
 
 export const getCommentOrThrow = async (
 	commentId: string,
-	options?: any,
+	options?: Omit<Prisma.CommentFindUniqueArgs, "where">,
 ): Promise<Comment> => {
 	const comment = await prisma.comment.findUnique({
 		where: { id: commentId },
@@ -78,7 +79,7 @@ export const getCommentOrThrow = async (
 
 export const getReportOrThrow = async (
 	reportId: string,
-	options?: any,
+	options?: Omit<Prisma.ReportFindUniqueArgs, "where">,
 ): Promise<Report> => {
 	const report = await prisma.report.findUnique({
 		where: { id: reportId },
@@ -105,7 +106,7 @@ export const getTokenIfValidOrThrow = async (
 
 export const getNotificationOrThrow = async (
 	notificationId: string,
-	options?: any,
+	options?: Omit<Prisma.NotificationFindUniqueArgs, "where">,
 ): Promise<Notification> => {
 	const notification = await prisma.notification.findUnique({
 		where: { id: notificationId },

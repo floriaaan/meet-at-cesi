@@ -71,11 +71,10 @@ export const HeroSection = ({
 								<div className="flex flex-col">
 									<span className="">Campus</span>
 									<strong
-										// @ts-ignore
-										before="_"
+										data-before="_"
 										className={classNames(
 											"relative xs:-mt-1.5 -mb-1 w-min md:w-auto",
-											"before:content-[attr(before)] before:absolute before:right-[100%]",
+											"before:content-[attr(data-before)] before:absolute before:right-[100%]",
 										)}
 									>
 										{campusDisplay}
@@ -86,11 +85,10 @@ export const HeroSection = ({
 								<div className="flex flex-col pl-4">
 									<span className="">Invités</span>
 									<strong
-										// @ts-ignore
-										before="_"
+										data-before="_"
 										className={classNames(
 											"relative -mb-1 w-min leading-3  xs:w-auto line-clamp-2 whitespace-pre-line",
-											"before:content-[attr(before)] before:absolute before:right-[100%]",
+											"before:content-[attr(data-before)] before:absolute before:right-[100%]",
 										)}
 									>
 										{`${audienceDisplay?.domaine}\n${audienceDisplay?.niveau}`}
