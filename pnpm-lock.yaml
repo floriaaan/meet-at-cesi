@@ -30,6 +30,7 @@ specifiers:
   express-rate-limit: ^6.6.0
   express-slow-down: ^1.5.0
   formik: ^2.2.9
+  is-mobile: ^3.1.1
   jsdom: ^20.0.3
   nanoid: ^4.0.0
   next: 13.1.0
@@ -69,6 +70,7 @@ dependencies:
   express-rate-limit: 6.6.0_express@4.18.2
   express-slow-down: 1.5.0
   formik: 2.2.9_react@18.2.0
+  is-mobile: 3.1.1
   nanoid: 4.0.0
   next: 13.1.0_biqbaboplfbrettd7655fr4n2y
   next-auth: 4.15.1_s75y6mxmikaw2mhqmuko6w7njm
@@ -4169,6 +4171,10 @@ packages:
   /is-map/2.0.2:
     resolution: {integrity: sha512-cOZFQQozTha1f4MxLFzlgKYPTyj26picdZTx82hbc/Xf4K/tZOOXSCkMvU4pKioRXGDLJRn0GM7Upe7kR721yg==}
     dev: true
+
+  /is-mobile/3.1.1:
+    resolution: {integrity: sha512-RRoXXR2HNFxNkUnxtaBdGBXtFlUMFa06S0NUKf/LCF+MuGLu13gi9iBCkoEmc6+rpXuwi5Mso5V8Zf7mNynMBQ==}
+    dev: false
 
   /is-module/1.0.0:
     resolution: {integrity: sha512-51ypPSPCoTEIN9dy5Oy+h4pShgJmPCygKfyRCISBI+JoWT/2oJvK8QPxmwv7b/p239jXrm9M1mlQbyKJ5A152g==}
