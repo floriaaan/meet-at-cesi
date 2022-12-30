@@ -8,6 +8,7 @@ import { triggerNotification } from "@/lib/notification/trigger";
 import { ExtendedUser } from "@/types/User";
 import { getCoordinates } from "@/lib/fetchers/api-adresse-data-gouv";
 import { log } from "@/lib/log";
+import { EventCreateRequestInput } from "@/lib/fetchers/event";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -19,9 +20,9 @@ export default async function handler(
 	// Edit event
 	if (req.method === "PUT") {
 		try {
-			const { title, location, date, audience, id } = req.body;
-			const audienceCampus = req.body["audience-campus"];
-
+			const { id, ...data } = req.body as EventCreateRequestInput & {
+				id: string;
+			};
 			const user = await getUserOrThrow(session);
 
 			const {
@@ -38,16 +39,13 @@ export default async function handler(
 				return res.status(401).json({ message: "Unauthorized." });
 			}
 
-			const coordinates = await getCoordinates(location);
+			const coordinates = await getCoordinates(data.location);
 
 			const updatedEvent = await prisma.event.update({
-				where: { id },
+				where: { id: data.id },
 				data: {
-					title,
-					location,
-					date: new Date(date),
-					audience,
-					audienceCampus,
+					...data,
+					date: new Date(data.date),
 					coordinates,
 				},
 			});

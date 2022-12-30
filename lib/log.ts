@@ -22,12 +22,12 @@ const getInitiator = () => {
 };
 
 const warn = (...args: any[]) => {
-	console.group(`${new Date().toISOString()} - WARN`);
+	console.group(`${new Date().toISOString()} - WARN - ${getInitiator()}`);
 	console.warn(...args);
 	console.groupEnd();
 };
 const error = (...args: any[]) => {
-	console.group(`${new Date().toISOString()} - ERROR`);
+	console.group(`${new Date().toISOString()} - ERROR - ${getInitiator()}`);
 	console.error(...args);
 	console.groupEnd();
 };

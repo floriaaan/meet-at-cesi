@@ -20,7 +20,7 @@ export const participate = async (
 	return false;
 };
 
-type EventCreateRequestInput = EventFormValues;
+export type EventCreateRequestInput = EventFormValues;
 export const createEvent = async (
 	values: EventCreateRequestInput
 ): Promise<Event | false | Error> => {

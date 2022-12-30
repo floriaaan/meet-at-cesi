@@ -7,6 +7,7 @@ import { getCoordinates } from "@/lib/fetchers/api-adresse-data-gouv";
 import { ExtendedUser } from "@/types/User";
 import { triggerNotification } from "@/lib/notification/trigger";
 import { log } from "@/lib/log";
+import { EventCreateRequestInput } from "@/lib/fetchers/event";
 
 export default async function handler(
 	req: NextApiRequest,
@@ -18,21 +19,18 @@ export default async function handler(
 		// Create new event
 		if (req.method === "POST") {
 			try {
-				const { title, location, date, audience } = req.body;
-				const audienceCampus = req.body["audience-campus"];
+				const data = req.body  as EventCreateRequestInput;
+
 
 				const user = (await getUserOrThrow(session, {
 					include: { createdEvents: true, preferences: true },
 				})) as ExtendedUser;
 
-				const coordinates = await getCoordinates(location);
+				const coordinates = await getCoordinates(data.location);
 				const event = await prisma.event.create({
 					data: {
-						title,
-						location,
-						date: new Date(date),
-						audience,
-						audienceCampus,
+						...data,
+						date: new Date(data.date),
 						coordinates,
 						creatorId: user.id,
 					},
@@ -56,7 +54,7 @@ export default async function handler(
 						"EVENT_CREATION",
 						{
 							eventId: event.id,
-							eventTitle: title,
+							eventTitle: event.title,
 							senderId: user.id,
 							senderName: user.name as string,
 						},
