@@ -1,5 +1,7 @@
 import { ExtendedEvent } from "@/types/Event";
 import mobile from 'is-mobile';
+export const isMobile = mobile;
+
 
 
 export type SupportedCalendar = "google" | "outlookcom" | "yahoo";
@@ -60,7 +62,7 @@ export const buildUrl = (
 				"END:VCALENDAR",
 			].join("\n");
 
-			if (mobile()) {
+			if (isMobile()) {
 				calendarUrl = encodeURI(
 					"data:text/calendar;charset=utf8," + calendarUrl,
 				);
@@ -70,3 +72,4 @@ export const buildUrl = (
 
 	return calendarUrl;
 };
+
