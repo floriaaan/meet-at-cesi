@@ -2,6 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { EventSearchRequestInput } from "@/lib/fetchers";
 import { log } from "@/lib/log";
+import { getSession } from "next-auth/react";
+import { Prisma } from "@prisma/client";
+import { getPrivateEvents } from "@/lib/transformers/event";
 
 const getDateFilter = (
 	dateMin: string | undefined,
@@ -19,34 +22,51 @@ const getDateFilter = (
 	};
 };
 
+const DEFAULT_WHERE = ({
+	dateMin,
+	dateMax,
+	campus,
+	title,
+	promotion,
+}: EventSearchRequestInput): Partial<Prisma.EventWhereInput> => ({
+	date: getDateFilter(dateMin, dateMax),
+	audienceCampus: campus,
+	title: {
+		contains: title,
+		mode: "insensitive",
+	},
+	audience: promotion?.split(":")[0], // todo: add year support
+	// todo: proximity requires location coordinates
+});
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
 ) {
-	// Create new home
 	if (req.method === "POST") {
 		try {
-			let { dateMin, dateMax, campus, title, promotion } =
+			const { dateMin, dateMax, campus, title, promotion } =
 				req.body as EventSearchRequestInput;
-			dateMin = dateMin || undefined;
-			dateMax = dateMax || undefined;
-			campus = campus || undefined;
-			promotion = promotion || undefined;
-			title = title || undefined;
 
-			const events = await prisma.event.findMany({
+			const session = await getSession({ req });
+			const userEmail = session?.user?.email;
+			log.info(`User ${userEmail} is searching for events.`);
+
+			const publicEvents = await prisma.event.findMany({
 				where: {
-					date: getDateFilter(dateMin, dateMax),
-					audienceCampus: campus,
-					title: {
-						contains: title,
-						mode: "insensitive",
-					},
-					audience: promotion?.split(":")[0], // todo: add year support
-					// todo: proximity requires location coordinates
+					...DEFAULT_WHERE({ dateMin, dateMax, campus, title, promotion }),
+					private: false,
 				},
 				include: { participants: true, creator: true },
 				orderBy: { date: "asc" },
+			});
+			const privateEvents = await getPrivateEvents(
+				userEmail,
+				DEFAULT_WHERE({ dateMin, dateMax, campus, title, promotion }),
+			);
+
+			const events = [...publicEvents, ...privateEvents].sort((a, b) => {
+				return a.date.getTime() - b.date.getTime();
 			});
 
 			res.status(200).json({ events });

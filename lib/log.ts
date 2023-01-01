@@ -22,17 +22,17 @@ const getInitiator = () => {
 };
 
 const warn = (...args: any[]) => {
-	console.group(`${new Date().toISOString()} - WARN - ${getInitiator()}`);
+	console.group(`\x1b[33m${new Date().toISOString()} - WARN - ${getInitiator()}\x1b[0m`);
 	console.warn(...args);
 	console.groupEnd();
 };
 const error = (...args: any[]) => {
-	console.group(`${new Date().toISOString()} - ERROR - ${getInitiator()}`);
+	console.group(`\x1b[31m${new Date().toISOString()} - ERROR - ${getInitiator()}\x1b[0m`);
 	console.error(...args);
 	console.groupEnd();
 };
 const info = (...args: any[]) => {
-	console.group(`${new Date().toISOString()} - INFO - ${getInitiator()}`);
+	console.group(`\x1b[34m${new Date().toISOString()} - INFO - ${getInitiator()}\x1b[0m`);
 	console.log(...args);
 	console.groupEnd();
 };
