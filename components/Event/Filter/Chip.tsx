@@ -18,7 +18,11 @@ export const FilterChip = ({
 
 	function deleteFilter() {
 		const newFilters = { ...filters };
-		delete newFilters[type];
+		if (type !== "dateMin") {
+			delete newFilters[type];
+		} else {
+			newFilters.dateMin = "";
+		}
 		push({ query: newFilters }, undefined, { shallow: true });
 	}
 
