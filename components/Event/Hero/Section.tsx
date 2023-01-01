@@ -5,7 +5,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { MdChevronLeft, MdEdit, MdWarning } from "react-icons/md";
+import { MdChevronLeft, MdEdit, MdLock, MdWarning } from "react-icons/md";
 
 import { ExtendedSession } from "@/types/Session";
 import { Header } from "@/components/UI/Header";
@@ -28,6 +28,8 @@ export const HeroSection = ({
 	campus,
 	audience,
 	creator,
+	private: isPrivate,
+
 	isParticipant,
 	isOwner,
 
@@ -40,6 +42,8 @@ export const HeroSection = ({
 	campus: string;
 	audience: string;
 	creator: User;
+
+	private: boolean;
 
 	isParticipant: boolean;
 	isOwner: boolean;
@@ -81,7 +85,7 @@ export const HeroSection = ({
 									</strong>
 								</div>
 							) : null}
-							{audienceDisplay !== undefined ? (
+							{audienceDisplay !== undefined && !isPrivate ? (
 								<div className="flex flex-col pl-4">
 									<span className="">Invités</span>
 									<strong
@@ -95,6 +99,22 @@ export const HeroSection = ({
 									</strong>
 								</div>
 							) : null}
+							{isPrivate ? (
+								<div className="flex flex-col pl-4">
+									<span className="">Événement</span>
+									<strong
+										data-before="_"
+										className={classNames(
+											"relative -mb-1 w-min leading-3 inline-flex items-center xs:w-auto line-clamp-2 whitespace-pre-line",
+											"before:content-[attr(data-before)] before:absolute before:right-[100%]",
+										)}
+									>
+										Privé
+										<MdLock className="inline-block w-4 h-4 ml-1" />
+									</strong>
+								</div>
+							) : null}
+
 						</div>
 					</div>
 				</div>
@@ -144,11 +164,13 @@ export const HeroSection = ({
 				</div>
 			</div>
 
-			<div className="flex flex-col border-t border-black lg:flex-row">
+			<div className="flex flex-col border-t border-t-black lg:flex-row">
 				<Header
 					text={title}
 					className="text-[2.5rem] md:text-[4rem]"
-					containerClassName="lg:grow"
+					containerClassName={classNames("lg:grow", {
+						"bg-purple": isPrivate,
+					})}
 					textCanOverflow
 				/>
 				<HeroDetails
@@ -161,8 +183,10 @@ export const HeroSection = ({
 							date,
 							location,
 							id,
+							private: isPrivate,
 						} as ExtendedEvent
 					}
+					className={isPrivate ? "bg-purple" : ""}
 				/>
 			</div>
 		</div>

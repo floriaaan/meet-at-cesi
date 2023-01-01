@@ -19,8 +19,7 @@ export default async function handler(
 		// Create new event
 		if (req.method === "POST") {
 			try {
-				const data = req.body  as EventCreateRequestInput;
-
+				const data = req.body as EventCreateRequestInput;
 
 				const user = (await getUserOrThrow(session, {
 					include: { createdEvents: true, preferences: true },
@@ -36,29 +35,31 @@ export default async function handler(
 					},
 				});
 
-				const potentialsParticipants = await prisma.user.findMany({
-					where: {
-						preferences: {
-							campus: user.preferences?.campus,
-							promotion: {
-								startsWith: user.preferences?.promotion?.split(":")[0],
+				if (!data.private) {
+					const potentialsParticipants = await prisma.user.findMany({
+						where: {
+							preferences: {
+								campus: user.preferences?.campus,
+								promotion: {
+									startsWith: user.preferences?.promotion?.split(":")[0],
+								},
 							},
 						},
-					},
-					include: { notificationSettings: true },
-				});
+						include: { notificationSettings: true },
+					});
 
-				for await (const participant of potentialsParticipants) {
-					await triggerNotification(
-						participant as unknown as ExtendedUser,
-						"EVENT_CREATION",
-						{
-							eventId: event.id,
-							eventTitle: event.title,
-							senderId: user.id,
-							senderName: user.name as string,
-						},
-					);
+					for await (const participant of potentialsParticipants) {
+						await triggerNotification(
+							participant as unknown as ExtendedUser,
+							"EVENT_CREATION",
+							{
+								eventId: event.id,
+								eventTitle: event.title,
+								senderId: user.id,
+								senderName: user.name as string,
+							},
+						);
+					}
 				}
 
 				await createEventCreationTrophy(

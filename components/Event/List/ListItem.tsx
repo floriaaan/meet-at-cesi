@@ -21,6 +21,7 @@ export const EventListItem = ({
 	location,
 	creator,
 	participants,
+	private: isPrivate,
 }: Props) => {
 	const dateObject = new Date(date);
 	const isPast =
@@ -46,6 +47,7 @@ export const EventListItem = ({
 					audience={audience}
 					audienceCampus={audienceCampus}
 					participants={participants}
+					private={isPrivate}
 				/>
 			</div>
 			<div className="flex flex-col items-center justify-center w-8 h-8 ml-auto text-white bg-black border-t border-l shrink-0 md:border-t-0 md:border-b group-hover:bg-pink group-hover:text-black">

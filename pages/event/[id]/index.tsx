@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { getSession, useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
+import Link from "next/link";
+import { MdArrowRightAlt } from "react-icons/md";
 
 import type { ExtendedEvent } from "@/types/Event";
 import toastStyle from "@/resources/toast.config";
@@ -15,8 +17,6 @@ import { MapSection } from "@/components/Event/Map/Section";
 import { ParticipantSection } from "@/components/Event/Participant/Section";
 import { CommentSection } from "@/components/Event/Comment/Section";
 import { Header } from "@/components/UI/Header";
-import Link from "next/link";
-import { MdArrowRightAlt } from "react-icons/md";
 import { ExtendedSession } from "@/types/Session";
 import { isAdmin } from "@/lib/role";
 import { log } from "@/lib/log";
@@ -70,6 +70,7 @@ const EventPage: NextPage<Props> = (props) => {
 		date,
 		comments: initialComments,
 		deletedAt,
+		private: isPrivate,
 	} = props.event;
 	const [participants, setParticipants] = useState(initialParticipants);
 	const isParticipant = participants.some((p) => p.email === user?.email);
@@ -131,6 +132,7 @@ const EventPage: NextPage<Props> = (props) => {
 					isParticipant={isParticipant}
 					isOwner={isOwner}
 					participate={handleParticipate}
+					private={isPrivate}
 				/>
 				<div className="grid w-full grid-cols-3 gap-4 pb-4 ">
 					<div className="w-full col-span-3 lg:col-span-2">

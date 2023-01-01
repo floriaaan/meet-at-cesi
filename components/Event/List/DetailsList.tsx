@@ -1,5 +1,10 @@
 import type { User } from "@prisma/client";
-import { MdFace, MdLocationPin, MdPerson } from "react-icons/md";
+import {
+	MdFace,
+	MdLocationPin,
+	MdLock,
+	MdPublic,
+} from "react-icons/md";
 
 import { audienceList } from "@/resources/audience-list";
 import { campusList } from "@/resources/campus-list";
@@ -13,6 +18,7 @@ type DetailsListProps = {
 	audience: string;
 	audienceCampus: string;
 	participants: User[];
+	private: boolean;
 };
 export const DetailsList = ({
 	creator,
@@ -20,6 +26,7 @@ export const DetailsList = ({
 	audience,
 	audienceCampus,
 	participants,
+	private: isPrivate,
 }: DetailsListProps) => {
 	const audienceDisplay = audienceList.find((a) => a.value === audience)?.label;
 	const campusDisplay =
@@ -32,8 +39,14 @@ export const DetailsList = ({
 			/>
 
 			<DetailsListItem
-				icon={<MdPerson className="w-4 h-4 shrink-0" />}
-				value={`${audienceDisplay}${
+				icon={
+					!isPrivate ? (
+						<MdPublic className="w-4 h-4 shrink-0" />
+					) : (
+						<MdLock className="w-4 h-4 shrink-0" />
+					)
+				}
+				value={`${!isPrivate ?audienceDisplay: "Privé"}${
 					campusDisplay ? ` - ${campusDisplay.label}` : ""
 				}`}
 			/>
