@@ -1,10 +1,17 @@
 import { fromLocalDate } from "@/lib/date";
+import { MdLock } from "react-icons/md";
 
-export const DateComponent = ({ date }: { date: Date }) => {
+export const DateComponent = ({
+	date,
+	private: isPrivate,
+}: {
+	date: Date;
+	private: boolean;
+}) => {
 	return (
 		<div
 			className={
-				"flex flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black aspect-video md:aspect-square"
+				"flex relative flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black aspect-video md:aspect-square"
 			}
 		>
 			<span className="text-sm font-bold leading-3 text-white">
@@ -39,6 +46,13 @@ export const DateComponent = ({ date }: { date: Date }) => {
 					})}
 				</span>
 			</div>
+
+			{isPrivate && (
+				<div className="absolute inline-flex items-center font-bold bottom-0 right-0 text-xs bg-white px-1 py-0.5 border-b md:border-b-0 md:border-r border-black">
+					<MdLock />
+					Privé
+				</div>
+			)}
 		</div>
 	);
 };

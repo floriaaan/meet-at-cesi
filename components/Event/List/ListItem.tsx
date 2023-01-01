@@ -33,10 +33,10 @@ export const EventListItem = ({
 			href={`/event/${id}`}
 			className={classNames(
 				"flex flex-col group w-full border border-black  divide-black md:flex-row ",
-				isPast ? "opacity-50" : ""
+				isPast ? "opacity-50" : "",
 			)}
 		>
-			<DateComponent date={dateObject} />
+			<DateComponent date={dateObject} private={isPrivate} />
 			<div className="flex flex-col p-2 grow">
 				<h3 className="overflow-hidden text-xl font-bold text-black line-clamp-1 group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
 					{title}
