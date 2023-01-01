@@ -49,11 +49,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		}
 	}
 
-	const events = await prisma.event.findMany({
-		include: { creator: true, participants: true },
-		orderBy: { date: "asc" },
-		where: { date: { gte: defaultDate } },
-	});
+	// const events = await prisma.event.findMany({
+	// 	include: { creator: true, participants: true },
+	// 	orderBy: { date: "asc" },
+	// 	where: { date: { gte: defaultDate } },
+	// });
+
+	const events: ExtendedEvent[] = [];
 
 	return { props: { events } };
 };

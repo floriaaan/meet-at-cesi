@@ -50,7 +50,6 @@ export default async function handler(
 
 			const session = await getSession({ req });
 			const userEmail = session?.user?.email;
-			log.info(`User ${userEmail} is searching for events.`);
 
 			const publicEvents = await prisma.event.findMany({
 				where: {
