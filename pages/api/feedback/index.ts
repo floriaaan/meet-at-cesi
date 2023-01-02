@@ -1,18 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import prisma from "@/lib/prisma";
 import { FeedbackCreateRequestInput } from "@/lib/fetchers";
 import { log } from "@/lib/log";
+import { getSessionOrThrow, getUserOrThrow } from "@/lib/api";
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSession({ req });
-	if (!session || !session.user) {
-		return res.status(401).json({ message: "Unauthorized." });
-	}
+	const session = await getSessionOrThrow(req);
 
 	if (req.method === "POST") {
 		try {
@@ -22,10 +19,7 @@ export default async function handler(
 			if (!history)
 				return res.status(400).json({ message: "History is required." });
 
-			const user = await prisma.user.findUnique({
-				where: { email: session.user.email as string },
-			});
-			if (!user) return res.status(404).json({ message: "User not found." });
+			const user = await getUserOrThrow(session);
 
 			const feedback = await prisma.feedback.create({
 				data: {

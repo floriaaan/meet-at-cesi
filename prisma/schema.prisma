@@ -161,6 +161,8 @@ model Event {
   invitations  Invitation[]
   comments     Comment[]
 
+  private Boolean @default(false)
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?

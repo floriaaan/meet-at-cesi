@@ -100,7 +100,7 @@ export const PlaceSearch = ({
 				<div className="relative">
 					<input
 						{...field}
-						{...props as HTMLInputProps}
+						{...(props as HTMLInputProps)}
 						onChange={handleOnChange}
 						id={field.name}
 						type={type}
@@ -110,6 +110,7 @@ export const PlaceSearch = ({
 								? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
 								: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
 						)}
+						onBlur={() => setIsOpen(false)}
 					/>
 					{error && type !== "number" ? (
 						<span className="absolute right-0 pr-2 -translate-y-1/2 top-1/2">
@@ -129,15 +130,19 @@ export const PlaceSearch = ({
 				<div className="absolute z-10 flex flex-col w-full -bottom-1 lg:bottom-4">
 					{suggestions ? (
 						<ul className="absolute w-full p-2 bg-white border border-gray-300 shadow-lg">
-							{suggestions.map((s) => (
-								<li
-									className="inline-flex w-full px-2 py-1 text-xs truncate cursor-pointer select-none hover:bg-gray-100"
-									key={s.place_id}
-									onClick={handleOnClickSuggestion}
-								>
-									{s.description}
-								</li>
-							))}
+							{suggestions.length > 0 ? (
+								suggestions.map((s) => (
+									<li
+										className="inline-flex w-full px-2 py-1 text-xs truncate cursor-pointer select-none hover:bg-gray-100"
+										key={s.place_id}
+										onClick={handleOnClickSuggestion}
+									>
+										{s.description}
+									</li>
+								))
+							) : (
+								<li className="flex items-center justify-center h-12 text-xs">Aucun résultat 😣</li>
+							)}
 						</ul>
 					) : null}
 				</div>

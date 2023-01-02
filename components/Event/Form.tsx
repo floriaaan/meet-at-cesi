@@ -5,11 +5,10 @@ import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import Input from "@/components/UI/Form/Input";
-import Select from "@/components/UI/Form/Select";
-import campusList from "@/resources/campus-list";
-import audienceList from "@/resources/audience-list";
 import toastStyle from "@/resources/toast.config";
+import { Select, Input } from "@/components/UI/Form";
+import { campusList } from "@/resources/campus-list";
+import { audienceList } from "@/resources/audience-list";
 import { PlaceSearch } from "@/components/UI/Form/PlaceSearch";
 import { log } from "@/lib/log";
 
@@ -31,9 +30,8 @@ const EventSchema = Yup.object().shape({
 	audience: Yup.string().required(
 		"L'audience est requise. Qui est invité ? 🤔",
 	),
-	"audience-campus": Yup.string().required(
-		"Le campus est requis. C'est où ? 🤔",
-	),
+	audienceCampus: Yup.string().required("Le campus est requis. C'est où ? 🤔"),
+	private: Yup.boolean(),
 });
 
 export type EventFormValues = Yup.InferType<typeof EventSchema>;
@@ -42,7 +40,8 @@ const initialFormValues: EventFormValues = {
 	location: "",
 	date: undefined, //new Date().toISOString().split("T")[0],
 	audience: "everyone",
-	"audience-campus": "",
+	audienceCampus: "",
+	private: false,
 } as unknown as EventFormValues;
 
 export const EventForm = ({
@@ -52,10 +51,9 @@ export const EventForm = ({
 }: {
 	isEditing?: boolean;
 	initialValues?: EventFormValues;
-	// eslint-disable-next-line no-unused-vars
 	onSubmit: (values: EventFormValues) => Promise<Event | Error | false>;
 }) => {
-	const router = useRouter();
+	const { push } = useRouter();
 	const [disabled, setDisabled] = useState(false);
 
 	const handleOnSubmit = async (values: EventFormValues) => {
@@ -74,7 +72,7 @@ export const EventForm = ({
 							!isEditing ? "Création réussie 😍" : "Modification réussie 🥸",
 							{ id: toastId },
 						);
-						router.push(`/event/${result.id}`);
+						push(`/event/${result.id}`);
 					} else
 						toast.error(
 							!isEditing
@@ -82,26 +80,22 @@ export const EventForm = ({
 								: "Erreur lors de la modification 😭",
 							{ id: toastId },
 						);
+					setDisabled(false);
 				});
 			}
-			// Redirect user
-			//   if (redirectPath) {
-			//     router.push(redirectPath);
-			//   }
 		} catch (e) {
 			log.error(e);
 			toast.error("Unable to submit", { id: toastId });
 			setDisabled(false);
 		}
 	};
-
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={EventSchema}
 			onSubmit={handleOnSubmit}
 		>
-			{({ isSubmitting, isValid }) => (
+			{({ isSubmitting, isValid: _isValid }) => (
 				<Form className="flex flex-col w-full gap-y-1">
 					<Input
 						name="title"
@@ -131,17 +125,20 @@ export const EventForm = ({
 						<Select
 							name="audience"
 							label="Promotion concernée"
-							options={audienceList}
+							options={[
+								{ label: "------", value: "", niveau: "Par défaut" },
+								...audienceList,
+							]}
 							disabled={disabled}
-							// multiple
 							className="w-full"
+							groupBy="niveau"
 						/>
 						<Select
-							name="audience-campus"
+							name="audienceCampus"
 							label="Campus concerné"
 							options={[
 								{
-									value: "",
+									value: "------",
 									label: "Sélectionner un campus",
 								},
 								...campusList,
@@ -151,10 +148,23 @@ export const EventForm = ({
 						/>
 					</div>
 
+					<Input
+						name="private"
+						type="checkbox"
+						label="Événement privé"
+						disabled={disabled}
+						inputExtraClassName="accent-primary"
+					/>
+					<p className="text-xs">
+						Un événement privé ne sera visible uniquement par ses participants
+						ainsi que les personnes invités à ce dernier.
+					</p>
+
 					<div className="flex justify-end mt-4">
 						<button
 							type="submit"
-							disabled={disabled || !isValid}
+							disabled={disabled}
+							// disabled={disabled || !isValid} // isValid is not UX friendly
 							className="px-6 py-3 font-bold uppercase rounded-full font-body shrink-0 btn__colors disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{isSubmitting

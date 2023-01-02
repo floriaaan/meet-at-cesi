@@ -2,27 +2,33 @@ import { Event, User } from "@prisma/client";
 
 import { EventFormValues } from "@/components/Event/Form";
 import { toLocalDate } from "@/lib/date";
-import { ExtendedEvent } from "@/types/Event";
+import { ExtendedEvent, ExtendedInvitation } from "@/types/Event";
 import { log } from "@/lib/log";
 
 export const participate = async (
-	id: string
-): Promise<{ participants: User[] } | false> => {
+	id: string,
+): Promise<
+	| {
+			participants: User[];
+			invitations: Omit<ExtendedInvitation, "event" | "sender">[];
+	  }
+	| false
+> => {
 	const response = await fetch(`/api/event/participate`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({ id }),
 	});
 	if (response.ok) {
-		const { participants } = await response.json();
-		return { participants };
+		const { participants, invitations } = await response.json();
+		return { participants, invitations };
 	}
 	return false;
 };
 
-type EventCreateRequestInput = EventFormValues;
+export type EventCreateRequestInput = EventFormValues;
 export const createEvent = async (
-	values: EventCreateRequestInput
+	values: EventCreateRequestInput,
 ): Promise<Event | false | Error> => {
 	try {
 		const res = await fetch("/api/event", {
@@ -40,7 +46,7 @@ export const createEvent = async (
 
 export const editEvent = async (
 	eventId: string,
-	values: EventCreateRequestInput
+	values: EventCreateRequestInput,
 ): Promise<Event | false | Error> => {
 	try {
 		const res = await fetch(`/api/event/edit`, {
@@ -80,7 +86,7 @@ export type EventSearchRequestInput = {
 };
 
 export const search = async (
-	params: EventSearchRequestInput
+	params: EventSearchRequestInput,
 ): Promise<ExtendedEvent[]> => {
 	const response = await fetch(`/api/event/search`, {
 		method: "POST",
@@ -100,7 +106,6 @@ export const getPlaceSuggestions = async (query: string) => {
 	if (res.ok) return predictions;
 	return [];
 };
-
 
 export const restoreEvent = async (id: string): Promise<true | false> => {
 	const response = await fetch(`/api/admin/event/restore`, {

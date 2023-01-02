@@ -93,9 +93,10 @@ const EventCreatePage: NextPage<Props> = ({ event }) => {
 						{
 							title: event.title,
 							audience: event.audience,
-							"audience-campus": event.audienceCampus,
-							date: event.date.toString().split("Z")[0] as unknown as Date,
+							audienceCampus: event.audienceCampus,
+							date: event.date.toISOString().split("Z")[0] as unknown as Date,
 							location: event.location,
+							private: event.private,
 						} as EventFormValues
 					}
 					onSubmit={async (values) =>

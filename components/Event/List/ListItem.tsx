@@ -21,6 +21,7 @@ export const EventListItem = ({
 	location,
 	creator,
 	participants,
+	private: isPrivate,
 }: Props) => {
 	const dateObject = new Date(date);
 	const isPast =
@@ -32,10 +33,10 @@ export const EventListItem = ({
 			href={`/event/${id}`}
 			className={classNames(
 				"flex flex-col group w-full border border-black  divide-black md:flex-row ",
-				isPast ? "opacity-50" : ""
+				isPast ? "opacity-50" : "",
 			)}
 		>
-			<DateComponent date={dateObject} />
+			<DateComponent date={dateObject} private={isPrivate} />
 			<div className="flex flex-col p-2 grow">
 				<h3 className="overflow-hidden text-xl font-bold text-black line-clamp-1 group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
 					{title}
@@ -46,6 +47,7 @@ export const EventListItem = ({
 					audience={audience}
 					audienceCampus={audienceCampus}
 					participants={participants}
+					private={isPrivate}
 				/>
 			</div>
 			<div className="flex flex-col items-center justify-center w-8 h-8 ml-auto text-white bg-black border-t border-l shrink-0 md:border-t-0 md:border-b group-hover:bg-pink group-hover:text-black">

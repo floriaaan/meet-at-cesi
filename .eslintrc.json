@@ -17,7 +17,10 @@
 	"rules": {
 		"no-console": "error",
 		"no-unused-vars": "off",
-		"@typescript-eslint/no-unused-vars": "warn",
+		"@typescript-eslint/no-unused-vars": [
+			"warn",
+			{ "argsIgnorePattern": "^_" }
+		],
 		"no-mixed-spaces-and-tabs": "off"
 	}
 }

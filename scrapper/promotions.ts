@@ -1,12 +1,12 @@
 import { slugify } from "@/lib/slugify";
 
 export const scrapPromotions = () => {
-	let list = document.querySelector("ul.list-standard.smaller-font");
+	const list = document.querySelector("ul.list-standard.smaller-font");
 	if (!list) throw new Error("No list found");
 
-	let promotions = Array.from(list.children)
+	const promotions = Array.from(list.children)
 		.map(({ firstChild: container }) => {
-			let realContainer = container?.parentNode;
+			const realContainer = container?.parentNode;
 			if (!realContainer) throw new Error("No container found");
 			const titre = realContainer.querySelector("h2")?.textContent || "";
 			// const [_profil, _programme, niveau, domaine, _duree, _campus] =
@@ -17,8 +17,9 @@ export const scrapPromotions = () => {
 				value: slugify(titre),
 				label: titre,
 				niveau: liList[2]?.textContent?.split(":")[1].trim() || "",
-				// @ts-ignore
-				domaine: liList[3]?.outerText?.split(":")[1].trim(),
+				domaine: (liList[3] as Element & { outerText: string })?.outerText
+					?.split(":")[1]
+					.trim(),
 			};
 		})
 		.sort((a, b) => a.niveau.localeCompare(b.niveau));

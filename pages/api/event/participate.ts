@@ -28,6 +28,7 @@ export default async function handler(
 				participants: oldParticipants,
 				creator,
 				title,
+				private: isEventPrivate,
 			} = (await getEventOrThrow(id, {
 				include: {
 					participants: true,
@@ -56,16 +57,15 @@ export default async function handler(
 				include: { participants: true },
 			});
 
+			const invitation = await prisma.invitation.findFirst({
+				where: { eventId: id, receiverId: user.id },
+			});
+
 			if (!isAlreadyParticipant) {
 				createEventParticipationTrophy(
 					user,
 					user.participations ? user.participations.length + 1 : -1,
 				);
-
-				// remove invitation
-				const invitation = await prisma.invitation.findFirst({
-					where: { eventId: id, receiverId: user.id },
-				});
 				if (invitation) {
 					await prisma.invitation.update({
 						where: { id: invitation.id },
@@ -85,9 +85,30 @@ export default async function handler(
 						senderName: user.name as string,
 					},
 				);
+			} else {
+				/**
+				 * if event is private
+				 * 	set invitation to PENDING status
+				 * else
+				 * 	set invitation to REFUSED status
+				 */
+				if (invitation)
+					await prisma.invitation.update({
+						where: { id: invitation.id },
+						data: {
+							status: isEventPrivate
+								? InvitationStatus.PENDING
+								: InvitationStatus.REFUSED,
+						},
+					});
 			}
 
-			res.status(201).json({ participants });
+			const invitations = await prisma.invitation.findMany({
+				where: { eventId: id },
+				include: { receiver: true },
+			});
+
+			res.status(201).json({ participants, invitations });
 		} catch (e) {
 			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });

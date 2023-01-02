@@ -17,12 +17,16 @@ export const createEventCreationTrophy = async (
 
 	if (!earnedTrophy) return undefined;
 
-	const trophy = await prisma.trophy.create({
-		data: {
+	const trophy = await prisma.trophy.upsert({
+		where: {
+			reference: `${user.id}:${earnedTrophy.id}`,
+		},
+		create: {
 			key: earnedTrophy.id,
 			userId: user.id,
 			reference: `${user.id}:${earnedTrophy.id}`,
 		},
+		update: {},
 	});
 	return trophy;
 };
@@ -42,12 +46,16 @@ export const createEventParticipationTrophy = async (
 
 	if (!earnedTrophy) return undefined;
 
-	const trophy = await prisma.trophy.create({
-		data: {
+	const trophy = await prisma.trophy.upsert({
+		where: {
+			reference: `${user.id}:${earnedTrophy.id}`,
+		},
+		create: {
 			key: earnedTrophy.id,
 			userId: user.id,
 			reference: `${user.id}:${earnedTrophy.id}`,
 		},
+		update: {},
 	});
 	return trophy;
 };

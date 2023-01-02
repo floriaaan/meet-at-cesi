@@ -38,26 +38,24 @@ export const FilterProvider = ({
 	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (query && Object.keys(query).length > 0) {
+		if (!Object.keys(query).includes("dateMin"))
+			push(
+				{
+					query: { ...query, dateMin: defaultDate.toISOString().split("T")[0] },
+				},
+				undefined,
+				{ shallow: true },
+			);
+
+		if (query && Object.keys(query).length !== 0) {
 			setFilters(query as Filter);
 			setLoading(true);
 			search(query).then((result) => {
 				setEvents(result);
 				setLoading(false);
 			});
-		} else {
-			push(
-				{
-					query: {
-						dateMin: defaultDate.toISOString().split("T")[0],
-					},
-				},
-				undefined,
-				{ shallow: true },
-			);
-			setEvents(initialsEvents);
 		}
-	}, [query, initialsEvents, push]);
+	}, [query, push]);
 
 	const values = useMemo(
 		() => ({ filters, events, loading }),

@@ -4,6 +4,7 @@ export type ExtendedEvent = Event & {
   creator: User;
   participants: User[];
   comments: ExtendedComment[];
+	invitations: ExtendedInvitation[];
 };
 
 export type MapFeature = {

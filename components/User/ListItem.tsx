@@ -9,8 +9,9 @@ type Props = {
 	avatarClassName?: string;
 
 	checked?: boolean;
-	// eslint-disable-next-line no-unused-vars
 	onCheck?: (user: User) => void;
+
+	optionalNode?: JSX.Element;
 };
 
 export const UserListItem = ({
@@ -19,13 +20,15 @@ export const UserListItem = ({
 	avatarClassName,
 	checked,
 	className,
+
+	optionalNode,
 }: Props) => {
 	return (
 		<div
 			className={classNames(
 				"inline-flex items-center justify-between w-full",
 				className,
-				checked ? "bg-gray-50" : ""
+				checked ? "bg-gray-50" : "",
 			)}
 			onClick={() => onCheck?.(user)}
 		>
@@ -35,16 +38,19 @@ export const UserListItem = ({
 				direction="row"
 				avatarClassName={avatarClassName || "w-8 h-8 shrink-0"}
 			/>
-			{onCheck !== undefined && checked !== undefined ? (
-				<input
-					type={"checkbox"}
-					checked={checked}
-					className="accent-primary"
-					onClick={() => onCheck(user)}
-				></input>
-			) : (
-				<></>
-			)}
+			<span className="inline-flex items-center gap-x-1">
+				{optionalNode}
+				{onCheck !== undefined && checked !== undefined ? (
+					<input
+						type={"checkbox"}
+						checked={checked}
+						className="accent-primary"
+						onClick={() => onCheck(user)}
+					></input>
+				) : (
+					<></>
+				)}
+			</span>
 		</div>
 	);
 };
