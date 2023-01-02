@@ -47,7 +47,11 @@ export const FilterProvider = ({
 				{ shallow: true },
 			);
 
-		if (query && Object.keys(query).length !== 0) {
+		if (
+			query &&
+			Object.keys(query).length !== 0 &&
+			query.dateMin !== undefined
+		) {
 			setFilters(query as Filter);
 			setLoading(true);
 			search(query).then((result) => {
