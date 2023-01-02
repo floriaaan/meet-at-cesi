@@ -38,7 +38,6 @@ export const FilterProvider = ({
 	const [loading, setLoading] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (!query) return;
 		if (!Object.keys(query).includes("dateMin"))
 			push(
 				{
@@ -48,12 +47,14 @@ export const FilterProvider = ({
 				{ shallow: true },
 			);
 
-		setFilters(query as Filter);
-		setLoading(true);
-		search(query).then((result) => {
-			setEvents(result);
-			setLoading(false);
-		});
+		if (query && Object.keys(query).length !== 0) {
+			setFilters(query as Filter);
+			setLoading(true);
+			search(query).then((result) => {
+				setEvents(result);
+				setLoading(false);
+			});
+		}
 	}, [query, push]);
 
 	const values = useMemo(
