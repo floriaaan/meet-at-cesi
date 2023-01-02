@@ -7,6 +7,7 @@ import {
 	MdSettings,
 } from "react-icons/md";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
 import PopperMenu from "@/components/Helpers/PopperMenu";
@@ -21,6 +22,8 @@ const CHIP_CLASSNAME =
 export const NotificationDropdown = () => {
 	// web socket notifications or polling
 	const { isLoaded } = useNotifications();
+	const { status } = useSession();
+	if (status === "unauthenticated") return null;
 
 	return (
 		<PopperMenu
@@ -148,12 +151,15 @@ const SubMenu = () => {
 	);
 };
 
-const MenuButtonWrapper = (props: { isLoaded: boolean; open: boolean }) =>
-	props.isLoaded ? (
+const MenuButtonWrapper = (props: { isLoaded: boolean; open: boolean }) => {
+	return props.isLoaded ? (
 		<MenuButton open={props.open} />
 	) : (
-		<span className="text-xs">Chargement des notifications ⌛️</span>
+		<span className="inline-flex items-center text-xs gap-x-1">
+			<span className="hidden md:block">Chargement des notifications</span>⌛️
+		</span>
 	);
+};
 
 const SubMenuButton = () => <MdMoreVert className="w-6 h-6 shrink-0" />;
 const SubMenuPanel = () => (
