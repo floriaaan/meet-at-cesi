@@ -7,7 +7,7 @@ import { NextSeo } from "next-seo";
 import Link from "next/link";
 import { MdArrowRightAlt } from "react-icons/md";
 
-import type { ExtendedEvent } from "@/types/Event";
+import type { ExtendedEvent, ExtendedInvitation } from "@/types/Event";
 import toastStyle from "@/resources/toast.config";
 import prisma from "@/lib/prisma";
 import { participate } from "@/lib/fetchers";
@@ -45,6 +45,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 				where: { parentId: null },
 				include: { author: true, children: { include: { author: true } } },
 			},
+			invitations: {
+				include: { receiver: true },
+			},
 		},
 	});
 
@@ -71,8 +74,10 @@ const EventPage: NextPage<Props> = (props) => {
 		comments: initialComments,
 		deletedAt,
 		private: isPrivate,
+		invitations: initialInvitations,
 	} = props.event;
 	const [participants, setParticipants] = useState(initialParticipants);
+	const [invitations, setInvitations] = useState(initialInvitations);
 	const isParticipant = participants.some((p) => p.email === user?.email);
 	const isOwner = creator.email === user?.email;
 
@@ -92,6 +97,7 @@ const EventPage: NextPage<Props> = (props) => {
 						{ id: toastId },
 					);
 					setParticipants(result.participants);
+					setInvitations(result.invitations as ExtendedInvitation[]);
 				} else
 					toast.error("Erreur lors de la participation 😭", {
 						id: toastId,
@@ -139,7 +145,11 @@ const EventPage: NextPage<Props> = (props) => {
 						<MapSection location={location} />
 					</div>
 					<div className="w-full col-span-3 lg:col-span-1">
-						<ParticipantSection participants={participants} eventId={id} />
+						<ParticipantSection
+							participants={participants}
+							invitations={invitations}
+							eventId={id}
+						/>
 					</div>
 					<div className="w-full col-span-3">
 						<CommentSection initialComments={initialComments} eventId={id} />

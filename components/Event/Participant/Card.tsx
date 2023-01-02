@@ -1,38 +1,35 @@
 import type { User } from "@prisma/client";
-import classNames from "classnames";
+import { AvatarWithName } from "@/components/UI/Avatar";
 
-import { Avatar } from "@/components/UI/Avatar";
-import { Name } from "@/components/UI/Avatar/OnlyName";
-
-export const ParticipantCard = ({
-	participant,
-	style,
-}: {
-	participant: User;
-	style: "column" | "grid";
-}) => {
+export const ParticipantCard = ({ participant }: { participant: User }) => {
 	return (
 		<div
-			className={classNames({
-				"inline-flex items-center w-full h-fit gap-x-2 border-b pb-2 last:border-b-0":
-					style === "column",
-				"flex flex-col justify-center items-center gap-y-2": style === "grid",
-			})}
+			className={
+				"inline-flex items-center w-full h-fit gap-x-2 border-b pb-2 last:border-b-0"
+			}
 		>
-			<Avatar
+			<AvatarWithName
+				direction="row"
 				user={participant}
-				className={
-					style === "grid" ? "w-16 h-16 text-xl border-2" : "w-8 h-8 text-xs"
-				}
-				link
+				avatarClassName="w-6 h-6 text-xs"
 			/>
-			<Name
-				user={participant}
-				className={classNames(" h-fit font-bold truncate w-full", {
-					"text-base": style === "column",
-					"text-xs text-center ": style === "grid",
-				})}
+		</div>
+	);
+};
+
+export const InvitationReceiverCard = ({ receiver }: { receiver: User }) => {
+	return (
+		<div
+			className={
+				"inline-flex items-center justify-between w-full h-fit gap-x-2 border-b pb-2 last:border-b-0 opacity-50"
+			}
+		>
+			<AvatarWithName
+				direction="row"
+				user={receiver}
+				avatarClassName="w-6 h-6 text-xs"
 			/>
+			<span className="text-xs">invité.e</span>
 		</div>
 	);
 };

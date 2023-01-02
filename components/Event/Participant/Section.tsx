@@ -1,26 +1,30 @@
-import type { User } from "@prisma/client";
+import { InvitationStatus, User } from "@prisma/client";
 
 import classNames from "classnames";
 import { useState } from "react";
-import { MdGridView, MdList } from "react-icons/md";
-
-import { ParticipantCard } from "@/components/Event/Participant/Card";
-import { InvitationModal } from "@/components/Invitation/InvitationModal";
 import { useSession } from "next-auth/react";
+
+import {
+	InvitationReceiverCard,
+	ParticipantCard,
+} from "@/components/Event/Participant/Card";
+import { InvitationModal } from "@/components/Invitation/InvitationModal";
 import { Chip } from "@/components/UI/Chip";
 import { getPlural } from "@/lib/string";
+import { ExtendedInvitation } from "@/types/Event";
 
 export const ParticipantSection = ({
 	eventId,
 	participants,
+	invitations,
 }: {
 	eventId: string;
 	participants: User[];
+	invitations: Omit<ExtendedInvitation, "sender" | "event">[];
 }) => {
 	const { data: session } = useSession();
 	const { user } = session || {};
 
-	const [display, setDisplay] = useState<"column" | "grid">("column");
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
@@ -40,36 +44,25 @@ export const ParticipantSection = ({
 								Inviter
 							</button>
 						) : null}
-						<button
-							className="px-1 py-1 md:px-2 md:py-2 btn__pill"
-							onClick={() =>
-								setDisplay((oldValue) =>
-									oldValue === "column" ? "grid" : "column"
-								)
-							}
-						>
-							{display === "grid" ? (
-								<MdGridView className="w-4 h-4 text-current shrink-0" />
-							) : (
-								<MdList className="w-4 h-4 text-current shrink-0" />
-							)}
-						</button>
 					</div>
 				</div>
 				<div
 					className={classNames(
 						"w-full gap-2 mt-2 overflow-y-auto max-h-full",
-						display === "grid"
-							? "grid grid-cols-2 lg:grid-cols-3 grid-rows-3"
-							: "flex flex-col"
+						"flex flex-col",
 					)}
 				>
+					{/* TODO: add invitations receivers */}
+					{invitations
+						.filter((i) => i.status === InvitationStatus.PENDING)
+						.map((i) => (
+							<InvitationReceiverCard
+								key={i.receiver.id}
+								receiver={i.receiver}
+							/>
+						))}
 					{participants.map((participant) => (
-						<ParticipantCard
-							style={display}
-							key={participant.id}
-							participant={participant}
-						/>
+						<ParticipantCard key={participant.id} participant={participant} />
 					))}
 				</div>
 			</div>
@@ -78,6 +71,7 @@ export const ParticipantSection = ({
 					closeModal={() => setIsModalOpen(false)}
 					eventId={eventId}
 					participants={participants}
+					invitations={invitations}
 				/>
 			) : null}
 		</>

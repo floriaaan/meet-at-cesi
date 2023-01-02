@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { User } from "@prisma/client";
-import { Fragment, useEffect, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useState } from "react";
 import { MdClose } from "react-icons/md";
 import classNames from "classnames";
 import toast from "react-hot-toast";
@@ -10,17 +10,21 @@ import { UserListItem } from "@/components/User/ListItem";
 import toastStyle from "@/resources/toast.config";
 import { getPlural } from "@/lib/string";
 import { Spinner } from "../UI/Fallback/Spinner";
+import { ExtendedInvitation } from "@/types/Event";
+import { Input } from "../UI/Form";
 
 type Props = {
 	closeModal: () => void;
 	participants: User[];
 	eventId: string;
+	invitations: Omit<ExtendedInvitation, "sender" | "event">[];
 };
 
 export const InvitationModal = ({
 	closeModal,
 	participants,
 	eventId,
+	invitations,
 }: Props) => {
 	const [name, setName] = useState("");
 	const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
@@ -28,6 +32,10 @@ export const InvitationModal = ({
 	const [searchResults, setSearchResults] = useState<User[]>([]);
 	const [isSearching, setIsSearching] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	const invitationsReceivers = invitations.map(
+		(invitation) => invitation.receiver,
+	);
 
 	useEffect(() => {
 		let timeout: NodeJS.Timeout;
@@ -54,22 +62,22 @@ export const InvitationModal = ({
 				`${getPlural(
 					selectedUsers.length,
 					"Invitation",
-					"Invitations"
+					"Invitations",
 				)} en cours d'envoi...`,
-				toastStyle
+				toastStyle,
 			);
 			const result = await createInvitation(
 				eventId,
-				selectedUsers.map((user) => user.id)
+				selectedUsers.map((user) => user.id),
 			);
 			if (result) {
 				toast.success(
 					`${getPlural(
 						selectedUsers.length,
 						"Invitation",
-						"Invitations"
+						"Invitations",
 					)} ${getPlural(selectedUsers.length, "partie", "parties")} 🥳`,
-					{ id: toastId }
+					{ id: toastId },
 				);
 				setIsSubmitting(false);
 				closeModal();
@@ -116,56 +124,61 @@ export const InvitationModal = ({
 								</div>
 								<p className="text-xs">{"Bon, j'invite qui ?"}</p>
 								<div className="flex flex-col w-full mt-4">
-									<label
-										htmlFor="name"
-										className="text-sm font-bold text-black font-body"
-									>
-										Nom de la personne à inviter
-									</label>
-									<input
-										id="name"
+									<Input
 										type="text"
+										uncontrolled
+										label="Rechercher un utilisateur"
+										name="name"
 										value={name}
-										onChange={(e) => setName(e.target.value)}
-										autoComplete="off"
-										className={
-											"py-1.5 lg:py-3 px-3  text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border border-gray-300 focus:border-gray-400 focus:ring-gray-400 focus:outline-none"
+										onChange={(e: ChangeEvent<HTMLInputElement>) =>
+											setName(e.target.value)
 										}
 									/>
-									<div
-										className={classNames(
-											"flex flex-col w-full p-1 overflow-y-auto max-h-64 gap-y-1",
-											selectedUsers.length > 0 || searchResults.length > 0
-												? "bg-gray-100"
-												: ""
-										)}
-									>
-										{[...participants, ...selectedUsers].map((user) => (
+									<div className="flex flex-col w-full h-64 p-1 overflow-y-auto bg-gray-100 max-h-64 gap-y-1">
+										{[
+											...participants,
+											...invitationsReceivers,
+											...selectedUsers,
+										].map((user) => (
 											<UserListItem
 												key={user.id}
 												user={user}
 												className={classNames(
 													"px-2 py-1 cursor-pointer hover:bg-gray-50",
-													participants.some((p) => p.id === user.id) &&
-														"opacity-50 cursor-not-allowed"
+													participants.some((p) => p.id === user.id) ||
+														(invitationsReceivers.some(
+															(r) => r.id === user.id,
+														) &&
+															"opacity-50 cursor-not-allowed"),
 												)}
 												checked
 												onCheck={() => {
 													setSelectedUsers(
 														selectedUsers.filter(
-															(selectedUser) => selectedUser.id !== user.id
-														)
+															(selectedUser) => selectedUser.id !== user.id,
+														),
 													);
 												}}
+												optionalNode={
+													participants.some((p) => p.id === user.id) ? (
+														<span className="text-xs">déjà participant</span>
+													) : invitationsReceivers.some(
+															(r) => r.id === user.id,
+													  ) ? (
+														<span className="text-xs">déjà invité</span>
+													) : undefined
+												}
 											/>
 										))}
 
 										{isSearching ? (
-											<p className="text-sm">{"Recherche en cours..."}</p>
+											<p className="flex items-center justify-center w-full h-12 text-xs">
+												{"Recherche en cours..."}
+											</p>
 										) : (
 											searchResults
 												.filter(
-													(u) => !selectedUsers.some((s) => s.id === u.id)
+													(u) => !selectedUsers.some((s) => s.id === u.id),
 												)
 												.filter((u) => !participants.some((p) => p.id === u.id))
 												.map((user) => (
