@@ -48,7 +48,7 @@ export default async function handler(
 				(invitation) => invitation.receiverId === user.id,
 			);
 		});
-		const invitations = await prisma.invitation.createMany({
+		await prisma.invitation.createMany({
 			data: newInvitationsUsers.map((user) => ({
 				eventId,
 				senderId: sender.id,
@@ -71,7 +71,19 @@ export default async function handler(
 			);
 		}
 
-		return res.status(201).json(invitations);
+		const invitations = await prisma.invitation.findMany({
+			where: {
+				eventId,
+				OR: [
+					{ receiverId: sender.id },
+					{ senderId: sender.id },
+					{ event: { creatorId: sender.id } },
+				],
+			},
+			include: { receiver: true },
+		});
+
+		return res.status(201).json({ invitations });
 	} else if (req.method === "PUT") {
 		const { invitationId, status } = req.body as {
 			invitationId: string;

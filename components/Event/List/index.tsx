@@ -1,8 +1,9 @@
 import classNames from "classnames";
 
 import type { ExtendedEvent } from "@/types/Event";
+import { useFilter } from "@/components/Event/Filter/Provider";
 import { EventListItem } from "@/components/Event/List/ListItem";
-import { useFilter } from "../Filter/Provider";
+import { EventListFallback } from "@/components/Event/List/Fallback";
 
 type Props = {
 	events: ExtendedEvent[];
@@ -15,10 +16,16 @@ export const EventList = ({ events, className }: Props) => {
 		<div
 			className={classNames("flex flex-col gap-y-2 mt-4 md:gap-y-4", className)}
 		>
-			{events.length > 0 ? (
-				events.map((event) => <EventListItem key={event.id} {...event} />)
+			{loading ? (
+				<EventListFallback />
 			) : (
-				<>{!loading ? <NoEvents />: <>Ça charge...</>}</>
+				<>
+					{events.length > 0 ? (
+						events.map((event) => <EventListItem key={event.id} {...event} />)
+					) : (
+						<NoEvents />
+					)}
+				</>
 			)}
 		</div>
 	);

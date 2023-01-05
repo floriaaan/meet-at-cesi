@@ -57,7 +57,7 @@ export const NotificationsProvider = ({ children }: Props) => {
 
 	const read = useCallback(
 		async (notificationId: ExtendedNotification["id"]) => {
-			let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+			const toastId = toast.loading("Chargement... ⌛️", toastStyle);
 			const url = await readNotification(notificationId);
 			if (url) {
 				setNotifications((n) =>
@@ -73,7 +73,7 @@ export const NotificationsProvider = ({ children }: Props) => {
 	);
 
 	const readAll = useCallback(async () => {
-		let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+		const toastId = toast.loading("Chargement... ⌛️", toastStyle);
 		const result = await readAllNotifications();
 		if (result) {
 			setNotifications((n) => n.map((n) => ({ ...n, read: true })));
@@ -87,7 +87,7 @@ export const NotificationsProvider = ({ children }: Props) => {
 
 	const remove = useCallback(
 		async (notificationId: ExtendedNotification["id"]) => {
-			let toastId = toast.loading("Chargement... ⌛️", toastStyle);
+			const toastId = toast.loading("Chargement... ⌛️", toastStyle);
 
 			const result = await deleteNotification(notificationId);
 			if (result) {

@@ -43,9 +43,8 @@ export const UserListItem = ({
 				{onCheck !== undefined && checked !== undefined ? (
 					<input
 						type={"checkbox"}
-						checked={checked}
+						defaultChecked={checked}
 						className="accent-primary"
-						onClick={() => onCheck(user)}
 					></input>
 				) : (
 					<></>

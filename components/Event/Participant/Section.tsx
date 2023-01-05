@@ -12,18 +12,23 @@ import { InvitationModal } from "@/components/Invitation/InvitationModal";
 import { Chip } from "@/components/UI/Chip";
 import { getPlural } from "@/lib/string";
 import { ExtendedInvitation } from "@/types/Event";
+import { ExtendedSession } from "@/types/Session";
+
+type ParticipantSectionProps = {
+	eventId: string;
+	participants: User[];
+	invitations: Omit<ExtendedInvitation, "sender" | "event">[];
+	isCreator: boolean;
+};
 
 export const ParticipantSection = ({
 	eventId,
 	participants,
 	invitations,
-}: {
-	eventId: string;
-	participants: User[];
-	invitations: Omit<ExtendedInvitation, "sender" | "event">[];
-}) => {
+	isCreator,
+}: ParticipantSectionProps) => {
 	const { data: session } = useSession();
-	const { user } = session || {};
+	const { user } = (session as ExtendedSession) || {};
 
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -46,25 +51,38 @@ export const ParticipantSection = ({
 						) : null}
 					</div>
 				</div>
-				<div
-					className={classNames(
-						"w-full gap-2 mt-2 overflow-y-auto max-h-full",
-						"flex flex-col",
-					)}
-				>
-					{/* TODO: add invitations receivers */}
-					{invitations
-						.filter((i) => i.status === InvitationStatus.PENDING)
-						.map((i) => (
-							<InvitationReceiverCard
-								key={i.receiver.id}
-								receiver={i.receiver}
-							/>
+				{user ? (
+					<div
+						className={classNames(
+							"w-full gap-2 mt-2 overflow-y-auto max-h-full",
+							"flex flex-col",
+						)}
+					>
+						{invitations
+							.filter(
+								(i) =>
+									i.senderId === user?.id ||
+									i.receiverId === user?.id ||
+									isCreator,
+							)
+							.filter((i) => i.status === InvitationStatus.PENDING)
+							.map((i) => (
+								<InvitationReceiverCard
+									key={i.receiver.id}
+									receiver={i.receiver}
+								/>
+							))}
+						{participants.map((participant) => (
+							<ParticipantCard key={participant.id} participant={participant} />
 						))}
-					{participants.map((participant) => (
-						<ParticipantCard key={participant.id} participant={participant} />
-					))}
-				</div>
+					</div>
+				) : (
+					<div className="flex items-center justify-center w-full h-16">
+						<p className="text-sm text-gray-500">
+							Connectez-vous pour voir les participants de cet événement
+						</p>
+					</div>
+				)}
 			</div>
 			{user && isModalOpen ? (
 				<InvitationModal

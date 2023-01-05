@@ -1,5 +1,6 @@
 // invitations
 
+import { ExtendedInvitation } from "@/types/Event";
 import { InvitationStatus } from "@prisma/client";
 
 export const acceptInvitation = async (id: string): Promise<boolean> => {
@@ -48,8 +49,8 @@ export const deleteInvitation = async (id: string): Promise<boolean> => {
 
 export const createInvitation = async (
 	eventId: string,
-	receiver: string[]
-): Promise<boolean> => {
+	receiver: string[],
+): Promise<ExtendedInvitation[] | false> => {
 	const res = await fetch("/api/user/invitation", {
 		method: "POST",
 		headers: {
@@ -60,6 +61,9 @@ export const createInvitation = async (
 			receiver,
 		}),
 	});
-	if (res.ok) return true;
+	if (res.ok) {
+		const { invitations } = await res.json();
+		return invitations;
+	}
 	return false;
 };
