@@ -44,7 +44,7 @@ export const DeleteModal = ({
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<div className="fixed inset-0 bg-black bg-opacity-25" />
+					<div className="fixed inset-0 bg-black dark:bg-white bg-opacity-25" />
 				</Transition.Child>
 
 				<div className="fixed inset-0 overflow-y-auto">
@@ -58,10 +58,10 @@ export const DeleteModal = ({
 							leaveFrom="opacity-100 scale-100"
 							leaveTo="opacity-0 scale-95"
 						>
-							<Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl ">
+							<Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-black shadow-xl ">
 								<Dialog.Title
 									as="h3"
-									className="text-lg font-bold leading-6 text-black"
+									className="text-lg font-bold leading-6 text-black dark:text-white"
 								>
 									{`Supprimer l'événement: ${event.title}`}
 								</Dialog.Title>

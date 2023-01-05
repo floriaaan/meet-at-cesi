@@ -59,9 +59,9 @@ const CustomTable = ({
 	const itemsPaginated = items.slice(startIndex, endIndex);
 
 	return (
-		<div className="overflow-hidden bg-white border-black border-dashed lg:border">
+		<div className="overflow-hidden bg-white border-black border-dashed dark:bg-black dark:border-neutral-800 lg:border">
 			<div className="px-4 py-5 sm:px-6">
-				<h3 className="text-xl font-bold leading-6 text-black">{title}</h3>
+				<h3 className="text-xl font-bold leading-6 text-black dark:text-white">{title}</h3>
 
 				{pagination ? (
 					<div className="inline-flex items-end gap-6">
@@ -81,7 +81,7 @@ const CustomTable = ({
 							<button
 								disabled={!previousEnabled}
 								onClick={setPreviousPage}
-								className="text-black border border-black border-dashed hover:bg-primary hover:text-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+								className="text-black bg-white border border-black border-dashed dark:text-white dark:border-white hover:bg-primary hover:text-black active:bg-black dark:bg-neutral-900 dark:hover:text-black dark:hover:bg-primary active:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								<span className="sr-only">Précédent</span>
 								<MdChevronLeft className="w-6 h-6" />
@@ -89,7 +89,7 @@ const CustomTable = ({
 							<button
 								disabled={!nextEnabled}
 								onClick={setNextPage}
-								className="text-black border border-black border-dashed hover:bg-primary hover:text-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+								className="text-black bg-white border border-black border-dashed dark:bg-neutral-900 dark:text-white dark:border-white hover:bg-primary hover:text-black active:bg-black dark:hover:text-black dark:hover:bg-primary active:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
 							>
 								<span className="sr-only">Suivant</span>
 								<MdChevronRight className="w-6 h-6" />
@@ -98,9 +98,9 @@ const CustomTable = ({
 					</div>
 				) : null}
 			</div>
-			<div className="border-t border-black border-dashed">
+			<div className="border-t border-black border-dashed dark:border-neutral-800">
 				<table className="block w-full overflow-x-auto md:table whitespace-nowrap">
-					<thead className={classNames("px-4 py-5 bg-neutral-50 md:px-6")}>
+					<thead className={classNames("px-4 py-5 bg-neutral-50 dark:bg-neutral-950 md:px-6")}>
 						<tr>
 							{columns.map((column) => {
 								if (typeof column === "object") {
@@ -109,7 +109,7 @@ const CustomTable = ({
 											key={column.label}
 											{...column.props}
 											className={classNames(
-												"p-4 text-sm font-medium text-left text-neutral-500",
+												"p-4 text-sm font-medium text-left text-neutral-950 dark:text-neutral-50",
 												column.props?.className,
 											)}
 										>
@@ -120,7 +120,7 @@ const CustomTable = ({
 								return (
 									<td
 										key={column}
-										className="p-4 text-sm font-medium text-left text-neutral-500"
+										className="p-4 text-sm font-medium text-left text-neutral-950 dark:text-neutral-50"
 									>
 										{column}
 									</td>

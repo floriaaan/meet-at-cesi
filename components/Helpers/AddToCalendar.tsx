@@ -31,7 +31,7 @@ const MenuButton = ({ open }: { open: boolean }) => {
 	return (
 		<span
 			className={classNames(
-				"p-0 nav__link bg-transparent text-black transition-none relative z-[50]",
+				"p-0 nav__link bg-transparent text-black dark:text-white transition-none relative z-[50]",
 				open ? "underline underline-offset-2" : "underline-0"
 			)}
 		>
@@ -72,7 +72,7 @@ const MenuPanel = ({ event }: { open: boolean; event: ExtendedEvent }) => {
 		}
 	};
 	return (
-		<div className="flex flex-col p-2 bg-white border border-gray-400 shadow-xl gap-y-2">
+		<div className="flex flex-col p-2 bg-white dark:bg-black border border-neutral-400 dark:border-neutral-600 shadow-xl gap-y-2">
 			<a
 				data-type="google"
 				className="inline-flex items-center text-sm cursor-pointer gap-x-1 hover:underline underline-offset-2"

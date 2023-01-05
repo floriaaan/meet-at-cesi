@@ -44,11 +44,11 @@ export const UserTableModal = ({
 			overflow="overflow-y-auto"
 		>
 			<div className="grid md:grid-cols-2 gap-x-4 gap-y-2">
-				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 ">
+				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 dark:border-neutral-700 ">
 					<Avatar user={user} className="w-10 h-10" />
 					<div className="flex flex-col">
 						<Name user={user} />
-						<p className="text-xs leading-3 text-neutral-500">
+						<p className="text-xs leading-3 text-neutral-50 dark:text-neutral-950">
 							Utilisateur inscrit le {formatDate(createdAt)}
 						</p>
 					</div>

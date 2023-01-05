@@ -27,7 +27,7 @@ export const UserTableItem = (props: ExtendedUser) => {
 	return (
 		<>
 			<tr
-				className="w-full text-black bg-white cursor-pointer hover:bg-neutral-100"
+				className="w-full text-black bg-white cursor-pointer dark:text-white dark:bg-black hover:bg-neutral-100 dark:hover:bg-neutral-900"
 				onClick={openModal}
 			>
 				<td className="px-6 py-4">

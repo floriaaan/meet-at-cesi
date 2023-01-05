@@ -15,7 +15,7 @@ export const CommentFeedItem = ({
 	return (
 		<Link
 			href={`/event/${eventId}#${id}`}
-			className="w-full pb-2 border-b border-gray-200 border-dotted group last:border-0 last:pb-0"
+			className="w-full pb-2 border-b border-neutral-200 dark:border-neutral-800 border-dotted group last:border-0 last:pb-0"
 		>
 			<div className="inline-flex items-center w-full gap-2 ">
 				<Avatar user={author} className="w-10 h-10 shrink-0" />

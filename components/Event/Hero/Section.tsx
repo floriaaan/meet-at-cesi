@@ -61,16 +61,16 @@ export const HeroSection = ({
 	return (
 		<div className="flex flex-col w-full ">
 			<div className="inline-flex items-end justify-between w-full">
-				<div className="inline-flex items-end overflow-hidden text-white uppercase">
+				<div className="inline-flex items-end overflow-hidden text-white uppercase dark:text-black">
 					<div
 						className={classNames(
 							"hidden sm:inline-block", // responsive : hidden on small screens like mobile
-							"relative mb-8 ml-12 bg-black py-1 pr-4 text-xs md:text-sm max-w-sm xl:max-w-md",
-							"before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:bg-black before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
-							"after:translate-y-[100%] after:absolute after:bg-black after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] ",
+							"relative mb-8 ml-12 bg-black dark:bg-white dark:bg-primary py-1 pr-4 text-xs md:text-sm max-w-sm xl:max-w-md",
+							"before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:dark:bg-primary before:bg-black dark:bg-white before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
+							"after:translate-y-[100%] after:absolute after:bg-black dark:bg-white after:dark:bg-primary after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] ",
 						)}
 					>
-						<div className="inline-flex items-start py-2 divide-x-2 divide-white gap-x-4">
+						<div className="inline-flex items-start py-2 divide-x-2 divide-white dark:divide-black gap-x-4">
 							{campusDisplay !== null ? (
 								<div className="flex flex-col">
 									<span className="">Campus</span>
@@ -165,7 +165,7 @@ export const HeroSection = ({
 				</div>
 			</div>
 
-			<div className="flex flex-col border-t border-t-black lg:flex-row">
+			<div className="flex flex-col border-t dark:border-t-neutral-950 border-t-black lg:flex-row">
 				<Header
 					text={title}
 					className="text-[2.5rem] md:text-[4rem]"

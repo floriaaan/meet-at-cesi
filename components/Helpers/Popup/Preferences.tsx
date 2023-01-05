@@ -81,13 +81,13 @@ export const PreferencesPopup = () => {
 		<>
 			<div
 				className={
-					"absolute top-0 left-0 z-[42] w-screen h-screen xs:h-0 xs:w-0 bg-black bg-opacity-40 xs:hidden"
+					"absolute top-0 left-0 z-[42] w-screen h-screen xs:h-0 xs:w-0 bg-black dark:bg-white bg-opacity-40 xs:hidden"
 				}
 				onClick={() => setDismissed(true)}
 			></div>
 			<div
 				className={classNames(
-					"fixed bottom-0 left-0 z-50 flex flex-col justify-between w-screen p-4 duration-150 bg-white border-black h-fit xs:shadow-xl xs:border xs:ml-4 xs:max-w-sm lg:max-w-lg xs:w-full xs:top-auto xs:left-auto xs:bottom-4 xs:right-4 xs:z-10 pb-[5.5rem] xs:pb-4",
+					"fixed bottom-0 left-0 z-50 flex flex-col justify-between w-screen p-4 duration-150 bg-white dark:bg-black border-black dark:border-white h-fit xs:shadow-xl xs:border xs:ml-4 xs:max-w-sm lg:max-w-lg xs:w-full xs:top-auto xs:left-auto xs:bottom-4 xs:right-4 xs:z-10 pb-[5.5rem] xs:pb-4",
 					show ? "opacity-1" : "opacity-0",
 				)}
 			>

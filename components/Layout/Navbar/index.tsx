@@ -10,7 +10,7 @@ import { MobileMenu } from "@/components/Layout/Navbar/MobileMenu";
 import { AuthDropdown } from "@/components/Dropdown/AuthDropdown";
 import { ExtendedSession } from "@/types/Session";
 import { isAdmin, isModerator } from "@/lib/role";
-import { SearchBar } from "@/components/UI/SearchBar";
+import { SearchBar } from "@/components/UI/Form/SearchBar";
 import { NotificationDropdown } from "@/components/Dropdown/NotificationDropdown";
 import { getEnv } from "@/lib/env";
 
@@ -26,7 +26,7 @@ export const Navbar = () => {
 
 	return (
 		<>
-			<div className="sticky top-0 z-[41] flex flex-col bg-white shadow-xl lg:shadow-none">
+			<div className="sticky top-0 z-[41] flex flex-col bg-white dark:bg-black shadow-xl lg:shadow-none">
 				<div
 					aria-label="Navigation principale"
 					className="inline-flex items-center justify-between w-full px-5 gap-x-2 md:gap-x-5 py-2.5"
@@ -82,7 +82,7 @@ export const Navbar = () => {
 							>
 								<SearchBar
 									label={null}
-									className="border border-black border-dashed rounded-none "
+									className="border border-black dark:border-white border-dashed rounded-none "
 									inputClassName="rounded-l-none placeholder-invisible sm:placeholder-visible"
 									buttonClassName="rounded-r-none"
 									inputPaddingClassName="px-2 py-1 w-inherit max-w-[12rem] md:max-w-none sm:w-96 md:w-full"
@@ -111,7 +111,7 @@ export const Navbar = () => {
 				</div>
 
 				{user && !router.pathname.includes("/admin") ? (
-					<div className="hidden md:inline-flex items-center justify-between w-full py-2.5 bg-gray-100 px-9 gap-x-5">
+					<div className="hidden md:inline-flex items-center justify-between w-full py-2.5 bg-neutral-100 dark:bg-neutral-900 px-9 gap-x-5">
 						<div className="inline-flex items-center gap-x-5">
 							<Link
 								href="/event?campus=user_preferred_campus"
@@ -129,7 +129,7 @@ export const Navbar = () => {
 							{isModerator(user) || isAdmin(user) ? (
 								<Link
 									href="/admin"
-									className="pl-5 border-l border-black subnav__link"
+									className="pl-5 border-l border-black dark:border-white subnav__link"
 								>
 									{role === "ADMIN" ? "Administration" : "Modération"}
 								</Link>

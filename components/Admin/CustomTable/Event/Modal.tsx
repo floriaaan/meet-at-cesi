@@ -60,11 +60,11 @@ export const EventTableModal = ({
 			overflow="overflow-y-auto"
 		>
 			<div className="grid md:grid-cols-2 gap-x-4 gap-y-2">
-				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 ">
+				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 dark:border-neutral-700 ">
 					<Avatar user={creator} className="w-10 h-10" />
 					<div className="flex flex-col">
 						<Name user={creator} />
-						<p className="text-xs leading-3 text-neutral-500">
+						<p className="text-xs leading-3 text-neutral-50 dark:text-neutral-950">
 							Événement créé le {formatDate(createdAt)}
 						</p>
 					</div>
@@ -74,14 +74,14 @@ export const EventTableModal = ({
 						<MdLocationPin />
 						Emplacement
 					</p>
-					<p className="text-sm text-neutral-700">{location}</p>
+					<p className="text-sm text-neutral-700 dark:text-neutral-300 ">{location}</p>
 				</div>
 				<div className="">
 					<p className="inline-flex items-center text-lg font-bold gap-x-1">
 						<MdCalendarToday />
 						Date
 					</p>
-					<p className="text-sm text-neutral-700">
+					<p className="text-sm text-neutral-700 dark:text-neutral-300 ">
 						{formatDate(date, {
 							weekday: "long",
 							year: "numeric",
@@ -97,10 +97,10 @@ export const EventTableModal = ({
 						<MdGroup />
 						Audience
 					</p>
-					<p className="text-sm text-neutral-700">{promotion}</p>
-					<p className="text-sm text-neutral-700">{campus}</p>
+					<p className="text-sm text-neutral-700 dark:text-neutral-300 ">{promotion}</p>
+					<p className="text-sm text-neutral-700 dark:text-neutral-300 ">{campus}</p>
 				</div>
-				<hr className="md:col-span-2 border-neutral-300" />
+				<hr className="md:col-span-2 border-neutral-300 dark:border-neutral-700" />
 				<div className="md:col-span-2">
 					<div className="inline-flex items-center justify-between w-full text-lg font-bold gap-x-1">
 						<div className="inline-flex items-center gap-x-1">
@@ -114,7 +114,7 @@ export const EventTableModal = ({
 						/>
 					</div>
 					{participants.length > 0 ? (
-						<div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
+						<div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50 dark:bg-neutral-950 dark:border-neutral-800">
 							{participants.map((participant) => (
 								<UserListItem
 									avatarClassName="w-6 text-xs h-6"
@@ -136,7 +136,7 @@ export const EventTableModal = ({
 						</div>
 					</div>
 					{comments.length > 0 ? (
-						<div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
+						<div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50 dark:bg-neutral-950 dark:border-neutral-800">
 							{comments.map((c) => (
 								<CommentFeedItem {...c} event={event} key={c.id} />
 							))}

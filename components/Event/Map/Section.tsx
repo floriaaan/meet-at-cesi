@@ -13,7 +13,7 @@ export const MapSection = ({ location }: { location: string }) => {
 	// const fetchedLocation = data?.features[0];
 
 	return (
-		<div className="w-full p-2 bg-black md:p-4">
+		<div className="w-full p-2 bg-black dark:bg-neutral-900 md:p-4">
 			<div className="w-full h-96">
 				{/* {loading && <p>Chargement...</p>}
         {error && <p>Erreur</p>}

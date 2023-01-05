@@ -69,6 +69,7 @@ export const HeroDetails = ({
 					user={creator}
 					direction="row"
 					avatarClassName="w-4 h-4 bg-purple text-[0.5rem]"
+					textClassName="text-black"
 					// className="mt-1"
 				/>
 			</div>

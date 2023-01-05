@@ -60,7 +60,7 @@ export const NotificationIcon = ({
 
 			<>
 				{type === c_creation && (
-					<TypeIcon icon={CommentIcon} className="text-black bg-pink" />
+					<TypeIcon icon={CommentIcon} className="text-black dark:text-white bg-pink" />
 				)}
 			</>
 
@@ -89,10 +89,10 @@ export const NotificationIcon = ({
 
 			<>
 				{type === r_accepted && (
-					<TypeIcon icon={WarningIcon} className="text-black bg-purple" />
+					<TypeIcon icon={WarningIcon} className="text-black dark:text-white bg-purple" />
 				)}
 				{type === r_refused && (
-					<TypeIcon icon={WarningIcon} className="text-black bg-purple" />
+					<TypeIcon icon={WarningIcon} className="text-black dark:text-white bg-purple" />
 				)}
 			</>
 		</div>
@@ -111,7 +111,7 @@ const TypeIcon = ({
 		<span
 			className={classNames(
 				"absolute flex items-center shadow justify-center  w-7 h-7 -bottom-1 -right-1",
-				className || "text-white bg-black",
+				className || "text-white bg-black dark:bg-white",
 			)}
 		>
 			{icon({ className: "w-4 h-4 shrink-0" })}

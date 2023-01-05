@@ -24,7 +24,7 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
 				src={user?.image}
 				alt={user?.name || "Participant picture"}
 				className={classNames(
-					"rounded-full object-cover object-center border border-black shrink-0",
+					"rounded-full object-cover object-center border border-black  shrink-0",
 					className
 				)}
 				data-testid="avatar"
@@ -34,7 +34,8 @@ const AvatarPicture = ({ user, className }: AvatarProps) => (
 				className={classNames(
 					"rounded-full select-none flex justify-center shrink-0 items-center font-bold",
 					className,
-					!className?.includes("bg-") ? "bg-primary" : null
+					!className?.includes("bg-") ? "bg-primary" : null,
+					!className?.includes("text-") && !(className?.includes("text-[")) ? "text-black" : null
 				)}
 				data-testid="avatar"
 			>

@@ -45,7 +45,7 @@ const ProfileSettingsPage: NextPage<Props> = ({ user }) => {
 				<NextSeo noindex title="Paramètres" />
 				<section className="flex flex-col items-start w-full px-4 mx-auto mt-6 mb-12 md:px-12 lg:px-0 lg:max-w-3xl xl:max-w-4xl gap-y-4">
 					<Header text="Paramètres" />
-					<div className="flex flex-col w-full divide-y">
+					<div className="flex flex-col w-full divide-y dark:divide-neutral-700">
 						<ImageUploadSection user={user} />
 						<PreferencesSection user={user} />
 						<PrivacySection user={user} />

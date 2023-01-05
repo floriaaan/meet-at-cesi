@@ -27,7 +27,7 @@ export const FilterChip = ({
 	}
 
 	return (
-		<div className="inline-flex items-center border border-black last:overflow-hidden">
+		<div className="inline-flex items-center border border-black dark:border-neutral-800 last:overflow-hidden">
 			<Chip
 				extendClassName={classNames(
 					extendClassName,
@@ -41,7 +41,7 @@ export const FilterChip = ({
 			</Chip>
 			<button
 				onClick={deleteFilter}
-				className="flex items-center justify-center w-auto h-5 p-1 text-black bg-white aspect-square hover:bg-black hover:text-white"
+				className="flex items-center justify-center w-auto h-5 p-1 text-black bg-white dark:text-white dark:bg-black aspect-square hover:bg-black dark:hover:bg-neutral-500 hover:text-white"
 			>
 				<MdClose />
 			</button>

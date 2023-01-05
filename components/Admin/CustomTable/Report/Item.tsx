@@ -48,7 +48,7 @@ export const ReportTableItem = (props: ExtendedReport) => {
 		<>
 			<tr
 				className={classNames(
-					"w-full text-black bg-white cursor-pointer hover:bg-neutral-100",
+					"w-full text-black dark:text-white bg-white dark:bg-black cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-900",
 					{ "opacity-50": status !== ReportStatus.PENDING },
 				)}
 				onClick={openModal}
