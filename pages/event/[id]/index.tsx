@@ -79,7 +79,7 @@ const EventPage: NextPage<Props> = (props) => {
 	const [participants, setParticipants] = useState(initialParticipants);
 	const [invitations, setInvitations] = useState(initialInvitations);
 	const isParticipant = participants.some((p) => p.email === user?.email);
-	const isOwner = creator.email === user?.email;
+	const isCreator = creator.email === user?.email;
 
 	const handleParticipate = async () => {
 		let toastId: string | undefined;
@@ -136,9 +136,9 @@ const EventPage: NextPage<Props> = (props) => {
 					audience={audience}
 					creator={creator}
 					isParticipant={isParticipant}
-					isOwner={isOwner}
-					participate={handleParticipate}
+					isOwner={isCreator}
 					private={isPrivate}
+					participate={handleParticipate}
 				/>
 				<div className="grid w-full grid-cols-3 gap-4 pb-4 ">
 					<div className="w-full col-span-3 lg:col-span-2">
@@ -146,9 +146,10 @@ const EventPage: NextPage<Props> = (props) => {
 					</div>
 					<div className="w-full col-span-3 lg:col-span-1">
 						<ParticipantSection
+							eventId={id}
 							participants={participants}
 							invitations={invitations}
-							eventId={id}
+							isCreator={isCreator}
 						/>
 					</div>
 					<div className="w-full col-span-3">

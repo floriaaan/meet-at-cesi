@@ -15,15 +15,14 @@ export default async function handler(
 ) {
 	// Check if user is authenticated
 	const session = await getSessionOrThrow(req);
+	const user = (await getUserOrThrow(session, {
+		include: { participations: true },
+	})) as ExtendedUser;
 
 	// Create new participation
 	if (req.method === "POST") {
 		try {
 			const { id } = req.body;
-			const user = (await getUserOrThrow(session, {
-				include: { participations: true },
-			})) as ExtendedUser;
-
 			const {
 				participants: oldParticipants,
 				creator,
@@ -104,7 +103,14 @@ export default async function handler(
 			}
 
 			const invitations = await prisma.invitation.findMany({
-				where: { eventId: id },
+				where: {
+					eventId: id,
+					OR: [
+						{ receiverId: user.id },
+						{ senderId: user.id },
+						{ event: { creatorId: user.id } },
+					],
+				},
 				include: { receiver: true },
 			});
 

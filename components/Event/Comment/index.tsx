@@ -37,7 +37,7 @@ export const CommentListItem = ({
 	setCommentList,
 	isReply = false,
 }: CommentListItemProps) => {
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 	const { user } = (session as ExtendedSession) || {};
 	const { id: userId } = user || {};
 	const [isEditing, setIsEditing] = useState(false);
@@ -157,118 +157,120 @@ export const CommentListItem = ({
 					</div>
 				</div>
 
-				<div className="inline-flex items-center md:gap-1 shrink-0">
-					{!isReply && !isDeleted && user ? (
-						<button
-							type="button"
-							className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
-							onClick={() => setIsReplying(!isReplying)}
-						>
-							<MdReply className="w-4 h-4" />
-							{isEditing ? (
-								<span className="sr-only">
-									Annuler la réponse au commentaire
-								</span>
-							) : (
-								<span className="sr-only">Répondre au commentaire</span>
-							)}
-						</button>
-					) : null}
-					{user && comment.authorId === userId ? (
-						<button
-							type="button"
-							className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
-							onClick={() => setIsEditing(!isEditing)}
-						>
-							{isEditing ? (
-								<MdEditOff className="w-4 h-4" />
-							) : (
-								<MdEdit className="w-4 h-4" />
-							)}
-							{isEditing ? (
-								<span className="sr-only">Annuler la modification</span>
-							) : (
-								<span className="sr-only">Modifier</span>
-							)}
-						</button>
-					) : null}
-					{!isDeleted && userId !== author.id ? (
-						<button
-							type="button"
-							className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
-							onClick={() =>
-								openReportModal({
-									content: "",
-									page: `/event/${comment.eventId}/`,
-									object: ReportObject.COMMENT,
-									objectId: comment.id,
-									type: ReportType.OTHER,
-								})
-							}
-						>
-							<MdWarning className="w-4 h-4" />
-						</button>
-					) : null}
-					{user && comment.authorId === userId ? (
-						<PopperMenu
-							buttonChildren={({ open }) => (
-								<div
-									className={classNames(
-										"p-1 text-xs font-bold border",
-										open
-											? "border-red text-red"
-											: "hover:border-black border-transparent border-dashed",
-									)}
-								>
-									<MdDelete className="w-4 h-4" />
-									<span className="sr-only">Supprimer</span>
-								</div>
-							)}
-							popperOptions={{
-								modifiers: [
-									{
-										name: "offset",
-										options: {
-											offset: [0, 6],
-										},
-									},
-								],
-							}}
-						>
-							{() => (
-								<div className="flex flex-col max-w-[16rem] p-2 text-sm bg-neutral-100 border border-black border-dashed shadow-lg gap-y-1">
-									<p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-									<div className="mt-2 ml-auto">
-										<button
-											className="border-b btn-red"
-											onClick={async () => {
-												const toastId = toast.loading(
-													"Suppression en cours...",
-													toastStyle,
-												);
-												const result = await deleteComment({
-													commentId: comment.id,
-												});
-												if (result) {
-													setCommentList(result);
-													toast.success("Commentaire supprimé 👍", {
-														id: toastId,
-													});
-												} else {
-													toast.error("Une erreur est survenue 😖", {
-														id: toastId,
-													});
-												}
-											}}
-										>
-											Supprimer
-										</button>
+				{status === "authenticated" && (
+					<div className="inline-flex items-center md:gap-1 shrink-0">
+						{!isReply && !isDeleted && user ? (
+							<button
+								type="button"
+								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+								onClick={() => setIsReplying(!isReplying)}
+							>
+								<MdReply className="w-4 h-4" />
+								{isEditing ? (
+									<span className="sr-only">
+										Annuler la réponse au commentaire
+									</span>
+								) : (
+									<span className="sr-only">Répondre au commentaire</span>
+								)}
+							</button>
+						) : null}
+						{user && comment.authorId === userId ? (
+							<button
+								type="button"
+								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+								onClick={() => setIsEditing(!isEditing)}
+							>
+								{isEditing ? (
+									<MdEditOff className="w-4 h-4" />
+								) : (
+									<MdEdit className="w-4 h-4" />
+								)}
+								{isEditing ? (
+									<span className="sr-only">Annuler la modification</span>
+								) : (
+									<span className="sr-only">Modifier</span>
+								)}
+							</button>
+						) : null}
+						{!isDeleted && userId !== author.id ? (
+							<button
+								type="button"
+								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+								onClick={() =>
+									openReportModal({
+										content: "",
+										page: `/event/${comment.eventId}/`,
+										object: ReportObject.COMMENT,
+										objectId: comment.id,
+										type: ReportType.OTHER,
+									})
+								}
+							>
+								<MdWarning className="w-4 h-4" />
+							</button>
+						) : null}
+						{user && comment.authorId === userId ? (
+							<PopperMenu
+								buttonChildren={({ open }) => (
+									<div
+										className={classNames(
+											"p-1 text-xs font-bold border",
+											open
+												? "border-red text-red"
+												: "hover:border-black border-transparent border-dashed",
+										)}
+									>
+										<MdDelete className="w-4 h-4" />
+										<span className="sr-only">Supprimer</span>
 									</div>
-								</div>
-							)}
-						</PopperMenu>
-					) : null}
-				</div>
+								)}
+								popperOptions={{
+									modifiers: [
+										{
+											name: "offset",
+											options: {
+												offset: [0, 6],
+											},
+										},
+									],
+								}}
+							>
+								{() => (
+									<div className="flex flex-col max-w-[16rem] p-2 text-sm bg-neutral-100 border border-black border-dashed shadow-lg gap-y-1">
+										<p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+										<div className="mt-2 ml-auto">
+											<button
+												className="border-b btn-red"
+												onClick={async () => {
+													const toastId = toast.loading(
+														"Suppression en cours...",
+														toastStyle,
+													);
+													const result = await deleteComment({
+														commentId: comment.id,
+													});
+													if (result) {
+														setCommentList(result);
+														toast.success("Commentaire supprimé 👍", {
+															id: toastId,
+														});
+													} else {
+														toast.error("Une erreur est survenue 😖", {
+															id: toastId,
+														});
+													}
+												}}
+											>
+												Supprimer
+											</button>
+										</div>
+									</div>
+								)}
+							</PopperMenu>
+						) : null}
+					</div>
+				)}
 			</div>
 		</div>
 	);

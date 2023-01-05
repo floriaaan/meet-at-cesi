@@ -56,7 +56,7 @@ export const HeroSection = ({
 	const { openReportModal } = useReport();
 
 	const router = useRouter();
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 	const { user } = (session as ExtendedSession) || {};
 	return (
 		<div className="flex flex-col w-full ">
@@ -114,7 +114,6 @@ export const HeroSection = ({
 									</strong>
 								</div>
 							) : null}
-
 						</div>
 					</div>
 				</div>
@@ -127,40 +126,42 @@ export const HeroSection = ({
 						<MdChevronLeft className="w-4 h-4" />
 						Retour
 					</button>
-					<div className="inline-flex items-end md:gap-x-2">
-						{isOwner && (
-							<Link
-								href={`/event/${id}/edit`}
-								className="py-2.5 btn-black w-fit px-2 sm:px-4 "
-							>
-								<MdEdit className="w-4 h-4 my-0.5" />
-								<span className="sr-only">{"Modifier l'événement"}</span>
-							</Link>
-						)}
-						<button
-							className="py-2.5 btn-black w-fit px-2 sm:px-4"
-							onClick={() => participate()}
-						>
-							{isParticipant ? "Ne plus participer" : "Participer"}
-						</button>
-						{user?.id !== creator.id ? (
+					{status === "authenticated" && (
+						<div className="inline-flex items-end md:gap-x-2">
+							{isOwner && (
+								<Link
+									href={`/event/${id}/edit`}
+									className="py-2.5 btn-black w-fit px-2 sm:px-4 "
+								>
+									<MdEdit className="w-4 h-4 my-0.5" />
+									<span className="sr-only">{"Modifier l'événement"}</span>
+								</Link>
+							)}
 							<button
 								className="py-2.5 btn-black w-fit px-2 sm:px-4"
-								onClick={() =>
-									openReportModal({
-										content: "",
-										object: ReportObject.EVENT,
-										objectId: id,
-										type: ReportType.OTHER,
-										page: `/event/${id}`,
-									})
-								}
+								onClick={() => participate()}
 							>
-								<MdWarning className="w-4 h-4 my-0.5" />
-								<span className="sr-only">{"Signaler l'événement"}</span>
+								{isParticipant ? "Ne plus participer" : "Participer"}
 							</button>
-						) : null}
-					</div>
+							{user?.id !== creator.id ? (
+								<button
+									className="py-2.5 btn-black w-fit px-2 sm:px-4"
+									onClick={() =>
+										openReportModal({
+											content: "",
+											object: ReportObject.EVENT,
+											objectId: id,
+											type: ReportType.OTHER,
+											page: `/event/${id}`,
+										})
+									}
+								>
+									<MdWarning className="w-4 h-4 my-0.5" />
+									<span className="sr-only">{"Signaler l'événement"}</span>
+								</button>
+							) : null}
+						</div>
+					)}
 				</div>
 			</div>
 
