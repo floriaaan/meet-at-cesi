@@ -22,9 +22,17 @@ type FilterContextType = {
 	loading: boolean;
 	// setFilters: (filters: Filter) => void;
 };
-export const useFilter = (): FilterContextType =>
-	useContext(FilterContext) as FilterContextType;
+export const useFilter = (): FilterContextType => {
+	const context = useContext(FilterContext);
 
+	if (context === undefined) {
+		throw new Error(
+			"useFilter must be used within a FilterProvider",
+		);
+	}
+
+	return context as FilterContextType;
+};
 export const FilterProvider = ({
 	children,
 	initialsEvents = [],

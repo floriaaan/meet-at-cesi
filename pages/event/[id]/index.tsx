@@ -20,6 +20,7 @@ import { Header } from "@/components/UI/Header";
 import { ExtendedSession } from "@/types/Session";
 import { isAdmin } from "@/lib/role";
 import { log } from "@/lib/log";
+import { InvitationProvider } from "@/components/Invitation/Provider";
 
 type Props = {
 	event: ExtendedEvent;
@@ -145,12 +146,14 @@ const EventPage: NextPage<Props> = (props) => {
 						<MapSection location={location} />
 					</div>
 					<div className="w-full col-span-3 lg:col-span-1">
-						<ParticipantSection
-							eventId={id}
-							participants={participants}
-							invitations={invitations}
-							isCreator={isCreator}
-						/>
+						<InvitationProvider setInvitations={setInvitations}>
+							<ParticipantSection
+								eventId={id}
+								participants={participants}
+								invitations={invitations}
+								isCreator={isCreator}
+							/>
+						</InvitationProvider>
 					</div>
 					<div className="w-full col-span-3">
 						<CommentSection initialComments={initialComments} eventId={id} />

@@ -9,9 +9,10 @@ import { createInvitation, searchUsers } from "@/lib/fetchers";
 import { UserListItem } from "@/components/User/ListItem";
 import toastStyle from "@/resources/toast.config";
 import { getPlural } from "@/lib/string";
-import { Spinner } from "../UI/Fallback/Spinner";
+import { Spinner } from "@/components/UI/Fallback/Spinner";
 import { ExtendedInvitation } from "@/types/Event";
-import { Input } from "../UI/Form";
+import { Input } from "@/components/UI/Form";
+import { useInvitations } from "@/components/Invitation/Provider";
 
 type Props = {
 	closeModal: () => void;
@@ -32,6 +33,7 @@ export const InvitationModal = ({
 	const [searchResults, setSearchResults] = useState<User[]>([]);
 	const [isSearching, setIsSearching] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const { setInvitations } = useInvitations();
 
 	const invitationsReceivers = invitations.map(
 		(invitation) => invitation.receiver,
@@ -79,6 +81,7 @@ export const InvitationModal = ({
 					)} ${getPlural(selectedUsers.length, "partie", "parties")} 🥳`,
 					{ id: toastId },
 				);
+				setInvitations(result);
 				setIsSubmitting(false);
 				closeModal();
 				return;
@@ -86,6 +89,11 @@ export const InvitationModal = ({
 			setIsSubmitting(false);
 		} else toast.error("Aucun utilisateur sélectionné 🤦", toastStyle);
 	};
+
+	const filteredSearchResults = searchResults
+		.filter((u) => !selectedUsers.some((s) => s.id === u.id))
+		.filter((u) => !participants.some((p) => p.id === u.id))
+		.filter((u) => !invitationsReceivers.some((r) => r.id === u.id));
 
 	return (
 		<Transition appear show as={Fragment}>
@@ -172,26 +180,29 @@ export const InvitationModal = ({
 										))}
 
 										{isSearching ? (
-											<p className="flex items-center justify-center w-full h-12 text-xs">
+											<p className="flex items-center justify-center w-full p-6 text-xs">
 												{"Recherche en cours..."}
 											</p>
 										) : (
-											searchResults
-												.filter(
-													(u) => !selectedUsers.some((s) => s.id === u.id),
-												)
-												.filter((u) => !participants.some((p) => p.id === u.id))
-												.map((user) => (
-													<UserListItem
-														key={user.id}
-														user={user}
-														className="px-2 py-1 cursor-pointer hover:bg-gray-50"
-														checked={false}
-														onCheck={(user) => {
-															setSelectedUsers([...selectedUsers, user]);
-														}}
-													/>
-												))
+											<>
+												{filteredSearchResults.length > 0 ? (
+													filteredSearchResults.map((user) => (
+														<UserListItem
+															key={user.id}
+															user={user}
+															className="px-2 py-1 cursor-pointer hover:bg-gray-50"
+															checked={false}
+															onCheck={(user) => {
+																setSelectedUsers([...selectedUsers, user]);
+															}}
+														/>
+													))
+												) : (
+													<p className="flex items-center justify-center p-6 text-xs">
+														{"Aucun résultat"}
+													</p>
+												)}
+											</>
 										)}
 									</div>
 								</div>
