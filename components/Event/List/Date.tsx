@@ -11,7 +11,7 @@ export const DateComponent = ({
 	return (
 		<div
 			className={
-				"flex relative flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black aspect-video md:aspect-square"
+				"flex relative flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black dark:bg-neutral-700 aspect-video md:aspect-square"
 			}
 		>
 			<span className="text-sm font-bold leading-3 text-white">
@@ -48,7 +48,7 @@ export const DateComponent = ({
 			</div>
 
 			{isPrivate && (
-				<div className="absolute inline-flex items-center font-bold bottom-0 right-0 text-xs bg-white px-1 py-0.5 border-b md:border-b-0 md:border-r border-black">
+				<div className="absolute inline-flex items-center font-bold bottom-0 right-0 text-xs bg-white dark:bg-black px-1 py-0.5 border-b md:border-b-0 md:border-r border-black dark:border-neutral-700">
 					<MdLock />
 					Privé
 				</div>

@@ -34,7 +34,7 @@ export const ParticipantSection = ({
 
 	return (
 		<>
-			<div className="flex flex-col w-full p-2 bg-gray-100 md:p-4 max-h-64 lg:max-h-full lg:h-full gap-y-2">
+			<div className="flex flex-col w-full p-2 bg-neutral-100 dark:bg-neutral-900 md:p-4 max-h-64 lg:max-h-full lg:h-full gap-y-2">
 				<div className="inline-flex justify-between w-full ">
 					<p className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
 						<Chip>{participants.length}</Chip>{" "}
@@ -78,7 +78,7 @@ export const ParticipantSection = ({
 					</div>
 				) : (
 					<div className="flex items-center justify-center w-full h-16">
-						<p className="text-sm text-gray-500">
+						<p className="text-sm text-neutral-50 dark:text-neutral-950">
 							Connectez-vous pour voir les participants de cet événement
 						</p>
 					</div>
