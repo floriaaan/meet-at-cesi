@@ -38,7 +38,7 @@ export const NotificationItem = ({
 	return (
 		<div
 			className={classNames(
-				"inline-flex  w-full px-1 py-1 pb-2 overflow-x-hidden overflow-y-visible border bg-neutral-100 gap-x-3",
+				"inline-flex  w-full px-1 py-1 pb-2 overflow-x-hidden overflow-y-visible border bg-neutral-100 dark:bg-neutral-900 gap-x-3",
 				isRead ? "border-neutral-200 opacity-60" : "border-black border-dashed",
 			)}
 		>
@@ -50,7 +50,7 @@ export const NotificationItem = ({
 				<div className="flex flex-col gap-1 ">
 					<div className="flex flex-col text-sm xl:gap-1 xl:flex-row">
 						<Name user={sender || ({ name: "Inconnu" } as User)} />
-						<div className="text-neutral-600">{notificationText.get(type)}</div>
+						<div className="text-neutral-600 dark:text-neutral-400">{notificationText.get(type)}</div>
 					</div>
 					<p className="overflow-hidden max-w-[18rem] lg:max-w-[22rem] text-sm leading-4 truncate text-neutral-800 line-clamp-1 group-hover:underline decoration-dashed underline-offset-2">
 						{(comment as ExtendedComment | undefined)?.event.title ||
@@ -58,7 +58,7 @@ export const NotificationItem = ({
 							feedback?.text ||
 							report?.content}
 					</p>
-					<span className="mt-0.5 text-xs text-neutral-500">
+					<span className="mt-0.5 text-xs text-neutral-50 dark:text-neutral-950">
 						{formatDate(createdAt, {
 							weekday: "long",
 							year: "numeric",
@@ -73,7 +73,7 @@ export const NotificationItem = ({
 
 			<div className="flex flex-col shrink-0">
 				<button
-					className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+					className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black dark:hover:border-white"
 					onClick={handleRemove}
 				>
 					<MdDeleteForever className="w-4 h-4 shrink-0" />
