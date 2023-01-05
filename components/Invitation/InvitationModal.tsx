@@ -21,6 +21,7 @@ type Props = {
 	invitations: Omit<ExtendedInvitation, "sender" | "event">[];
 };
 
+//TODO: refactor this component to use generic modal
 export const InvitationModal = ({
 	closeModal,
 	participants,
@@ -107,7 +108,7 @@ export const InvitationModal = ({
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<div className="fixed inset-0 bg-black dark:bg-white bg-opacity-50" />
+					<div className="fixed inset-0 bg-black bg-opacity-50" />
 				</Transition.Child>
 
 				<div className="fixed bottom-0 left-0 w-full overflow-y-auto xs:inset-0">
@@ -121,7 +122,7 @@ export const InvitationModal = ({
 							leaveFrom="opacity-100 scale-100"
 							leaveTo="opacity-0 scale-95"
 						>
-							<Dialog.Panel className="w-full p-4 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-black border-black dark:border-white shadow-xl xs:border xs:max-w-md">
+							<Dialog.Panel className="w-full p-4 overflow-hidden text-left align-middle transition-all transform bg-white border-black shadow-xl dark:bg-black dark:border-white xs:border xs:max-w-md">
 								<div className="inline-flex justify-between w-full">
 									<Dialog.Title as="h3" className="text-xl font-bold">
 										Invitations
@@ -152,7 +153,7 @@ export const InvitationModal = ({
 												key={user.id}
 												user={user}
 												className={classNames(
-													"px-2 py-1 cursor-pointer hover:bg-neutral-50",
+													"px-2 py-1 cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-950",
 													participants.some((p) => p.id === user.id) ||
 														(invitationsReceivers.some(
 															(r) => r.id === user.id,
@@ -190,7 +191,7 @@ export const InvitationModal = ({
 														<UserListItem
 															key={user.id}
 															user={user}
-															className="px-2 py-1 cursor-pointer hover:bg-neutral-50"
+															className="px-2 py-1 cursor-pointer hover:bg-neutral-50 dark:hover:bg-neutral-950"
 															checked={false}
 															onCheck={(user) => {
 																setSelectedUsers([...selectedUsers, user]);

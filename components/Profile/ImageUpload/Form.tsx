@@ -85,7 +85,7 @@ export const ImageUploadForm = ({
 						"relative aspect-square w-32 p-2 border-2 border-dashed border-black dark:border-white overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transition group focus:outline-none",
 						image?.src
 							? "hover:opacity-50 disabled:hover:opacity-100"
-							: "hover:border-neutral-400 dark:border-neutral-600 focus:border-neutral-400 dark:border-neutral-600 disabled:hover:border-neutral-200"
+							: "hover:border-neutral-400 dark:border-neutral-600 focus:border-neutral-400 disabled:hover:border-neutral-200"
 					)}
 				>
 					{image?.src ? (
