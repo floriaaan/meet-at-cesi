@@ -6,7 +6,7 @@ import { NextSeo } from "next-seo";
 
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout";
-import { SearchBar } from "@/components/UI/SearchBar";
+import { SearchBar } from "@/components/UI/Form/SearchBar";
 
 const POSSIBLE_CAPTIONS = [
 	"Petite bière après les cours ? 🍻",
@@ -73,12 +73,12 @@ const Home: NextPage<Props> = ({ caption }) => {
 								<SearchBar className="input__shadow-purple" />
 							</form>
 						</div>
-						<div className="w-full px-8 py-6 bg-white shadow-2xl font-body">
-							<span className="pb-2 pr-2 bg-white">
+						<div className="w-full px-8 py-6 bg-white shadow-2xl dark:bg-black font-body">
+							<span className="pb-2 pr-2 bg-white dark:bg-black">
 								Découvrez les événements organisés par des étudiant.e.s CESI
 							</span>
 							<div
-								className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4"
+								className="flex flex-wrap p-6 -mt-3 border border-black dark:border-neutral-800 gap-x-2 gap-y-3 md:gap-4"
 								data-testid="home-campus-list"
 							>
 								{campusList.sort().map((campus) => (

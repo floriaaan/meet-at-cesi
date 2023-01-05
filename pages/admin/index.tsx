@@ -70,7 +70,7 @@ const AdminIndexPage: NextPage<Props> = ({
 				<section className="grid w-full h-auto grid-cols-2 gap-4 px-4 mx-auto mt-6 lg:grid-cols-4 md:px-12 lg:px-0 lg:max-w-2xl xl:max-w-5xl">
 					<Header
 						text="Tableau de bord"
-						containerClassName="bg-black text-white col-span-2 md:col-span-4"
+						containerClassName="bg-black dark:bg-neutral-900 text-white col-span-2 md:col-span-4"
 						className="before:bg-primary"
 					/>
 
@@ -83,7 +83,7 @@ const AdminIndexPage: NextPage<Props> = ({
 					<StatCard
 						title="Événements"
 						value={events}
-						// colorClassName="bg-primary text-black"
+						// colorClassName="bg-primary text-black dark:text-white"
 						href={isAdmin(user) ? "/admin/event" : undefined}
 					/>
 
@@ -99,7 +99,7 @@ const AdminIndexPage: NextPage<Props> = ({
 						// colorClassName="bg-pink text-white"
 						href={isAdmin(user) ? "/admin/report" : undefined}
 					/>
-					<div className="flex flex-col w-full col-span-2 p-3 border border-black border-dashed gap-y-2 md:col-span-4">
+					<div className="flex flex-col w-full col-span-2 p-3 border-dashed gap-y-2 md:col-span-4">
 						<h2 className="mb-3 text-xl font-bold">Derniers commentaires</h2>
 						{comments.map((comment) => (
 							<CommentFeedItem key={comment.id} {...comment} />

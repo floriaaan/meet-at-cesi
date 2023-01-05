@@ -178,7 +178,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 			<ul
 				className={classNames(
 					"top-16 fixed px-4 pt-7 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow md:hidden",
-					"flex flex-col bg-white",
+					"flex flex-col bg-white dark:bg-black",
 					isMenuRendered ? "opacity-100" : "opacity-0",
 				)}
 			>
@@ -187,7 +187,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 						<span className="z-10 flex items-center h-full pl-4 shrink-0 bg-primary w-fit">
 							<Avatar
 								user={session.user}
-								className="w-16 h-16 text-xl bg-black text-primary"
+								className="w-16 h-16 text-xl bg-black dark:bg-white text-primary"
 							/>
 						</span>
 						<span className="relative -left-2">
@@ -203,7 +203,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 						key={i}
 						className={classNames(
 							"transition-all duration-300 ease-linear first:pt-0 py-2.5", // mobile-menu.module.css
-							"text-sm font-semibold border-b last:border-b-0 text-neutral-900 border-neutral-200",
+							"text-sm font-semibold border-b last:border-b-0 text-neutral-900 dark:text-neutral-100 border-neutral-200 dark:border-neutral-800",
 							isMenuRendered
 								? "opacity-100 w-full translate-x-0"
 								: "opacity-0 w-0 -translate-x-4",

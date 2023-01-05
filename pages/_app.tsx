@@ -52,7 +52,9 @@ const App = ({ Component, pageProps }: AppProps) => {
 					cardType: "summary_large_image",
 				}}
 			/>
-			<ThemeProvider >
+			<ThemeProvider 
+				attribute="class"
+			>
 				<Wrapper>
 					<Component {...pageProps} />
 				</Wrapper>
