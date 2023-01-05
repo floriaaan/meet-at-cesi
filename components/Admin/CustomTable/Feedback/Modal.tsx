@@ -26,11 +26,11 @@ export const FeedbackTableModal = ({
 			overflow="overflow-y-auto"
 		>
 			<div className="grid md:grid-cols-2 gap-x-4 gap-y-2">
-				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 ">
+				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 dark:border-neutral-700 ">
 					<Avatar user={creator} className="w-10 h-10" />
 					<div className="flex flex-col">
 						<Name user={creator} />
-						<p className="text-xs leading-3 text-neutral-500">
+						<p className="text-xs leading-3 text-neutral-50 dark:text-neutral-950">
 							Feedback créé le {formatDate(createdAt)}
 						</p>
 					</div>
@@ -43,7 +43,7 @@ export const FeedbackTableModal = ({
 						</div>
 					</div>
 					{history.length > 0 ? (
-						<div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border max-h-32 gap-y-1 bg-neutral-50">
+						<div className="flex flex-col w-full p-2 mt-1.5 overflow-y-auto border dark:border-neutral-800 max-h-32 gap-y-1 bg-neutral-50 dark:bg-neutral-950">
 							{history.map((h) => (
 								<HistoryListItem route={h} key={`${id}-${h}`} />
 							))}
