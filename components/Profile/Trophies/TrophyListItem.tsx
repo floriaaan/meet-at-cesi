@@ -16,7 +16,7 @@ export const TrophyListItem = ({
 	return (
 		<div
 			className={classNames(
-				"inline-flex items-center w-full py-2 border-b gap-x-2 md:gap-x-4 last:border-b-0 border-neutral-200",
+				"inline-flex items-center w-full py-2 border-b gap-x-2 md:gap-x-4 last:border-b-0 border-neutral-200 dark:border-neutral-800",
 				createdAt === undefined ? "opacity-50" : "",
 			)}
 		>
@@ -30,7 +30,7 @@ export const TrophyListItem = ({
 			<div className="flex flex-col grow gap-y-1">
 				<h3
 					className={classNames(
-						"text-lg md:text-xl font-bold text-black",
+						"text-lg md:text-xl font-bold text-black dark:text-white",
 						createdAt
 							? "underline decoration-primary decoration-dotted underline-offset-2"
 							: "",
@@ -38,13 +38,13 @@ export const TrophyListItem = ({
 				>
 					{name}
 				</h3>
-				<p className="text-xs md:text-sm text-neutral-800">{description}</p>
+				<p className="text-xs md:text-sm text-neutral-800 dark:text-neutral-200">{description}</p>
 				{createdAt ? (
-					<p className="text-xs md:text-sm text-neutral-700">
+					<p className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300 ">
 						Obtenu le {formatDate(createdAt)}
 					</p>
 				) : (
-					<p className="text-xs md:text-sm text-neutral-700">Non obtenu</p>
+					<p className="text-xs md:text-sm text-neutral-700 dark:text-neutral-300 ">Non obtenu</p>
 				)}
 			</div>
 		</div>

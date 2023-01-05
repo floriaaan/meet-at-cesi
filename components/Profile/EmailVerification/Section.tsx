@@ -41,16 +41,16 @@ export const EmailVerificationSection = ({
 			</h3>
 
 			{user.emailVerified ? (
-				<p className="text-sm text-gray-700 whitespace-pre-line">
+				<p className="text-sm text-neutral-700 dark:text-neutral-300  whitespace-pre-line">
 					Votre adresse email est vérifiée.
 				</p>
 			) : (
 				<>
-					<p className="text-sm text-gray-700 whitespace-pre-line">
+					<p className="text-sm text-neutral-700 dark:text-neutral-300  whitespace-pre-line">
 						Avoir une adresse email vérifiée peut être rassurant pour certains
 						utilisateurs.
 					</p>
-					<p className="text-xs text-gray-700 whitespace-pre-line">
+					<p className="text-xs text-neutral-700 dark:text-neutral-300  whitespace-pre-line">
 						Pour vérifier votre adresse email, cliquez sur le bouton ci-dessous.
 						<br />
 						Vous recevrez un mail de vérification.

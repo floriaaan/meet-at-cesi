@@ -91,7 +91,7 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
 					<ProfileCard user={user} />
 					<div className="w-full h-auto">
 						<TrophiesSection user={user} />
-						<hr className="hidden w-full h-px border border-gray-100 md:block" />
+						<hr className="hidden w-full h-px border border-neutral-100 dark:border-neutral-900 md:block" />
 						<section id="invitations" className="flex flex-col w-full">
 							<InvitationsProvider
 								initialReceivedInvitations={receivedInvitations}
@@ -101,7 +101,7 @@ const ProfileIndexPage: NextPage<Props> = ({ user }) => {
 								<SendedInvitationSection />
 							</InvitationsProvider>
 						</section>
-						<hr className="hidden w-full h-px border border-gray-100 md:block" />
+						<hr className="hidden w-full h-px border border-neutral-100 dark:border-neutral-900 md:block" />
 						<section id="events" className="flex flex-col w-full">
 							<ParticipatingSection events={participations || []} />
 							<CreatedSection events={createdEvents || []} />

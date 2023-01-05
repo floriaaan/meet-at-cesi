@@ -20,7 +20,7 @@ export const Preferences = ({ preferences }: { preferences?: Preference }) => {
 		return <strong>Promotion et campus non disponible</strong>;
 	return (
 		<div
-			className="flex flex-col gap-1 mt-2"
+			className="flex flex-col gap-1 mt-2 text-black"
 			data-testid="profile-promotion"
 		>
 			{privacy === PreferencePrivacy.PROMOTION_ONLY ||

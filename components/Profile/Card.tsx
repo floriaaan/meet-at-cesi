@@ -10,7 +10,7 @@ export const ProfileCard = ({ user }: { user: ExtendedUser }) => {
 			<span className="z-10 flex items-center h-auto pl-4 shrink-0 bg-primary w-fit">
 				<Avatar
 					user={user}
-					className="w-16 h-16 text-xl bg-black lg:w-32 lg:h-32 text-primary"
+					className="w-16 h-16 text-xl bg-black dark:bg-white lg:w-32 lg:h-32 text-primary"
 				/>
 			</span>
 
@@ -22,7 +22,7 @@ export const ProfileCard = ({ user }: { user: ExtendedUser }) => {
 
 				<div className="relative z-10 flex flex-col pr-2 -mb-2 left-6 -top-6 md:-top-10">
 					<Preferences preferences={user.preferences} />
-					<span className="text-xs md:text-sm">
+					<span className="text-xs text-black md:text-sm">
 						{`inscrit.e il y a ${formatRelative(user.createdAt.toString())}`}
 					</span>
 				</div>
