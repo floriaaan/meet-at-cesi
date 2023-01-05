@@ -18,6 +18,7 @@ module.exports = {
 				purple: "#afa5d1",
 				green: { DEFAULT: "#6fbc85" },
 				red: { DEFAULT: "#cf2e2e" },
+				neutral: { 950: "#101010" },
 			},
 			screens: {
 				xs: "500px",

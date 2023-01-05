@@ -3,99 +3,101 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: fkscreamer;
-    src: url(/font/FKScreamer-Bold.woff2) format("woff2");
-    font-weight: 700;
-  }
+	@font-face {
+		font-family: fkscreamer;
+		src: url(/font/FKScreamer-Bold.woff2) format("woff2");
+		font-weight: 700;
+	}
 
-  @font-face {
-    font-family: faktum;
-    src: url(/font/Faktum-Regular.woff2) format("woff2");
-    font-weight: 400;
-  }
-  @font-face {
-    font-family: faktum;
-    src: url(/font/Faktum-Bold.woff2) format("woff2");
-    font-weight: 700;
-  }
+	@font-face {
+		font-family: faktum;
+		src: url(/font/Faktum-Regular.woff2) format("woff2");
+		font-weight: 400;
+	}
+	@font-face {
+		font-family: faktum;
+		src: url(/font/Faktum-Bold.woff2) format("woff2");
+		font-weight: 700;
+	}
 }
 
 @layer components {
-  .title {
-    @apply px-2 text-5xl font-bold leading-4 text-black first-letter:uppercase w-fit font-heading bg-primary;
-  }
+	.title {
+		@apply px-2 text-5xl font-bold leading-4 text-black first-letter:uppercase w-fit font-heading bg-primary;
+	}
 
-  .title__underline::before {
-    @apply absolute w-48 h-4 bg-primary -bottom-2 left-8;
-    content: "";
-  }
+	.title__underline::before {
+		@apply absolute w-48 h-4 bg-primary -bottom-2 left-8;
+		content: "";
+	}
 
-  .nav__link {
-    @apply text-[13px] font-bold uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1 px-2 2xl:px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline;
-  }
+	.nav__link {
+		@apply text-[13px] font-bold uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1 px-2 2xl:px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:no-underline;
+	}
 
-  .subnav__link {
-    @apply text-[13px] first-letter:uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1;
-  }
+	.subnav__link {
+		@apply text-[13px] first-letter:uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1;
+	}
 
-  .btn-outline__pill {
-    @apply inline-flex items-center text-black uppercase font-bold border border-gray-400 bg-white hover:bg-gray-100 hover:border-black rounded-full justify-center text-xs py-1.5 px-8 active:bg-primary;
-  }
-  .btn-black {
-    @apply bg-black min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
-  }
-  .btn-red {
-    @apply bg-red min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black border-x border-t border-transparent hover:border-black active:bg-black active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
-  }
+	.btn-outline__pill {
+		@apply inline-flex items-center text-black dark:text-white uppercase font-bold border border-neutral-400 dark:border-neutral-600 bg-white dark:bg-black hover:bg-neutral-100 hover:dark:bg-neutral-900 hover:border-black dark:hover:border-white rounded-full justify-center text-xs py-1.5 px-8 active:bg-primary;
+	}
+	.btn-black {
+		@apply bg-black  min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black dark:hover:text-black dark:border-neutral-900 dark:text-white border-x border-t border-transparent hover:border-black dark:hover:border-neutral-500 active:bg-black  active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
+	}
+	.btn-red {
+		@apply bg-red min-w-[4rem] md:min-w-fit w-full px-4 py-[0.440rem] md:py-2 inline-flex justify-center items-center gap-x-1 font-bold text-white uppercase text-sm hover:bg-primary hover:text-black dark:text-white border-x border-t border-transparent hover:border-black dark:hover:border-white active:bg-black dark:bg-white active:text-primary disabled:opacity-50 disabled:cursor-not-allowed;
+	}
 
-  .btn__pill {
-    @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-black uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black;
-  }
+	.btn__pill {
+		@apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-black  uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black active:dark:text-white dark:hover:border-neutral-500;
+	}
 
-  .btn__pill-secondary {
-    @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-primary uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-black font-body hover:bg-primary hover:text-black active:border-primary active:bg-black active:text-primary;
-  }
+	.btn__pill-secondary {
+		@apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-primary uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-black  font-body hover:bg-primary hover:text-black dark:text-white active:border-primary active:bg-black  active:text-primary;
+	}
 
-  .btn__colors {
-    @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary disabled:hover:text-black disabled:hover:border-transparent disabled:active:bg-primary disabled:active:text-black disabled:active:border-transparent;
-  }
+	.btn__colors {
+		@apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:dark:text-white active:border-black disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary disabled:hover:text-black disabled:hover:dark:text-white disabled:hover:border-transparent disabled:active:bg-primary disabled:active:dark:text-white disabled:active:border-transparent;
+	}
 
-  .input__shadow-purple:hover {
-    -webkit-box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
-    box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
-  }
+	.input__shadow-purple:hover {
+		-webkit-box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
+		box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
+	}
 
-  .input__shadow-primary:hover {
-    -webkit-box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
-    box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
-  }
+	.input__shadow-primary:hover {
+		-webkit-box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
+		box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
+	}
 }
 
 body {
-  @apply text-black bg-white font-body selection:bg-primary;
-  text-decoration-thickness: 1px !important;
+	@apply text-black bg-white dark:text-white dark:bg-black font-body selection:bg-primary;
+	text-decoration-thickness: 1px !important;
 }
 
-
-
 .shadow__button-purple {
-  -webkit-box-shadow: 0 0.3rem 0 0 #afa5d1;
-  box-shadow: 0 0.3rem 0 0 #afa5d1;
+	-webkit-box-shadow: 0 0.3rem 0 0 #afa5d1;
+	box-shadow: 0 0.3rem 0 0 #afa5d1;
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #00000050;
-  box-shadow: inset 0 0 6px #00000050;
-  background-color: #f5f5f5;
+	-webkit-box-shadow: inset 0 0 6px #00000050;
+	box-shadow: inset 0 0 6px #00000050;
+	background-color: #f5f5f5;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 3px;
-  background-color: #f5f5f5;
+	width: 6px;
+	height: 3px;
+	background-color: #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: black;
+	background-color: black;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+	background-color: rgb(251 226 22);
 }
