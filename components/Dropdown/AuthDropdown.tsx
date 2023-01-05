@@ -8,6 +8,7 @@ import PopperMenu from "@/components/Helpers/PopperMenu";
 import { Spinner } from "@/components/UI/Fallback/Spinner";
 import { Category } from "@/components/UI/Link/Category";
 import { Avatar } from "@/components/UI/Avatar";
+import { useTheme } from "next-themes";
 
 export const AuthDropdown = () => {
 	const { data: session, status } = useSession();
@@ -81,6 +82,7 @@ const MenuButton = ({ user, open }: { user?: User; open: boolean }) =>
 	) : null;
 
 const MenuPanel = () => {
+	const { theme, setTheme } = useTheme();
 	return (
 		<div className="flex -top-px z-[49] flex-col min-w-[16rem] lg:min-w-[24rem] max-w-fit w-full right-0 absolute py-4 px-5 bg-white border rounded-tl-3xl rounded-b-3xl border-gray-400 gap-x-2 gap-y-3 lg:grid grid-cols-2">
 			<Category
@@ -118,9 +120,8 @@ const MenuPanel = () => {
 				title="Autres"
 				options={[
 					{
-						name: "Thème sombre (bientôt)",
-						onClick: () => signOut(),
-						disabled: true,
+						name: theme === "dark" ? "Thème clair" : "Thème sombre",
+						onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
 					},
 				]}
 			/>
