@@ -103,6 +103,7 @@ export default async function handler(
 					});
 			}
 
+			//todo: check if session.user has rights to see invitations 
 			const invitations = await prisma.invitation.findMany({
 				where: { eventId: id },
 				include: { receiver: true },
