@@ -12,16 +12,16 @@ export const FeedbackButton = () => {
 			className={classNames(
 				"flex items-center justify-center w-12 h-12  p-2 group",
 				isFeedbackOpen
-					? "bg-primary text-black"
-					: "text-white bg-black active:bg-primary active:text-black hover:text-primary"
+					? "bg-primary text-black dark:text-white"
+					: "text-white bg-black dark:bg-white active:bg-primary active:text-black dark:text-black dark:hover:bg-black dark:hover:text-primary hover:text-primary",
 			)}
 		>
 			<span
 				className={classNames(
 					"p-2 border-dashed ",
 					isFeedbackOpen
-						? "border border-black"
-						: "group-hover:border border-primary"
+						? "border border-black dark:border-white"
+						: "group-hover:border border-primary",
 				)}
 			>
 				<MdFeedback className="w-6 h-6 " />

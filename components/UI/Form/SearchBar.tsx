@@ -9,6 +9,7 @@ type Props = {
 	className?: string;
 	inputClassName?: string;
 	buttonClassName?: string;
+	labelClassName?: string;
 
 	inputPaddingClassName?: string;
 	buttonPaddingClassName?: string;
@@ -22,6 +23,7 @@ export const SearchBar = ({
 	className,
 	inputClassName,
 	buttonClassName,
+	labelClassName,
 
 	inputPaddingClassName,
 	buttonPaddingClassName,
@@ -39,7 +41,11 @@ export const SearchBar = ({
 			{label !== null ? (
 				<label
 					htmlFor="search"
-					className="mr-auto font-bold text-black font-body"
+					className={classNames(
+						"mr-auto font-bold  font-body",
+						!labelClassName?.includes("text-") && "text-black dark:text-white",
+						labelClassName,
+					)}
 				>
 					{label || "Trouvez l'événement qui vous correspond"}
 				</label>
@@ -59,7 +65,7 @@ export const SearchBar = ({
 					id="search"
 					type="text"
 					className={classNames(
-						"text-[16px] sm:text-sm placeholder:text-sm grow placeholder:italic focus:outline-none",
+						"text-[16px] dark:bg-black sm:text-sm placeholder:text-sm grow placeholder:italic focus:outline-none",
 						icon ? "sm:pl-12 sm:pr-6" : !inputPaddingClassName ? "sm:px-6" : "",
 						inputPaddingClassName,
 						!inputPaddingClassName?.includes("py-") && "py-2 sm:py-3",
@@ -67,7 +73,6 @@ export const SearchBar = ({
 						inputClassName,
 						!inputClassName?.includes("rounded-l-") && "rounded-l-full",
 					)}
-					
 					placeholder="Rechercher un événement..."
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
@@ -87,7 +92,7 @@ export const SearchBar = ({
 					{loading ? (
 						<div className="w-6 h-6 ml-0.5 flex items-center justify-center">
 							<Spinner
-							//  className="w-6 h-6 ml-0.5 text-black"
+							//  className="w-6 h-6 ml-0.5 text-black dark:text-white"
 							/>
 						</div>
 					) : (
