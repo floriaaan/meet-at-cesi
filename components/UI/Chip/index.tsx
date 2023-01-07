@@ -20,7 +20,7 @@ export const Chip = ({
 			className={
 				className ||
 				classNames(
-					"font-bold text-white bg-black dark:bg-neutral-700 dark:text-white",
+					"font-bold text-white bg-black dark:bg-neutral-800 dark:md:bg-neutral-700 dark:text-white",
 					!extendClassName?.includes("text-") ? "text-xs" : "",
 					!extendClassName?.includes("py-") ? "py-0.5" : "",
 					!extendClassName?.includes("px-") ? "px-2" : "",

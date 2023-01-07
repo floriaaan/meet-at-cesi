@@ -101,3 +101,7 @@ body {
 .dark ::-webkit-scrollbar-thumb {
 	background-color: rgb(251 226 22);
 }
+
+html.dark {
+	background-color: #000000;
+}

@@ -13,7 +13,7 @@ export const FeedbackButton = () => {
 				"flex items-center justify-center w-12 h-12  p-2 group",
 				isFeedbackOpen
 					? "bg-primary text-black dark:text-white"
-					: "text-white bg-black dark:bg-white active:bg-primary active:text-black dark:text-black dark:hover:bg-black dark:hover:text-primary hover:text-primary",
+					: "text-white bg-black dark:bg-neutral-700 active:bg-primary active:text-black dark:text-white dark:hover:bg-black dark:hover:text-primary hover:text-primary",
 			)}
 		>
 			<span

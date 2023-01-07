@@ -11,7 +11,7 @@ export const DateComponent = ({
 	return (
 		<div
 			className={
-				"flex relative flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black dark:bg-neutral-700 aspect-video md:aspect-square"
+				"flex relative flex-col shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max bg-black dark:md:bg-neutral-700 dark:bg-neutral-900 aspect-video md:aspect-square"
 			}
 		>
 			<span className="text-sm font-bold leading-3 text-white">

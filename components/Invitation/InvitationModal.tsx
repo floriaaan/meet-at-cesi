@@ -122,7 +122,7 @@ export const InvitationModal = ({
 							leaveFrom="opacity-100 scale-100"
 							leaveTo="opacity-0 scale-95"
 						>
-							<Dialog.Panel className="w-full p-4 overflow-hidden text-left align-middle transition-all transform bg-white border-black shadow-xl dark:bg-black dark:border-white xs:border xs:max-w-md">
+							<Dialog.Panel className="w-full p-4 overflow-hidden text-left align-middle transition-all transform bg-white border-black shadow-xl dark:bg-black dark:border-neutral-700 xs:border xs:max-w-md">
 								<div className="inline-flex justify-between w-full">
 									<Dialog.Title as="h3" className="text-xl font-bold">
 										Invitations
