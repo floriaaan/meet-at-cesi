@@ -18,7 +18,7 @@ import { log } from "@/lib/log";
 
 const getComments = async (eventId: string) => {
 	const comments = await prisma.comment.findMany({
-		where: { eventId, parentId: null },
+		where: { eventId, parentId: null, deletedAt: null },
 		include: {
 			author: true,
 			children: {
@@ -26,6 +26,7 @@ const getComments = async (eventId: string) => {
 			},
 		},
 	});
+
 	return comments;
 };
 
@@ -87,7 +88,9 @@ export default async function handler(
 				},
 			);
 
-			return res.status(201).json({ comments: await getComments(eventId) });
+			const comments = await getComments(eventId);
+
+			return res.status(201).json({ comments });
 		} catch (e) {
 			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });
@@ -126,7 +129,9 @@ export default async function handler(
 				data: { content },
 			});
 
-			return res.status(200).json({ comments: await getComments(eventId) });
+			const comments = await getComments(eventId);
+
+			return res.status(200).json({ comments });
 		} catch (e) {
 			log.error(e);
 			res.status(500).json({ message: e instanceof Error ? e.message : e });

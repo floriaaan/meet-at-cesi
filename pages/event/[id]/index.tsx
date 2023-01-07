@@ -45,6 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			comments: {
 				where: { parentId: null },
 				include: { author: true, children: { include: { author: true } } },
+				orderBy: { createdAt: "asc" },
 			},
 			invitations: {
 				include: { receiver: true },

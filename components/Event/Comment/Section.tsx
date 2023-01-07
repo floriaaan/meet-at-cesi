@@ -25,13 +25,22 @@ export const CommentSection = ({
 				<Chip extendClassName="bg-purple">{comments.length}</Chip>{" "}
 				{getPlural(comments.length, "commentaire", "commentaires")}
 			</div>
-			{comments.map((comment) => (
-				<CommentListItem
-					key={comment.id}
-					comment={comment}
-					setCommentList={setComments}
-				/>
-			))}
+			{comments
+				.sort((a, b) => {
+					if (a.createdAt === null) return -1;
+					if (b.createdAt === null) return 1;
+
+					if (a.createdAt < b.createdAt) return -1;
+					if (a.createdAt > b.createdAt) return 1;
+					return 0;
+				})
+				.map((comment) => (
+					<CommentListItem
+						key={comment.id}
+						comment={comment}
+						setCommentList={setComments}
+					/>
+				))}
 			{user && (
 				<CommentForm
 					onSubmit={async (values) => {

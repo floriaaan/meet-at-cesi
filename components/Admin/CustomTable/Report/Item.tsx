@@ -99,6 +99,7 @@ export const ReportTableItem = (props: ExtendedReport) => {
 				{...props}
 				isModalOpen={isModalOpen}
 				closeModal={closeModal}
+				status={status}
 				setStatus={setStatus}
 			/>
 		</>

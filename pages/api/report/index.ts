@@ -18,6 +18,8 @@ import { ExtendedReport } from "@/types/Report";
 import { triggerNotification } from "@/lib/notification/trigger";
 import { log } from "@/lib/log";
 
+const { comment: c, event: e, report: r, user: u } = prisma;
+
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
@@ -43,15 +45,30 @@ const getReportSubject = async (
 	let object: Event | Comment | User | null = null;
 	let blamedUserId: string | null = null;
 	if (objectType === "COMMENT") {
-		object = await getCommentOrThrow(objectId);
+		object = await c.findFirstOrThrow({
+			where: {
+				id: objectId,
+				OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+			},
+		});
 		blamedUserId = object.authorId;
 	}
 	if (objectType === "EVENT") {
-		object = await getEventOrThrow(objectId);
+		object = await e.findFirstOrThrow({
+			where: {
+				id: objectId,
+				OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+			},
+		});
 		blamedUserId = object.creatorId;
 	}
 	if (objectType === "USER") {
-		object = await getUserFromIdOrThrow(objectId);
+		object = await u.findFirstOrThrow({
+			where: {
+				id: objectId,
+				OR: [{ deletedAt: null }, { deletedAt: { not: null } }],
+			},
+		});
 		blamedUserId = object.id;
 	}
 	if (!object) throw new Error("Object not found.");
@@ -79,7 +96,7 @@ const POST = async (
 			objectType,
 		);
 
-		const report = await prisma.report.create({
+		const report = await r.create({
 			data: {
 				content,
 				page,
@@ -124,7 +141,7 @@ const PUT = async (
 		let result;
 		switch (status) {
 			case ReportStatus.PENDING:
-				result = await prisma.report.update({
+				result = await r.update({
 					where: { id },
 					data: { status },
 				});
@@ -134,25 +151,26 @@ const PUT = async (
 					objectId as string,
 					objectType,
 				);
-				if (objectType === "COMMENT")
-					await prisma.comment.delete({ where: { id: object.id } });
-				if (objectType === "EVENT")
-					await prisma.event.delete({ where: { id: object.id } });
-				if (objectType === "USER")
-					await prisma.user.delete({ where: { id: object.id } });
+				const params = { where: { id: object.id } };
+				if (objectType === "COMMENT") await c.delete(params);
+				if (objectType === "EVENT") await e.delete(params);
+				if (objectType === "USER") await u.delete(params);
 
-				result = await prisma.report.update({
-					where: { id },
-					data: { status },
-				});
+				result = await r.update({ where: { id }, data: { status } });
 				break;
 			}
-			case ReportStatus.REFUSED:
-				result = await prisma.report.update({
-					where: { id },
-					data: { status },
-				});
+			case ReportStatus.REFUSED: {
+				const { object } = await getReportSubject(
+					objectId as string,
+					objectType,
+				);
+				const params = { where: { id: object.id }, data: { deletedAt: null } };
+				if (objectType === "COMMENT") await c.update(params);
+				if (objectType === "EVENT") await e.update(params);
+				if (objectType === "USER") await u.update(params);
+				result = await r.update({ where: { id }, data: { status } });
 				break;
+			}
 			default:
 				throw new Error("Invalid report status.");
 		}
