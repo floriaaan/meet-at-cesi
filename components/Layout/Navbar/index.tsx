@@ -51,7 +51,7 @@ export const Navbar = () => {
 							}}
 						>
 							<>
-								<Logo className="shrink-0 lg:w-[38px] lg:h-[38px] w-12 h-12 rounded-[12px] lg:rounded-[9px]" />
+								<Logo className="w-12 h-12 shrink-0 " />
 								<span className="sr-only">Meet at CESI</span>
 							</>
 						</Link>
@@ -82,7 +82,7 @@ export const Navbar = () => {
 							>
 								<SearchBar
 									label={null}
-									className="border border-black dark:border-white border-dashed rounded-none "
+									className="border border-black border-dashed rounded-none dark:border-white "
 									inputClassName="rounded-l-none placeholder-invisible sm:placeholder-visible"
 									buttonClassName="rounded-r-none"
 									inputPaddingClassName="px-2 py-1 w-inherit max-w-[12rem] md:max-w-none sm:w-96 md:w-full"
@@ -138,11 +138,11 @@ export const Navbar = () => {
 						<NotificationDropdown />
 					</div>
 				) : null}
-				{env !== "production" ? (
+				{/* {env !== "production" ? (
 					<div className="flex items-center justify-center w-full h-6 text-xs font-bold text-white bg-green">
 						Environnement : <u className="ml-1 uppercase">{env}</u>
 					</div>
-				) : null}
+				) : null} */}
 			</div>
 		</>
 	);

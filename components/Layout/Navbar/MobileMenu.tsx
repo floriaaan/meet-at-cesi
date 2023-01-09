@@ -11,6 +11,7 @@ import { PWAPopup } from "@/components/Helpers/Popup/PWA";
 import { ExtendedSession } from "@/types/Session";
 import { getPlural } from "@/lib/string";
 import { Spinner } from "@/components/UI/Fallback/Spinner";
+import { useTheme } from "next-themes";
 
 export const MobileMenu = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -87,20 +88,23 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 		data: ExtendedSession | null | undefined;
 	};
 	const { user } = session || {};
-	const { receivedInvitations = [], role } = user || {};
+	const { role } = user || {};
+
+	const { theme, setTheme } = useTheme();
 
 	const LINKS = [
 		user
 			? {
-					title: "Mon compte",
+					title: "🧑 Mon compte",
 					options: [
 						{ name: "Mon profil", href: "/profile" },
 						{ name: "Mes événements", href: "/profile#events" },
+						{ name: "Mes invitations", href: "/profile#invitations" },
 						{ name: "Paramètres", href: "/profile/settings" },
 					],
 			  }
 			: {
-					title: "Authentification",
+					title: "🧑 Authentification",
 					options: [
 						{
 							name: "Se connecter",
@@ -111,34 +115,9 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 						},
 					],
 			  },
-		user
-			? {
-					title: "Social",
-					options: [
-						{
-							name:
-								receivedInvitations.length > 0
-									? `${receivedInvitations.length} ${getPlural(
-											receivedInvitations.length,
-											"nouvelle",
-											"nouvelles",
-									  )} ${getPlural(
-											receivedInvitations.length,
-											"invitation",
-											"invitations",
-									  )} ${getPlural(
-											receivedInvitations.length,
-											"reçue",
-											"reçues",
-									  )}`
-									: "Invitations",
-							href: "/profile#invitations",
-						},
-					],
-			  }
-			: null,
+
 		{
-			title: "Événements",
+			title: "🗓️ Événements",
 			options: user
 				? [
 						{ name: "Tout les événements", href: "/event" },
@@ -154,9 +133,18 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 				  ]
 				: [{ name: "Tout les événements", href: "/event" }],
 		},
+		{
+			title: "⚙️ Autres",
+			options: [
+				{
+					name: theme === "dark" ? "Thème clair" : "Thème sombre",
+					onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+				},
+			],
+		},
 		user
 			? {
-					title: "Déconnexion",
+					title: "👋 Déconnexion",
 					options: [
 						{
 							name: "Se déconnecter",
@@ -167,7 +155,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 			: null,
 		role === "ADMIN" || role === "MODERATOR"
 			? {
-					title: "Administration",
+					title: "🥸 Administration",
 					options: [{ name: "Tableau de bord", href: "/admin" }],
 			  }
 			: null,

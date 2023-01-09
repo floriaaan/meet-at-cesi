@@ -30,6 +30,16 @@ module.exports = {
 			width: {
 				inherit: "inherit",
 			},
+
+			keyframes: {
+				wiggle: {
+					"0%, 100%": { transform: "rotate(-6deg) scale(1)" },
+					"50%": { transform: "rotate(6deg) scale(1.1)" },
+				}
+			},
+			animation: {
+        wiggle: 'wiggle 1.5s ease-in-out infinite',
+      }
 		},
 	},
 	plugins: [require("@tailwindcss/line-clamp")],

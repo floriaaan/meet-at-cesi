@@ -1,12 +1,13 @@
+import classNames from "classnames";
+import { NotificationType, User } from "@prisma/client";
+import { MdDeleteForever } from "react-icons/md";
+
 import { ExtendedNotification } from "@/types/Notification";
 import { NotificationIcon } from "@/components/Notification/Icon";
-import { NotificationType, User } from "@prisma/client";
-import { Name } from "../UI/Avatar";
+import { Name } from "@/components/UI/Avatar";
 import { formatDate } from "@/lib/date";
 import { ExtendedComment } from "@/types/Event";
-import classNames from "classnames";
 import { useNotifications } from "@/hooks/useNotifications";
-import { MdDeleteForever } from "react-icons/md";
 
 const notificationText = new Map([
 	[NotificationType.COMMENT_CREATION, "a commenté.e l'événement"],
