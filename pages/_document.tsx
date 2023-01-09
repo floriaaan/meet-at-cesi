@@ -29,17 +29,14 @@ export default function Document() {
 				)}
 
 				<link rel="apple-touch-icon" href="/app/icon-512x512.png"></link>
-				<meta
-					name="theme-color"
-					content={theme === "light" ? "#ffffff" : "#000000"}
-				/>
+				
 				<meta name="apple-mobile-web-app-capable" content="yes" />
-				<meta
-					name="apple-mobile-web-app-status-bar-style"
-					content="black-translucent"
-				/>
-
-					
+				{theme === "dark" && (
+					<meta
+						name="apple-mobile-web-app-status-bar-style"
+						content="black-translucent"
+					/>
+				)}
 			</Head>
 			<body>
 				<Main />

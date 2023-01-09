@@ -34,16 +34,16 @@ export const DetailsList = ({
 	return (
 		<ul className="flex flex-col mt-1 gap-y-1">
 			<DetailsListItem
-				icon={<MdLocationPin className="w-4 h-4 shrink-0" />}
+				icon={<MdLocationPin className="w-4 h-4 text-black shrink-0 dark:text-white" />}
 				value={location}
 			/>
 
 			<DetailsListItem
 				icon={
 					!isPrivate ? (
-						<MdPublic className="w-4 h-4 shrink-0" />
+						<MdPublic className="w-4 h-4 text-black shrink-0 dark:text-white" />
 					) : (
-						<MdLock className="w-4 h-4 shrink-0" />
+						<MdLock className="w-4 h-4 text-black shrink-0 dark:text-white" />
 					)
 				}
 				value={`${!isPrivate ?audienceDisplay: "Privé"}${
@@ -51,7 +51,7 @@ export const DetailsList = ({
 				}`}
 			/>
 			<DetailsListItem
-				icon={<MdFace className="w-4 h-4 shrink-0" />}
+				icon={<MdFace className="w-4 h-4 text-black shrink-0 dark:text-white" />}
 				value={`${participants.length} ${getPlural(
 					participants.length,
 					"participant inscrit",
