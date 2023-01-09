@@ -84,7 +84,7 @@ const MenuPanel = () => {
 	});
 
 	return (
-		<div className="flex -top-px z-[49] flex-col min-w-[28rem] xl:min-w-[32rem]  w-screen md:w-full md:right-0 md:absolute p-2 bg-white dark:bg-black md:border border-dashed shadow-2xl mt-[1.125rem] md:mt-0 border-neutral-400 dark:border-neutral-600 md:shadow-xl">
+		<div className="flex -top-px z-[49] flex-col md:min-w-[28rem] xl:min-w-[32rem]  w-full md:w-full md:right-0 md:absolute p-2 bg-white dark:bg-black md:border border-dashed shadow-2xl mt-[1.125rem] md:mt-0 border-neutral-400 dark:border-neutral-600 md:shadow-xl">
 			{isLoaded ? (
 				<div className="flex flex-col gap-y-2">
 					<div className="inline-flex items-center justify-between w-full pr-2">

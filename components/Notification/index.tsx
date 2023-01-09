@@ -39,7 +39,7 @@ export const NotificationItem = ({
 	return (
 		<div
 			className={classNames(
-				"inline-flex  w-full px-1 py-1 pb-2 overflow-x-hidden overflow-y-visible border bg-neutral-100 dark:bg-neutral-900 gap-x-3",
+				"inline-flex w-full px-1 py-1 pb-2 overflow-x-hidden overflow-y-visible border bg-neutral-100 dark:bg-neutral-900 gap-x-3",
 				isRead ? "border-neutral-200 dark:border-neutral-700 opacity-60" : "border-black border-dashed",
 			)}
 		>
