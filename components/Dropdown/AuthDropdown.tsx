@@ -66,7 +66,9 @@ const MenuButton = ({ user, open }: { user?: User; open: boolean }) =>
 		<span
 			className={classNames(
 				"pr-2 gap-x-1 nav__link border whitespace-nowrap transition-none relative bg-white dark:bg-black z-[50] focus:outline-none",
-				open ? "border-neutral-400 dark:border-neutral-600 border-b-white relative" : "border-transparent",
+				open
+					? "border-neutral-400 dark:border-neutral-600 border-b-white relative"
+					: "border-transparent",
 			)}
 		>
 			<Avatar user={user} className="w-8 h-8 mr-2 ring-white" />
@@ -90,11 +92,8 @@ const MenuPanel = () => {
 				options={[
 					{ name: "Mon profil", href: "/profile" },
 					{ name: "Mes événements", href: "/profile#events" },
+					{ name: "Mes invitations", href: "/profile#invitations" },
 					{ name: "Paramètres", href: "/profile/settings" },
-					{
-						name: "Se déconnecter",
-						onClick: () => signOut(),
-					},
 				]}
 			/>
 			<Category
@@ -112,16 +111,22 @@ const MenuPanel = () => {
 					{ name: "Organiser", href: "/event/create" },
 				]}
 			/>
+
 			<Category
-				title="👫 Social"
-				options={[{ name: "Invitations", href: "/profile#invitations" }]}
-			/>
-			<Category
-				title="Autres"
+				title="⚙️ Autres"
 				options={[
 					{
 						name: theme === "dark" ? "Thème clair" : "Thème sombre",
 						onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+					},
+				]}
+			/>
+			<Category
+				title="👋 Déconnexion"
+				options={[
+					{
+						name: "Se déconnecter",
+						onClick: () => signOut(),
 					},
 				]}
 			/>
