@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 		},
 		orderBy: {
 			// comments: { _count: "asc" },
-			participants: { _count: "asc" },
+			participants: { _count: "desc" },
 		},
 	})) as ExtendedEvent;
 
