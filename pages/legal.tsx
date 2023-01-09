@@ -2,13 +2,16 @@ import { AppLayout } from "@/components/Layout";
 import { NextPage } from "next";
 import Link from "next/link";
 
+export const CGU_LAST_UPDATE = { date: "09/01/2023", by: "FLORIAN LEROUX" };
+
 const LegalPage: NextPage = () => {
 	return (
 		<AppLayout>
-			<article className="max-w-xl mx-auto mt-8 prose text-justify dark:prose-invert">
-				<h1>{"Conditions d'utilisation"}</h1>
+			<article className="max-w-2xl mx-auto my-8 prose text-justify dark:prose-invert">
+				<h1 className="text-left">{"Conditions générales d'utilisation"}</h1>
 				<figcaption>
-					Dernière mise à jour : 09/01/2023 par FLORIAN LEROUX
+					Dernière mise à jour : {CGU_LAST_UPDATE.date} par{" "}
+					{CGU_LAST_UPDATE.by}
 				</figcaption>
 				<hr />
 				<p>
