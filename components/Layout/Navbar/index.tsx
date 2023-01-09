@@ -138,11 +138,11 @@ export const Navbar = () => {
 						<NotificationDropdown />
 					</div>
 				) : null}
-				{/* {env !== "production" ? (
+				{env !== "production" ? (
 					<div className="flex items-center justify-center w-full h-6 text-xs font-bold text-white bg-green">
 						Environnement : <u className="ml-1 uppercase">{env}</u>
 					</div>
-				) : null} */}
+				) : null}
 			</div>
 		</>
 	);
