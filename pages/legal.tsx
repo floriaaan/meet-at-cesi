@@ -10,8 +10,7 @@ const LegalPage: NextPage = () => {
 			<article className="max-w-2xl mx-auto my-8 prose text-justify dark:prose-invert">
 				<h1 className="text-left">{"Conditions générales d'utilisation"}</h1>
 				<figcaption>
-					Dernière mise à jour : {CGU_LAST_UPDATE.date} par{" "}
-					{CGU_LAST_UPDATE.by}
+					Dernière mise à jour : {CGU_LAST_UPDATE.date} par {CGU_LAST_UPDATE.by}
 				</figcaption>
 				<hr />
 				<p>
@@ -65,6 +64,50 @@ const LegalPage: NextPage = () => {
 					ininterrompue ou exempte de virus ou de tout autre élément nuisible.
 					Nous déclinons toute responsabilité en cas de dommages causés par l
 					{"'"}utilisation de notre application.
+				</p>
+				<p>
+					En utilisant <Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link>,
+					vous acceptez que nous ne sommes pas responsables des contenus publiés
+					sur notre plateforme par les utilisateurs. Nous ne sommes pas tenus de
+					surveiller les contenus publiés par les utilisateurs et nous n{"'"}
+					assumons aucune responsabilité à leur égard. Si vous constatez que des
+					contenus publiés par des utilisateurs sont inappropriés ou enfreignent
+					les termes d{"'"}utilisation de notre plateforme, nous vous
+					encourageons à nous en informer immédiatement afin que nous puissions
+					prendre les mesures nécessaires.
+				</p>
+				<p>
+					<Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link> se réserve le
+					droit de modifier, suspendre ou retirer tout contenu publié sur notre
+					plateforme à tout moment et sans préavis. Nous nous réservons
+					également le droit de refuser l{"'"}accès à notre plateforme à tout
+					utilisateur en cas de violation de nos termes d{"'"}utilisation ou de
+					toute loi ou réglementation en vigueur.
+				</p>
+				<p>
+					En utilisant <Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link>,
+					vous acceptez de ne pas utiliser notre plateforme à des fins illégales
+					ou interdites par les présentes conditions d{"'"}utilisation. Vous
+					vous engagez également à ne pas perturber ou enfreindre les droits de
+					tout tiers ou de faire quoi que ce soit qui pourrait endommager notre
+					plateforme ou en compromettre le bon fonctionnement.{" "}
+				</p>
+				<p>
+					Le présent disclaimer constitue l{"'"}intégralité de l{"'"}accord
+					entre vous et <Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link>{" "}
+					en ce qui concerne l{"'"}utilisation de notre plateforme. Si une
+					disposition de ce disclaimer est jugée invalide ou inapplicable, elle
+					sera réputée séparable et n{"'"}affectera pas la validité et l{"'"}
+					applicabilité des dispositions restantes. Nous vous encourageons à
+					lire attentivement le présent disclaimer et à le consulter
+					régulièrement afin de prendre connaissance de toute modification
+					éventuelle.{" "}
+				</p>
+				<p>
+					En continuant à utiliser{" "}
+					<Link href="/">{process.env.NEXT_PUBLIC_APP_NAME}</Link>, vous
+					acceptez de vous conformer au présent disclaimer tel que modifié de
+					temps à autre.
 				</p>
 			</article>
 		</AppLayout>
