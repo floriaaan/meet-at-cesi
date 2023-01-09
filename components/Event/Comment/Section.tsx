@@ -22,7 +22,7 @@ export const CommentSection = ({
 	return (
 		<div className="flex flex-col w-full p-2 bg-neutral-100 dark:bg-neutral-900 md:p-4 gap-y-2">
 			<div className="inline-flex items-center text-xs font-bold md:text-base gap-x-1">
-				<Chip extendClassName="bg-purple">{comments.length}</Chip>{" "}
+				<Chip>{comments.length}</Chip>{" "}
 				{getPlural(comments.length, "commentaire", "commentaires")}
 			</div>
 			{comments

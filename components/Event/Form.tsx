@@ -11,6 +11,8 @@ import { campusList } from "@/resources/campus-list";
 import { audienceList } from "@/resources/audience-list";
 import { PlaceSearch } from "@/components/UI/Form/PlaceSearch";
 import { log } from "@/lib/log";
+import Link from "next/link";
+import { CGU_LAST_UPDATE } from "@/pages/legal";
 
 const EventSchema = Yup.object().shape({
 	title: Yup.string()
@@ -32,6 +34,13 @@ const EventSchema = Yup.object().shape({
 	),
 	audienceCampus: Yup.string().required("Le campus est requis. C'est où ? 🤔"),
 	private: Yup.boolean(),
+
+	cgu: Yup.boolean()
+		.oneOf(
+			[true],
+			"Tu dois accepter les CGU pour continuer, je sais que c'est long à lire mais c'est obligatoire 🙏",
+		)
+		.required(),
 });
 
 export type EventFormValues = Yup.InferType<typeof EventSchema>;
@@ -42,6 +51,7 @@ const initialFormValues: EventFormValues = {
 	audience: "everyone",
 	audienceCampus: "",
 	private: false,
+	cgu: false,
 } as unknown as EventFormValues;
 
 export const EventForm = ({
@@ -91,7 +101,11 @@ export const EventForm = ({
 	};
 	return (
 		<Formik
-			initialValues={initialValues}
+			initialValues={
+				(!isEditing
+					? initialValues
+					: { ...initialValues, cgu: true }) as EventFormValues
+			}
 			validationSchema={EventSchema}
 			onSubmit={handleOnSubmit}
 		>
@@ -159,6 +173,21 @@ export const EventForm = ({
 						Un événement privé ne sera visible uniquement par ses participants
 						ainsi que les personnes invités à ce dernier.
 					</p>
+
+					<hr className="my-4" />
+					<p className="text-xs">
+						<Link href="/legal" className="underline" target="_blank">
+							{"Conditions générales d'utilisation"}
+						</Link>{" "}
+						- dernière mise à jour le {CGU_LAST_UPDATE.date}
+					</p>
+					<Input
+						name="cgu"
+						type="checkbox"
+						label="J'ai lu et j'accepte les conditions générales d'utilisation"
+						disabled={disabled}
+						inputExtraClassName="accent-primary"
+					/>
 
 					<div className="flex justify-end mt-4">
 						<button

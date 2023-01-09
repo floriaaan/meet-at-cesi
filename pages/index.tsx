@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 			participants: true,
 		},
 		orderBy: {
-			comments: { _count: "asc" },
+			// comments: { _count: "asc" },
 			participants: { _count: "asc" },
 		},
 	})) as ExtendedEvent;

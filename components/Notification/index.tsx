@@ -59,7 +59,7 @@ export const NotificationItem = ({
 							feedback?.text ||
 							report?.content}
 					</p>
-					<span className="mt-0.5 text-xs text-neutral-50 ">
+					<span className="mt-0.5 text-xs dark:text-neutral-50 ">
 						{formatDate(createdAt, {
 							weekday: "long",
 							year: "numeric",
