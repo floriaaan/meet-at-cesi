@@ -82,8 +82,12 @@ const Home: NextPage<Props> = ({ event }) => {
 							</h1>
 							<div className="flex items-center justify-center w-full ">
 								<div className="relative">
-									<div className="h-fit w-fit shadow-neobrutalism group">
-										<EventListItem {...event} forceVertical />
+									<div className="h-fit w-fit shadow-neobrutalism group" data-testid="home-event-list-item">
+										<EventListItem
+											{...event}
+											forceVertical
+											
+										/>
 									</div>
 									<div className="absolute -left-6 lg:left-auto -top-12 lg:-right-12">
 										<Star className="w-24 h-24 rotate-6 lg:w-32 lg:h-32 animate-wiggle" />
@@ -140,7 +144,10 @@ const Home: NextPage<Props> = ({ event }) => {
 								inputClassName="dark:bg-white dark:text-black"
 							/>
 						</form>
-						<div className="grid md:mx-auto md:max-w-5xl gap-x-16 gap-y-4 sm:grid-cols-2 md:grid-cols-3 ">
+						<div
+							className="grid md:mx-auto md:max-w-5xl gap-x-16 gap-y-4 sm:grid-cols-2 md:grid-cols-3 "
+							data-testid="home-campus-list"
+						>
 							{campusList
 								// group by category
 								.reduce((acc, campus) => {
@@ -180,4 +187,3 @@ const Home: NextPage<Props> = ({ event }) => {
 };
 
 export default Home;
-
