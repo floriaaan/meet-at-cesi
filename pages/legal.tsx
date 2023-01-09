@@ -1,13 +1,16 @@
-import { AppLayout } from "@/components/Layout";
-import { NextPage } from "next";
 import Link from "next/link";
+import { NextPage } from "next";
+import { NextSeo } from "next-seo";
+
+import { AppLayout } from "@/components/Layout";
 
 export const CGU_LAST_UPDATE = { date: "09/01/2023", by: "FLORIAN LEROUX" };
 
 const LegalPage: NextPage = () => {
 	return (
 		<AppLayout>
-			<article className="max-w-2xl mx-auto my-8 prose text-justify dark:prose-invert">
+			<NextSeo title="Conditions générales d'utilisation" />
+			<article className="max-w-2xl px-4 mx-auto my-12 prose text-justify dark:prose-invert">
 				<h1 className="text-left">{"Conditions générales d'utilisation"}</h1>
 				<figcaption>
 					Dernière mise à jour : {CGU_LAST_UPDATE.date} par {CGU_LAST_UPDATE.by}
