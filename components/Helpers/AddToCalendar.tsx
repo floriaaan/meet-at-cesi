@@ -9,7 +9,7 @@ import {
 } from "react-icons/io5";
 
 import PopperMenu from "@/components/Helpers/PopperMenu";
-import { buildUrl, isMobile } from "@/lib/calendar";
+import { buildCalendarUrl, isMobile } from "@/lib/calendar";
 import { ExtendedEvent } from "@/types/Event";
 import { MdChevronRight } from "react-icons/md";
 
@@ -50,7 +50,7 @@ const MenuPanel = ({ event }: { open: boolean; event: ExtendedEvent }) => {
 	const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
 		e.preventDefault();
 		const type = e.currentTarget.getAttribute("data-type") as string;
-		const url = buildUrl(event, type);
+		const url = buildCalendarUrl(event, type);
 
 		if (!isMobile() && (url.startsWith("data") || url.startsWith("BEGIN"))) {
 			const filename = "download.ics";
@@ -72,7 +72,7 @@ const MenuPanel = ({ event }: { open: boolean; event: ExtendedEvent }) => {
 		}
 	};
 	return (
-		<div className="flex flex-col p-2 bg-white dark:bg-black border border-neutral-400 dark:border-neutral-600 shadow-xl gap-y-2">
+		<div className="flex flex-col p-2 bg-white border shadow-xl dark:bg-black border-neutral-400 dark:border-neutral-600 gap-y-2">
 			<a
 				data-type="google"
 				className="inline-flex items-center text-sm cursor-pointer gap-x-1 hover:underline underline-offset-2"
