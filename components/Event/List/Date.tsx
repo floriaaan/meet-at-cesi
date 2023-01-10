@@ -7,13 +7,11 @@ export const DateComponent = ({
 	private: isPrivate,
 
 	forceVertical = false,
-	forceHorizontal = false,
 }: {
 	date: Date;
 	private: boolean;
 
 	forceVertical?: boolean;
-	forceHorizontal?: boolean;
 }) => {
 	return (
 		<div

@@ -9,7 +9,6 @@ import { Header } from "@/components/UI/Header";
 import { Avatar } from "@/components/UI/Avatar";
 import { PWAPopup } from "@/components/Helpers/Popup/PWA";
 import { ExtendedSession } from "@/types/Session";
-import { getPlural } from "@/lib/string";
 import { Spinner } from "@/components/UI/Fallback/Spinner";
 import { useTheme } from "next-themes";
 

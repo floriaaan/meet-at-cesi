@@ -2,11 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 
 import {
-	getCommentOrThrow,
-	getEventOrThrow,
 	getReportOrThrow,
 	getSessionOrThrow,
-	getUserFromIdOrThrow,
 	getUserOrThrow,
 	SessionWithEmail,
 } from "@/lib/api";

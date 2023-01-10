@@ -48,7 +48,6 @@ export const EventListItem = ({
 			<DateComponent
 				date={dateObject}
 				private={isPrivate}
-				forceHorizontal={forceHorizontal}
 				forceVertical={forceVertical}
 			/>
 			<div className="flex flex-col p-2 ">
