@@ -46,8 +46,8 @@ const Home: NextPage<Props> = ({ event }) => {
 		<AppLayout>
 			<NextSeo title="Accueil" />
 			<div className="relative">
-				<section className="flex flex-col w-full h-auto md:h-[70vh] border-t-2 border-black divide-y-2 divide-black md:flex-row md:divide-x-2 md:divide-y-0">
-					<div className="w-full p-8 pb-12 text-black md:pb-32 md:w-1/2 bg-green md:p-16">
+				<section className="flex flex-col w-full h-auto md:h-[700px]  border-t-2 border-black divide-y-2 divide-black md:flex-row md:divide-x-2 md:divide-y-0">
+					<div className="w-full p-8 text-black md:w-1/2 bg-green md:p-16">
 						<div className="flex flex-col gap-y-12 h-fit">
 							<h1 className="text-5xl font-bold md:text-4xl xl:text-6xl font-heading">
 								Planifiez vos soirées et révisions facilement avec Meet at CESI
@@ -75,7 +75,7 @@ const Home: NextPage<Props> = ({ event }) => {
 							</Link>
 						</div>
 					</div>
-					<div className="w-full p-8 pb-24 text-black md:pb-32 md:w-1/2 bg-primary md:p-16 ">
+					<div className="w-full p-8 text-black md:w-1/2 bg-primary md:p-16 ">
 						<div className="flex flex-col gap-y-12 h-fit">
 							<h1 className="text-3xl font-bold md:text-4xl xl:text-6xl font-heading">
 								Événement du moment
@@ -103,7 +103,7 @@ const Home: NextPage<Props> = ({ event }) => {
 						</div>
 					</div>
 				</section>
-				<section className="absolute flex flex-col w-full px-8 pb-16 -mt-16 md:-mt-32 lg:-mt-48 xl:-mt-56 md:px-16 gap-y-8 lg:gap-y-16">
+				<section className="absolute flex flex-col w-full px-8 pb-16 -mt-16 md:-mt-24 lg:-mt-48 md:px-16 gap-y-8">
 					<div className="items-center hidden w-full gap-x-16 md:gap-x-32 md:inline-flex">
 						<Link
 							href="/event/create"
