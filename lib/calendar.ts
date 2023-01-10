@@ -1,14 +1,14 @@
-import { ExtendedEvent } from "@/types/Event";
-import mobile from 'is-mobile';
+import mobile from "is-mobile";
 export const isMobile = mobile;
 
+import { ExtendedEvent } from "@/types/Event";
+import { fromLocalDate } from "@/lib/date";
 
+export type SupportedCalendar = "google" | "outlookcom" | "yahoo" | string;
 
-export type SupportedCalendar = "google" | "outlookcom" | "yahoo";
-
-export const buildUrl = (
+export const buildCalendarUrl = (
 	event: ExtendedEvent,
-	type: SupportedCalendar | string,
+	type: SupportedCalendar,
 ) => {
 	const { title, date, location, id } = event;
 	let calendarUrl = "";
@@ -44,20 +44,41 @@ export const buildUrl = (
 			break;
 
 		default: {
-			const startDate = date.toISOString().split("T")[0].replaceAll("-", "");
+			// const startDate = date.toISOString().split("T")[0].replaceAll("-", "");
+			// let endDate: string | Date = date;
+			// endDate.setDate(endDate.getDate() + 1);
+			// endDate = endDate.toISOString().split("T")[0].replaceAll("-", "");
+			const start = fromLocalDate(date);
+			const end = fromLocalDate(date);
+			end.setHours(end.getHours() + 2);
+
 			calendarUrl = [
 				"BEGIN:VCALENDAR",
 				"CALSCALE:GREGORIAN",
 				"METHOD:PUBLISH",
-				"PRODID:-//TESTCAL//EN",
 				"VERSION:2.0",
 				"BEGIN:VEVENT",
 				"UID:" + id,
-				"URL:" + document.URL,
-				"DTSTART;VALUE=DATE:" + startDate,
-				"DTEND;VALUE=DATE:" + startDate,
+				"URL:" + `${process.env.NEXT_PUBLIC_APP_URL}/event/${id}`,
+				"DTSTART:" +
+					start
+						.toISOString()
+						.replaceAll(":", "")
+						.replaceAll("-", "")
+						.replaceAll(".", "")
+						.replace("000Z", "Z"),
+				"DTEND:" +
+					end
+						.toISOString()
+						.replaceAll(":", "")
+						.replaceAll("-", "")
+						.replaceAll(".", "")
+						.replace("000Z", "Z"),
 				"SUMMARY:" + title,
 				"LOCATION:" + event.location,
+				...event.participants.map(
+					(p) => `ATTENDEE;CN=${p.name};RSVP=FALSE:MAILTO:${p.email}`,
+				),
 				"END:VEVENT",
 				"END:VCALENDAR",
 			].join("\n");
@@ -72,4 +93,3 @@ export const buildUrl = (
 
 	return calendarUrl;
 };
-
