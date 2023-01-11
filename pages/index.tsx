@@ -75,7 +75,7 @@ const Home: NextPage<Props> = ({ event }) => {
 							</Link>
 						</div>
 					</div>
-					<div className="w-full p-8 text-black md:w-1/2 bg-primary md:p-16 ">
+					<div className="w-full p-8 pb-24 text-black md:pb-16 md:w-1/2 bg-primary md:p-16 ">
 						<div className="flex flex-col gap-y-12 h-fit">
 							<h1 className="text-3xl font-bold md:text-4xl xl:text-6xl font-heading">
 								Événement du moment
@@ -103,7 +103,7 @@ const Home: NextPage<Props> = ({ event }) => {
 						</div>
 					</div>
 				</section>
-				<section className="absolute flex flex-col w-full px-8 pb-16 -mt-16 md:-mt-24 lg:-mt-48 md:px-16 gap-y-8">
+				<section className="absolute flex flex-col w-full px-8 pb-16 -mt-16 md:-mt-32 lg:-mt-48 md:px-16 gap-y-8">
 					<div className="items-center hidden w-full gap-x-16 md:gap-x-32 md:inline-flex">
 						<Link
 							href="/event/create"
