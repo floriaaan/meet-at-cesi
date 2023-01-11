@@ -47,7 +47,7 @@ const Home: NextPage<Props> = ({ event }) => {
 			<NextSeo title="Accueil" />
 			<div className="relative">
 				<section className="flex flex-col w-full h-auto md:h-[700px]  border-t-2 border-black divide-y-2 divide-black md:flex-row md:divide-x-2 md:divide-y-0">
-					<div className="w-full p-8 text-black md:w-1/2 bg-green md:p-16">
+					<div className="w-full p-8 text-black md:w-1/2 bg-blue md:p-16">
 						<div className="flex flex-col gap-y-12 h-fit">
 							<h1 className="text-5xl font-bold md:text-4xl xl:text-6xl font-heading">
 								Planifiez vos soirées et révisions facilement avec Meet at CESI

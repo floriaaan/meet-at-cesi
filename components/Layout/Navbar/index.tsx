@@ -139,7 +139,7 @@ export const Navbar = () => {
 					</div>
 				) : null}
 				{env !== "production" ? (
-					<div className="flex items-center justify-center w-full h-6 text-xs font-bold text-white bg-green">
+					<div className="flex items-center justify-center w-full h-6 text-xs font-bold text-black bg-green">
 						Environnement : <u className="ml-1 uppercase">{env}</u>
 					</div>
 				) : null}
