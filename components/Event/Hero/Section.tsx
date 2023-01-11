@@ -65,9 +65,9 @@ export const HeroSection = ({
 					<div
 						className={classNames(
 							"hidden sm:inline-block", // responsive : hidden on small screens like mobile
-							"relative mb-8 ml-12 bg-black dark:bg-white dark:bg-primary py-1 pr-4 text-xs md:text-sm max-w-sm xl:max-w-md",
-							"before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:dark:bg-primary before:bg-black dark:bg-white before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
-							"after:translate-y-[100%] after:absolute after:bg-black dark:bg-white after:dark:bg-primary after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] ",
+							"relative mb-8 ml-12 bg-black  dark:bg-primary py-1 pr-4 text-xs md:text-sm max-w-sm xl:max-w-md",
+							"before:absolute before:top-[3.8rem] before:w-[11rem] before:h-[150%] before:dark:bg-primary before:bg-black before:translate-x-[-100%] before:left-0 before:skew-y-[-35deg]",
+							"after:translate-y-[100%] after:absolute after:bg-black  after:dark:bg-primary after:right-[7.85rem] after:bottom-0 after:w-[150%] after:h-[11rem] after:skew-x-[-55deg] ",
 						)}
 					>
 						<div className="inline-flex items-start py-2 divide-x-2 divide-white dark:divide-black gap-x-4">
@@ -131,21 +131,21 @@ export const HeroSection = ({
 							{isOwner && (
 								<Link
 									href={`/event/${id}/edit`}
-									className="py-2.5 btn-black w-fit px-2 sm:px-4 "
+									className="py-2.5 btn-black w-fit px-2 "
 								>
 									<MdEdit className="w-4 h-4 my-0.5" />
 									<span className="sr-only">{"Modifier l'événement"}</span>
 								</Link>
 							)}
 							<button
-								className="py-2.5 btn-black w-fit px-2 sm:px-4"
+								className="py-2.5 btn-black w-fit px-2 sm:px-3"
 								onClick={() => participate()}
 							>
-								{isParticipant ? "Ne plus participer" : "Participer"}
+								{isParticipant ? "Se retirer" : "Participer"}
 							</button>
 							{user?.id !== creator.id ? (
 								<button
-									className="py-2.5 btn-black w-fit px-2 sm:px-4"
+									className="py-2.5 btn-black w-fit px-2 sm:px-3"
 									onClick={() =>
 										openReportModal({
 											content: "",

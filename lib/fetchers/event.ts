@@ -126,3 +126,10 @@ export const restoreEvent = async (id: string): Promise<true | false> => {
 	if (response.ok) return true;
 	return false;
 };
+
+export const getCalendarEvent = async (id: string): Promise<string> => {
+	const url = new URL("/api/event/calendar", window.location.origin);
+	url.searchParams.append("id", id);
+	const response = await fetch(url);
+	return response.text();
+};

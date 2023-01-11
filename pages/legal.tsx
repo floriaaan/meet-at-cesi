@@ -1,16 +1,31 @@
 import Link from "next/link";
 import { NextPage } from "next";
 import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
+import { MdArrowBack } from "react-icons/md";
 
 import { AppLayout } from "@/components/Layout";
 
 export const CGU_LAST_UPDATE = { date: "09/01/2023", by: "FLORIAN LEROUX" };
 
 const LegalPage: NextPage = () => {
+	const { back, push } = useRouter();
+	const goBack = () => {
+		if (window.history.length > 2) back();
+		else push("/");
+	};
+
 	return (
 		<AppLayout>
 			<NextSeo title="Conditions générales d'utilisation" />
 			<article className="max-w-2xl px-4 mx-auto my-12 prose text-justify dark:prose-invert">
+				<button
+					className="inline-flex items-center underline gap-x-1 dark:text-neutral-300 dark:hover:text-white"
+					onClick={goBack}
+				>
+					<MdArrowBack />
+					Retour
+				</button>
 				<h1 className="text-left">{"Conditions générales d'utilisation"}</h1>
 				<figcaption>
 					Dernière mise à jour : {CGU_LAST_UPDATE.date} par {CGU_LAST_UPDATE.by}
