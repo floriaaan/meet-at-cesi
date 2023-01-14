@@ -21,8 +21,11 @@ export const CalendarAdd = ({ eventId, title }: CalendarAddProps) => {
 	}
 	return (
 		<>
-			<button className="text-black border-b btn-black bg-pink dark:bg-purple dark:text-black" onClick={fetchCalendarICSFile}>
-				<MdCalendarToday/>
+			<button
+				className="text-black border-b btn-black bg-pink dark:bg-purple dark:text-black"
+				onClick={fetchCalendarICSFile}
+			>
+				<MdCalendarToday />
 				Ajouter au calendrier
 			</button>
 		</>

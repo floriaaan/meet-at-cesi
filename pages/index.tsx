@@ -12,6 +12,7 @@ import { ExtendedEvent } from "@/types/Event";
 import { Category } from "@/components/UI/Link/Category";
 import { slugify } from "@/lib/slugify";
 import prisma from "@/lib/prisma";
+import { log } from "@/lib/log";
 
 type Props = {
 	event: ExtendedEvent;
@@ -80,19 +81,25 @@ const Home: NextPage<Props> = ({ event }) => {
 							<h1 className="text-3xl font-bold md:text-4xl xl:text-6xl font-heading">
 								Événement du moment
 							</h1>
-							<div className="flex items-center justify-center w-full ">
-								<div className="relative">
-									<div className="h-fit w-fit shadow-neobrutalism group" data-testid="home-event-list-item">
-										<EventListItem
-											{...event}
-											forceVertical
-											
-										/>
+							<div>
+								{event ? (
+									<div className="relative flex items-center justify-center w-full ">
+										<div
+											className="h-fit w-fit shadow-neobrutalism group"
+											data-testid="home-event-list-item"
+										>
+											<EventListItem {...event} forceVertical />
+										</div>
+										<div className="absolute -left-6 lg:left-auto -top-12 lg:-right-12">
+											<Star className="w-24 h-24 rotate-6 lg:w-32 lg:h-32 animate-wiggle" />
+										</div>
 									</div>
-									<div className="absolute -left-6 lg:left-auto -top-12 lg:-right-12">
-										<Star className="w-24 h-24 rotate-6 lg:w-32 lg:h-32 animate-wiggle" />
+								) : (
+										<div className="flex items-center justify-center h-24 font-bold text-center ">
+											{"Pas d'événement en tendance pour le moment 😖"}
+										
 									</div>
-								</div>
+								)}
 							</div>
 							<Link
 								href="/event"
