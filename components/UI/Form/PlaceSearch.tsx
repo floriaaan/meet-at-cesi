@@ -90,7 +90,7 @@ export const PlaceSearch = ({
 			{label ? (
 				<label
 					htmlFor={field.name}
-					className={labelClassName || "font-bold text-black font-body"}
+					className={labelClassName || "font-bold text-black dark:text-white font-body"}
 				>
 					{label}
 				</label>
@@ -108,7 +108,7 @@ export const PlaceSearch = ({
 							" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
 							error
 								? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
-								: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+								: "border-neutral-300 dark:border-neutral-700 focus:border-neutral-400 dark:border-neutral-600 focus:ring-neutral-400",
 						)}
 						onBlur={() => setIsOpen(false)}
 					/>
@@ -119,7 +119,7 @@ export const PlaceSearch = ({
 					) : isSearching ? (
 						<span className="absolute right-0 pr-2 -translate-y-1/2 top-1/2">
 							<Spinner
-							// className="w-4 h-4 text-black lg:w-6 lg:h-6"
+							// className="w-4 h-4 text-black dark:text-white lg:w-6 lg:h-6"
 							/>
 						</span>
 					) : null}
@@ -129,11 +129,11 @@ export const PlaceSearch = ({
 			{isOpen ? (
 				<div className="absolute z-10 flex flex-col w-full -bottom-1 lg:bottom-4">
 					{suggestions ? (
-						<ul className="absolute w-full p-2 bg-white border border-gray-300 shadow-lg">
+						<ul className="absolute w-full p-2 bg-white dark:bg-black border border-neutral-300 dark:border-neutral-700 shadow-lg">
 							{suggestions.length > 0 ? (
 								suggestions.map((s) => (
 									<li
-										className="inline-flex w-full px-2 py-1 text-xs truncate cursor-pointer select-none hover:bg-gray-100"
+										className="inline-flex w-full px-2 py-1 text-xs truncate cursor-pointer select-none hover:bg-neutral-100 dark:bg-neutral-900"
 										key={s.place_id}
 										onClick={handleOnClickSuggestion}
 									>

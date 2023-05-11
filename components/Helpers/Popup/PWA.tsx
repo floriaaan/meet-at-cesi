@@ -24,7 +24,7 @@ export const PWAPopup = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 			)}
 			style={{ transitionDelay: `${150 + 25 * 5}ms` }}
 		>
-			<div className="flex flex-col p-3 text-white bg-black gap-y-2">
+			<div className="flex flex-col p-3 text-white bg-black dark:bg-neutral-900 gap-y-2">
 				<div className="inline-flex justify-between w-full">
 					<h3 className="text-xl font-bold">
 						Installer {process.env.NEXT_PUBLIC_APP_NAME}

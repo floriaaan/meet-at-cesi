@@ -5,7 +5,7 @@ export const ParticipantCard = ({ participant }: { participant: User }) => {
 	return (
 		<div
 			className={
-				"inline-flex items-center w-full h-fit gap-x-2 border-b pb-2 last:border-b-0"
+				"inline-flex items-center w-full h-fit gap-x-2 border-b border-neutral-300 dark:border-neutral-700 dark:border-neutral-700 pb-2 last:border-b-0"
 			}
 		>
 			<AvatarWithName
@@ -21,7 +21,7 @@ export const InvitationReceiverCard = ({ receiver }: { receiver: User }) => {
 	return (
 		<div
 			className={
-				"inline-flex items-center justify-between w-full h-fit gap-x-2 border-b pb-2 last:border-b-0 opacity-50"
+				"inline-flex items-center justify-between w-full h-fit gap-x-2 border-b border-neutral-300 dark:border-neutral-700 dark:border-neutral-700 pb-2 last:border-b-0 opacity-50"
 			}
 		>
 			<AvatarWithName

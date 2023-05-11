@@ -6,13 +6,18 @@ import { NextSeo } from "next-seo";
 
 import campusList from "@/resources/campus-list";
 import { AppLayout } from "@/components/Layout";
-import { SearchBar } from "@/components/UI/SearchBar";
+import { SearchBar } from "@/components/UI/Form/SearchBar";
 
 const POSSIBLE_CAPTIONS = [
-	"Petite bière après les cours ? 🍻",
-	"On va réviser ? 📚",
-	"On va faire la fête ? 🎉",
-	"On court ensemble ce midi ? 🏃‍♂️",
+  "On partage une bière après les cours ? 🍻",
+  "Révisons ensemble ce soir ! 📚",
+  "Organisons une fête pour célébrer ! 🎉",
+  "On court ensemble ce midi ? 🏃‍♂️",
+  "Entraînement sportif pour se motiver ? 💪🏋️‍♂️",
+  "Soirée jeux de société chez moi ce week-end ? 🎲🃏",
+  "Randonnée en forêt pour changer d'air ? 🌳🍂",
+  "Brainstorming pour booster notre créativité ? 💡🧠",
+  "Pause-café pour se détendre ? ☕️",
 ];
 export const getServerSideProps: GetServerSideProps = async () => {
 	const caption =
@@ -56,12 +61,15 @@ const Home: NextPage<Props> = ({ caption }) => {
 									e.preventDefault();
 									const form = e.target as HTMLFormElement;
 									const input = form[0] as HTMLInputElement;
+
+
 									if (
 										input.value &&
 										typeof input.value === "string" &&
 										input.value !== ""
 									) {
-										router.push("/event", {
+										router.push({
+											pathname: "/event",
 											query: {
 												title: input.value,
 											},
@@ -70,15 +78,15 @@ const Home: NextPage<Props> = ({ caption }) => {
 								}}
 								className="flex flex-col w-full"
 							>
-								<SearchBar className="input__shadow-purple" />
+								<SearchBar className="input__shadow-purple" labelClassName="dark:text-black" />
 							</form>
 						</div>
-						<div className="w-full px-8 py-6 bg-white shadow-2xl font-body">
-							<span className="pb-2 pr-2 bg-white">
+						<div className="w-full px-8 py-6 bg-white shadow-2xl dark:bg-neutral-900 font-body">
+							<span className="pb-2 pr-2 bg-white dark:bg-neutral-900">
 								Découvrez les événements organisés par des étudiant.e.s CESI
 							</span>
 							<div
-								className="flex flex-wrap p-6 -mt-3 border border-black gap-x-2 gap-y-3 md:gap-4"
+								className="flex flex-wrap p-6 -mt-3 border border-black dark:border-neutral-800 gap-x-2 gap-y-3 md:gap-4"
 								data-testid="home-campus-list"
 							>
 								{campusList.sort().map((campus) => (

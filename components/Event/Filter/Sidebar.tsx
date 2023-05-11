@@ -109,7 +109,7 @@ export const FilterSidebar = () => {
 			</button>
 
 			<div
-				className={classNames(" flex-col p-4 lg:p-0 gap-y-2 bg-gray-100", {
+				className={classNames(" flex-col p-4 lg:p-0 gap-y-2 bg-neutral-100 dark:bg-neutral-900", {
 					"hidden lg:flex": !smallIsOpen,
 					flex: smallIsOpen,
 				})}
@@ -119,7 +119,7 @@ export const FilterSidebar = () => {
 						defaultOpen
 						as="div"
 						key={`filter-${category.key}`}
-						className="border-b border-gray-300 last:border-b-0"
+						className="border-b border-neutral-300 dark:border-neutral-700 last:border-b-0"
 					>
 						{({ open }) => (
 							<>
@@ -133,8 +133,8 @@ export const FilterSidebar = () => {
 										} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="flex flex-col px-4 pb-2 text-sm text-gray-500 gap-y-1 ">
-									<hr className="pb-2 mx-3 border-gray-200 " />
+								<Disclosure.Panel className="flex flex-col px-4 pb-2 text-sm text-neutral-50 dark:text-neutral-950 gap-y-1 ">
+									<hr className="pb-2 mx-3 border-neutral-200 dark:border-neutral-800" />
 									{category.inputs.map((input) => (
 										<Fragment key={`filter-${category.key}-${input.name}`}>
 											{input.type === "select" &&

@@ -1,19 +1,18 @@
 {
-    "version": "0.2",
-    "ignorePaths": [],
-    "dictionaryDefinitions": [
-        "fr"
-    ],
-    "dictionaries": [],
-    "words": [
-        "gouv",
-        "NEXTAUTH",
-        "outlookcom",
-        "subnav",
-        "testid",
-        "viacesi"
-    ],
-    "ignoreWords": [],
-    "import": [],
-    "language": "en,fr"
+	"version": "0.2",
+	"ignorePaths": [],
+	"dictionaryDefinitions": ["fr"],
+	"dictionaries": [],
+	"words": [
+		"gouv",
+		"neobrutalism",
+		"NEXTAUTH",
+		"outlookcom",
+		"subnav",
+		"testid",
+		"viacesi"
+	],
+	"ignoreWords": [],
+	"import": [],
+	"language": "en,fr"
 }

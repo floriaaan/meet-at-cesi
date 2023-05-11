@@ -27,7 +27,7 @@ export const AvatarList = ({
 						user={user}
 						className={classNames(
 							avatarClassName,
-							" ring-white first:ml-0 -ml-2 ring-1 shrink-0"
+							"dark:ring-black ring-white first:ml-0 -ml-2 ring-1 shrink-0"
 						)}
 					/>
 				) : null
@@ -35,7 +35,7 @@ export const AvatarList = ({
 			{users.length > limit && (
 				<span
 					className={classNames(
-						"flex items-center rounded-full bg-black -ml-2 text-white  justify-center ring-1 ring-white font-bold select-none",
+						"flex items-center rounded-full bg-black dark:bg-neutral-800 -ml-2 text-white  justify-center ring-1 ring-white dark:ring-black font-bold select-none",
 						avatarClassName
 					)}
 				>

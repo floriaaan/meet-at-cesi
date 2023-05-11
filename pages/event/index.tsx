@@ -10,7 +10,7 @@ import prisma from "@/lib/prisma";
 import { AppLayout } from "@/components/Layout";
 import { EventList } from "@/components/Event/List";
 import { Header } from "@/components/UI/Header";
-import { SearchBar } from "@/components/UI/SearchBar";
+import { SearchBar } from "@/components/UI/Form/SearchBar";
 import { FilterSidebar } from "@/components/Event/Filter/Sidebar";
 import { Chip } from "@/components/UI/Chip";
 import { FilterProvider, useFilter } from "@/components/Event/Filter/Provider";
@@ -81,11 +81,11 @@ const EventIndexPage = () => {
 	const { query, push } = useRouter();
 	const { filters, events, loading } = useFilter();
 	return (
-		<section className="flex flex-col min-h-full pb-4 mx-auto bg-gray-100 lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
-			<div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:min-h-[80vh] lg:sticky lg:top-32 bg-white lg:bg-gray-100 lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
+		<section className="flex flex-col min-h-full pb-4 mx-auto bg-neutral-100 dark:bg-black lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
+			<div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:min-h-[80vh] lg:sticky lg:top-32 bg-white dark:bg-neutral-900 lg:bg-neutral-100  lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
 				<FilterSidebar />
 			</div>
-			<div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
+			<div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white dark:bg-black md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
 				<Header
 					className="relative"
 					text={
@@ -119,7 +119,7 @@ const EventIndexPage = () => {
 						}}
 						className="w-full xl:w-4/5"
 					>
-						<SearchBar className="border border-black" loading={loading} />
+						<SearchBar className="border border-black dark:border-white" labelClassName="text-black" loading={loading} />
 					</form>
 					<FilterList />
 				</div>
@@ -128,11 +128,11 @@ const EventIndexPage = () => {
 					<div>
 						<p className="text-lg">Zût, on aurait dû vous prévenir... 😣</p>
 
-						<p className="text-sm">
+						<p className="text-sm whitespace-pre-line">
 							{query.campus === "undefined" &&
-								"Vous n'avez pas de campus associé à votre profil, vous pouvez en choisir un dans vos préférences."}
+								"Vous n'avez pas de campus associé à votre profil, vous pouvez en choisir un dans vos préférences.\n"}
 							{query.promotion === "undefined" &&
-								"Vous n'avez pas de promotion associé à votre profil, vous pouvez en choisir une dans vos préférences."}
+								"Vous n'avez pas de promotion associé à votre profil, vous pouvez en choisir une dans vos préférences.\n"}
 						</p>
 						<Link
 							href="/profile/settings#preferences"

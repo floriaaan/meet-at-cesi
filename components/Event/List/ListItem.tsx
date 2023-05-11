@@ -9,6 +9,9 @@ import { DateComponent } from "@/components/Event/List/Date";
 type Props = Event & {
 	creator: User;
 	participants: User[];
+
+	forceVertical?: boolean;
+	forceHorizontal?: boolean;
 };
 
 // TODO: Change the layout when the event is over
@@ -22,6 +25,9 @@ export const EventListItem = ({
 	creator,
 	participants,
 	private: isPrivate,
+
+	forceHorizontal = false,
+	forceVertical = false,
 }: Props) => {
 	const dateObject = new Date(date);
 	const isPast =
@@ -32,13 +38,20 @@ export const EventListItem = ({
 		<Link
 			href={`/event/${id}`}
 			className={classNames(
-				"flex flex-col group w-full border border-black  divide-black md:flex-row ",
+				"flex group w-full border border-black dark:border-neutral-700  divide-black bg-white grow dark:bg-black",
 				isPast ? "opacity-50" : "",
+				forceHorizontal && "flex-row",
+				forceVertical && "flex-col",
+				!(forceVertical || forceHorizontal) && " flex-col md:flex-row",
 			)}
 		>
-			<DateComponent date={dateObject} private={isPrivate} />
-			<div className="flex flex-col p-2 grow">
-				<h3 className="overflow-hidden text-xl font-bold text-black line-clamp-1 group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
+			<DateComponent
+				date={dateObject}
+				private={isPrivate}
+				forceVertical={forceVertical}
+			/>
+			<div className="flex flex-col p-2 ">
+				<h3 className="overflow-hidden text-xl font-bold text-black dark:text-white line-clamp-1 group-hover:underline underline-offset-2 decoration-dashed decoration-purple">
 					{title}
 				</h3>
 				<DetailsList
@@ -50,7 +63,12 @@ export const EventListItem = ({
 					private={isPrivate}
 				/>
 			</div>
-			<div className="flex flex-col items-center justify-center w-8 h-8 ml-auto text-white bg-black border-t border-l shrink-0 md:border-t-0 md:border-b group-hover:bg-pink group-hover:text-black">
+			<div
+				className={
+					classNames("flex flex-col items-center justify-center w-8 h-8 ml-auto text-white bg-black border-t border-l dark:bg-neutral-800 shrink-0  group-hover:bg-pink group-hover:text-black dark:text-white",
+					!forceVertical && "md:border-t-0 md:border-b")
+				}
+			>
 				<TbChevronRight className="w-4 h-4 stroke-[3]" />
 			</div>
 		</Link>

@@ -84,7 +84,7 @@ const MenuPanel = () => {
 	});
 
 	return (
-		<div className="flex -top-px z-[49] flex-col min-w-[28rem] xl:min-w-[32rem]  w-screen md:w-full md:right-0 md:absolute p-2 bg-white md:border border-dashed shadow-2xl mt-[1.125rem] md:mt-0 border-gray-400 md:shadow-xl">
+		<div className="flex -top-px z-[49] flex-col md:min-w-[28rem] xl:min-w-[32rem]  w-full md:w-full md:right-0 md:absolute p-2 bg-white dark:bg-black md:border border-dashed shadow-2xl mt-[1.125rem] md:mt-0 border-neutral-400 dark:border-neutral-600 md:shadow-xl">
 			{isLoaded ? (
 				<div className="flex flex-col gap-y-2">
 					<div className="inline-flex items-center justify-between w-full pr-2">
@@ -97,8 +97,8 @@ const MenuPanel = () => {
 										onClick: () => setFilter("all"),
 										className:
 											filter === "all"
-												? `bg-black text-white ${CHIP_CLASSNAME}`
-												: `bg-neutral-100 text-black ${CHIP_CLASSNAME}`,
+												? `bg-black dark:bg-white text-white ${CHIP_CLASSNAME}`
+												: `bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white ${CHIP_CLASSNAME}`,
 									},
 									{
 										children: `Non lus (${
@@ -108,7 +108,7 @@ const MenuPanel = () => {
 										className:
 											filter === "unread"
 												? `bg-red text-white ${CHIP_CLASSNAME}`
-												: `bg-neutral-100 text-black ${CHIP_CLASSNAME}`,
+												: `bg-neutral-100 dark:bg-neutral-900 text-black dark:text-white ${CHIP_CLASSNAME}`,
 									},
 								]}
 							/>
@@ -124,7 +124,7 @@ const MenuPanel = () => {
 						</>
 					) : (
 						<div className="flex items-center justify-center h-12">
-							<p className="text-gray-600">Aucune notification</p>
+							<p className="text-neutral-600 dark:text-neutral-400">Aucune notification</p>
 						</div>
 					)}
 				</div>
@@ -163,7 +163,7 @@ const MenuButtonWrapper = (props: { isLoaded: boolean; open: boolean }) => {
 
 const SubMenuButton = () => <MdMoreVert className="w-6 h-6 shrink-0" />;
 const SubMenuPanel = () => (
-	<div className="flex -top-px z-[50] flex-col gap-y-2 w-fit p-2 bg-white md:border border-dashed shadow-2xl border-neutral-400 md:shadow-xl text-sm">
+	<div className="flex -top-px z-[50] flex-col gap-y-2 w-fit p-2 bg-white dark:bg-black md:border border-dashed shadow-2xl border-neutral-400 dark:border-neutral-600 md:shadow-xl text-sm">
 		<Link
 			href="/profile/settings#notifications"
 			className="inline-flex items-center w-full gap-x-2 hover:underline underline-offset-2"

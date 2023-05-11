@@ -73,7 +73,7 @@ export const ImageUploadForm = ({
 	};
 	return (
 		<div className="flex flex-col space-y-2">
-			<label className="font-bold text-black font-body">
+			<label className="font-bold text-black dark:text-white font-body">
 				{"Téléversement d'une nouvelle photo de profil"}
 			</label>
 
@@ -82,10 +82,10 @@ export const ImageUploadForm = ({
 					disabled={updatingPicture}
 					onClick={handleOnClickPicture}
 					className={classNames(
-						"relative aspect-square w-32 p-2 border-2 border-dashed border-black overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transition group focus:outline-none",
+						"relative aspect-square w-32 p-2 border-2 border-dashed border-black dark:border-white overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transition group focus:outline-none",
 						image?.src
 							? "hover:opacity-50 disabled:hover:opacity-100"
-							: "hover:border-gray-400 focus:border-gray-400 disabled:hover:border-gray-200"
+							: "hover:border-neutral-400 dark:border-neutral-600 focus:border-neutral-400 disabled:hover:border-neutral-200"
 					)}
 				>
 					{image?.src ? (
@@ -100,7 +100,7 @@ export const ImageUploadForm = ({
 					<div className="flex items-center justify-center">
 						{!image?.src ? (
 							<div className="flex flex-col items-center space-y-2">
-								<div className="p-2 text-black transition bg-gray-200 group-hover:text-gray-700 shrink-0 group-hover:scale-110 group-focus:scale-110">
+								<div className="p-2 text-black transition dark:text-white bg-neutral-200 group-hover:text-neutral-700 shrink-0 group-hover:scale-110 group-focus:scale-110">
 									<MdUploadFile className="w-4 h-4 transition" />
 								</div>
 								<span className="text-xs font-semibold transition">
@@ -121,7 +121,7 @@ export const ImageUploadForm = ({
 				{image?.src ? (
 					<button
 						onClick={deleteImage}
-						className="btn-red w-fit hover:border-transparent"
+						className="btn-red w-fit hover:border-transparent dark:hover:border-transparent"
 					>
 						Supprimer
 					</button>

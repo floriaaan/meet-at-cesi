@@ -13,9 +13,15 @@ export type CategoryProps = {
 	title: string;
 	options: CategoryOptions[];
 	titleClassName?: string;
+	optionsClassName?: string;
 };
 
-export const Category = ({ title, options, titleClassName }: CategoryProps) => {
+export const Category = ({
+	title,
+	options,
+	titleClassName,
+	optionsClassName,
+}: CategoryProps) => {
 	const { asPath } = useRouter();
 
 	return (
@@ -24,7 +30,7 @@ export const Category = ({ title, options, titleClassName }: CategoryProps) => {
 				className={classNames(
 					"relative font-bold select-none",
 					"before:absolute before:bottom-0 before:h-[0.2rem] before:w-8 before:bg-primary",
-					titleClassName
+					titleClassName,
 				)}
 			>
 				{title}
@@ -37,7 +43,8 @@ export const Category = ({ title, options, titleClassName }: CategoryProps) => {
 							href={href}
 							className={classNames(
 								"p-1 md:p-0 font-normal normal-case nav__link",
-								asPath === href && "underline decoration-dotted"
+								asPath === href && "underline decoration-dotted",
+								optionsClassName,
 							)}
 						>
 							{name}
@@ -46,12 +53,15 @@ export const Category = ({ title, options, titleClassName }: CategoryProps) => {
 						<button
 							disabled={disabled || false}
 							key={`${title}-${i}`}
-							className="p-1 font-normal normal-case md:p-0 nav__link"
+							className={classNames(
+								"p-1 font-normal normal-case md:p-0 nav__link",
+								optionsClassName,
+							)}
 							onClick={onClick}
 						>
 							{name}
 						</button>
-					)
+					),
 				)}
 			</div>
 		</div>

@@ -76,11 +76,11 @@ export const ReportTableModal = ({
 			overflow="overflow-y-auto"
 		>
 			<div className="grid md:grid-cols-2 gap-x-4 gap-y-2">
-				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 ">
+				<div className="inline-flex items-center pb-3 border-b gap-x-2 md:col-span-2 border-neutral-300 dark:border-neutral-700 ">
 					<Avatar user={sender} className="w-10 h-10" />
 					<div className="flex flex-col">
 						<Name user={sender} />
-						<p className="text-xs leading-3 text-neutral-500">
+						<p className="text-xs leading-3 text-neutral-50 dark:text-neutral-950">
 							Signalement créé le {formatDate(createdAt)}
 						</p>
 					</div>
@@ -112,7 +112,7 @@ export const ReportTableModal = ({
 								? `${(related as Comment).eventId}#${related.id}`
 								: related.id
 						}`}
-						className="text-sm text-neutral-700 hover:underline decoration-dashed"
+						className="text-sm text-neutral-700 dark:text-neutral-300  hover:underline decoration-dashed"
 					>
 						{object === ReportObject.EVENT ? (related as Event).title : null}
 						{object === ReportObject.COMMENT
@@ -125,7 +125,7 @@ export const ReportTableModal = ({
 					<p className="inline-flex items-center text-lg font-bold gap-x-1">
 						Type de signalement
 					</p>
-					<p className="text-sm text-neutral-700">
+					<p className="text-sm text-neutral-700 dark:text-neutral-300 ">
 						{reportReasonList.find((r) => r.value === type)?.label}
 					</p>
 				</div>
@@ -133,9 +133,9 @@ export const ReportTableModal = ({
 					<p className="inline-flex items-center text-lg font-bold gap-x-1">
 						Contenu
 					</p>
-					<p className="text-xs text-neutral-700">{content}</p>
+					<p className="text-xs text-neutral-700 dark:text-neutral-300 ">{content}</p>
 				</div>
-				<div className="inline-flex items-center gap-2 pt-2 border-t md:col-span-2 border-neutral-300">
+				<div className="inline-flex items-center gap-2 pt-2 border-t md:col-span-2 border-neutral-300 dark:border-neutral-700">
 					<button
 						disabled={status === ReportStatus.PENDING}
 						className="border-0 btn-black"

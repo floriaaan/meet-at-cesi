@@ -44,7 +44,7 @@ export const Modal = ({
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<div className="fixed inset-0 bg-black bg-opacity-50 z-[51]" />
+					<div className="fixed inset-0 bg-black  bg-opacity-50 z-[51]" />
 				</Transition.Child>
 
 				<div className="fixed bottom-0 left-0 w-full overflow-y-auto sm:inset-0 z-[52]">
@@ -60,7 +60,7 @@ export const Modal = ({
 						>
 							<Dialog.Panel
 								className={classNames(
-									"w-full p-4  text-left text-black align-middle transition-all transform bg-white border-black shadow-xl sm:border",
+									"w-full p-4  text-left text-black dark:text-white align-middle transition-all transform bg-white dark:bg-black border-black dark:border-neutral-800 shadow-xl sm:border",
 									maxWidth,
 									overflow
 								)}

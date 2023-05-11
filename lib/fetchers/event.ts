@@ -28,11 +28,18 @@ export const participate = async (
 
 export type EventCreateRequestInput = EventFormValues;
 export const createEvent = async (
-	values: EventCreateRequestInput,
+	values: EventCreateRequestInput & { cgu?: boolean },
 ): Promise<Event | false | Error> => {
 	try {
+		// remove CGU from values by destructuring values
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { cgu: _cgu, ...valuesWithoutCgu } = values;
+
 		const res = await fetch("/api/event", {
-			body: JSON.stringify({ ...values, date: toLocalDate(values.date) }),
+			body: JSON.stringify({
+				...valuesWithoutCgu,
+				date: toLocalDate(values.date),
+			}),
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 		});
@@ -49,9 +56,12 @@ export const editEvent = async (
 	values: EventCreateRequestInput,
 ): Promise<Event | false | Error> => {
 	try {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { cgu: _cgu, ...valuesWithoutCgu } = values;
+
 		const res = await fetch(`/api/event/edit`, {
 			body: JSON.stringify({
-				...values,
+				...valuesWithoutCgu,
 				id: eventId,
 				date: toLocalDate(values.date),
 			}),
@@ -115,4 +125,11 @@ export const restoreEvent = async (id: string): Promise<true | false> => {
 	});
 	if (response.ok) return true;
 	return false;
+};
+
+export const getCalendarEvent = async (id: string): Promise<string> => {
+	const url = new URL("/api/event/calendar", window.location.origin);
+	url.searchParams.append("id", id);
+	const response = await fetch(url);
+	return response.text();
 };

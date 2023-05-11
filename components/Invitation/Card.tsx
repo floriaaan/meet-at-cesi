@@ -62,14 +62,14 @@ export const InvitationCard = ({
 			<div
 				className={
 					className ||
-					"inline-flex items-center w-full shrink-0 border border-black  divide-x divide-black"
+					"inline-flex items-center w-full shrink-0 border border-black dark:border-neutral-700  divide-x divide-black dark:divide-neutral-700"
 				}
 			>
 				<Avatar
 					user={displayedUser}
 					className={
 						avatarClassName ||
-						"rounded-none bg-black text-white w-auto aspect-square h-[3.25rem] lg:h-16 shrink-0  border-0"
+						"rounded-none bg-black dark:bg-neutral-950 text-white w-auto aspect-square h-[3.25rem] lg:h-16 shrink-0  border-0"
 					}
 					link
 					linkClassName=" h-[3.25rem] lg:h-16 aspect-square w-[3.25rem] lg:w-16"
@@ -95,7 +95,7 @@ export const InvitationCard = ({
 						<>
 							{authenticatedUserIsSender ? (
 								<button
-									className="p-1 text-sm border border-transparent border-dashed hover:border-black"
+									className="p-1 text-sm border border-transparent border-dashed hover:border-black dark:hover:border-white"
 									onClick={() => handleAction("remove")}
 								>
 									Annuler
@@ -133,7 +133,7 @@ export const InvitationCard = ({
 			<div
 				className={
 					className ||
-					"flex flex-col divide-y divide-black border border-black shrink-0 max-w-[14rem] w-full"
+					"flex flex-col divide-y divide-black dark:divide-neutral-700 border border-black dark:border-neutral-700 shrink-0 max-w-[14rem] w-full"
 				}
 			>
 				<Avatar
@@ -142,7 +142,7 @@ export const InvitationCard = ({
 					linkClassName="w-full h-full"
 					className={
 						avatarClassName ||
-						"rounded-none bg-black text-white w-full h-auto aspect-video shrink-0 border-0"
+						"rounded-none bg-black dark:bg-neutral-950 text-white w-full h-auto aspect-video shrink-0 border-0"
 					}
 				/>
 

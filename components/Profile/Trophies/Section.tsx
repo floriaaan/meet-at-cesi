@@ -13,7 +13,7 @@ const TrophiesSectionComponent = ({ user }: Props) => {
 	const { trophies } = user || {};
 	return (
 		<section
-			className="flex flex-col w-full h-48 p-2 mb-2 text-white bg-black border-b border-gray-100 gap-y-2 scroll-mt-48 last:border-b-0"
+			className="flex flex-col w-full h-48 p-2 mb-2 text-white bg-black border-b dark:bg-neutral-900 border-neutral-100 dark:border-neutral-900 gap-y-2 scroll-mt-48 last:border-b-0"
 			id="trophies"
 			aria-label="Trophies section"
 		>
@@ -22,7 +22,7 @@ const TrophiesSectionComponent = ({ user }: Props) => {
 					<h3 className="text-lg font-bold underline md:text-xl decoration-primary decoration-dashed underline-offset-2">
 						🏆 Trophées obtenus
 					</h3>
-					<Chip className="text-xs font-bold text-black bg-primary py-0.5 px-2">
+					<Chip className="text-xs font-bold text-black dark:text-white bg-primary py-0.5 px-2">
 						{trophies?.length || 0}
 					</Chip>
 				</div>

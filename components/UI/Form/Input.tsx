@@ -64,7 +64,7 @@ const GlobalInput = ({
 			{label ? (
 				<label
 					htmlFor={field.name}
-					className={labelClassName || "font-bold text-black font-body"}
+					className={labelClassName || "font-bold text-black dark:text-white font-body"}
 				>
 					{label}
 				</label>
@@ -81,11 +81,11 @@ const GlobalInput = ({
 							className={
 								inputClassName ||
 								classNames(
-									" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed  border placeholder:text-sm",
+									" py-1.5 lg:py-3 px-3 text-black dark:text-white bg-white dark:bg-neutral-700 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed  border placeholder:text-sm",
 									type === "checkbox" ? "accent-primary" : "w-full",
 									error
 										? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
-										: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+										: "border-neutral-300 dark:border-neutral-700 focus:border-neutral-400  focus:ring-neutral-400",
 									inputExtraClassName,
 								)
 							}
@@ -97,10 +97,10 @@ const GlobalInput = ({
 							{...(props as HTMLTextAreaProps)}
 							id={field.name}
 							className={classNames(
-								" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
+								" py-1.5 lg:py-3 px-3 text-black dark:text-white bg-white dark:bg-neutral-700 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
 								error
 									? "border-red-400 text-red-800 focus:border-red-400 pr-10 focus:ring-red-400"
-									: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+									: "border-neutral-300 dark:border-neutral-700 focus:border-neutral-400  focus:ring-neutral-400",
 							)}
 						/>
 					)}
@@ -155,7 +155,7 @@ const UncontrolledInput = ({
 			{label ? (
 				<label
 					htmlFor={props.name}
-					className={labelClassName || "font-bold text-black font-body"}
+					className={labelClassName || "font-bold text-black dark:text-white font-body"}
 				>
 					{label}
 				</label>
@@ -172,9 +172,9 @@ const UncontrolledInput = ({
 							className={
 								inputClassName ||
 								classNames(
-									" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed  border placeholder:text-sm",
+									" py-1.5 lg:py-3 px-3 text-black dark:text-white bg-white dark:bg-neutral-700 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed  border placeholder:text-sm",
 									type === "checkbox" ? "accent-primary" : "w-full",
-									"border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+									"border-neutral-300 dark:border-neutral-700 focus:border-neutral-400  focus:ring-neutral-400",
 									inputExtraClassName,
 								)
 							}
@@ -184,8 +184,8 @@ const UncontrolledInput = ({
 							{...(props as HTMLTextAreaProps)}
 							id={props.name}
 							className={classNames(
-								" py-1.5 lg:py-3 px-3 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
-								"border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+								" py-1.5 lg:py-3 px-3 text-black dark:text-white bg-white dark:bg-neutral-700 focus:outline-none text-[16px] sm:text-sm grow placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border placeholder:text-sm",
+								"border-neutral-300 dark:border-neutral-700 focus:border-neutral-400  focus:ring-neutral-400",
 							)}
 						/>
 					)}

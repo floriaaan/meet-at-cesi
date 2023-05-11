@@ -25,7 +25,7 @@ export const FeedbackTableItem = (props: ExtendedFeedback) => {
 	return (
 		<>
 			<tr
-				className="w-full text-black bg-white cursor-pointer hover:bg-neutral-100"
+				className="w-full text-black bg-white cursor-pointer dark:text-white dark:bg-black hover:bg-neutral-100 hover:dark:bg-neutral-900"
 				onClick={openModal}
 			>
 				<td className="max-w-[16rem] px-6 py-4 text-sm truncate">{text}</td>

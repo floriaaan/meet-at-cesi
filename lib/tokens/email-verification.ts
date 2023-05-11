@@ -1,7 +1,7 @@
 import { User, VerificationTokenType } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import plunk from "@/lib/plunk";
-import { cryptoRandomString } from "./crypto-random-string";
+import { cryptoRandomString } from "@/lib/tokens/crypto-random-string";
 
 export const generateToken = async (user: {
 	id: User["id"];
@@ -30,4 +30,3 @@ export const generateToken = async (user: {
 		},
 	});
 };
-

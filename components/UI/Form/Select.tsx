@@ -48,7 +48,9 @@ const SelectInput = ({
 			{label ? (
 				<label
 					htmlFor={field.name}
-					className={labelClassName || "font-bold text-black font-body"}
+					className={
+						labelClassName || "font-bold text-black dark:text-white font-body"
+					}
 				>
 					{label}
 				</label>
@@ -61,15 +63,15 @@ const SelectInput = ({
 						{...props}
 						id={field.name}
 						className={classNames(
-							"py-1.5 lg:py-3 px-3 pr-6 focus:outline-none appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white text-[16px] sm:text-sm placeholder:text-sm",
+							"py-1.5 lg:py-3 px-3 pr-6 text-black dark:text-white bg-white dark:bg-neutral-700 focus:outline-none appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border  text-[16px] sm:text-sm placeholder:text-sm",
 							error
 								? "border-red-400 text-red-800 focus:border-red-400 focus:ring-red-400"
-								: "border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+								: "border-neutral-300 dark:border-neutral-700 focus:border-neutral-400  focus:ring-neutral-400",
 						)}
 					>
 						<SelectChildren options={options} groupBy={groupBy} />
 					</select>
-					<MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
+					<MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none dark:text-white top-px lg:top-2 right-2" />
 				</div>
 			</div>
 
@@ -93,7 +95,9 @@ const UncontrolledSelectInput = ({
 			{label ? (
 				<label
 					htmlFor={props.name}
-					className={labelClassName || "font-bold text-black font-body"}
+					className={
+						labelClassName || "font-bold text-black dark:text-white font-body"
+					}
 				>
 					{label}
 				</label>
@@ -105,13 +109,13 @@ const UncontrolledSelectInput = ({
 						{...props}
 						id={props.name}
 						className={classNames(
-							"py-1.5 lg:py-3 px-3 pr-6 focus:outline-none appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border bg-white text-[16px] sm:text-sm placeholder:text-sm",
-							"border-gray-300 focus:border-gray-400 focus:ring-gray-400",
+							"py-1.5 lg:py-3 px-3 pr-6 text-black dark:text-white bg-white dark:bg-neutral-700  focus:outline-none appearance-none placeholder:italic transition disabled:opacity-50 disabled:cursor-not-allowed w-full border text-[16px] sm:text-sm placeholder:text-sm",
+							"border-neutral-300 dark:border-neutral-700 focus:border-neutral-400  focus:ring-neutral-400",
 						)}
 					>
 						<SelectChildren options={options} groupBy={groupBy} />
 					</select>
-					<MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none top-px lg:top-2 right-2" />
+					<MdChevronRight className="absolute w-4 h-4 m-2 mr-0 text-black rotate-90 pointer-events-none dark:text-white top-px lg:top-2 right-2" />
 				</div>
 			</div>
 		</div>
@@ -144,7 +148,7 @@ const SelectChildren = ({
 			{groupBy === undefined ? (
 				<>
 					{options
-						.sort((a, b) => a.label.localeCompare(b.label))
+						.sort((a, b) => a.label?.localeCompare(b.label))
 						.map((option) => (
 							<option key={option.value} value={option.value}>
 								{option.label}
@@ -166,7 +170,7 @@ const SelectChildren = ({
 						return Object.keys(groups).map((group) => (
 							<optgroup key={group} label={group}>
 								{groups[group]
-									.sort((a, b) => a.label.localeCompare(b.label))
+									.sort((a, b) => a.label?.localeCompare(b.label))
 									.map((option) => (
 										<option key={option.value} value={option.value}>
 											{option.label}

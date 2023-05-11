@@ -28,7 +28,7 @@ export const UserListItem = ({
 			className={classNames(
 				"inline-flex items-center justify-between w-full",
 				className,
-				checked ? "bg-gray-50" : "",
+				checked ? "bg-neutral-50 dark:bg-neutral-950" : "",
 			)}
 			onClick={() => onCheck?.(user)}
 		>

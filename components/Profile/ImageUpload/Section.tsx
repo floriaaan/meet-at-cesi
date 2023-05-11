@@ -16,7 +16,7 @@ export const ImageUploadSection = ({ user }: ImageUploadSectionProps) => {
 					src: user.image,
 					alt: user.name || "Profile picture",
 			  }
-			: null
+			: null,
 	);
 	const setImage = (imageUrl: string | null) => {
 		if (imageUrl !== null)
@@ -34,7 +34,11 @@ export const ImageUploadSection = ({ user }: ImageUploadSectionProps) => {
 		try {
 			toastId = toast.loading("Mise à jour de votre photo... 🫥", toastStyle);
 			const url = await uploadImage(image);
-			if (url) setImage(url);
+			if (!url) {
+				toast.error("Unable to upload", { id: toastId });
+				return;
+			}
+			setImage(url);
 
 			toast.success("Mise à jour réussie! 🥳", { id: toastId });
 		} catch (e) {

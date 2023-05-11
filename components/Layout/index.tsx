@@ -4,7 +4,7 @@ import { RouterProgressBar } from "@/components/Helpers/RouterProgressBar";
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div className="flex flex-col h-auto min-h-[calc(100vh-3rem)] mb-10 md:mb-8 xl:mb-4">
-			<div id="navbar-progressBar">
+			<div id="navbar-progressBar" className="sticky top-0 z-[41]">
 				<Navbar />
 				<RouterProgressBar />
 			</div>

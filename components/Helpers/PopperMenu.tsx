@@ -34,7 +34,7 @@ export default function PopperMenu({
 					</Menu.Button>
 
 					<Portal>
-						<Menu.Items className="z-[42] focus:outline-none" ref={container}>
+						<Menu.Items className="z-[42] focus:outline-none w-full md:w-auto" ref={container}>
 							{children({ open })}
 						</Menu.Items>
 					</Portal>

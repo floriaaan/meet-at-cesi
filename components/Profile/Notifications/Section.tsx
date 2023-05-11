@@ -31,7 +31,7 @@ export const NotificationsSection = ({ user }: { user: ExtendedUser }) => {
 			id="notifications"
 		>
 			<h3 className="text-2xl font-bold">📬 Préférences des notifications</h3>
-			<p className="text-sm text-gray-700 whitespace-pre-line">
+			<p className="text-sm text-neutral-700 dark:text-neutral-300  whitespace-pre-line">
 				{`Vous pouvez choisir de recevoir des notifications par email ou non pour les déclencheurs suivants :`}
 			</p>
 			<NotificationsForm

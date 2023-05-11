@@ -20,7 +20,7 @@ export const StatCard = ({
 			<div
 				className={classNames(
 					"flex flex-col relative shrink-0 items-center justify-center min-w-[7rem] w-auto h-24 md:h-auto px-4 md:min-h-max aspect-auto sm:aspect-video md:aspect-square",
-					colorClassName || "bg-black text-white",
+					colorClassName || "bg-black dark:bg-neutral-900 text-white",
 					href ? "cursor-pointer" : "cursor-default"
 				)}
 			>
@@ -30,7 +30,7 @@ export const StatCard = ({
 					<span
 						className={classNames(
 							"absolute top-2 right-2",
-							colorClassName || "bg-black text-white"
+							colorClassName || "bg-black dark:bg-neutral-900 text-white"
 						)}
 					>
 						<MdChevronRight className="w-4 h-4 shrink-0" />

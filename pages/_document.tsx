@@ -1,6 +1,8 @@
+import { useTheme } from "next-themes";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
+	const { theme } = useTheme();
 	return (
 		<Html lang="fr">
 			<Head>
@@ -26,8 +28,15 @@ export default function Document() {
 					<link rel="manifest" href="/app/dev/manifest.webmanifest" />
 				)}
 
-				<link rel="apple-touch-icon" href="/app/icons/AppIcon@1024.png"></link>
-				<meta name="theme-color" content="#ffffff" />
+				<link rel="apple-touch-icon" href="/app/icon-512x512.png"></link>
+				
+				<meta name="apple-mobile-web-app-capable" content="yes" />
+				{theme === "dark" && (
+					<meta
+						name="apple-mobile-web-app-status-bar-style"
+						content="black-translucent"
+					/>
+				)}
 			</Head>
 			<body>
 				<Main />

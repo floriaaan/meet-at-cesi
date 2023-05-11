@@ -49,7 +49,7 @@ export const CommentListItem = ({
 
 	return (
 		<div
-			className="inline-flex items-start w-full gap-1 p-1 overflow-hidden duration-300 border border-dashed md:gap-2 md:p-2 hover:border-gray-300"
+			className="inline-flex items-start w-full gap-1 p-1 overflow-hidden duration-300 border border-dashed md:gap-2 md:p-2 hover:border-neutral-300 dark:border-neutral-700"
 			id={id}
 		>
 			<Avatar
@@ -80,7 +80,7 @@ export const CommentListItem = ({
 								&bull;
 								<span
 									className={classNames(
-										"block text-gray-600 truncate text-xs",
+										"block text-neutral-600 dark:text-neutral-400 truncate text-xs",
 										!isReply ? "md:text-sm" : "",
 									)}
 								>
@@ -88,7 +88,7 @@ export const CommentListItem = ({
 								</span>
 								<span
 									className={classNames(
-										"hidden md:inline-flex text-gray-600 truncate text-xs",
+										"hidden md:inline-flex text-neutral-600 dark:text-neutral-400 truncate text-xs",
 										!isReply ? "md:text-sm" : "",
 									)}
 								>
@@ -99,7 +99,7 @@ export const CommentListItem = ({
 						) : (
 							<span
 								className={classNames(
-									"block text-gray-500 truncate text-xs",
+									"block text-neutral-50 dark:text-neutral-950 truncate text-xs",
 									!isReply ? "md:text-sm" : "",
 								)}
 							>
@@ -162,7 +162,7 @@ export const CommentListItem = ({
 						{!isReply && !isDeleted && user ? (
 							<button
 								type="button"
-								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black dark:hover:border-white"
 								onClick={() => setIsReplying(!isReplying)}
 							>
 								<MdReply className="w-4 h-4" />
@@ -178,7 +178,7 @@ export const CommentListItem = ({
 						{user && comment.authorId === userId ? (
 							<button
 								type="button"
-								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black dark:hover:border-white"
 								onClick={() => setIsEditing(!isEditing)}
 							>
 								{isEditing ? (
@@ -193,10 +193,10 @@ export const CommentListItem = ({
 								)}
 							</button>
 						) : null}
-						{!isDeleted && userId !== author.id ? (
+						{!isDeleted && userId !== author?.id ? (
 							<button
 								type="button"
-								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black"
+								className="p-1 text-xs font-bold border border-transparent border-dashed hover:border-black dark:hover:border-white"
 								onClick={() =>
 									openReportModal({
 										content: "",
@@ -218,7 +218,7 @@ export const CommentListItem = ({
 											"p-1 text-xs font-bold border",
 											open
 												? "border-red text-red"
-												: "hover:border-black border-transparent border-dashed",
+												: "hover:border-black dark:hover:border-white border-transparent border-dashed",
 										)}
 									>
 										<MdDelete className="w-4 h-4" />
@@ -237,7 +237,7 @@ export const CommentListItem = ({
 								}}
 							>
 								{() => (
-									<div className="flex flex-col max-w-[16rem] p-2 text-sm bg-neutral-100 border border-black border-dashed shadow-lg gap-y-1">
+									<div className="flex flex-col max-w-[16rem] p-2 text-sm bg-neutral-100 dark:bg-neutral-900 border border-black dark:border-white border-dashed shadow-lg gap-y-1">
 										<p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
 										<div className="mt-2 ml-auto">
 											<button

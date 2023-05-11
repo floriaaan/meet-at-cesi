@@ -21,6 +21,7 @@ import { ExtendedSession } from "@/types/Session";
 import { isAdmin } from "@/lib/role";
 import { log } from "@/lib/log";
 import { InvitationProvider } from "@/components/Invitation/Provider";
+import { CalendarAdd } from "@/components/Event/Calendar/Add";
 
 type Props = {
 	event: ExtendedEvent;
@@ -45,6 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 			comments: {
 				where: { parentId: null },
 				include: { author: true, children: { include: { author: true } } },
+				orderBy: { createdAt: "asc" },
 			},
 			invitations: {
 				include: { receiver: true },
@@ -86,7 +88,7 @@ const EventPage: NextPage<Props> = (props) => {
 		let toastId: string | undefined;
 		try {
 			toastId = toast.loading(
-				isParticipant ? "Désinscription en cours..." : "Inscription en cours",
+				isParticipant ? "Désinscription en cours... ⏳" : "Inscription en cours... ⏳",
 				toastStyle,
 			);
 			participate(id).then((result) => {
@@ -142,8 +144,11 @@ const EventPage: NextPage<Props> = (props) => {
 					participate={handleParticipate}
 				/>
 				<div className="grid w-full grid-cols-3 gap-4 pb-4 ">
-					<div className="w-full col-span-3 lg:col-span-2">
+					<div className="w-full col-span-3 lg:col-span-2 lg:row-span-2">
 						<MapSection location={location} />
+					</div>
+					<div className="w-full col-span-3 lg:col-span-1">
+						<CalendarAdd eventId={id} title={title} />
 					</div>
 					<div className="w-full col-span-3 lg:col-span-1">
 						<InvitationProvider setInvitations={setInvitations}>

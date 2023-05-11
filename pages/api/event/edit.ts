@@ -42,7 +42,7 @@ export default async function handler(
 			const coordinates = await getCoordinates(data.location);
 
 			const updatedEvent = await prisma.event.update({
-				where: { id: data.id },
+				where: { id },
 				data: {
 					...data,
 					date: new Date(data.date),

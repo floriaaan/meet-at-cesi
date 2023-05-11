@@ -9,8 +9,8 @@ import { Header } from "@/components/UI/Header";
 import { Avatar } from "@/components/UI/Avatar";
 import { PWAPopup } from "@/components/Helpers/Popup/PWA";
 import { ExtendedSession } from "@/types/Session";
-import { getPlural } from "@/lib/string";
 import { Spinner } from "@/components/UI/Fallback/Spinner";
+import { useTheme } from "next-themes";
 
 export const MobileMenu = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -87,20 +87,23 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 		data: ExtendedSession | null | undefined;
 	};
 	const { user } = session || {};
-	const { receivedInvitations = [], role } = user || {};
+	const { role } = user || {};
+
+	const { theme, setTheme } = useTheme();
 
 	const LINKS = [
 		user
 			? {
-					title: "Mon compte",
+					title: "🧑 Mon compte",
 					options: [
 						{ name: "Mon profil", href: "/profile" },
 						{ name: "Mes événements", href: "/profile#events" },
+						{ name: "Mes invitations", href: "/profile#invitations" },
 						{ name: "Paramètres", href: "/profile/settings" },
 					],
 			  }
 			: {
-					title: "Authentification",
+					title: "🧑 Authentification",
 					options: [
 						{
 							name: "Se connecter",
@@ -111,34 +114,9 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 						},
 					],
 			  },
-		user
-			? {
-					title: "Social",
-					options: [
-						{
-							name:
-								receivedInvitations.length > 0
-									? `${receivedInvitations.length} ${getPlural(
-											receivedInvitations.length,
-											"nouvelle",
-											"nouvelles",
-									  )} ${getPlural(
-											receivedInvitations.length,
-											"invitation",
-											"invitations",
-									  )} ${getPlural(
-											receivedInvitations.length,
-											"reçue",
-											"reçues",
-									  )}`
-									: "Invitations",
-							href: "/profile#invitations",
-						},
-					],
-			  }
-			: null,
+
 		{
-			title: "Événements",
+			title: "🗓️ Événements",
 			options: user
 				? [
 						{ name: "Tout les événements", href: "/event" },
@@ -154,9 +132,18 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 				  ]
 				: [{ name: "Tout les événements", href: "/event" }],
 		},
+		{
+			title: "⚙️ Autres",
+			options: [
+				{
+					name: theme === "dark" ? "Thème clair" : "Thème sombre",
+					onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
+				},
+			],
+		},
 		user
 			? {
-					title: "Déconnexion",
+					title: "👋 Déconnexion",
 					options: [
 						{
 							name: "Se déconnecter",
@@ -167,7 +154,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 			: null,
 		role === "ADMIN" || role === "MODERATOR"
 			? {
-					title: "Administration",
+					title: "🥸 Administration",
 					options: [{ name: "Tableau de bord", href: "/admin" }],
 			  }
 			: null,
@@ -178,7 +165,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 			<ul
 				className={classNames(
 					"top-16 fixed px-4 pt-7 w-full h-screen m-0 z-[9999] transition-opacity duration-300 ease-linear left-0 grow md:hidden",
-					"flex flex-col bg-white",
+					"flex flex-col bg-white dark:bg-black",
 					isMenuRendered ? "opacity-100" : "opacity-0",
 				)}
 			>
@@ -187,7 +174,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 						<span className="z-10 flex items-center h-full pl-4 shrink-0 bg-primary w-fit">
 							<Avatar
 								user={session.user}
-								className="w-16 h-16 text-xl bg-black text-primary"
+								className="w-16 h-16 text-xl bg-black dark:bg-white text-primary"
 							/>
 						</span>
 						<span className="relative -left-2">
@@ -203,7 +190,7 @@ const MobileMenuPanel = ({ isMenuRendered }: { isMenuRendered: boolean }) => {
 						key={i}
 						className={classNames(
 							"transition-all duration-300 ease-linear first:pt-0 py-2.5", // mobile-menu.module.css
-							"text-sm font-semibold border-b last:border-b-0 text-neutral-900 border-neutral-200",
+							"text-sm font-semibold border-b last:border-b-0 text-neutral-900 dark:text-neutral-100 border-neutral-200 dark:border-neutral-800",
 							isMenuRendered
 								? "opacity-100 w-full translate-x-0"
 								: "opacity-0 w-0 -translate-x-4",

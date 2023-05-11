@@ -14,6 +14,7 @@ import { ReportProvider } from "@/components/Report/Wrapper";
 import { NotificationsProvider } from "@/hooks/useNotifications";
 import "@/styles/globals.css";
 import "@/styles/nprogress.css";
+import { ThemeProvider } from "next-themes";
 
 const App = ({ Component, pageProps }: AppProps) => {
 	const { session } = pageProps as {
@@ -27,7 +28,6 @@ const App = ({ Component, pageProps }: AppProps) => {
 		if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
 		else if (hostname.includes("dev"))
 			setUrl(hostname.split(".")[0] + router.pathname);
-
 	}, [router.pathname]);
 
 	return (
@@ -52,10 +52,14 @@ const App = ({ Component, pageProps }: AppProps) => {
 					cardType: "summary_large_image",
 				}}
 			/>
-			<Wrapper>
-				<Component {...pageProps} />
-			</Wrapper>
-			<Toaster />
+			<ThemeProvider 
+				attribute="class"
+			>
+				<Wrapper>
+					<Component {...pageProps} />
+				</Wrapper>
+				<Toaster />
+			</ThemeProvider>
 			<Analytics debug={false} />
 		</SessionProvider>
 	);

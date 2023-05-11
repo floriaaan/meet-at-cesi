@@ -13,6 +13,7 @@ const oldLinkAccount = adapter.linkAccount;
 const oldCreateUser = adapter.createUser;
 adapter.linkAccount = (data) => {
 	delete data._ext_expires_in;
+	delete data.ext_expires_in;
 	return oldLinkAccount(data);
 };
 adapter.createUser = async (data) => {

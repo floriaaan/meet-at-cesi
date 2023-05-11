@@ -15,15 +15,15 @@ export type NotificationEvent =
 
 export type Data = {
 	senderId?: string;
-	
+
 	userName?: string;
-	
+
 	eventId?: string;
 	eventTitle?: string;
 	senderName?: string;
 	commentId?: string;
 	commentContent?: string;
-	
+
 	[key: string]: string | undefined;
 };
 
@@ -39,6 +39,8 @@ export const triggerNotification = async (
 	event: NotificationEvent,
 	data: Data,
 ) => {
+	if (data.senderId === user.id) return { notification: false, email: false };
+
 	const notification = await prisma.notification.create({
 		data: {
 			type: event,
@@ -49,7 +51,6 @@ export const triggerNotification = async (
 			feedbackId: data.feedbackId,
 			reportId: data.reportId,
 			commentId: data.commentId,
-
 		},
 	});
 	const email = await sendNotificationEmail(event, user, data);

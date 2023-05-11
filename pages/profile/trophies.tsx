@@ -49,7 +49,7 @@ const ProfileTrophiesPage: NextPage<Props> = ({ user }) => {
 				aria-label="Profile trophies page"
 			>
 				<Header text="Trophées" />
-				<div className="p-4 bg-neutral-100">
+				<div className="p-4 bg-neutral-100 dark:bg-neutral-900">
 					{Object.values(trophies).map((trophy) => (
 						<TrophyListItem
 							{...trophy}
