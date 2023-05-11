@@ -148,7 +148,7 @@ const SelectChildren = ({
 			{groupBy === undefined ? (
 				<>
 					{options
-						.sort((a, b) => a.label.localeCompare(b.label))
+						.sort((a, b) => a.label?.localeCompare(b.label))
 						.map((option) => (
 							<option key={option.value} value={option.value}>
 								{option.label}
@@ -170,7 +170,7 @@ const SelectChildren = ({
 						return Object.keys(groups).map((group) => (
 							<optgroup key={group} label={group}>
 								{groups[group]
-									.sort((a, b) => a.label.localeCompare(b.label))
+									.sort((a, b) => a.label?.localeCompare(b.label))
 									.map((option) => (
 										<option key={option.value} value={option.value}>
 											{option.label}
