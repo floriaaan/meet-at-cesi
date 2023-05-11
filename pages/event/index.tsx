@@ -128,11 +128,11 @@ const EventIndexPage = () => {
 					<div>
 						<p className="text-lg">Zût, on aurait dû vous prévenir... 😣</p>
 
-						<p className="text-sm">
+						<p className="text-sm whitespace-pre-line">
 							{query.campus === "undefined" &&
-								"Vous n'avez pas de campus associé à votre profil, vous pouvez en choisir un dans vos préférences."}
+								"Vous n'avez pas de campus associé à votre profil, vous pouvez en choisir un dans vos préférences.\n"}
 							{query.promotion === "undefined" &&
-								"Vous n'avez pas de promotion associé à votre profil, vous pouvez en choisir une dans vos préférences."}
+								"Vous n'avez pas de promotion associé à votre profil, vous pouvez en choisir une dans vos préférences.\n"}
 						</p>
 						<Link
 							href="/profile/settings#preferences"
