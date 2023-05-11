@@ -7,6 +7,8 @@ import sharp from "sharp";
 import prisma from "@/lib/prisma";
 import { storage } from "@/lib/storage";
 import { log } from "@/lib/log";
+import { getUserOrThrow } from "@/lib/api";
+import { getSessionOrThrow } from "@/lib/api";
 
 export const config = {
 	api: {
@@ -18,30 +20,22 @@ export const config = {
 
 export default async function handler(
 	req: NextApiRequest,
-	res: NextApiResponse
+	res: NextApiResponse,
 ) {
 	// Upload image to Supabase
 	if (req.method === "POST") {
-		const { image } = req.body;
-
-		if (!image) {
-			return res.status(500).json({ message: "No image provided" });
-		}
-
-		const session = await getSession({ req });
-		if (!session) {
-			return res.status(401).json({ message: "Unauthorized" });
-		}
-
-		let user = await prisma.user.findUnique({
-			where: { email: session.user?.email as string },
-		});
-		const { id: userId } = user || {};
-		if (!user || !userId) {
-			return res.status(401).json({ message: "Unauthorized" });
-		}
-
 		try {
+			const { image } = req.body;
+
+			if (!image) {
+				return res.status(500).json({ message: "No image provided" });
+			}
+
+			const session = await getSessionOrThrow(req);
+
+			let user = await getUserOrThrow(session);
+			const { id: userId } = user || {};
+
 			const contentType = image.match(/data:(.*);base64/)?.[1];
 			const base64FileData = image.split("base64,")?.[1];
 
@@ -97,7 +91,7 @@ export default async function handler(
 
 			return res.status(200).json({ url, user });
 		} catch (e) {
-			res.status(500).json({
+			return res.status(500).json({
 				message: e instanceof Error ? e.message : "Something went wrong",
 				stack: e instanceof Error ? e.stack : null,
 			});
@@ -140,7 +134,7 @@ export default async function handler(
 
 			return res.status(200).json({ user });
 		} catch (e) {
-			res.status(500).json({ message: "Something went wrong" });
+			return res.status(500).json({ message: "Something went wrong" });
 		}
 	}
 	// HTTP method not supported!
