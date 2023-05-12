@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import { MdArrowRightAlt } from "react-icons/md";
+import { MdArrowRightAlt, MdAdd } from "react-icons/md";
 import Link from "next/link";
 
 import type { ExtendedEvent } from "@/types/Event";
@@ -89,14 +89,24 @@ const EventIndexPage = () => {
 				<Header
 					className="relative"
 					text={
-						<>
-							Liste des événements{" "}
-							<Chip extendClassName="absolute bottom-2 ml-2 py-2 text-xl">
-								{events.length}
-							</Chip>
-						</>
+						<div className="inline-flex items-end justify-between w-full lg:items-start">
+							<div>
+								Liste des événements{" "}
+								<Chip extendClassName="absolute bottom-2 ml-2 py-2 text-xl">
+									{events.length}
+								</Chip>
+							</div>
+							<Link
+								href="/event/create"
+								className="inline-flex items-center gap-1 px-2 py-1 mb-2 text-sm font-bold text-white bg-black border border-transparent hover:text-black shrink-0 font-body dark:bg-neutral-900 hover:border-black hover:bg-primary dark:hover:border-black dark:hover:bg-primary w-fit"
+							>
+								<MdAdd className="w-4 h-4" />
+								Créer un événement
+							</Link>
+						</div>
 					}
 				/>
+
 				<div className="flex flex-col gap-2 p-4 px-6 -mt-8 bg-primary">
 					<form
 						onSubmit={async (e) => {
@@ -119,8 +129,13 @@ const EventIndexPage = () => {
 						}}
 						className="w-full xl:w-4/5"
 					>
-						<SearchBar className="border border-black dark:border-white" labelClassName="text-black" loading={loading} />
+						<SearchBar
+							className="border border-black"
+							labelClassName="text-black"
+							loading={loading}
+						/>
 					</form>
+
 					<FilterList />
 				</div>
 				<EventList className="w-full mt-2 md:mt-6" events={events} />

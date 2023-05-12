@@ -52,13 +52,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 					cardType: "summary_large_image",
 				}}
 			/>
-			<ThemeProvider 
-				attribute="class"
-			>
+			<ThemeProvider attribute="class">
 				<Wrapper>
 					<Component {...pageProps} />
 				</Wrapper>
 				<Toaster />
+				<FeedbackWrapper />
 			</ThemeProvider>
 			<Analytics debug={false} />
 		</SessionProvider>
@@ -78,7 +77,6 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
 				<ReportProvider>{children}</ReportProvider>
 			</NotificationsProvider>
 			<PreferencesPopup />
-			<FeedbackWrapper />
 		</>
 	);
 };
