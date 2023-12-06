@@ -33,7 +33,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	});
 
 	return {
-		props: { feedbacks },
+		props: { feedbacks: JSON.parse(JSON.stringify(feedbacks)) },
 	};
 };
 

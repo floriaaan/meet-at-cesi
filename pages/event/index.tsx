@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 	const events: ExtendedEvent[] = [];
 
-	return { props: { events } };
+	return { props: { events: JSON.parse(JSON.stringify(events)) } };
 };
 
 type Props = {
