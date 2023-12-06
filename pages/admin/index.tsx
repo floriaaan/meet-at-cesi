@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {
 		props: {
 			count: { events, users, feedback, reports },
-			comments,
+			comments: JSON.parse(JSON.stringify(comments)),
 		},
 	};
 };

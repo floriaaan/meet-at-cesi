@@ -10,16 +10,12 @@ const nextConfig = {
 	reactStrictMode: true,
 	swcMinify: true,
 	images: {
-		domains: ["rjolwivgzqplhtktnznl.supabase.co"],
-	},
-	experimental: {
-		swcPlugins: [
-			[
-				"next-superjson-plugin",
-				{
-					excluded: [],
-				},
-			],
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "rjolwivgzqplhtktnznl.supabase.co",
+				port: "",
+			},
 		],
 	},
 };
