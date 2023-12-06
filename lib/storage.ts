@@ -4,7 +4,7 @@ export const supabase =
 	(global as unknown as { supabase: SupabaseClient }).supabase ||
 	createClient(
 		process.env.STORAGE_URL as string,
-		process.env.STORAGE_APIKEY as string
+		process.env.STORAGE_API_KEY as string
 	);
 
 if (process.env.NODE_ENV !== "production") {
