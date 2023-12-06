@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	return {
 		props: {
 			exists: !!event,
-			event,
+			event: JSON.parse(JSON.stringify(event)),
 		},
 	};
 };

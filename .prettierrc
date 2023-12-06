@@ -2,7 +2,7 @@
   "editorconfig": true,
   "singleQuote": false,
   "trailingComma": "all",
-  "printWidth": 80,
+  "printWidth": 120,
   "tabWidth": 2,
   "semi": true,
   "useTabs": true

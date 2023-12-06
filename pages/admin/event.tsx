@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	});
 
 	return {
-		props: { events },
+		props: { events: JSON.parse(JSON.stringify(events)) },
 	};
 };
 

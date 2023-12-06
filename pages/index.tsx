@@ -53,7 +53,7 @@ const Home: NextPage<Props> = ({ caption }) => {
 
 				<div className="absolute top-0 left-0 w-full h-full opacity-50 bg-gradient-to-b from-transparent to-black" />
 				<div className="absolute left-0 right-0 flex flex-col items-start w-full h-full px-4 mx-auto md:px-12 xl:px-0 xl:max-w-6xl gap-y-8 -bottom-24 md:-bottom-48 xl:-bottom-64 ">
-					<h1 className="text-7xl title">{caption}</h1>
+					<h1 className="text-7xl title" data-testid="home-caption">{caption}</h1>
 					<div className="flex flex-col w-full">
 						<div className="flex flex-col items-center w-full px-4 pt-4 pb-6 bg-purple gap-y-4 lg:gap-y-0 lg:flex-row xl:pb-4 ">
 							<form

@@ -90,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 		});
 
 	return {
-		props: { reports },
+		props: { reports: JSON.parse(JSON.stringify(reports)) },
 	};
 };
 
