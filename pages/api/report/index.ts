@@ -22,7 +22,7 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSessionOrThrow(req);
+	const session = await getSessionOrThrow(req, res);
 
 	if (req.method === "POST") POST(req, res, session);
 	else if (req.method === "PUT") PUT(req, res, session);

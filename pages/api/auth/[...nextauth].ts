@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import AzureADProvider from "next-auth/providers/azure-ad";
 import adapter, { sessionCallback } from "@/lib/nextauth";
 
-export default NextAuth({
+export const authOptions = {
 	providers: [
 		AzureADProvider({
 			clientId: process.env.AZURE_AD_CLIENT_ID?.toString() || "",
@@ -20,4 +20,6 @@ export default NextAuth({
 	callbacks: {
 		session: sessionCallback,
 	},
-});
+};
+
+export default NextAuth(authOptions);

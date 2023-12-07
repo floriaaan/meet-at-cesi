@@ -9,7 +9,7 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSessionOrThrow(req);
+	const session = await getSessionOrThrow(req, res);
 
 	if (req.method === "GET") {
 		const user = await getUserOrThrow(session, { include: { preferences: true } });

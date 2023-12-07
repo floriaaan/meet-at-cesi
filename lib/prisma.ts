@@ -1,4 +1,4 @@
-import { softDelete } from "@/middlewares/prisma/soft-delete";
+// import { softDelete } from "@/middlewares/prisma/soft-delete";
 import { Prisma, PrismaClient } from "@prisma/client";
 
 let prisma: PrismaClient;
@@ -24,6 +24,6 @@ if (process.env.NODE_ENV === "production") {
 
 	prisma = (global as GlobalWithPrisma).prisma;
 }
-prisma.$use(softDelete);
+// prisma.$use(softDelete);
 
 export default prisma;
