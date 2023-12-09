@@ -1,11 +1,11 @@
+import Head from "next/head";
 import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider, useSession } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import { AppProps } from "next/app";
-import Head from "next/head";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "next-themes";
 
 import { ExtendedSession } from "@/types/Session";
 import { FeedbackWrapper } from "@/components/Helpers/Feedback";
@@ -14,29 +14,23 @@ import { ReportProvider } from "@/components/Report/Wrapper";
 import { NotificationsProvider } from "@/hooks/useNotifications";
 import "@/styles/globals.css";
 import "@/styles/nprogress.css";
-import { ThemeProvider } from "next-themes";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps, router }: AppProps) => {
 	const { session } = pageProps as {
 		session: ExtendedSession | null | undefined;
 	};
 	const [url, setUrl] = useState<undefined | string>(undefined);
-	const router = useRouter();
 
 	useEffect(() => {
 		const hostname = window.location.hostname;
 		if (hostname.includes("localhost")) setUrl(hostname + router.pathname);
-		else if (hostname.includes("dev"))
-			setUrl(hostname.split(".")[0] + router.pathname);
+		else if (hostname.includes("dev")) setUrl(hostname.split(".")[0] + router.pathname);
 	}, [router.pathname]);
 
 	return (
 		<SessionProvider session={session}>
 			<Head>
-				<meta
-					name="viewport"
-					content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5"
-				/>
+				<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5" />
 			</Head>
 			<DefaultSeo
 				defaultTitle={process.env.NEXT_PUBLIC_APP_NAME}
