@@ -32,5 +32,5 @@ export const EventList = ({ events, className }: Props) => {
 };
 
 const NoEvents = () => (
-	<p className="text-sm">{"Aucun événement correspondant à ces critères."}</p>
+	<p className="p-4 text-sm text-center">{"Aucun événement correspondant à ces critères."}</p>
 );

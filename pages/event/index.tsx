@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
-import { MdArrowRightAlt, MdAdd } from "react-icons/md";
+import { MdArrowRightAlt, MdAdd, MdChevronLeft } from "react-icons/md";
 import Link from "next/link";
 
 import type { ExtendedEvent } from "@/types/Event";
@@ -39,9 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 				const splitPromotion = user.preferences?.promotion.split(":");
 				return {
 					redirect: {
-						destination: `/event?promotion=${
-							splitPromotion?.[0] || "undefined"
-						}&campus=${user.preferences?.campus}`,
+						destination: `/event?promotion=${splitPromotion?.[0] || "undefined"}&campus=${user.preferences?.campus}`,
 						permanent: false,
 					},
 				};
@@ -78,27 +76,29 @@ const EventIndexPageWrapper: NextPage<Props> = ({ events }) => {
 export default EventIndexPageWrapper;
 
 const EventIndexPage = () => {
-	const { query, push } = useRouter();
+	const { query, push, back } = useRouter();
 	const { filters, events, loading } = useFilter();
 	return (
 		<section className="flex flex-col min-h-full pb-4 mx-auto bg-neutral-100 dark:bg-black lg:gap-x-8 lg:py-8 lg:flex-row lg:px-12 lg:bg-transparent">
 			<div className="flex h-auto flex-col pt-4 lg:pt-0 w-full lg:min-h-[80vh] lg:sticky lg:top-32 bg-white dark:bg-neutral-900 lg:bg-neutral-100  lg:w-2/5 max-w-lg md:max-w-xl lg:max-w-xs mx-auto lg:mx-0">
 				<FilterSidebar />
 			</div>
+
 			<div className="flex flex-col w-full h-full max-w-lg p-3 mx-auto mb-8 bg-white dark:bg-black md:max-w-xl lg:pt-0 2xl:max-w-7xl lg:shadow-none lg:p-0 lg:max-w-4xl">
+				<button onClick={back} className="btn-black sm:hidden w-fit pl-2.5 min-w-fit py-2.5 sm:ml-5">
+					<MdChevronLeft className="w-4 h-4" />
+					Retour
+				</button>
 				<Header
 					className="relative"
 					text={
 						<div className="inline-flex items-end justify-between w-full lg:items-start">
 							<div>
-								Liste des événements{" "}
-								<Chip extendClassName="absolute bottom-2 ml-2 py-2 text-xl">
-									{events.length}
-								</Chip>
+								Liste des événements <Chip extendClassName="absolute bottom-2 ml-2 py-2 text-xl">{events.length}</Chip>
 							</div>
 							<Link
 								href="/event/create"
-								className="inline-flex items-center gap-1 px-2 py-1 mb-2 text-sm font-bold text-white bg-black border border-transparent hover:text-black shrink-0 font-body dark:bg-neutral-900 hover:border-black hover:bg-primary dark:hover:border-black dark:hover:bg-primary w-fit"
+								className="items-center hidden gap-1 px-2 py-1 mb-2 text-sm font-bold text-white bg-black border border-transparent lg:inline-flex hover:text-black shrink-0 font-body dark:bg-neutral-900 hover:border-black hover:bg-primary dark:hover:border-black dark:hover:bg-primary w-fit"
 							>
 								<MdAdd className="w-4 h-4" />
 								Créer un événement
@@ -113,11 +113,7 @@ const EventIndexPage = () => {
 							e.preventDefault();
 							const form = e.target as HTMLFormElement;
 							const input = form[0] as HTMLInputElement;
-							if (
-								input.value &&
-								typeof input.value === "string" &&
-								input.value !== ""
-							) {
+							if (input.value && typeof input.value === "string" && input.value !== "") {
 								push({ query: { ...filters, title: input.value } }, undefined, {
 									shallow: true,
 								});
@@ -129,14 +125,17 @@ const EventIndexPage = () => {
 						}}
 						className="w-full xl:w-4/5"
 					>
-						<SearchBar
-							className="border border-black"
-							labelClassName="text-black"
-							loading={loading}
-						/>
+						<SearchBar className="border border-black" labelClassName="text-black" loading={loading} />
 					</form>
 
 					<FilterList />
+					<Link
+						href="/event/create"
+						className="inline-flex items-center gap-1 px-2 py-1 mb-2 ml-auto text-sm font-bold text-white bg-black border border-transparent lg:hidden hover:text-black shrink-0 font-body dark:bg-neutral-900 hover:border-black hover:bg-primary dark:hover:border-black dark:hover:bg-primary w-fit"
+					>
+						<MdAdd className="w-4 h-4" />
+						Créer un événement
+					</Link>
 				</div>
 				<EventList className="w-full mt-2 md:mt-6" events={events} />
 				{query.campus === "undefined" || query.promotion === "undefined" ? (
