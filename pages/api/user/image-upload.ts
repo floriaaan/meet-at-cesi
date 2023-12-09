@@ -31,7 +31,7 @@ export default async function handler(
 				return res.status(500).json({ message: "No image provided" });
 			}
 
-			const session = await getSessionOrThrow(req);
+			const session = await getSessionOrThrow(req, res);
 
 			let user = await getUserOrThrow(session);
 			const { id: userId } = user || {};

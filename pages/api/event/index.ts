@@ -14,7 +14,7 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	try {
-		const session = await getSessionOrThrow(req);
+		const session = await getSessionOrThrow(req, res);
 
 		// Create new event
 		if (req.method === "POST") {

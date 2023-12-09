@@ -16,7 +16,7 @@ export default async function handler(
 ) {
 	// Check if user is authenticated
 	try {
-		const session = await getSessionOrThrow(req);
+		const session = await getSessionOrThrow(req, res);
 
 		if (req.method === "GET") return GET(req, res, session);
 		else if (req.method === "POST") return POST(req, res, session);

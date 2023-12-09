@@ -13,7 +13,7 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	// Check if user is authenticated
-	const session = await getSessionOrThrow(req);
+	const session = await getSessionOrThrow(req, res);
 
 	// Create new home
 	if (req.method === "DELETE") {

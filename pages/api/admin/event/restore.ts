@@ -10,7 +10,7 @@ export default async function handler(
 ) {
 	if (req.method === "PUT") {
 		try {
-			const session = await getSessionOrThrow(req);
+			const session = await getSessionOrThrow(req, res);
 			const user = await getUserOrThrow(session);
 			if (!isAdmin(user)) throw new Error("Unauthorized.");
 
